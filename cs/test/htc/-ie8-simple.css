@@ -1,0 +1,4 @@
+li {background: #0000FF; behavior: url(about:text/x-component,<PUBLIC%3ACOMPONENT><SCRIPT>console.log(0)<%2FSCRIPT><%2FPUBLIC%3ACOMPONENT>); cs-background-rgba: ;}
+li .class:hover:focus.classB:active[a="b"]:aaa {background: #0000FF; behavior: url(about:text/x-component,<PUBLIC%3ACOMPONENT><SCRIPT>console.log(0)<%2FSCRIPT><%2FPUBLIC%3ACOMPONENT>); cs-background-rgba: ;}
+input:focus {border: 2px solid #FF0000;}
+head cs-config {cs-id: 1343446831868; attr-classes: ; nth-classes: ;}

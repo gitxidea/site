@@ -1,0 +1,2 @@
+body>div {background: #FF0000;}
+body>div:not(:nth-child(2n+1)) {border: 1px solid #0000FF; background: #0000FF;}

@@ -1,0 +1,21 @@
+div:hover {background: #FFFF00; cs-background-rgba: ;}
+div:hover>.after__ {background: #dddddd; cs-background-rgba: ;}
+div:hover {cs-gen-after: 'hover:yellow'; layout-flow: expression(CS(this,'update'));}
+div.focus__ {background: #0000FF; cs-background-rgba: ;}
+div.focus__>.after__ {background: #dddddd; cs-background-rgba: ;}
+div.focus__ {cs-gen-after: 'focus:blue'; layout-flow: expression(CS(this,'update'));}
+div.active__ {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+div.active__>.after__ {background: #dddddd; cs-background-rgba: ;}
+div.active__ {cs-gen-after: 'hover:red,border red'; layout-flow: expression(CS(this,'update'));}
+div {text-kashida-space: expression(CS(this,'dc'));}
+.p3ps:hover {background: #FFFF00; cs-background-rgba: ;}
+.p3ps:hover>.after__ {background: #dddddd; cs-background-rgba: ;}
+.p3ps:hover {cs-gen-after: 'hover:yellow'; layout-flow: expression(CS(this,'update'));}
+.p3ps.active__ {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+.p3ps.active__>.after__ {background: #dddddd; cs-background-rgba: ;}
+.p3ps.active__ {cs-gen-after: 'hover:red,border red'; layout-flow: expression(CS(this,'update'));}
+.p3ps.focus__ {background: #0000FF; cs-background-rgba: ;}
+.p3ps.focus__>.after__ {background: #dddddd; cs-background-rgba: ;}
+.p3ps.focus__ {cs-gen-after: 'focus:blue'; layout-flow: expression(CS(this,'update'));}
+.p3ps {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446833026; attr-classes: ; nth-classes: ;}

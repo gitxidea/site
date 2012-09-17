@@ -1,0 +1,1 @@
+this.addScript('export.js',['ExportUI','findPackages','Exporter','DependenceInfo'],['org.xidea.jsidoc.util:$log','org.xidea.jsidoc.util:Zip','org.xidea.jsidoc.util:Request','org.xidea.jsidoc.util:loadTextByURL','org.xidea.jsidoc.util:JSON','org.xidea.jsidoc.util:findGlobals','org.xidea.jsidoc.util:xmlReplacer'])

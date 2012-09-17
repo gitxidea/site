@@ -1,0 +1,8 @@
+html div .before__--ref-child-div__ {background: #FF0000; display: block; float: right; width: auto; height: 50px; cs-background-rgba: ;}
+div {cs-target-child-div: 1;}
+div .before__ {cs-ref: 1; cs-ref-child-div: 1; layout-flow: expression(CS(this,'update'));}
+html div {cs-gen-before: '11'; layout-flow: expression(CS(this,'update'));}
+div .ref-child-div__ {text-kashida: expression(CS(this,'mc'));}
+body {test: 123; color: #FF0000;}
+div .before {background: #FF0000; content: '11'; display: block; float: right; width: auto; height: 50px; cs-background-rgba: ;}
+head cs-config {cs-id: 1343446832813; muti-classes: before__--ref-child-div__; attr-classes: ; nth-classes: ; ref-classes: child-div;}

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<jnlp spec="1.0+" codebase="http://www.xidea.org/webstart">
+  <information>
+    <title>JavaScript Analyser</title>
+    <vendor>http://www.xidea.org</vendor>
+    <homepage href="http://www.xidea.org/project/jsi" />
+    <offline-allowed/>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.5+"/>
+    <!-- version="1.0-" --> 
+    <jar href="JSA.jar" main="true"/>
+    <jar href="Template.jar"/>
+    <jar href="JSI.jar"/>
+    <jar href="chardet.jar"/>
+    <jar href="commons-logging-1.1.1.jar"/>
+    <jar href="js.jar"/>
+    
+  </resources>
+  <application-desc main-class="org.jside.JSide">
+	<argument>org.jside.webserver.ProxyHandler</argument>
+	<argument>org.jside.webserver.sjs.JSFilterHandler</argument>
+	<argument>org.jside.webserver.sjs.JSHandler</argument>
+  	<argument>org.jside.jsi.tools.JSA</argument>
+  </application>
+</jnlp>

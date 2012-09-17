@@ -1,0 +1,21 @@
+h3 {cursor: pointer;}
+p {padding: 6px;}
+h3:hover {background: transparent; opacity: 0.95; border-bottom: 1px solid #FF0000; layout-flow: expression(CS(this,'update')); cs-background-rgba: #1900ff00;}
+h3+p {background: #FFFF00; cs-background-rgba: ;}
+h3:hover+p {background: transparent; layout-flow: expression(CS(this,'update')); cs-background-rgba: #1900ff00;}
+h3:hover~p {color: #0000FF;}
+p.nth-child_2_1__ {background: url("about:blank#linear,0deg,#FFFFFF,#0000FF"); font-weight: bold; color: #333333; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+p {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+.slide {position: relative; margin: 0; padding: 0; width: 402px; height: 122px; overflow: hidden; border: 1px solid #FF0000; color: #cccccc;}
+.slide ul {margin: 0; padding: 0; width: 10000px; height: 88px; position: absolute; left: 0; top: 28px; display: block; transition-property: left,opacity; transition-duration: 0.8s; opacity: 1; layout-flow: expression(CS(this,'update'));}
+.slide ul li {margin: 0; padding: 0; text-indent: 0; list-style: none; display: inline-block; background: #0000FF; float: left; width: 400px; height: 80px; border: 1px solid #FFFF00; z-index: 0; cs-background-rgba: ;}
+.slide ul li.nth-child_2_0__ {background: #008000; cs-background-rgba: ;}
+.slide ul li {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+.slide .slide1:hover~ul {left: 0px;}
+.slide .slide2:hover~ul {left: -402px; opacity: 0.3; layout-flow: expression(CS(this,'update'));}
+.slide .slide3:hover~ul {left: -804px;}
+.slide span {float: right; z-index: 2; padding: 2px; margin: 2px; cursor: pointer; display: inline-block; border: 1px outset #FFFF00; width: 14px; height: 14px; text-align: center; font-size: 10px;}
+.transition-width {width: 10px; transition: width 0.4s; background: #FF0000; position: fixed; bottom: 20px; right: 10px; transition-property: width; transition-duration: 0.4s; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+.transition-width:hover {width: 100px;}
+.slide span:hover {background: #FFFF00; cs-background-rgba: ;}
+head cs-config {cs-id: 1343446833738; attr-classes: ; nth-classes: child_2_0,child_2_1;}

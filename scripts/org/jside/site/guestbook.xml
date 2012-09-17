@@ -1,0 +1,9 @@
+<html xmlns:c="#core">
+	<body>
+		<c:for var="item" items="${}"></c:for>
+		<form>
+		<div>大名：</div>
+		<input name="name"/>
+		</form>
+	</body>
+</html>

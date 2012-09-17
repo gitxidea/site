@@ -1,0 +1,8 @@
+@import url("default.css");
+html{
+    filter: expression(document.execCommand('BackgroundImageCache', false, true))
+}
+.group{
+    border:1px dashed #666;
+    margin-bottom:40px;
+}

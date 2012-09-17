@@ -1,0 +1,4 @@
+div {min-height: 10px; border: 1px solid #000000;}
+.child>* {border: 2px solid #FF0000; background: #FFFF00;}
+.empty-border:empty {border: 3px solid #FF0000;}
+head cs-config {cs-id: 1343446833156;}

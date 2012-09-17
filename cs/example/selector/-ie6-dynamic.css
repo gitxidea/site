@@ -1,0 +1,39 @@
+div.hover__ {background: #FFFF00; cs-background-rgba: ;}
+html div.hover__ .after__--ref-child-div_2Ehover____ {background: #dddddd; cs-background-rgba: ;}
+div.hover__ {cs-target-child-div_2Ehover__: 1;}
+div.hover__ .after__ {cs-ref: 1; cs-ref-child-div_2Ehover__: 1; layout-flow: expression(CS(this,'update'));}
+html div.hover__ {cs-gen-after: 'hover:yellow'; layout-flow: expression(CS(this,'update'));}
+div.hover__ .ref-child-div_2Ehover____ {text-kashida: expression(CS(this,'mc'));}
+div.focus__ {background: #0000FF; cs-background-rgba: ;}
+html div.focus__ .after__--ref-child-div_2Efocus____ {background: #dddddd; cs-background-rgba: ;}
+div.focus__ {cs-target-child-div_2Efocus__: 1;}
+div.focus__ .after__ {cs-ref: 1; cs-ref-child-div_2Efocus__: 1; layout-flow: expression(CS(this,'update'));}
+html div.focus__ {cs-gen-after: 'focus:blue'; layout-flow: expression(CS(this,'update'));}
+div.focus__ .ref-child-div_2Efocus____ {text-kashida: expression(CS(this,'mc'));}
+div.active__ {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+html div.active__ .after__--ref-child-div_2Eactive____ {background: #dddddd; cs-background-rgba: ;}
+div.active__ {cs-target-child-div_2Eactive__: 1;}
+div.active__ .after__ {cs-ref: 1; cs-ref-child-div_2Eactive__: 1; layout-flow: expression(CS(this,'update'));}
+html div.active__ {cs-gen-after: 'hover:red,border red'; layout-flow: expression(CS(this,'update'));}
+div.active__ .ref-child-div_2Eactive____ {text-kashida: expression(CS(this,'mc'));}
+div {text-kashida-space: expression(CS(this,'dc'));}
+html .hover__--p3ps {background: #FFFF00; cs-background-rgba: ;}
+html .hover__--p3ps .after__--ref-child-_2Ehover___2D_2Dp3ps__ {background: #dddddd; cs-background-rgba: ;}
+.hover__--p3ps {cs-target-child-_2Ehover___2D_2Dp3ps: 1;}
+.hover__--p3ps .after__ {cs-ref: 1; cs-ref-child-_2Ehover___2D_2Dp3ps: 1; layout-flow: expression(CS(this,'update'));}
+html .hover__--p3ps {cs-gen-after: 'hover:yellow'; layout-flow: expression(CS(this,'update'));}
+.hover__--p3ps .ref-child-_2Ehover___2D_2Dp3ps__ {text-kashida: expression(CS(this,'mc'));}
+html .active__--p3ps {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+html .active__--p3ps .after__--ref-child-_2Eactive___2D_2Dp3ps__ {background: #dddddd; cs-background-rgba: ;}
+.active__--p3ps {cs-target-child-_2Eactive___2D_2Dp3ps: 1;}
+.active__--p3ps .after__ {cs-ref: 1; cs-ref-child-_2Eactive___2D_2Dp3ps: 1; layout-flow: expression(CS(this,'update'));}
+html .active__--p3ps {cs-gen-after: 'hover:red,border red'; layout-flow: expression(CS(this,'update'));}
+.active__--p3ps .ref-child-_2Eactive___2D_2Dp3ps__ {text-kashida: expression(CS(this,'mc'));}
+html .focus__--p3ps {background: #0000FF; cs-background-rgba: ;}
+html .focus__--p3ps .after__--ref-child-_2Efocus___2D_2Dp3ps__ {background: #dddddd; cs-background-rgba: ;}
+.focus__--p3ps {cs-target-child-_2Efocus___2D_2Dp3ps: 1;}
+.focus__--p3ps .after__ {cs-ref: 1; cs-ref-child-_2Efocus___2D_2Dp3ps: 1; layout-flow: expression(CS(this,'update'));}
+html .focus__--p3ps {cs-gen-after: 'focus:blue'; layout-flow: expression(CS(this,'update'));}
+.p3ps,.focus__--p3ps .ref-child-_2Efocus___2D_2Dp3ps__ {text-kashida: expression(CS(this,'mc'));}
+.p3ps {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446833038; muti-classes: after__--ref-child-_2Efocus___2D_2Dp3ps__,focus__--p3ps,after__--ref-child-_2Eactive___2D_2Dp3ps__,active__--p3ps,after__--ref-child-_2Ehover___2D_2Dp3ps__,hover__--p3ps,after__--ref-child-div_2Eactive____,after__--ref-child-div_2Efocus____,after__--ref-child-div_2Ehover____; attr-classes: ; nth-classes: ; ref-classes: child-_2Efocus___2D_2Dp3ps,child-_2Eactive___2D_2Dp3ps,child-_2Ehover___2D_2Dp3ps,child-div_2Eactive__,child-div_2Efocus__,child-div_2Ehover__;}

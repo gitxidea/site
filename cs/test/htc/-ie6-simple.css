@@ -1,0 +1,8 @@
+li {background: #0000FF; behavior: url(about:text/x-component,<PUBLIC%3ACOMPONENT><SCRIPT>console.log(0)<%2FSCRIPT><%2FPUBLIC%3ACOMPONENT>); cs-background-rgba: ;}
+html li .active__--attr-a_3Db__--class--classB--focus__--hover__:aaa {background: #0000FF; behavior: url(about:text/x-component,<PUBLIC%3ACOMPONENT><SCRIPT>console.log(0)<%2FSCRIPT><%2FPUBLIC%3ACOMPONENT>); cs-background-rgba: ;}
+li .class--classB:aaa {page-break-before: expression(CS(this,'attr'));}
+li .hover__:aaa {text-kashida: expression(CS(this,'mc'));}
+li .class--classB:aaa {text-kashida-space: expression(CS(this,'dc'));}
+input.focus__ {border: 2px solid #FF0000;}
+input {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446831887; muti-classes: active__--attr-a_3Db__--class--classB--focus__--hover__; attr-classes: a_3Db; nth-classes: ;}

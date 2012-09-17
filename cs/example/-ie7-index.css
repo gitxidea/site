@@ -1,0 +1,22 @@
+i {font-style: normal; font-size: 11px;}
+li p {margin: 0px; padding: 0px; font-size: 12px;}
+.icon {position: absolute; top: 2px; left: 0;}
+.spec {position: absolute; top: 4px; right: 0;}
+.spec ul {background: #EEE; padding: 0 0 0 16px; margin: 0; cs-linear-gradient: ;}
+.spec>ul,.spec li p {display: none;}
+.spec:hover>ul,.spec li:hover>p {display: block;}
+.spec>ul {position: absolute; top: 18px; right: 0; width: 200px; border: solid 2px #dddddd;}
+.spec>a {font-size: 12px; font-weight: bold; border: solid 2px #FF0000; padding-top: 1px; border-bottom: solid 6px #FF0000; background: #008000; color: #FFF; cs-linear-gradient: ;}
+.spec a>.after__ {}
+.spec a {cs-gen-after: '>>'; layout-flow: expression(CS(this,'update'));}
+.dev-time {font-style: italic; background: #dddd00; padding-left: 20px; display: none; cs-linear-gradient: ;}
+ul.content>li {list-style: none; width: 600px; height: 600px; border: 1px inset #333333; background: #eeeeee; position: absolute; top: 0; left: 60px; z-index: auto; transition-duration: 0.8s; overflow: hidden; layout-flow: expression(CS(this,'update')); cs-linear-gradient: ;}
+ul.content {min-height: 650px; position: relative;}
+ul.content>li h3 {font-size: 42px;}
+ul.content>li:hover h3 {font-size: 22px;}
+body ul.content>li:hover {transform: matrix(1,0,0,1,0,0); height: auto; min-height: 640px; border: none; background: #FFF; z-index: 100; overflow: visiable; layout-flow: expression(CS(this,'update')); cs-linear-gradient: ;}
+ul.content>li.nth-child_0_1__ {transform: matrix(0.45,-0.2598076211353311,0,0.5,-136,-70); layout-flow: expression(CS(this,'update'));}
+ul.content>li.nth-child_0_2__ {transform: matrix(0.45,0.259807621135332,0,0.5,136,-70); layout-flow: expression(CS(this,'update'));}
+ul.content>li.nth-child_0_3__ {transform: matrix(0.4482877360840265,0.2588190451025211,-0.4482877360840266,0.2588190451025209,0,160); layout-flow: expression(CS(this,'update'));}
+ul.content>li {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+head cs-config {cs-id: 1340606723219; attr-classes: ; nth-classes: child_0_3,child_0_2,child_0_1;}

@@ -1,0 +1,13 @@
+div:hover {background: #FFFF00; cs-background-rgba: ;}
+div:hover:after {background: #dddddd; content: 'hover:yellow'; cs-background-rgba: ;}
+div:focus {background: #0000FF; cs-background-rgba: ;}
+div:focus:after {background: #dddddd; content: 'focus:blue'; cs-background-rgba: ;}
+div:active {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+div:active:after {background: #dddddd; content: 'hover:red,border red'; cs-background-rgba: ;}
+.p3ps:hover {background: #FFFF00; cs-background-rgba: ;}
+.p3ps:hover:after {background: #dddddd; content: 'hover:yellow'; cs-background-rgba: ;}
+.p3ps:active {border: 1px solid #FF0000; background: #FF0000; cs-background-rgba: ;}
+.p3ps:active:after {background: #dddddd; content: 'hover:red,border red'; cs-background-rgba: ;}
+.p3ps:focus {background: #0000FF; cs-background-rgba: ;}
+.p3ps:focus:after {background: #dddddd; content: 'focus:blue'; cs-background-rgba: ;}
+head cs-config {cs-id: 1343446833018; attr-classes: ; nth-classes: ;}

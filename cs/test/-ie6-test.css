@@ -1,0 +1,29 @@
+body {margin: 0; padding: 0; text-align: center;}
+html {background-color2: rgba(0,255,255,0.9);}
+body {background-color: transparent; color: #00FF00; layout-flow: expression(CS(this,'update')); cs-background-rgba: #7f00ff00;}
+.shadow {width: 110px; height: 80px; transition-property: box-shadow,alpha; transition-duration: 2.8s; background-color: #333300; border: 1px solid #FF0000; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+html body .hover__--shadow {alpha: 0.2; background-color: #FF0; box-shadow: 0px 0px 40px 5px #330088; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+body .shadow {text-kashida: expression(CS(this,'mc'));}
+body .shadow {text-kashida-space: expression(CS(this,'dc'));}
+span {width: 11px; height: 80px; display: block; background-color: #999900; cs-background-rgba: ;}
+html span.classA--classB {width: 110px; height: 80px; background-color: #0000FF; display: block; cs-background-rgba: ;}
+span.classB {text-kashida: expression(CS(this,'mc'));}
+html span.classA--classB--hover__ {width: 110px; height: 80px; background-color: #FF0000; display: block; cs-background-rgba: ;}
+span.hover__ {text-kashida: expression(CS(this,'mc'));}
+span.classA--classB {text-kashida-space: expression(CS(this,'dc'));}
+html .before .before__--ref-child-_2Ebefore__ {border: 1px solid #0000FF; margin: 0 auto; width: 40px; background-color: #FFF; cs-background-rgba: ;}
+.before {cs-target-child-_2Ebefore: 1;}
+.before .before__ {cs-ref: 1; cs-ref-child-_2Ebefore: 1; layout-flow: expression(CS(this,'update'));}
+html .before {cs-gen-before: '123'; layout-flow: expression(CS(this,'update'));}
+html .before .after__--ref-child-_2Ebefore__ {margin: 0 auto; width: 40px; display: inline; background-color: #FFF; cs-background-rgba: ;}
+.before {cs-target-child-_2Ebefore: 1;}
+.before .after__ {cs-ref: 1; cs-ref-child-_2Ebefore: 1; layout-flow: expression(CS(this,'update'));}
+html .before {cs-gen-after: '>>>'; layout-flow: expression(CS(this,'update'));}
+.before .ref-child-_2Ebefore__ {text-kashida: expression(CS(this,'mc'));}
+html .before--hover__ .after__--ref-child-_2Ebefore_2D_2Dhover____ {width: 10px; display: inline; background-color: #FF0000; cs-background-rgba: ;}
+.before--hover__ {cs-target-child-_2Ebefore_2D_2Dhover__: 1;}
+.before--hover__ .after__ {cs-ref: 1; cs-ref-child-_2Ebefore_2D_2Dhover__: 1; layout-flow: expression(CS(this,'update'));}
+html .before--hover__ {cs-gen-after: '>>>.....................'; layout-flow: expression(CS(this,'update'));}
+.hover__,.before--hover__ .ref-child-_2Ebefore_2D_2Dhover____ {text-kashida: expression(CS(this,'mc'));}
+.before {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446833417; muti-classes: after__--ref-child-_2Ebefore_2D_2Dhover____,before--hover__,after__--ref-child-_2Ebefore__,before__--ref-child-_2Ebefore__,classA--classB--hover__,classA--classB,hover__--shadow; attr-classes: ; nth-classes: ; ref-classes: child-_2Ebefore_2D_2Dhover__,child-_2Ebefore;}

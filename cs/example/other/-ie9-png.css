@@ -1,0 +1,4 @@
+div {background-image: url(png-alpha.png); background-repeat: no-repeat; background-color: #FFFF00; border: 1px solid #FF0000; sizing;position: fixed; width: 400px; height: 400px;}
+div:hover {background-image: url(png-alpha2.png); opacity: 0.5;}
+div.alphapng:active {background-image: url(png-alpha.png); background-color: #FF0000; opacity: 1;}
+head cs-config {cs-id: 1343446832436;}

@@ -1,0 +1,45 @@
+html,body {margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;}
+section h2 {padding-top: 10px; margin-top: 0;}
+section p {text-indent: 20px;}
+section h2+p {padding: 6px; background: transparent; behavior: url(/cs/static/cs.htc); cs-background-rgba: #66ffff00;}
+section ul {margin: 20px; padding: 40px;}
+body>section {position: absolute; width: 100%; height: 100%; top: -100%; left: -100%; transform-origin: matrix(1,0,0,1,0,0); transition-property: left,top; transition-duration: 0.8s; color: #444444; font-size: 200%; behavior: url(/cs/static/cs.htc);}
+body>section>section {padding: 0; margin: 0; width: 100%; height: 100%; position: relative; background: transparent; behavior: url(/cs/static/cs.htc); cs-background-rgba: #190000ff;}
+body>section.nth-child_0_4__ {left: 100%;}
+body>section.nth-child_0_4__>section {background: transparent; behavior: url(/cs/static/cs.htc); cs-background-rgba: #66ffff00;}
+body>section.nth-child_0_1__,body>section.nth-child_0_3__ {top: 100%;}
+body>section.nth-child_0_1__>section,body>section.nth-child_0_3__>section {background: transparent; behavior: url(/cs/static/cs.htc); cs-background-rgba: #6600ff00;}
+body>section {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"] {position: absolute; left: -400px; top: -200px; opacity: 0.5; overflow: visible; behavior: url(/cs/static/cs.htc);}
+body>section>section.nth-child_undefined_2__:before {content: '↓↓↓'; position: absolute; display: block; top: -40px; right: 0; border-top: 1px solid #FFFFFF;}
+body>section>section:before {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+body>section>section.nth-last-child_0_1__.ref-not-_3Afirst_2Dchild__:after {content: '↑↑↑'; position: absolute; display: block; top: 0px; right: 0; border-top: 1px solid #FFFFFF;}
+body>section>section:after:first-child {cs-target-not-_3Afirst_2Dchild: 1;}
+body>section>section:after {cs-ref-not-_3Afirst_2Dchild: 1; cs-ref: 1; behavior: url(/cs/static/cs.htc);}
+body>section>section:after {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+body.ref-not-_5Bstate_2Dy_3D_220_22_5D__>section.nth-child_0_1__,body.ref-not-_5Bstate_2Dy_3D_220_22_5D__>section.nth-child_0_3__,body.ref-not-_5Bstate_2Dy_3D_220_22_5D__>section.nth-child_0_5__ {opacity: 0.5; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"] {cs-target-not-_5Bstate_2Dy_3D_220_22_5D: 1;}
+body[state-y="0"] {cs-target-not-_5Bstate_2Dy_3D_220_22_5D: 1;}
+body[state-y="0"] {cs-target-not-_5Bstate_2Dy_3D_220_22_5D: 1;}
+body {cs-ref-not-_5Bstate_2Dy_3D_220_22_5D: 1; cs-ref: 1; behavior: url(/cs/static/cs.htc);}
+body.ref-not-_5Bstate_2Dy_3D_220_22_5D__>section {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+body[state-x="1"]>section.nth-child_0_1__,body[state-x="2"]>section.nth-child_0_2__,body[state-x="3"]>section.nth-child_0_3__,body[state-x="4"]>section.nth-child_0_4__,body[state-x="5"]>section.nth-child_0_5__,body[state-x="6"]>section.nth-child_0_6__ {top: 0; left: 0; opacity: 1; transform: matrix(1,0,0,1,0,0); behavior: url(/cs/static/cs.htc);}
+body[state-x="6"]>section,body[state-x="5"]>section,body[state-x="4"]>section,body[state-x="2"]>section {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+html:hover body[state-y="2"]>section {top: -100%;}
+html:hover body[state-y="3"]>section {top: -200%;}
+html:hover body[state-y="4"]>section {top: -300%;}
+html:hover body[state-y="5"]>section {top: -400%;}
+body[state-x="1"]>section.nth-child_0_1__,body[state-x="3"]>section.nth-child_0_3__ {transform: matrix(1,0,0,1,0,0); behavior: url(/cs/static/cs.htc);}
+body[state-x="3"]>section,body[state-x="1"]>section {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_2__,body[state-y="0"][state-x="2"]>section.nth-child_0_3__,body[state-y="0"][state-x="3"]>section.nth-child_0_4__,body[state-y="0"][state-x="4"]>section.nth-child_0_5__,body[state-y="0"][state-x="5"]>section.nth-child_0_6__,body[state-y="0"][state-x="6"]>section.nth-child_0_1__ {top: 20%; left: 5%; transform: matrix(0.2,0.0535898384862245,0,0.3,0,0); z-index: 200; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_1__,body[state-y="0"][state-x="2"]>section.nth-child_0_2__,body[state-y="0"][state-x="3"]>section.nth-child_0_3__,body[state-y="0"][state-x="4"]>section.nth-child_0_4__,body[state-y="0"][state-x="5"]>section.nth-child_0_5__,body[state-y="0"][state-x="6"]>section.nth-child_0_6__ {top: 35%; left: 30%; transform: matrix(0.3,0,0,0.3,0,0); z-index: 200; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_6__,body[state-y="0"][state-x="2"]>section.nth-child_0_1__,body[state-y="0"][state-x="3"]>section.nth-child_0_2__,body[state-y="0"][state-x="4"]>section.nth-child_0_3__,body[state-y="0"][state-x="5"]>section.nth-child_0_4__,body[state-y="0"][state-x="6"]>section.nth-child_0_5__ {top: 30%; left: 65%; transform: matrix(0.2,-0.0535898384862244,0,0.3,0,0); z-index: 200; behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_5__,body[state-y="0"][state-x="2"]>section.nth-child_0_6__,body[state-y="0"][state-x="3"]>section.nth-child_0_1__,body[state-y="0"][state-x="4"]>section.nth-child_0_2__,body[state-y="0"][state-x="5"]>section.nth-child_0_3__,body[state-y="0"][state-x="6"]>section.nth-child_0_4__ {opacity: 0.5; top: 9%; left: 65%; transform: matrix(0.2,0.0535898384862245,0,0.3,0,0); behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_4__,body[state-y="0"][state-x="2"]>section.nth-child_0_5__,body[state-y="0"][state-x="3"]>section.nth-child_0_6__,body[state-y="0"][state-x="4"]>section.nth-child_0_1__,body[state-y="0"][state-x="5"]>section.nth-child_0_2__,body[state-y="0"][state-x="6"]>section.nth-child_0_3__ {opacity: 0.5; top: 9%; left: 30%; transform: matrix(0.3,0,0,0.3,0,0); behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="1"]>section.nth-child_0_3__,body[state-y="0"][state-x="2"]>section.nth-child_0_4__,body[state-y="0"][state-x="3"]>section.nth-child_0_5__,body[state-y="0"][state-x="4"]>section.nth-child_0_6__,body[state-y="0"][state-x="5"]>section.nth-child_0_1__,body[state-y="0"][state-x="6"]>section.nth-child_0_2__ {opacity: 0.5; top: 20%; left: 5%; transform: matrix(0.2,-0.0535898384862244,0,0.3,0,0); behavior: url(/cs/static/cs.htc);}
+body[state-y="0"][state-x="6"]>section,body[state-y="0"][state-x="5"]>section,body[state-y="0"][state-x="4"]>section,body[state-y="0"][state-x="3"]>section,body[state-y="0"][state-x="2"]>section,body[state-y="0"][state-x="1"]>section {cs-update-nth: 1; behavior: url(/cs/static/cs.htc);}
+.code {clear: both;}
+.code strong {color: #FF0000;}
+.code pre {font-size: 80%; margin: 2px; float: left; display: inline-block; border: 1px dashed #333333; background: transparent; behavior: url(/cs/static/cs.htc); cs-background-rgba: #4c000000;}
+.clear {clear: both;}
+head cs-config {cs-id: 1343446833586; attr-classes: ; nth-classes: child_0_3,child_0_4,child_0_5,child_0_6,child_0_1,child_0_2,last-child_0_1,child_undefined_2; ref-classes: not-_5Bstate_2Dy_3D_220_22_5D,not-_3Afirst_2Dchild;}

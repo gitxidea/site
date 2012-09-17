@@ -1,0 +1,21 @@
+html {text-align: center; font-size: 12px; background: #666666; padding: 20px; margin: 0px; cs-linear-gradient: ;}
+body {width: 720px; min-height: 720px; text-align: left; margin: auto; padding: 8px; background: #fefefe; border: 3px double #DDD; cs-linear-gradient: ;}
+p {text-indent: 24px;}
+html a.ms-ref .after__--ref-child-a_2Ems_2Dref__ {background: #dddddd; font-size: 8px; cs-linear-gradient: ;}
+a.ms-ref {cs-target-child-a_2Ems_2Dref: 1;}
+a.ms-ref .after__ {cs-ref: 1; cs-ref-child-a_2Ems_2Dref: 1; layout-flow: expression(CS(this,'update'));}
+html a.ms-ref {cs-gen-after: '>>ref'; layout-flow: expression(CS(this,'update'));}
+a.ms-ref .ref-child-a_2Ems_2Dref__ {text-kashida: expression(CS(this,'mc'));}
+.detail {display: inline; font-size: 11px; cursor: pointer; background: #dddddd; cs-linear-gradient: ;}
+.detail div {display: none; background: #dddddd; cs-linear-gradient: ;}
+html .detail--hover__ div {border: 1px solid #FFFF00; display: block;}
+.hover__ {text-kashida: expression(CS(this,'mc'));}
+.detail {text-kashida-space: expression(CS(this,'dc'));}
+.stable,.sandbox,.planning,.none {font-size: 12px; font-weight: bold; border: inset 1px #FFFF00;}
+.stable {background: #00ff00; cs-linear-gradient: ;}
+.sandbox {background: #00ffff; cs-linear-gradient: ;}
+.planning {background: #ffff00; cs-linear-gradient: ;}
+.none {background: #F00; cs-linear-gradient: ;}
+.native-version {background-color: #99ff99;}
+.example {background-color: #ee33ee;}
+head cs-config {cs-id: 1340606722930; muti-classes: detail--hover__,after__--ref-child-a_2Ems_2Dref__; attr-classes: ; nth-classes: ; ref-classes: child-a_2Ems_2Dref;}

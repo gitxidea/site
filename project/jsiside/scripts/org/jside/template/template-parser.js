@@ -1,0 +1,4 @@
+/*
+ * Compressed by JSA(www.xidea.org)
+ */
+function TemplateParser(){this.parserList=this.parserList.concat([]);this.result=[];}TemplateParser.prototype={parserList:[],addParser:function(){this.parserList.push.apply(this.parserList,arguments);},append:function(){var $=this.result;for(var B=0;B<arguments.length;B++){var A=arguments[B];if($.length){if(A.constructor==String){var _=$.pop();if(_.constructor==String){$.push(_+A);}else{$.push(_,A);}}else{$.push(A);}}else{$.push(A);}}},removeLastEnd:function(){var $=this.result,_;while((_=$.pop())!=null){if(_.length==0){break;}}},parse:function($){throw new Error("未实现");},parseNode:function($){var _=this.parserList,A=_.length;while(A--){if(_[A]($,this)){break;}}}};

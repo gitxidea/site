@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh_CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>JSI 群验证办法</title>
+<link rel="stylesheet" type="text/css" href="styles/index.css" />
+<style>
+ul li{
+    list-style-type:decimal
+}
+</style>
+
+</head>
+<body>
+<h3>JSI讨论群 群验证通告</h3>
+<p>为了避免类似2008年12月18日的垃圾邮件事件再次发生。
+要求验证每一个群成员的程序员身份。</p>
+
+<h4>具体办法，如下：</h4>
+<ul>
+  <li>将你的QQ号码左移一位。</li>
+  <li>将结果（1）与原QQ号码按位取或。</li>
+  <li>将结果（2）转成8进制表示的字面量。</li>
+  <li>将结果（3）的最后三个字符附加在QQ签名后。</li>
+</ul>
+<p>未通过验证者，将在本月底清除！</p>
+<p>谢谢合作!</p>
+<form>
+<h4>再线测试计算结果</h4>
+<label>QQ号码：<input name="key" value="12345"/></label>
+<label>计算结果：<input name="check" value="173"/></label>
+<input type="submit" value="验证"/>
+</form>
+<script>
+document.forms[0].onsubmit = function(){
+    var key = this.key.value*1;
+    var check = this.check.value;
+    if(key!=key){
+       key = 0;
+       this.key.value.replace(/./,function(c){
+           key += c.charCodeAt();
+       })
+    }
+    if(((((key<<1)|key) ^ parseInt(check,8)) & 0777) ==0){
+        alert('验证成功');
+    }else{
+        alert("验证失败");
+    }
+}
+</script>
+</body>
+</html>

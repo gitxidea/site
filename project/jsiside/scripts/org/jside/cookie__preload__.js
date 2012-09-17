@@ -1,0 +1,4 @@
+/*
+ * Compressed by JSA(www.xidea.org)
+ */
+$JSI.preload('org.jside','cookie.js',function(){eval(this.varText);function Cookie(_,$,C,B,A){this.name=_;this.expires=$;this.domain=C;this.path=B;this.secure=A;}Cookie.setValue=function(_,D,C,$,B,A){document.cookie=encodeURIComponent(this.name)+"="+encodeURIComponent(D)+(B?"; domain="+B:"")+(C?"; path="+C:"")+($?"; expires="+$.toGMTString():"")+(A?"; secure=true":"");};Cookie.prototype.setValue=function(_,D,C,$,B,A){Cookie.setValue(_,D,C||this.path,$||this.expires,B||this.domain,A||this.secure);};Cookie.getValue=Cookie.prototype.getValue=function($){$=document.cookie.replace(new RegExp("^.*[^| ;]"+encodeURIComponent($)+"=([^;]*).*"),"$1");return $?decodeURIComponent($):null;};})

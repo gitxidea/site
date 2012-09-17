@@ -1,0 +1,7 @@
+div {background-image: url("png-alpha.png#alpha"); background-repeat: no-repeat; background-color: #FFFF00; border: 1px solid #FF0000; sizing;position: fixed; width: 400px; height: 400px; cs-png-alpha: 1; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+div.hover__ {background-image: url("png-alpha2.png#alpha"); opacity: 0.5; cs-png-alpha: 1; layout-flow: expression(CS(this,'update'));}
+div {text-kashida-space: expression(CS(this,'dc'));}
+html div.active__--alphapng {background-image: url("png-alpha.png#alpha"); background-color: #FF0000; opacity: 1; cs-png-alpha: 1; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+div.alphapng {text-kashida: expression(CS(this,'mc'));}
+div.alphapng {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446832456; muti-classes: active__--alphapng; attr-classes: ; nth-classes: ;}

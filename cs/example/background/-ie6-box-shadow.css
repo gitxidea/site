@@ -1,0 +1,9 @@
+body {background: #eeeeee; cs-background-rgba: ;}
+body div {padding: 0px;}
+.opacity2 {opacity: 0.2; layout-flow: expression(CS(this,'update'));}
+.opacity8 {opacity: 0.8; layout-flow: expression(CS(this,'update'));}
+.linear-gradient {background: url("about:blank#linear,0deg,#FFFFFF,#0000FF"); layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+.linear-gradient-10 {background: url("about:blank#linear,10deg,#FF0000,#0000FF"); layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+.linear-gradient-70 {background: url("about:blank#linear,70deg,#FF0000,#0000FF"); layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+.linear-gradient-90 {background: url("about:blank#linear,90deg,#FF0000,#0000FF"); layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+head cs-config {cs-id: 1343446832660; muti-classes: ; attr-classes: ; nth-classes: ;}

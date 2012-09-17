@@ -1,0 +1,196 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:d="http://www.xidea.org/taglib/decorator" xml:lang="zh_CN"
+	lang="zh_CN">
+	<head>
+		<meta http-equiv="Content-Type"
+			content="text/html; charset=UTF-8" />
+		<meta name="keywords"
+			content="JSI,TXDoc,javascript,java,opensource" />
+		<title>Xidea主页</title>
+		<link rel="stylesheet" type="text/css"
+			href="../styles/default.css" />
+	</head>
+	<body style="padding:10px">
+	
+		<br/>
+		<a href="http://www.xidea.org/webstart/JSide.jnlp">运行调试服务器</a>
+		<hr/>
+		<h3>我维护的项目列表</h3>
+		<table border="1" cellspacing="0" width="80%">
+			<thead>
+				<tr>
+					<th>名称</th>
+					<th>简介</th>
+					<th>许可</th>
+					<th>资源</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th colspan="4">
+						<a href="/lite/">Lite 模板引擎相关</a>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<a href="http://lite.googlecode.com">Lite</a>
+					</th>
+					<td>
+						<p>
+							<a href="/lite/">List Template</a>
+							一个基于JSON结构模板指令集的跨平台模板引擎
+						</p>
+						<p>
+							<i>目前支持Java,JS,Python,Php四种编程环境</i>
+						</p>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="http://lite.googlecode.com/svn">SVN</a>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<a href="http://lite.googlecode.com">JSEL</a>
+					</th>
+					<td>
+						<p>
+							<a href="http://lite.googlecode.com">List Template</a>
+							的一个子项目，用于提供JavaScript运算规则的表达式解析支持，与Lite一样，通过简单的JSON中间结构实现跨平台支持。
+						</p>
+						<p>
+							<i>目前支持Java,JS,Python,Php四种编程环境</i>
+						</p>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="http://lite.googlecode.com/svn">SVN</a>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<a href="http://lite.googlecode.com">LiteXML</a>
+					</th>
+					<td>
+						<p>
+							<a href="/lite/doc/index.php/guide/index.xhtml">List Template</a>
+							Lite模板引擎的XML格式源代码支持，包括语法定义和编译支持。
+						</p>
+						<p>
+							<i>目前支持Java,JS两种编程环境，其他编程环境下使用Lite模板引擎，需要通过java编译服务支持。</i>
+						</p>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="http://lite.googlecode.com/svn">SVN</a>
+					</td>
+				</tr>
+				<tr>
+					<th colspan="4">
+						<a href="/project/jsi/">JSI 脚本管理框架相关</a>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<a href="http://jsi.googlecode.com">JSI</a>
+					</th>
+					<td>
+						<p>
+							<a href="http://jsi.googlecode.com">
+								JavaScript Integration
+							</a>
+							一个无侵入的脚本库管理框架
+						</p>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="http://jsi.googlecode.com/svn">SVN</a>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<a href="/project/jsidoc/">JSIDoc</a>
+					</th>
+					<td>
+						<p>JSI的文档解析工具</p>
+						<i>
+							通过JSI包描述信息、脚本元素反射信息、JS源码，自动类似Javadoc的API文档。
+						</i>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="/project/jsidoc/">演示</a>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<a href="/project/jsa/">JSA</a>
+					</th>
+					<td>
+						<p>脚本压缩、混淆、分析工具，有着非常可观的压缩质量和压缩比率;也是JSI的编译工具</p>
+						<i>新版本JSA除了完成基本压缩支持外，还支持JS 版LiteXML模板引擎的编译织入。</i>
+					</td>
+					<td>GPL</td>
+					<td>
+						<a href="/webstart/JSA.jnlp">启动(webstart)</a>
+						<a
+							href="http://sourceforge.net/project/showfiles.php?group_id=175776">
+							下载
+						</a>
+						<a
+							href="http://xidea.cvs.sourceforge.net/xidea/JST/">
+							CVS
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<th colspan="4">
+						<a>其他</a>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<a href="http://www.xidea.org/android/">WebServer</a>
+					</th>
+					<td>
+						<p>Java编写的小型web 服务器。很小很小，内置一个基于Lite 模板引擎开发的文件浏览程序。</p>
+						<p>可以工作在普通计算机和Andriod 手机上。</p>
+					</td>
+					<td>LGPL</td>
+					<td>
+						<a href="http://lite.googlecode.com/svn/trunk/examples/FileServer/">SVN</a>
+					</td>
+				</tr>
+				<!-- 
+				<tr>
+					<th>
+						<a href="/webclick/">webclick</a>
+					</th>
+					<td>
+						<p>提供一些常用在线小工具</p>
+					</td>
+					<td>共享</td>
+					<td>
+						<a href="/webclick/">浏览</a>
+					</td>
+				</tr>
+				 -->
+			</tbody>
+		</table>
+		<br />
+		<br />
+		本站空间由<a href="http://wiki.redsaga.com/">满江红开源组织</a>友情提供。
+		<br />
+		<i>京ICP备09069958号</i>
+		<br />
+		<br />
+		<br />
+		<h3>其他一些小东西</h3>
+		<!--<a href="http://txdoc.googlecode.com/">Codegen</a>、-->
+		<a href="/webstart/chess.jnlp">中国象棋人机对战</a>
+		、
+		<a href="http://code.google.com/p/txdoc/downloads/list">
+			一个Java代码生成工具
+		</a>
+	</body>
+</html>

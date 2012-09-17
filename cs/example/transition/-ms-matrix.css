@@ -1,0 +1,2 @@
+.transform {margin: 0; padding: 0; background: #0000FF; -ms-transform: skewX(0deg) rotate(30deg) scale(1,1) translate(10px,0px); -ms-transition-property: all; -ms-transition-duration: .1s;}
+.transform:hover {-ms-transform: skewX(50deg) rotate(30deg) scale(1,1) translate(0px,10px); background: #FFFF00; opacity: 0.3;}

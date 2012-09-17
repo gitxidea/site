@@ -1,0 +1,20 @@
+Color Stone
+	A CSS enhancement for IE/6/7/8 and CSS different code generator for all popular browser
+
+Functions
+ * CSS3 Selector
+   you can use css3 selector and some related features in ie6.
+ * animation
+ 	transition is supported
+ * box and radius
+ 	radius is supported
+ * some others
+ 	min-height/max-height(width),alpha,png24,position:fix...
+		
+Install:
+	npm install cs
+Example:
+	node -e "require('cs')"
+	node -e "require('cs').setScriptPath('/static/cs.js').setHtcPath('/static/cs.htc').exportTo('../output.zip')"
+
+

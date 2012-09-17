@@ -1,0 +1,8 @@
+body {background: #eeeeee;}
+body div {background: #FF0000; padding: 10px; margin: 20px;}
+.opacity2 {opacity: 0.2;}
+.opacity8 {opacity: 0.8;}
+.linear-gradient {background: -webkit-linear-gradient(0deg,#FFFFFF,#0000FF);}
+.linear-gradient-10 {background: -webkit-linear-gradient(10deg,#FF0000,#0000FF);}
+.linear-gradient-70 {background: -webkit-linear-gradient(70deg,#FF0000,#0000FF);}
+.linear-gradient-90 {background: -webkit-linear-gradient(90deg,#FF0000,#0000FF);}

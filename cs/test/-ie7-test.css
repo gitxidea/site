@@ -1,0 +1,15 @@
+body {margin: 0; padding: 0; text-align: center;}
+html {background-color2: rgba(0,255,255,0.9);}
+body {background-color: transparent; color: #00FF00; layout-flow: expression(CS(this,'update')); cs-background-rgba: #7f00ff00;}
+.shadow {width: 110px; height: 80px; transition-property: box-shadow,alpha; transition-duration: 2.8s; background-color: #333300; border: 1px solid #FF0000; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+body .shadow:hover {alpha: 0.2; background-color: #FF0; box-shadow: 0px 0px 40px 5px #330088; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+span {width: 11px; height: 80px; display: block; background-color: #999900; cs-background-rgba: ;}
+span.classA.classB {width: 110px; height: 80px; background-color: #0000FF; display: block; cs-background-rgba: ;}
+span.classA.classB:hover {width: 110px; height: 80px; background-color: #FF0000; display: block; cs-background-rgba: ;}
+.before>.before__ {border: 1px solid #0000FF; margin: 0 auto; width: 40px; background-color: #FFF; cs-background-rgba: ;}
+.before {cs-gen-before: '123'; layout-flow: expression(CS(this,'update'));}
+.before>.after__ {margin: 0 auto; width: 40px; display: inline; background-color: #FFF; cs-background-rgba: ;}
+.before {cs-gen-after: '>>>'; layout-flow: expression(CS(this,'update'));}
+.before:hover>.after__ {width: 10px; display: inline; background-color: #FF0000; cs-background-rgba: ;}
+.before:hover {cs-gen-after: '>>>.....................'; layout-flow: expression(CS(this,'update'));}
+head cs-config {cs-id: 1343446833405; attr-classes: ; nth-classes: ;}

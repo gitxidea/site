@@ -1,0 +1,6 @@
+body>div {background: #FF0000; cs-background-rgba: ;}
+body>div.ref-not-_3Anth_2Dchild_282n_2B1_29__ {border: 1px solid #0000FF; background: #0000FF; cs-background-rgba: ;}
+body>div.nth-child_2_1__ {cs-target-not-_3Anth_2Dchild_282n_2B1_29: 1;}
+body>div {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+body>div {cs-ref-not-_3Anth_2Dchild_282n_2B1_29: 1; cs-ref: 1; layout-flow: expression(CS(this,'update'));}
+head cs-config {cs-id: 1343446833098; attr-classes: ; nth-classes: child_2_1; ref-classes: not-_3Anth_2Dchild_282n_2B1_29;}

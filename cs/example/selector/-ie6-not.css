@@ -1,0 +1,11 @@
+body div.ref-child-body__ {background: #FF0000; cs-background-rgba: ;}
+body {cs-target-child-body: 1;}
+body div {cs-ref: 1; cs-ref-child-body: 1; layout-flow: expression(CS(this,'update'));}
+html body div.ref-child-body__--ref-not-_3Anth_2Dchild_282n_2B1_29__ {border: 1px solid #0000FF; background: #0000FF; cs-background-rgba: ;}
+body div.nth-child_2_1__ {cs-target-not-_3Anth_2Dchild_282n_2B1_29: 1;}
+body div {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+body div {cs-ref-not-_3Anth_2Dchild_282n_2B1_29: 1; cs-ref: 1; layout-flow: expression(CS(this,'update'));}
+body {cs-target-child-body: 1;}
+body div.ref-not-_3Anth_2Dchild_282n_2B1_29__ {cs-ref: 1; cs-ref-child-body: 1; layout-flow: expression(CS(this,'update'));}
+body div.ref-not-_3Anth_2Dchild_282n_2B1_29__ {text-kashida: expression(CS(this,'mc'));}
+head cs-config {cs-id: 1343446833110; muti-classes: ref-child-body__--ref-not-_3Anth_2Dchild_282n_2B1_29__; attr-classes: ; nth-classes: child_2_1; ref-classes: child-body,not-_3Anth_2Dchild_282n_2B1_29;}

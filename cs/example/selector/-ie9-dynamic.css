@@ -1,0 +1,13 @@
+div:hover {background: #FFFF00;}
+div:hover::after {background: #dddddd; content: 'hover:yellow';}
+div:focus {background: #0000FF;}
+div:focus::after {background: #dddddd; content: 'focus:blue';}
+div:active {border: 1px solid #FF0000; background: #FF0000;}
+div:active::after {background: #dddddd; content: 'hover:red,border red';}
+.p3ps:hover {background: #FFFF00;}
+.p3ps:hover::after {background: #dddddd; content: 'hover:yellow';}
+.p3ps:active {border: 1px solid #FF0000; background: #FF0000;}
+.p3ps:active::after {background: #dddddd; content: 'hover:red,border red';}
+.p3ps:focus {background: #0000FF;}
+.p3ps:focus::after {background: #dddddd; content: 'focus:blue';}
+head cs-config {cs-id: 1343446833010;}

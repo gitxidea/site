@@ -1,0 +1,53 @@
+i {font-style: normal; font-size: 11px;}
+li p {margin: 0px; padding: 0px; font-size: 12px;}
+.icon {position: absolute; top: 2px; left: 0;}
+.spec {position: absolute; top: 4px; right: 0;}
+.spec ul {background: #EEE; padding: 0 0 0 16px; margin: 0; cs-linear-gradient: ;}
+.spec ul.ref-child-_2Espec__,.spec li p {display: none;}
+.spec {cs-target-child-_2Espec: 1;}
+html .hover__--spec ul.ref-child-_2Ehover___2D_2Dspec__,.spec li.hover__ p.ref-child-_2Espec_20li_2Ehover____ {display: block;}
+.spec li.hover__ {cs-target-child-_2Espec_20li_2Ehover__: 1;}
+.spec li.hover__ p {cs-ref: 1; cs-ref-child-_2Espec_20li_2Ehover__: 1; layout-flow: expression(CS(this,'update'));}
+.hover__--spec {cs-target-child-_2Ehover___2D_2Dspec: 1;}
+.hover__--spec ul {cs-ref: 1; cs-ref-child-_2Ehover___2D_2Dspec: 1; layout-flow: expression(CS(this,'update'));}
+.spec {text-kashida: expression(CS(this,'mc'));}
+.spec li,.spec {text-kashida-space: expression(CS(this,'dc'));}
+.spec ul.ref-child-_2Espec__ {position: absolute; top: 18px; right: 0; width: 200px; border: solid 2px #dddddd;}
+.spec {cs-target-child-_2Espec: 1;}
+.spec ul {cs-ref: 1; cs-ref-child-_2Espec: 1; layout-flow: expression(CS(this,'update'));}
+.spec a.ref-child-_2Espec__ {font-size: 12px; font-weight: bold; border: solid 2px #FF0000; padding-top: 1px; border-bottom: solid 6px #FF0000; background: #008000; color: #FFF; cs-linear-gradient: ;}
+.spec {cs-target-child-_2Espec: 1;}
+.spec a {cs-ref: 1; cs-ref-child-_2Espec: 1; layout-flow: expression(CS(this,'update'));}
+html .spec a .after__--ref-child-_2Espec_20a__ {}
+.spec a {cs-target-child-_2Espec_20a: 1;}
+.spec a .after__ {cs-ref: 1; cs-ref-child-_2Espec_20a: 1; layout-flow: expression(CS(this,'update'));}
+html .spec a {cs-gen-after: '>>'; layout-flow: expression(CS(this,'update'));}
+.spec a .ref-child-_2Espec_20a__ {text-kashida: expression(CS(this,'mc'));}
+.dev-time {font-style: italic; background: #dddd00; padding-left: 20px; display: none; cs-linear-gradient: ;}
+ul.content li.ref-child-ul_2Econtent__ {list-style: none; width: 600px; height: 600px; border: 1px inset #333333; background: #eeeeee; position: absolute; top: 0; left: 60px; z-index: auto;  transition-duration: 0.8s; overflow: hidden; layout-flow: expression(CS(this,'update')); cs-linear-gradient: ;}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content {min-height: 650px; position: relative;}
+ul.content li.ref-child-ul_2Econtent__ h3 {font-size: 42px;}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content li {cs-ref: 1; cs-ref-child-ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+html ul.content li.hover__--ref-child-ul_2Econtent__ h3 {font-size: 22px;}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content li.hover__ {cs-ref: 1; cs-ref-child-ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+ul.content li {text-kashida-space: expression(CS(this,'dc'));}
+html body ul.content li.hover__--ref-child-body_20ul_2Econtent__ {transform: matrix(1,0,0,1,0,0); height: auto; min-height: 640px; border: none; background: #FFF; z-index: 100; overflow: visiable; layout-flow: expression(CS(this,'update')); cs-linear-gradient: ;}
+body ul.content {cs-target-child-body_20ul_2Econtent: 1;}
+body ul.content li.hover__ {cs-ref: 1; cs-ref-child-body_20ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+body ul.content li.ref-child-body_20ul_2Econtent__ {text-kashida: expression(CS(this,'mc'));}
+body ul.content li {text-kashida-space: expression(CS(this,'dc'));}
+html ul.content li.nth-child_0_1__--ref-child-ul_2Econtent__ {transform: matrix(0.45,-0.2598076211353311,0,0.5,-136,-70); layout-flow: expression(CS(this,'update'));}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content li.nth-child_0_1__ {cs-ref: 1; cs-ref-child-ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+html ul.content li.nth-child_0_2__--ref-child-ul_2Econtent__ {transform: matrix(0.45,0.259807621135332,0,0.5,136,-70); layout-flow: expression(CS(this,'update'));}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content li.nth-child_0_2__ {cs-ref: 1; cs-ref-child-ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+html ul.content li.nth-child_0_3__--ref-child-ul_2Econtent__ {transform: matrix(0.4482877360840265,0.2588190451025211,-0.4482877360840266,0.2588190451025209,0,160); layout-flow: expression(CS(this,'update'));}
+ul.content {cs-target-child-ul_2Econtent: 1;}
+ul.content li.nth-child_0_3__ {cs-ref: 1; cs-ref-child-ul_2Econtent: 1; layout-flow: expression(CS(this,'update'));}
+ul.content li {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+ul.content li.ref-child-ul_2Econtent__ {text-kashida: expression(CS(this,'mc'));}
+head cs-config {cs-id: 1340606723235; muti-classes: nth-child_0_3__--ref-child-ul_2Econtent__,nth-child_0_2__--ref-child-ul_2Econtent__,nth-child_0_1__--ref-child-ul_2Econtent__,hover__--ref-child-body_20ul_2Econtent__,hover__--ref-child-ul_2Econtent__,after__--ref-child-_2Espec_20a__,hover__--spec; attr-classes: ; nth-classes: child_0_3,child_0_2,child_0_1; ref-classes: child-ul_2Econtent,child-body_20ul_2Econtent,child-_2Espec_20a,child-_2Espec,child-_2Ehover___2D_2Dspec,child-_2Espec_20li_2Ehover__;}

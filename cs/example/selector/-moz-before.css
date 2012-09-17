@@ -1,0 +1,3 @@
+div:before {background: #FF0000; content: '11'; display: block; float: right; width: auto; height: 50px;}
+body {test: 123; color: #FF0000;}
+div .before {background: #FF0000; content: '11'; display: block; float: right; width: auto; height: 50px;}

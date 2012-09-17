@@ -1,0 +1,697 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/home/jindw/node/bin/npm', 'publish' ]
+info using npm@1.0.103
+info using node@v0.5.10
+verbose config file /home/jindw/.npmrc
+verbose config file /home/jindw/node/etc/npmrc
+verbose config file /home/jindw/node/lib/node_modules/npm/npmrc
+verbose publish [ '.' ]
+silly testEngine { name: 'cs',
+silly testEngine   version: '0.1.17',
+silly testEngine   description: 'Colored Stone : A CSS3 extension for IE6/7/8',
+silly testEngine   keywords: [ 'css3', 'IE' ],
+silly testEngine   author: 
+silly testEngine    { name: 'jindw',
+silly testEngine      email: 'jindw@xidea.org',
+silly testEngine      url: 'http://www.xidea.org' },
+silly testEngine   homepage: 'https://github.com/jindw/cs',
+silly testEngine   repository: { type: 'git', url: 'git://github.com/jindw/cs.git' },
+silly testEngine   main: './lib/index.js',
+silly testEngine   engines: { node: '>=0.1' },
+silly testEngine   dependencies: 
+silly testEngine    { xmldom: '>=0.1.9',
+silly testEngine      cssom: '*',
+silly testEngine      jsi: '>=0.1.7',
+silly testEngine      rbs: '>=0.1.9',
+silly testEngine      sylvester: '*',
+silly testEngine      openurl: '*' },
+silly testEngine   maintainers: 
+silly testEngine    [ { name: 'jindw',
+silly testEngine        email: 'jindw@xidea.org',
+silly testEngine        url: 'http://www.xidea.org' } ],
+silly testEngine   contributors: [ { name: 'nodiseal' } ],
+silly testEngine   bugs: 
+silly testEngine    { email: 'jindw@xidea.org',
+silly testEngine      url: 'https://github.com/jindw/cs/issues' },
+silly testEngine   licenses: [ { type: 'LGPL', url: 'http://www.gnu.org/licenses/lgpl.html' } ],
+silly testEngine   _npmUser: { name: 'jindw', email: 'jindw@xidea.org' },
+silly testEngine   _id: 'cs@0.1.17',
+silly testEngine   devDependencies: {},
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.103',
+silly testEngine   _nodeVersion: 'v0.5.10',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   scripts: {} }
+verbose caching /home/jindw/workspace/node_modules/cs/package.json
+verbose loadDefaults cs@0.1.17
+info prepublish cs@0.1.17
+verbose cache add [ '.', null ]
+silly cache add: name, spec, args [ undefined, '.', [ '.', null ] ]
+verbose parsed url { pathname: '.', href: '.' }
+silly testEngine { name: 'cs',
+silly testEngine   version: '0.1.17',
+silly testEngine   description: 'Colored Stone : A CSS3 extension for IE6/7/8',
+silly testEngine   keywords: [ 'css3', 'IE' ],
+silly testEngine   author: 
+silly testEngine    { name: 'jindw',
+silly testEngine      email: 'jindw@xidea.org',
+silly testEngine      url: 'http://www.xidea.org' },
+silly testEngine   homepage: 'https://github.com/jindw/cs',
+silly testEngine   repository: { type: 'git', url: 'git://github.com/jindw/cs.git' },
+silly testEngine   main: './lib/index.js',
+silly testEngine   engines: { node: '>=0.1' },
+silly testEngine   dependencies: 
+silly testEngine    { xmldom: '>=0.1.9',
+silly testEngine      cssom: '*',
+silly testEngine      jsi: '>=0.1.7',
+silly testEngine      rbs: '>=0.1.9',
+silly testEngine      sylvester: '*',
+silly testEngine      openurl: '*' },
+silly testEngine   maintainers: 
+silly testEngine    [ { name: 'jindw',
+silly testEngine        email: 'jindw@xidea.org',
+silly testEngine        url: 'http://www.xidea.org' } ],
+silly testEngine   contributors: [ { name: 'nodiseal' } ],
+silly testEngine   bugs: 
+silly testEngine    { email: 'jindw@xidea.org',
+silly testEngine      url: 'https://github.com/jindw/cs/issues' },
+silly testEngine   licenses: [ { type: 'LGPL', url: 'http://www.gnu.org/licenses/lgpl.html' } ],
+silly testEngine   _npmUser: { name: 'jindw', email: 'jindw@xidea.org' },
+silly testEngine   _id: 'cs@0.1.17',
+silly testEngine   devDependencies: {},
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.103',
+silly testEngine   _nodeVersion: 'v0.5.10',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/home/jindw/workspace/node_modules/cs' }
+verbose caching package.json
+verbose loadDefaults cs@0.1.17
+verbose pack /home/jindw/workspace/node_modules/cs /tmp/npm-1340892510744/1340892510744-0.8566628193948418/tmp.tgz
+verbose mkdir (expected) error ENOENT, No such file or directory '/tmp/npm-1340892510744'
+verbose mkdir (expected) error ENOENT, No such file or directory '/tmp/npm-1340892510744/1340892510744-0.8566628193948418'
+verbose mkdir done: /tmp/npm-1340892510744/1340892510744-0.8566628193948418 755
+verbose mkdir'ed /tmp/npm-1340892510744/1340892510744-0.8566628193948418
+verbose tar about to write tar and gzip it.
+silly tar args [ '-czvf', '-', '-T', '-' ]
+silly spawning [ 'tar',
+silly spawning   [ '-czvf', '-', '-T', '-' ],
+silly spawning   '/home/jindw/workspace/node_modules' ]
+verbose mkdir (expected) error ENOENT, No such file or directory '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents'
+verbose mkdir (expected) error ENOENT, No such file or directory '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm'
+verbose mkdir done: /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm 755
+verbose unpack_ uid, gid [ undefined, undefined ]
+verbose unpackTarget /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package
+silly gunzTarPerm modes [ '755', '644' ]
+silly spawning [ 'tar',
+silly spawning   [ '-zmvxpf',
+silly spawning     '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/tmp.tgz',
+silly spawning     '-o' ],
+silly spawning   '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm' ]
+silly tar out cs/README
+silly tar out cs/default.css
+silly tar out cs/index.html
+silly tar out cs/start.html
+silly tar out cs/index.css
+silly tar out cs/.project
+silly tar out cs/index.js
+silly tar out cs/package.json
+silly tar out cs/prefix.html
+silly tar out cs/static/cs.js
+silly tar out cs/static/cs.htc
+silly tar out cs/lib/runtime/plugin-attr.js
+silly tar out cs/lib/runtime/plugin-dynamic-class.js
+silly tar out cs/lib/runtime/core.js
+silly tar out cs/lib/runtime/property-listener.js
+silly tar out cs/lib/runtime/addition.js
+silly tar out cs/lib/runtime/updater-transition.js
+silly tar out cs/lib/runtime/filter.js
+silly tar out cs/lib/runtime/plugin-update.js
+silly tar out cs/lib/runtime/plugin-muti-class.js
+silly tar out cs/lib/runtime/updater-box.js
+silly tar out cs/lib/runtime/updater-nth.js
+silly tar out cs/lib/runtime/updater-ref.js
+silly tar out cs/lib/runtime/cs-exported.js
+silly tar out cs/lib/runtime/index.js
+silly tar out cs/lib/runtime/element.js
+silly tar out cs/lib/compiler/selector-parser.js
+silly tar out cs/lib/compiler/cs-ie-box.js
+silly tar out cs/lib/compiler/cs-filter.js
+silly tar out cs/lib/compiler/cs-ie-matrix.js
+silly tar out cs/lib/compiler/cs-ie-update-filter.js
+silly tar out cs/lib/compiler/cs-ie78-selector-filter.js
+silly tar out cs/lib/compiler/png-info.js
+silly tar out cs/lib/compiler/color-parser.js
+silly tar out cs/lib/compiler/cs-standard-filter.js
+silly tar out cs/lib/compiler/cs-ie6-selector-filter.js
+silly tar out cs/lib/compiler/cs-util.js
+silly tar out cs/test/test-ie-expression-once.html
+silly tar out cs/test/test.css
+silly tar out cs/test/test-css3-target.html
+silly tar out cs/test/test-ie-css3.html
+silly tar out cs/test/index.js
+silly tar out cs/test/test.html
+silly tar out cs/test/box/test2.html
+silly tar out cs/test/box/compositor2.html
+silly tar out cs/test/box/vml.html
+silly tar out cs/test/box/png.js
+silly tar out cs/test/box/test.html
+silly tar out cs/test/box/PNGImageProducer.java
+silly tar out cs/test/box/box.html
+silly tar out cs/test/box/compositor.html
+silly tar out cs/test/htc/test-htc.html
+silly tar out cs/test/htc/test-htc.css
+silly tar out cs/test/htc/test-htc.htc
+silly tar out cs/test/htc/simple.html
+silly tar out cs/test/htc/simple.css
+silly tar out cs/test/htc/simple.htc
+silly tar out cs/test/html5/test.html
+silly tar out cs/test/expression/expression-eval-later.html
+silly tar out cs/test/performance/a-hover-expression.html
+silly tar out cs/test/performance/test-style-get-set.html
+silly tar out cs/example/test.css
+silly tar out cs/example/test.html
+silly tar out cs/example/other/png.html
+silly tar out cs/example/other/selector-transition.html
+silly tar out cs/example/other/png-alpha2.gif
+silly tar out cs/example/other/png-alpha2.png
+silly tar out cs/example/other/index.html
+silly tar out cs/example/other/selector-transition.css
+silly tar out cs/example/other/png-alpha.png
+silly tar out cs/example/other/fix.css
+silly tar out cs/example/other/matrix.css
+silly tar out cs/example/other/fix.html
+silly tar out cs/example/other/matrix.html
+silly tar out cs/example/other/png.css
+silly tar out cs/example/background/linear.css
+silly tar out cs/example/background/radius.html
+silly tar out cs/example/background/linear.html
+silly tar out cs/example/background/index.html
+silly tar out cs/example/background/radius-taiji.html
+silly tar out cs/example/background/box-shadow.html
+silly tar out cs/example/background/radius-taiji.css
+silly tar out cs/example/background/box-shadow.css
+silly tar out cs/example/background/radius.css
+silly tar out cs/example/layout/index.html
+silly tar out cs/example/selector/not.html
+silly tar out cs/example/selector/before.css
+silly tar out cs/example/selector/dynamic.html
+silly tar out cs/example/selector/test.css
+silly tar out cs/example/selector/index.html
+silly tar out cs/example/selector/before.html
+silly tar out cs/example/selector/status.html
+silly tar out cs/example/selector/dynamic.css
+silly tar out cs/example/selector/not.css
+silly tar out cs/example/selector/test.html
+silly tar out cs/example/selector/status.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/README
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/default.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/index.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/start.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/index.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/.project
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/index.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/package.json
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/prefix.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/static
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/static/cs.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/static/cs.htc
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/plugin-attr.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/plugin-dynamic-class.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/core.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/property-listener.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/addition.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/updater-transition.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/plugin-update.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/plugin-muti-class.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/updater-box.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/updater-nth.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/updater-ref.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/cs-exported.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/index.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/runtime/element.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/selector-parser.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-ie-box.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-ie-matrix.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-ie-update-filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-ie78-selector-filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/png-info.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/color-parser.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-standard-filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-ie6-selector-filter.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/lib/compiler/cs-util.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/test-ie-expression-once.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/test.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/test-css3-target.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/test-ie-css3.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/index.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/test.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/test2.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/compositor2.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/vml.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/png.js
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/test.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/PNGImageProducer.java
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/box.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/box/compositor.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/test-htc.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/test-htc.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/test-htc.htc
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/simple.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/simple.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/htc/simple.htc
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/html5
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/html5/test.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/expression
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/expression/expression-eval-later.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/performance
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/performance/a-hover-expression.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/test/performance/test-style-get-set.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/test.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/test.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/png.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/selector-transition.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/png-alpha2.gif
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/png-alpha2.png
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/index.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/selector-transition.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/png-alpha.png
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/fix.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/matrix.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/fix.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/matrix.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/other/png.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/linear.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/radius.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/linear.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/index.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/radius-taiji.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/box-shadow.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/radius-taiji.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/box-shadow.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/background/radius.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/layout
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/layout/index.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/not.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/before.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/dynamic.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/test.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/index.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/before.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/status.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/dynamic.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/not.css
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/test.html
+silly asyncMap in gTP /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs/example/selector/status.css
+verbose gunzed /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs
+verbose rm'ed /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package
+verbose renamed [ '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/___package.npm/cs',
+verbose renamed   '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package' ]
+silly testEngine { name: 'cs',
+silly testEngine   version: '0.1.17',
+silly testEngine   description: 'Colored Stone : A CSS3 extension for IE6/7/8',
+silly testEngine   keywords: [ 'css3', 'IE' ],
+silly testEngine   author: 
+silly testEngine    { name: 'jindw',
+silly testEngine      email: 'jindw@xidea.org',
+silly testEngine      url: 'http://www.xidea.org' },
+silly testEngine   homepage: 'https://github.com/jindw/cs',
+silly testEngine   repository: { type: 'git', url: 'git://github.com/jindw/cs.git' },
+silly testEngine   main: './lib/index.js',
+silly testEngine   engines: { node: '>=0.1' },
+silly testEngine   dependencies: 
+silly testEngine    { xmldom: '>=0.1.9',
+silly testEngine      cssom: '*',
+silly testEngine      jsi: '>=0.1.7',
+silly testEngine      rbs: '>=0.1.9',
+silly testEngine      sylvester: '*',
+silly testEngine      openurl: '*' },
+silly testEngine   maintainers: 
+silly testEngine    [ { name: 'jindw',
+silly testEngine        email: 'jindw@xidea.org',
+silly testEngine        url: 'http://www.xidea.org' } ],
+silly testEngine   contributors: [ { name: 'nodiseal' } ],
+silly testEngine   bugs: 
+silly testEngine    { email: 'jindw@xidea.org',
+silly testEngine      url: 'https://github.com/jindw/cs/issues' },
+silly testEngine   licenses: [ { type: 'LGPL', url: 'http://www.gnu.org/licenses/lgpl.html' } ],
+silly testEngine   _npmUser: { name: 'jindw', email: 'jindw@xidea.org' },
+silly testEngine   _id: 'cs@0.1.17',
+silly testEngine   devDependencies: {},
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.103',
+silly testEngine   _nodeVersion: 'v0.5.10',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   path: '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package' }
+verbose caching /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package/package.json
+verbose loadDefaults cs@0.1.17
+verbose tarball contents [ 'package' ]
+verbose from cache /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package/package.json
+verbose pack /tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents/package /home/jindw/.npm/cs/0.1.17/package.tgz
+verbose mkdir'ed /home/jindw/.npm/cs/0.1.17
+verbose tar about to write tar and gzip it.
+silly tar args [ '-czvf', '-', '-T', '-' ]
+silly spawning [ 'tar',
+silly spawning   [ '-czvf', '-', '-T', '-' ],
+silly spawning   '/tmp/npm-1340892510744/1340892510744-0.8566628193948418/contents' ]
+verbose mkdir (expected) error ENOENT, No such file or directory '/home/jindw/.npm/cs/0.1.17/___package.npm'
+verbose mkdir done: /home/jindw/.npm/cs/0.1.17/___package.npm 755
+verbose unpack_ uid, gid [ undefined, undefined ]
+verbose unpackTarget /home/jindw/.npm/cs/0.1.17/package
+silly gunzTarPerm modes [ '755', '644' ]
+silly spawning [ 'tar',
+silly spawning   [ '-zmvxpf', '/home/jindw/.npm/cs/0.1.17/package.tgz', '-o' ],
+silly spawning   '/home/jindw/.npm/cs/0.1.17/___package.npm' ]
+silly tar out package/README
+silly tar out package/default.css
+silly tar out package/index.html
+silly tar out package/start.html
+silly tar out package/index.css
+silly tar out package/.project
+silly tar out package/index.js
+silly tar out package/package.json
+silly tar out package/prefix.html
+silly tar out package/static/cs.js
+silly tar out package/static/cs.htc
+silly tar out package/test/test-ie-expression-once.html
+silly tar out package/test/test.css
+silly tar out package/test/test-css3-target.html
+silly tar out package/test/test-ie-css3.html
+silly tar out package/test/index.js
+silly tar out package/test/test.html
+silly tar out package/test/box/test2.html
+silly tar out package/test/box/compositor2.html
+silly tar out package/test/box/vml.html
+silly tar out package/test/box/png.js
+silly tar out package/test/box/test.html
+silly tar out package/test/box/PNGImageProducer.java
+silly tar out package/test/box/box.html
+silly tar out package/test/box/compositor.html
+silly tar out package/test/htc/test-htc.html
+silly tar out package/test/htc/test-htc.css
+silly tar out package/test/htc/test-htc.htc
+silly tar out package/test/htc/simple.html
+silly tar out package/test/htc/simple.css
+silly tar out package/test/htc/simple.htc
+silly tar out package/test/html5/test.html
+silly tar out package/test/expression/expression-eval-later.html
+silly tar out package/test/performance/a-hover-expression.html
+silly tar out package/test/performance/test-style-get-set.html
+silly tar out package/example/test.css
+silly tar out package/example/test.html
+silly tar out package/example/other/png.html
+silly tar out package/example/other/selector-transition.html
+silly tar out package/example/other/png-alpha2.gif
+silly tar out package/example/other/png-alpha2.png
+silly tar out package/example/other/index.html
+silly tar out package/example/other/selector-transition.css
+silly tar out package/example/other/png-alpha.png
+silly tar out package/example/other/fix.css
+silly tar out package/example/other/matrix.css
+silly tar out package/example/other/fix.html
+silly tar out package/example/other/matrix.html
+silly tar out package/example/other/png.css
+silly tar out package/example/background/linear.css
+silly tar out package/example/background/radius.html
+silly tar out package/example/background/linear.html
+silly tar out package/example/background/index.html
+silly tar out package/example/background/radius-taiji.html
+silly tar out package/example/background/box-shadow.html
+silly tar out package/example/background/radius-taiji.css
+silly tar out package/example/background/box-shadow.css
+silly tar out package/example/background/radius.css
+silly tar out package/example/layout/index.html
+silly tar out package/example/selector/not.html
+silly tar out package/example/selector/before.css
+silly tar out package/example/selector/dynamic.html
+silly tar out package/example/selector/test.css
+silly tar out package/example/selector/index.html
+silly tar out package/example/selector/before.html
+silly tar out package/example/selector/status.html
+silly tar out package/example/selector/dynamic.css
+silly tar out package/example/selector/not.css
+silly tar out package/example/selector/test.html
+silly tar out package/example/selector/status.css
+silly tar out package/lib/compiler/selector-parser.js
+silly tar out package/lib/compiler/cs-ie-box.js
+silly tar out package/lib/compiler/cs-filter.js
+silly tar out package/lib/compiler/cs-ie-matrix.js
+silly tar out package/lib/compiler/cs-ie-update-filter.js
+silly tar out package/lib/compiler/cs-ie78-selector-filter.js
+silly tar out package/lib/compiler/png-info.js
+silly tar out package/lib/compiler/color-parser.js
+silly tar out package/lib/compiler/cs-standard-filter.js
+silly tar out package/lib/compiler/cs-ie6-selector-filter.js
+silly tar out package/lib/compiler/cs-util.js
+silly tar out package/lib/runtime/plugin-attr.js
+silly tar out package/lib/runtime/plugin-dynamic-class.js
+silly tar out package/lib/runtime/core.js
+silly tar out package/lib/runtime/property-listener.js
+silly tar out package/lib/runtime/addition.js
+silly tar out package/lib/runtime/updater-transition.js
+silly tar out package/lib/runtime/filter.js
+silly tar out package/lib/runtime/plugin-update.js
+silly tar out package/lib/runtime/plugin-muti-class.js
+silly tar out package/lib/runtime/updater-box.js
+silly tar out package/lib/runtime/updater-ref.js
+silly tar out package/lib/runtime/cs-exported.js
+silly tar out package/lib/runtime/index.js
+silly tar out package/lib/runtime/element.js
+silly tar out package/lib/runtime/updater-nth.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/README
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/default.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/index.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/start.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/index.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/.project
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/index.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/package.json
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/prefix.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/static
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/static/cs.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/static/cs.htc
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/plugin-attr.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/plugin-dynamic-class.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/core.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/property-listener.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/addition.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/updater-transition.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/plugin-update.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/plugin-muti-class.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/updater-box.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/updater-nth.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/updater-ref.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/cs-exported.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/index.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/runtime/element.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/selector-parser.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-ie-box.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-ie-matrix.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-ie-update-filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-ie78-selector-filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/png-info.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/color-parser.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-standard-filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-ie6-selector-filter.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/lib/compiler/cs-util.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/test-ie-expression-once.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/test.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/test-css3-target.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/test-ie-css3.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/index.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/test.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/test2.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/compositor2.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/vml.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/png.js
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/test.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/PNGImageProducer.java
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/box.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/box/compositor.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/test-htc.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/test-htc.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/test-htc.htc
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/simple.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/simple.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/htc/simple.htc
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/html5
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/html5/test.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/expression
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/expression/expression-eval-later.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/performance
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/performance/a-hover-expression.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/test/performance/test-style-get-set.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/test.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/test.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/png.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/selector-transition.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/png-alpha2.gif
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/png-alpha2.png
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/index.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/selector-transition.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/png-alpha.png
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/fix.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/matrix.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/fix.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/matrix.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/other/png.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/linear.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/radius.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/linear.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/index.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/radius-taiji.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/box-shadow.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/radius-taiji.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/box-shadow.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/background/radius.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/layout
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/layout/index.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/not.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/before.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/dynamic.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/test.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/index.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/before.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/status.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/dynamic.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/not.css
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/test.html
+silly asyncMap in gTP /home/jindw/.npm/cs/0.1.17/___package.npm/package/example/selector/status.css
+verbose gunzed /home/jindw/.npm/cs/0.1.17/___package.npm/package
+verbose rm'ed /home/jindw/.npm/cs/0.1.17/package
+verbose renamed [ '/home/jindw/.npm/cs/0.1.17/___package.npm/package',
+verbose renamed   '/home/jindw/.npm/cs/0.1.17/package' ]
+silly testEngine { name: 'cs',
+silly testEngine   version: '0.1.17',
+silly testEngine   description: 'Colored Stone : A CSS3 extension for IE6/7/8',
+silly testEngine   keywords: [ 'css3', 'IE' ],
+silly testEngine   author: 
+silly testEngine    { name: 'jindw',
+silly testEngine      email: 'jindw@xidea.org',
+silly testEngine      url: 'http://www.xidea.org' },
+silly testEngine   homepage: 'https://github.com/jindw/cs',
+silly testEngine   repository: { type: 'git', url: 'git://github.com/jindw/cs.git' },
+silly testEngine   main: './lib/index.js',
+silly testEngine   engines: { node: '>=0.1' },
+silly testEngine   dependencies: 
+silly testEngine    { xmldom: '>=0.1.9',
+silly testEngine      cssom: '*',
+silly testEngine      jsi: '>=0.1.7',
+silly testEngine      rbs: '>=0.1.9',
+silly testEngine      sylvester: '*',
+silly testEngine      openurl: '*' },
+silly testEngine   maintainers: 
+silly testEngine    [ { name: 'jindw',
+silly testEngine        email: 'jindw@xidea.org',
+silly testEngine        url: 'http://www.xidea.org' } ],
+silly testEngine   contributors: [ { name: 'nodiseal' } ],
+silly testEngine   bugs: 
+silly testEngine    { email: 'jindw@xidea.org',
+silly testEngine      url: 'https://github.com/jindw/cs/issues' },
+silly testEngine   licenses: [ { type: 'LGPL', url: 'http://www.gnu.org/licenses/lgpl.html' } ],
+silly testEngine   _npmUser: { name: 'jindw', email: 'jindw@xidea.org' },
+silly testEngine   _id: 'cs@0.1.17',
+silly testEngine   devDependencies: {},
+silly testEngine   _engineSupported: true,
+silly testEngine   _npmVersion: '1.0.103',
+silly testEngine   _nodeVersion: 'v0.5.10',
+silly testEngine   _defaultsLoaded: true,
+silly testEngine   dist: 
+silly testEngine    { shasum: '0ee2df604416379297e26989293171cfbfdee8b5',
+silly testEngine      tarball: 'http://registry.npmjs.org/cs/-/cs-0.1.17.tgz' } }
+verbose caching /home/jindw/.npm/cs/0.1.17/package/package.json
+verbose loadDefaults cs@0.1.17
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 40960
+silly updated sha bytes 3332
+info shasum 0ee2df604416379297e26989293171cfbfdee8b5
+info shasum /home/jindw/.npm/cs/0.1.17/package.tgz
+verbose from cache /home/jindw/.npm/cs/0.1.17/package/package.json
+verbose chmod /home/jindw/.npm/cs/0.1.17/package.tgz 644
+verbose chown [ '/home/jindw/.npm/cs/0.1.17/package.tgz', 1004, 1004 ]
+silly publish { name: 'cs',
+silly publish   version: '0.1.17',
+silly publish   description: 'Colored Stone : A CSS3 extension for IE6/7/8',
+silly publish   keywords: [ 'css3', 'IE' ],
+silly publish   author: 
+silly publish    { name: 'jindw',
+silly publish      email: 'jindw@xidea.org',
+silly publish      url: 'http://www.xidea.org' },
+silly publish   homepage: 'https://github.com/jindw/cs',
+silly publish   repository: { type: 'git', url: 'git://github.com/jindw/cs.git' },
+silly publish   main: './lib/index.js',
+silly publish   engines: { node: '>=0.1' },
+silly publish   dependencies: 
+silly publish    { xmldom: '>=0.1.9',
+silly publish      cssom: '*',
+silly publish      jsi: '>=0.1.7',
+silly publish      rbs: '>=0.1.9',
+silly publish      sylvester: '*',
+silly publish      openurl: '*' },
+silly publish   maintainers: 
+silly publish    [ { name: 'jindw',
+silly publish        email: 'jindw@xidea.org',
+silly publish        url: 'http://www.xidea.org' } ],
+silly publish   contributors: [ { name: 'nodiseal' } ],
+silly publish   bugs: 
+silly publish    { email: 'jindw@xidea.org',
+silly publish      url: 'https://github.com/jindw/cs/issues' },
+silly publish   licenses: [ { type: 'LGPL', url: 'http://www.gnu.org/licenses/lgpl.html' } ],
+silly publish   _npmUser: { name: 'jindw', email: 'jindw@xidea.org' },
+silly publish   _id: 'cs@0.1.17',
+silly publish   devDependencies: {},
+silly publish   _engineSupported: true,
+silly publish   _npmVersion: '1.0.103',
+silly publish   _nodeVersion: 'v0.5.10',
+silly publish   _defaultsLoaded: true,
+silly publish   dist: 
+silly publish    { shasum: '0ee2df604416379297e26989293171cfbfdee8b5',
+silly publish      tarball: 'http://registry.npmjs.org/cs/-/cs-0.1.17.tgz' } }
+verbose PUT cs
+verbose raw, before any munging cs
+verbose url resolving [ 'https://registry.npmjs.org/', './cs' ]
+verbose url resolved https://registry.npmjs.org/cs
+verbose GET cs
+verbose raw, before any munging cs
+verbose url resolving [ 'https://registry.npmjs.org/', './cs' ]
+verbose url resolved https://registry.npmjs.org/cs
+info Already published cs@0.1.17
+verbose uploading bin dists []
+ERR! publish fail Cannot publish over existing version.
+ERR! publish fail Bump the 'version' field, set the --force flag, or
+ERR! publish fail     npm unpublish 'cs@0.1.17'
+ERR! publish fail and try again
+ERR! 
+ERR! System Linux 2.6.31-23-server
+ERR! command "node" "/home/jindw/node/bin/npm" "publish"
+ERR! cwd /home/jindw/workspace/node_modules/cs
+ERR! node -v v0.5.10
+ERR! npm -v 1.0.103
+ERR! code EPUBLISHCONFLICT
+verbose exit [ 1, true ]

@@ -1,0 +1,230 @@
+﻿<HTML>
+<HEAD>
+<meta http-equiv=Content-Type content="text/html;  charset=UTF-8">
+<TITLE>==XIDEA：人机对弈==</TITLE>
+<script type="text/javascript">
+<!--
+var javawsInstalled = false;
+var isIE = false;
+var isWin = false;
+if (navigator.mimeTypes && navigator.mimeTypes.length){
+  javawsInstalled = navigator.mimeTypes['application/x-java-jnlp-file'];
+}else{
+  isIE = true;
+}
+
+navigator.OS    = '';
+navigator.version  = parseFloat(navigator.appVersion);
+var platform;
+if (typeof(window.navigator.platform) != 'undefined'){
+  platform = window.navigator.platform.toLowerCase();
+  if (platform.indexOf('win') != -1){
+    navigator.OS = 'win';
+    isWin = true;
+  }else if (platform.indexOf('mac') != -1){
+    navigator.OS = 'mac';
+  }else if (platform.indexOf('unix') != -1 || platform.indexOf('linux') != -1 || platform.indexOf('sun') != -1){
+    navigator.OS = 'nix';
+  }
+}
+
+function autoInstall(){
+  if(isWin){
+    var win = window.open("autoInstall.html","TASK");
+    if(win == null){
+      window.location = "autoInstall.html";
+    }
+  }else{
+    var win = window.open("http://java.sun.com/j2se/1.4.2/download.html","DOWN");
+    if(win == null){
+      window.location = "http://java.sun.com/j2se/1.4.2/download.html";
+    }
+  }
+}
+function initialize(){
+  if(javawsInstalled){
+    document.getElementById("DIV_needInstall").style.display = "none";
+    document.getElementById("DIV_autoInstall").style.display = "none";
+  }
+  else {
+    if(confirm("你好，您没有安装Java 虚拟机，是否现在安装？")){
+      autoInstall();
+    }
+    document.getElementById("DIV_needInstall").style.display = "";
+    if(isWin){
+      document.getElementById("DIV_autoInstall").style.display = "";
+    }else{
+      document.getElementById("DIV_autoInstall").style.display = "none";
+    }
+  }
+}
+//-->
+</script>
+<script type="text/vbscript">
+<!--
+on error resume next
+If isIE = true Then
+  javawsInstalled = true
+  If Not(IsObject(CreateObject("JavaWebStart.isInstalled"))) Then
+     javawsInstalled = false
+  End If
+End If
+//-->
+</script>
+<style type="text/css">
+<!--
+td {  font-size: 12px; color: #000033}
+.comment {text-indent:30px;color:#000099;font-style:italic}
+-->
+</style>
+</HEAD>
+<BODY bgcolor="#FFFFFF" onload="initialize()" LEFTMARGIN="0" TOPMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<table width="535" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr> 
+    <td colspan="2" align="center" bgcolor="#EEEEEE"> <br>
+      <h3>中国相棋人机对弈程序主页。</h3>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" width="225" bgcolor="#F7F7F7" rowspan="5"> 
+      <div id ="DIV_needInstall" style="color:red;display:none">需要下载Java Webstart 
+        运行环境</div>
+      <div id ="DIV_autoInstall"> <a href="autoInstall.html">自动安装Webstart 运行环境&gt;&gt; 
+        </a> </div>
+      <div id ="DIV_log"> <img src="images/chess.png"/>
+        </div>
+    </td>
+    <td valign="top" bgcolor="#F7F7F7" width="310">程序类别：Java Webstart &amp; Java 
+      App &amp; B/S（测试）</td>
+  </tr>
+  <tr> 
+    <td valign="top" bgcolor="#F7F7F7" width="310"> 
+      <p>运行环境：Java 虚拟机</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" bgcolor="#F7F7F7" width="310">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td valign="top" bgcolor="#F7F7F7" width="310">作者： 金大为</td>
+  </tr>
+  <tr> 
+    <td valign="top" bgcolor="#F7F7F7" width="310">主页： <a href="/">http://www.xidea.org</a> 
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" width="225" bgcolor="#F7F7F7" rowspan="1"> 
+      <div id ="DIV_down"> Java运行环境下载&gt;&gt; <a href="/download/j2re-1_4_2_04-windows-i586-p.rar" title="JRE1.42">本地</a> 
+        | <a href="http://java.sun.com/j2se/1.4.2/download.html">Java官方网站</a></div>
+      <br/>
+    </td>
+    <td valign="top" bgcolor="#F7F7F7" width="310">邮件： <a href="#" onmouseover="this.href='mail'+'to:jindw'+'@'+'xidea.or'+'g'">jindw◎xidea。org
+      </a></td>
+  </tr>
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">Webstart 启动：<a
+	 href="/webstart/chess.jnlp"
+	 title="如果程序打开后不能自动运行，反而询问打开方式，则说明你的机器没有正确安装Java Webstart 运行环境"
+	 >http://www.xidea.org/webstart/chess.jnlp</a></td>
+  </tr>
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">Java Application 下载：<a
+	 href="/project/chess/xiangqi/app.rar"
+	 title="下载后解压缩即可，里面.jar文件即为Java字节码，选择运行.bat 批处理文件启动Java 虚拟机启动该程序，请确保环境变量设置正确，否则回出现如下错误：&#10;&#10;'java' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。"
+	 >http://www.xidea.org/project/chess/xiangqi/app.rar</a></td>
+  </tr>
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">在线测试：<a href="/project/chess/xiangqi/chess-client.html">http://www.xidea.org/project/chess/xiangqi/chess-client.html</a></td>
+  </tr>
+
+  <tr bgcolor="#FFFFFF"> 
+    <td colspan="2" height="26">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">相关资源：</td>
+  </tr>
+
+
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">程序JavaDoc 文档 <a href="doc/javadoc/index.html">http://www.xidea.org/project/chess/xiangqi/doc/javadoc/index.html</a></td>
+  </tr>
+  <tr> 
+    <td colspan="2" height="26" bgcolor="#FAFAFA">残局棋库 <a href="endgame-list">http://www.xidea.org/project/chess/xiangqi/endgame-list</a></td>
+  </tr>
+  <tr>
+    <td colspan="2" height="26">&nbsp;</td>
+  </tr>
+  <tr>13:45 2004-5-26 
+    <td colspan="2">网友评论：</td>
+  </tr>
+  <tr> 
+    <td colspan="2">
+<script type="text/javascript">
+<!--
+  function commentShow(container,xmldoc){
+    var comments = xmldoc.XMLDocument.selectNodes("comments/comment");
+    var comment;
+    for(var i=0;i<comments.length;i++){
+      comment = document.createElement("li");
+      comment.setAttribute("className","comment");
+      comment.appendChild(document.createTextNode(comments[i].firstChild.nodeValue));
+      comment.setAttribute("title",comments[i].getAttribute("name")+":\n"+comments[i].getAttribute("mail"));
+      container.appendChild(comment);
+    }
+  }
+//-->
+</script>
+      <div id ="comments"></div>
+      <xml id="xml_comment" src="__comment.xml" ondatasetcomplete="commentShow(comments,this)">
+<script type="text/javascript">
+<!--
+  document.write("<a href='__comment.xml' title='性窗口中查看评论'>"+
+                 "对不起，该评论显示目前只支持IE5.0及更高版本浏览器，请点击该连接在新窗口中查看评论"+
+                 "</a>");
+//-->
+</script>
+      </xml>
+      <hr/>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+      <form name="form1" method="post" action="UTF.comment">
+        <table width="98%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td>姓名：</td>
+            <td> 
+              <input type="text" name="name">
+            </td>
+            <td>邮件：</td>
+            <td> 
+              <input type="text" name="mail">
+            </td>
+          </tr>
+          <tr> 
+            <td>评论：</td>
+            <td colspan="3"> 
+              <textarea name="content" cols="50" rows="5"></textarea>
+            </td>
+          </tr>
+          <tr> 
+            <td colspan="2" align="right"> 
+              <input type="submit" value="提交评论">
+            </td>
+            <td colspan="2" align="left"> 
+              <input type="reset" value="重置表单">
+            </td>
+          </tr>
+        </table>
+      </form>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="2" align="right" bgcolor="#EEEEEE"> <a href="/"><br>
+      返回主页&nbsp;&nbsp;&nbsp;<br>
+      </a></td>
+  </tr>
+</table>
+</BODY>
+</HTML>

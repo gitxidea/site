@@ -1,0 +1,5 @@
+div {min-height: 10px; border: 1px solid #000000;}
+.child>* {border: 2px solid #FF0000; background: #FFFF00; cs-background-rgba: ;}
+.empty-border.ref-empty__ {border: 3px solid #FF0000;}
+.empty-border {cs-ref-empty: 1; cs-ref: 1; layout-flow: expression(CS(this,'update'));}
+head cs-config {cs-id: 1343446833169; attr-classes: ; nth-classes: ; ref-classes: empty;}

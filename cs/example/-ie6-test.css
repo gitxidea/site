@@ -1,0 +1,43 @@
+h3 {cursor: pointer;}
+p {padding: 6px;}
+h3.hover__ {background: transparent; opacity: 0.95; border-bottom: 1px solid #FF0000; layout-flow: expression(CS(this,'update')); cs-background-rgba: #1900ff00;}
+ p.ref-as-h3__ {background: #FFFF00; cs-background-rgba: ;}
+h3 {cs-target-as-h3: 1;}
+p {cs-ref: 1; cs-ref-as-h3: 1; layout-flow: expression(CS(this,'update'));}
+ p.ref-as-h3_2Ehover____ {background: transparent; layout-flow: expression(CS(this,'update')); cs-background-rgba: #1900ff00;}
+h3.hover__ {cs-target-as-h3_2Ehover__: 1;}
+p {cs-ref: 1; cs-ref-as-h3_2Ehover__: 1; layout-flow: expression(CS(this,'update'));}
+ p.ref-gs-h3_2Ehover____ {color: #0000FF;}
+h3.hover__ {cs-target-gs-h3_2Ehover__: 1;}
+p {cs-ref: 1; cs-ref-gs-h3_2Ehover__: 1; layout-flow: expression(CS(this,'update'));}
+h3 {text-kashida-space: expression(CS(this,'dc'));}
+p.nth-child_2_1__ {background: url("about:blank#linear,0deg,#FFFFFF,#0000FF"); font-weight: bold; color: #333333; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+p {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+.slide {position: relative; margin: 0; padding: 0; width: 402px; height: 122px; overflow: hidden; border: 1px solid #FF0000; color: #cccccc;}
+.slide ul {margin: 0; padding: 0; width: 10000px; height: 88px; position: absolute; left: 0; top: 28px; display: block; transition-property: left,opacity; transition-duration: 0.8s; opacity: 1; cs-position-fixed: ; layout-flow: expression(CS(this,'update'));}
+.slide ul li {margin: 0; padding: 0; text-indent: 0; list-style: none; display: inline-block; background: #0000FF; float: left; width: 400px; height: 80px; border: 1px solid #FFFF00; z-index: 0; cs-background-rgba: ;}
+.slide ul li.nth-child_2_0__ {background: #008000; cs-background-rgba: ;}
+.slide ul li {cs-update-nth: 1; layout-flow: expression(CS(this,'update'));}
+.slide ul.ref-gs-_2Eslide_20_2Ehover___2D_2Dslide1__ {left: 0px;}
+.slide .hover__--slide1 {cs-target-gs-_2Eslide_20_2Ehover___2D_2Dslide1: 1;}
+.slide ul {cs-ref: 1; cs-ref-gs-_2Eslide_20_2Ehover___2D_2Dslide1: 1; layout-flow: expression(CS(this,'update'));}
+.slide .slide1 {text-kashida: expression(CS(this,'mc'));}
+.slide .slide1 {text-kashida-space: expression(CS(this,'dc'));}
+.slide ul.ref-gs-_2Eslide_20_2Ehover___2D_2Dslide2__ {left: -402px; opacity: 0.3; layout-flow: expression(CS(this,'update'));}
+.slide .hover__--slide2 {cs-target-gs-_2Eslide_20_2Ehover___2D_2Dslide2: 1;}
+.slide ul {cs-ref: 1; cs-ref-gs-_2Eslide_20_2Ehover___2D_2Dslide2: 1; layout-flow: expression(CS(this,'update'));}
+.slide .slide2 {text-kashida: expression(CS(this,'mc'));}
+.slide .slide2 {text-kashida-space: expression(CS(this,'dc'));}
+.slide ul.ref-gs-_2Eslide_20_2Ehover___2D_2Dslide3__ {left: -804px;}
+.slide .hover__--slide3 {cs-target-gs-_2Eslide_20_2Ehover___2D_2Dslide3: 1;}
+.slide ul {cs-ref: 1; cs-ref-gs-_2Eslide_20_2Ehover___2D_2Dslide3: 1; layout-flow: expression(CS(this,'update'));}
+.slide .slide3 {text-kashida: expression(CS(this,'mc'));}
+.slide .slide3 {text-kashida-space: expression(CS(this,'dc'));}
+.slide span {float: right; z-index: 2; padding: 2px; margin: 2px; cursor: pointer; display: inline-block; border: 1px outset #FFFF00; width: 14px; height: 14px; text-align: center; font-size: 10px;}
+.transition-width {width: 10px; transition: width 0.4s; background: #FF0000; position: absolute; bottom: 20px; right: 10px; cs-position-fixed: 1; layout-flow: expression(CS(this,'update')); transition-property: width; transition-duration: 0.4s; cs-background-rgba: ;}
+html .hover__--transition-width {width: 100px;}
+.transition-width {text-kashida: expression(CS(this,'mc'));}
+.transition-width {text-kashida-space: expression(CS(this,'dc'));}
+.slide span.hover__ {background: #FFFF00; cs-background-rgba: ;}
+.slide span {text-kashida-space: expression(CS(this,'dc'));}
+head cs-config {cs-id: 1343446833751; muti-classes: hover__--transition-width,hover__--slide3,hover__--slide2,hover__--slide1; attr-classes: ; nth-classes: child_2_0,child_2_1; ref-classes: gs-_2Eslide_20_2Ehover___2D_2Dslide3,gs-_2Eslide_20_2Ehover___2D_2Dslide2,gs-_2Eslide_20_2Ehover___2D_2Dslide1,gs-h3_2Ehover__,as-h3_2Ehover__,as-h3;}

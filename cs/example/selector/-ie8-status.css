@@ -1,0 +1,7 @@
+#target1,#target2 {border: 1px solid #FF0000;}
+#target1.target__,#target2.target__ {background: #FF0000; cs-background-rgba: ;}
+input.attr-checked_3Dtrue__ {margin-bottom: 100px;}
+input.attr-disabled_3Dfalse__ {padding: 10px; cbackground: #FFFF00;}
+input.attr-disabled_3Dtrue__ {padding: 10px; background: #0000FF; cs-background-rgba: ;}
+input {behavior: url(/cs/static/cs.htc);}
+head cs-config {cs-id: 1343446833232; attr-classes: disabled_3Dtrue,disabled_3Dfalse,checked_3Dtrue; nth-classes: ;}

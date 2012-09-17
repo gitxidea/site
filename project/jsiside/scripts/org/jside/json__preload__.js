@@ -1,0 +1,4 @@
+/*
+ * Compressed by JSA(www.xidea.org)
+ */
+$JSI.preload('org.jside','json.js',function(){eval(this.varText);var JSON={decode:function($){return window.eval("("+$+")");},encode:_$Y0},_$a0=/["\\\x00-\x1f\x7f-\x9f]/g,_$Z0={"\b":"\\b","\t":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"};function _$b0(_){var $=_$Z0[_];if($){return $;}$=_.charCodeAt().toString(16);return"\\u00"+($.length>1?$:"0"+$);}function _$Y0(_){switch(typeof _){case"string":_$a0.lastIndex=0;return'"'+(_$a0.test(_)?_.replace(_$a0,_$b0):_)+'"';case"object":if(!_){return"null";}var B=[];if(_ instanceof Array){var C=_.length;while(C--){B[C]=_$Y0(_[C])||"null";}return"["+B.join(",")+"]";}for(var A in _){var $=_$Y0(_[A]);if($){B.push(_$Y0(A)+":"+$);}}return"{"+B.join(",")+"}";case"number":if(!isFinite(_)){_="null";}default:return String(_);}}})

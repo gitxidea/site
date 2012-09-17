@@ -1,0 +1,2 @@
+.fix {width: 100px; height: 10px; bottom: 100px; background: #FFFF00; position: absolute; cs-position-fixed: 1; layout-flow: expression(CS(this,'update')); cs-background-rgba: ;}
+head cs-config {cs-id: 1343446832326; muti-classes: ; attr-classes: ; nth-classes: ;}

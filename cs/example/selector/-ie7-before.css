@@ -1,0 +1,5 @@
+div>.before__ {background: #FF0000; display: block; float: right; width: auto; height: 50px; cs-background-rgba: ;}
+div {cs-gen-before: '11'; layout-flow: expression(CS(this,'update'));}
+body {test: 123; color: #FF0000;}
+div .before {background: #FF0000; content: '11'; display: block; float: right; width: auto; height: 50px; cs-background-rgba: ;}
+head cs-config {cs-id: 1343446832806; attr-classes: ; nth-classes: ;}

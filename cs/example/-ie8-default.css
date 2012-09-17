@@ -1,0 +1,15 @@
+html {text-align: center; font-size: 12px; background: #666666; padding: 20px; margin: 0px; cs-linear-gradient: ;}
+body {width: 720px; min-height: 720px; text-align: left; margin: auto; padding: 8px; background: #fefefe; border: 3px double #DDD; cs-linear-gradient: ;}
+p {text-indent: 24px;}
+a.ms-ref:after {content: '>>ref'; background: #dddddd; font-size: 8px; cs-linear-gradient: ;}
+.detail {display: inline; font-size: 11px; cursor: pointer; background: #dddddd; cs-linear-gradient: ;}
+.detail div {display: none; background: #dddddd; cs-linear-gradient: ;}
+.detail:hover div {border: 1px solid #FFFF00; display: block;}
+.stable,.sandbox,.planning,.none {font-size: 12px; font-weight: bold; border: inset 1px #FFFF00;}
+.stable {background: #00ff00; cs-linear-gradient: ;}
+.sandbox {background: #00ffff; cs-linear-gradient: ;}
+.planning {background: #ffff00; cs-linear-gradient: ;}
+.none {background: #F00; cs-linear-gradient: ;}
+.native-version {background-color: #99ff99;}
+.example {background-color: #ee33ee;}
+head cs-config {cs-id: 1340606722912; attr-classes: ; nth-classes: ;}

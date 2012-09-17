@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:d="http://www.xidea.org/taglib/decorator" lang="zh_CN">
+<head>
+<base href="http://www.xidea.org/project/jsa/" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="keywords"
+  content="JSA,脚本,压缩,混淆" />
+<title>JSA 实例</title>
+<script src="../jsi_v2.0/scripts/boot.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="../jsi_v2.0/styles/default.css" />
+<style>
+.example td{
+  vertical-align:top;
+}
+#main{
+  width:760px;
+}
+</style>
+</head>
+<body>
+<div id="main">
+<br />
+<p>
+<strong>JSA</strong> 是一个脚本压缩、混淆、分析工具，也是
+<a href="http://www.xidea.org/project/jsi">JSI</a>的编译工具，有着非常可观的压缩质量和压缩比率。 
+JSA 的运用，可以减轻网络负担，保护源代码。</p>
+<br />
+<a href="http://www.xidea.org/project/jsa/"
+ style="float: right;width:80px;">在线压缩</a>
+<div style="display:none;float: right;width:40%;color:red;background: yellow;">
+JSA 新版本预览
+<ul>
+  <li><a href="http://hi.baidu.com/jindw/blog/item/f006c562610a3bd9e6113a6d.html">JSA 最新版本截图</a></li>
+  <li><a href="http://hi.baidu.com/jindw/blog/item/3af1f5ddd8ba15eb77c63810.html">未来JSI IDE需要支持的功能</a></li>
+</ul>
+<ul>
+  <li><a href="#example">压缩示例</a></li>
+  <li><a href="http://www.xidea.org/webstart/JSA.jnlp" style="font-weight:bold">WebStart启动</a>
+    <d:tooltip width="200">请<strong>暂时</strong>信任我们的站内测试签名，以使用JSA的完整功能。</d:tooltip>
+  </li>
+  <li><a href="http://www.xidea.org/webstart/JSA2.jnlp">WebStart启动(砂箱运行,功能受限)</a></li>
+  <li><a href="#webjsi">在线压缩</a></li>
+  <li><a href="http://sourceforge.net/project/showfiles.php?group_id=175776">下载(Java Swing 程序)</a></li>
+</ul>
+
+</div>
+<br /><br />
+
+
+
+<a name="example"></a>
+<table class="example" width="98%">
+
+<tr><th colspan='2'>
+压缩示例</th></tr>
+<tr>
+<td rowspan="2">
+<h4>源代码</h4>
+<d:code><textarea>
+/**
+ * test function
+ */
+function test1(param1,param2){
+  return param1+param2;
+}
+
+/**
+ * test function and eval(compressed safely)
+ */
+function test1(param1,param2){
+  return eval("param1+param2");
+}
+
+/**
+ * test inner function
+ */
+function test1(param1,param2){
+  function add(paramx,paramy){
+    return paramx+paramy;    
+  }
+  return add(param1,param2);
+}
+
+/**
+ * test empty try(code optimize)
+ */
+try{
+}catch(ex){
+  alert(ex)
+}finally{
+  alert(y)
+}
+
+</textarea></d:code>
+<p></p>
+</td>
+<td><h4>未执行文本压缩的结果(格式化，便于查看)</h4><d:code><textarea>
+/*
+ * Compressed by JSA(www.xidea.org)
+ */
+function test1(B,A){
+  return B+A;
+}
+function test1(param1,param2){
+  return eval("param1+param2");
+}
+function test1(C,A){
+  function B(A,B){
+    return A+B;
+  }
+  return B(C,A);
+}
+alert(y);
+</textarea></d:code></td>
+</tr>
+<tr>
+<td width="50%">
+<h4>执行了文本压缩的结果</h4>
+<div style="width:360px;overflow:auto;overflow-y:visible">
+<d:code>
+<textarea>
+/*
+ * Compressed by JSA(www.xidea.org)
+ */
+eval(function(E,I,A,D,J,K,L,H){function C(A){return String.fromCharCode(A+65)}while(A>0)K[C(D--)]=I[--A];function N(A){return K[A]==L[A]?A:K[A]}if(''.replace(/^/,String)){var M=E.match(J),B=M[0],F=E.split(J),G=0;if(E.indexOf(F[0]))F=[''].concat(F);do{H[A++]=F[G++];H[A++]=N(B)}while(B=M[G]);H[A++]=F[G]||'';return H.join('')}return E.replace(J,N)}('/*\n * Compressed by JSA(www.xidea.org)\n */\r\nH D(B,A){\r\n  F B+A;\r\n}\r\nH D(G,E){\r\n  F eval("G+E");\r\n}\r\nH D(C,A){\r\n  H B(A,B){\r\n    F A+B;\r\n  }\r\n  F B(C,A);\r\n}\r\nalert(y);','test1|param2|return|param1|function'.split('|'),5,7,/[\w\$]+/g,{},{},[]))</textarea>
+</d:code></div></td>
+</tr>
+</table>
+<br /><br /><br /><br />
+
+
+
+
+
+
+
+<br /><br /><br /><br />
+</div>
+</body>
+</html>
+
