@@ -59,10 +59,13 @@ list.map(function(n){
 			var rawData = '';
 			res.on('data', (chunk) => rawData += chunk);
 			res.on('end', () => {
-				fs.writeFileSync(dest+'/'+n,rawData);
+				fs.writeFileSync(dest+'/'+n,rawData.replace(/^<!DOCTYPE html><html>/,'<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">'));
 			})
 		})
 	}
+	var DOMParser = require('xmldom').DOMParser;
+	var dom = new DOMParser().parseFromString('<!DOCTYPE html><html></html>');
+	console.log(dom.toString())
 	
 })
 
