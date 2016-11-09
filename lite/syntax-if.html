@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -65,11 +65,15 @@
 				</p>
 				<p>
 					示例
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227656_51[0],__id__1478706227656_51[1],'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227656_51=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227656_51[0],__id__1478706227656_51[1],'');</script></div>
 					<p>
 						<i>
 							小技巧1： JavaScript 与或运算（JavaScript与或技巧）和三目运算符号，也可以解决上述问题。语法如下：
-							<script>//</script><div class="code"><script>renderSource(__id__1478706227656_12[0],__id__1478706227656_12[1],'');</script></div>
+							<script>//<![CDATA[
+__id__1478706227656_12=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227656_12[0],__id__1478706227656_12[1],'');</script></div>
 						</i>
 					</p>
 				</p>
@@ -79,7 +83,9 @@
 				<strong>for 循环中的else 语法</strong>
 				<p>
 					else 语法可以直接接for循环，用来处理空循环分支
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227656_63[0],__id__1478706227656_63[1],'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227656_63=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227656_63[0],__id__1478706227656_63[1],'');</script></div>
 				</p>
 				<p>
 					<i>
@@ -271,6 +277,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>

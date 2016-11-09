@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -64,7 +64,9 @@
 				</p>
 				<label>示例代码见：</label>
 				<p>
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227429_45[0],__id__1478706227429_45[1],'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227429_45=["!document.write(\"<script src='/static/js/absolute-path1.js'></script>\");\n!document.write(\"<script src='/static/js/absolute-path2.js'></script>\");\n!document.write(\"<script src='/static/js/absolute-path3.js'></script>\");",null];
+//]]></script><div class="code"><script>renderSource(__id__1478706227429_45[0],__id__1478706227429_45[1],'');</script></div>
 				</p>
 				<p>建议有 !document.write 的脚本不要在有脚本内容（若有，将与大多数浏览器一致，合并在document.write的其他脚本之前）。</p> 
 				<p>不建议嵌套 !document.write，因为嵌套document.write 在不同浏览器上表现不完全一致。</p>
@@ -81,7 +83,9 @@
 			<li>合并规范
 				<p>CSS 合并采用CSS 自身的import 语法，因为某些问题，这个语法基本是是不推荐的状态，但是，我们完全可以借用。</p>
 				<p>
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227430_25[0],__id__1478706227430_25[1],'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227430_25=["@import url('/static/css/inc/absolute-path1.css')\n@import url('/static/css/inc/absolute-path2.css')",null];
+//]]></script><div class="code"><script>renderSource(__id__1478706227430_25[0],__id__1478706227430_25[1],'');</script></div>
 				</p>
 				<p>@import 语法后面一定要用url标注被包含css路径(见资源地址规范)。</p>
 				<p>@import 的css 将出现在@import 出现的位置。</p>
@@ -298,6 +302,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>

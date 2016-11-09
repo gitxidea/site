@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -56,14 +56,18 @@
 		<h3>本质上是if/else语法的另外一种形式。</h3>
 		<ul>
 			<strong>示例：</strong>
-			<script>//</script><div class="code"><script>renderSource(__id__1478706227606_30[0],__id__1478706227606_30[1],'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227606_30=["<div> \n  今天是：<span>\n\t\t<c:choose value=\"${day}\">\n\t\t\t<c:when test=\"${0}\">周一</c:when>\n\t\t\t<c:when test=\"${1}\">周二</c:when>\n\t\t\t<c:when test=\"${2}\">周三</c:when>\n\t\t\t<c:when test=\"${3}\">周四</c:when>\n\t\t\t<c:when test=\"${4}\">周五</c:when>\n\t\t\t<c:when test=\"${5}\">周六</c:when>\n\t\t\t<c:otherwise>周日</c:otherwise>\n\t\t</c:choose>\n\t</span>\n</div>","{day:1}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227606_30[0],__id__1478706227606_30[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
 				<i>
 					小技巧1： JavaScript 数组和与或运算也可以解决类似问题：
 					<ul>
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227606_2[0],__id__1478706227606_2[1],'');</script></div></ul>
+					<script>//<![CDATA[
+__id__1478706227606_2=["<div>\n今天是：<span>周${\"一二三四五六日\".charAt(day)}</span>\n------------------\n或者：\n\n今天是：<span>周${day == 0 && '一' ||\n\t\t\t\t day == 1 && '二' ||\n\t\t\t\t day == 2 && '三' || \n\t\t\t\t day == 3 && '四' || \n\t\t\t\t day == 4 && '五' || \n\t\t\t\t day == 5 && '六' || \n\t\t\t\t day == 6 && '日'}</span>\n</div>","{day:1}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227606_2[0],__id__1478706227606_2[1],'');</script></div></ul>
 				</i>
 			</p>
 		</p>
@@ -238,6 +242,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>

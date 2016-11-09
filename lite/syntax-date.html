@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -92,14 +92,18 @@
 		</ul>
 		<h3>示例：</h3>
 		<ul>
-			<script>//</script><div class="code"><script>renderSource(__id__1478706227639_22[0],__id__1478706227639_22[1],'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227639_22=["<div> \n  今天是：<c:date-format pattern=\"YYYY-MM-DD\" value=\"${date}\"/>\n  现在是：<c:date-format pattern=\"hh:mm:ss\" value=\"${date}\"/>\n</div>","{date:+new Date()}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227639_22[0],__id__1478706227639_22[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
 				<i>
 					小技巧1：我们可以通过自定义模板函数，实现日期格式化的函数支持：
 					<ul>
-					<script>//</script><div class="code"><script>renderSource(__id__1478706227639_4[0],__id__1478706227639_4[1],'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227639_4=["<c:def name='dateFormat(date)'><c:date-format pattern='YYYY-MM-DD hh:mm:ss' value='${date}'/></c:def>\n<div>今天是：${dateFormat(date)}\t</div>",null];
+//]]></script><div class="code"><script>renderSource(__id__1478706227639_4[0],__id__1478706227639_4[1],'');</script></div>
 					
 					</ul>
 				</i>
@@ -276,6 +280,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>

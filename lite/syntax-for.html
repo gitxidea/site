@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -72,13 +72,19 @@
 		<h3>示例1（四种循环类型）</h3>
 		<ul>
 		
-		<script>//</script><div class="code"><script>renderSource(__id__1478706227663_60[0],__id__1478706227663_60[1],'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227663_60=["<label>时间：</label>\n<!-- 最常见的是对数组循环 -->\n<select name=\"year\">\n\t<c:for var=\"year\" list=\"${[1981,1982,1983]}\">\n\t\t<option>${year}</option>\n\t</c:for>\n</select>年\n<!-- 您还可以指定区间循环(偷个懒，还是属性模式简单,效果与标签模式一样)-->\n<select name=\"month\">\n\t<option c:for=\"${month:[1..12]}\">${month}</option>\n</select>月\n<!-- 您也可以对数字循环，数字循环的时候，var变量从1开始 -->\n<select name=\"date\">\n\t<option c:for=\"${date:31}\">${date}</option>\n</select>日\n<!-- 先申明一个循环对象 -->\n<c:var name=\"apMap\" value=\"${ {'AM':'上午','PM':'下午'} }\"/>\n<!-- 您还可以对对象key循环 -->\n<select name=\"ap\">\n\t<c:for var=\"ap\" list=\"${apMap}\">\n\t\t<option value='${ap}'>${apMap[ap]}</option>\n\t</c:for>\n</select>","{}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227663_60[0],__id__1478706227663_60[1],'');</script></div>
 		</ul>
 		<a name="forElse"></a>
 		<h3>示例2（循环空处理和for状态字）</h3>
 		<ul>
-			<script>//</script>
-		<script>//</script><div class="code"><script>renderSource(__id__1478706227664_96[0],__id__1478706227664_96[1],'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227664_34=["{\n\t\"result\":[\n\t\t{\"name\":\"张三\",\"age\":21},\n\t\t{\"name\":\"李四\",\"age\":22},\n\t\t{\"name\":\"王二\",\"age\":23}\n\t]\n}",null];
+//]]></script>
+		<script>//<![CDATA[
+__id__1478706227664_96=["<c:for var=\"item\" list=\"${result}\" status=\"outerFor\">\n\t<!-- 这里 ${for.dataFor} 等价于 ${outerFor.index} -->\n\t<div>第${for.index}条数据属性值为：</div>\n\t<div>\n\t\t<p c:for=\"${key:item}\">\n\t\t\t第${outerFor.index}条数据的第${for.index}个属性，属性名：${key}；属性值：${item[key]}\n\t\t</p>\n\t</div>\n</c:for>\n<c:else>\n\t<p>没有数据</p>\n</c:else>",resultJsonModel];
+//]]></script><div class="code"><script>renderSource(__id__1478706227664_96[0],__id__1478706227664_96[1],'');</script></div>
 		<p>
 			for 做为一个关键字，只包含两个属性 index 和lastIndex；在循环内不需要申明可以直接使用。
 			在循环嵌套的时候，for 关键字指向的是自己直接所在的循环的状态。
@@ -88,7 +94,9 @@
 		</ul>
 		<h3>示例3（反向循环，跳跃循环）</h3>
 		<ul>
-			<script>//</script><div class="code"><script>renderSource(__id__1478706227664_8[0],__id__1478706227664_8[1],'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227664_8=["<!-- 通过数据的reverse 函数实现数组逆转\n\t（reverse为有副作用的函数，为了消除副作用，需要concat复制后调用） -->\n<c:for var=\"item\" list=\"${list.concat().reverse()}\">\n\t<p>${item}</p>\n</c:for>\n\n<!-- 对数组的偶数位循环 -->\n<c:for var=\"item\" list=\"${list}\">\n\t<p c:if=\"${(for.index+1)%2}\">\n\t\t${item}\n\t</p>\n</c:for>","{list:[1,2,3,4]}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227664_8[0],__id__1478706227664_8[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -261,6 +269,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>

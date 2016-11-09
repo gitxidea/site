@@ -45,7 +45,7 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*</script>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -73,7 +73,9 @@
 			<li> 逻辑与 或 ：&amp;&amp;,|| ； 条件运算：test?a:b
 				<p><i>与JavaScript语义完全一致，&amp;&amp;||运算同时具有条件运算功能。
 				例如：
-				<script>//</script><div class="code"><script>renderSource(__id__1478706227496_68[0],__id__1478706227496_68[1],'');</script></div> 
+				<script>//<![CDATA[
+__id__1478706227496_68=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 输出  true-->\n${true||'str'}\n<!-- 如下两个语法是等价的 -->\n${a ? a : b} 等价于： ${a || b}\n${user.name ? user.name : '匆匆过客'} 等价于 ${user.name || '匆匆过客'} \n</textarea>","{a:0,b:'b',user:{name:null}}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227496_68[0],__id__1478706227496_68[1],'');</script></div> 
 				</i>
 				
 				</p>
@@ -96,10 +98,14 @@
 		<h3>函数调用</h3>
 		<p>Lite 模板支持成员方法和普通函数两种函数调用方式。</p>
 		<p>其中成员方法包括标准JavaScript对象的成员方法，这些函数一般是模板系统内置。
-		<script>//</script><div class="code"><script>renderSource(__id__1478706227497_24[0],__id__1478706227497_24[1],'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227497_24=["${\"abc\".substring(1,2)}\n${[1,2,3,4].join('|')}\n${(1000).toString(16)}","{}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227497_24[0],__id__1478706227497_24[1],'');</script></div>
 		</p>
 		<p>普通函数包括部分内置的JavaScript标准全局函数，同时模板中自定义的函数，也属于这一类型，调用方法完全一致（查看<a href="syntax-def.html">函数定义语法参考</a>）。
-		<script>//</script><div class="code"><script>renderSource(__id__1478706227497_36[0],__id__1478706227497_36[1],'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227497_36=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\")}","{}"];
+//]]></script><div class="code"><script>renderSource(__id__1478706227497_36[0],__id__1478706227497_36[1],'');</script></div>
 		</p>
 		<p>系统内置了JavaScript的大部分标准函数，详细情况请查看:<a href="el-function.html">el-function.xhtml</a>
 		</p>
@@ -274,6 +280,6 @@
 	</div>
 </div>
 		
-		<script>/*</script>
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
 	</body>
 </html>
