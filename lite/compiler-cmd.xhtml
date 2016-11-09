@@ -130,7 +130,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 			<p>
 				<strong>示例</strong>
 			</p>
-			<div class='code'><script>renderSource("java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227413_36=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227413_36[0],__id__1478706227413_36[1],'');</script></div>
 
 			<p title="这是一个java执行命令，命令模式是: java -jar &lt;JARPATH> -arg value -args value1 value2">
 				在这个编译程序中，-jar 用于指定jar库（编译程序）的地址，必须放在最开始的位置；
@@ -173,7 +175,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					他可同时接受多个模式，通过空格分割，模式规则为：*
 					代表某个目录下的任意文件，**
 					代表任意文件和任意级子目录下的任意文件。
-					<div class='code'><script>renderSource("//目录module 下的任意xhtml扩展名的文件\u000a/module/*.xhtml\u000a\u000a//目录module 下的任意文件和任意级任意子目录的任意文件\u000a/module/**\u000a\u000a//任意一个js文件\u000a/**.js\u000a\u000a//任意一个test目录下的文件\u000a**/test/*\u000a\u000a//任意一个包含test文字的目录下的文件\u000a**/*test*/*",null,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227414_76=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227414_76[0],__id__1478706227414_76[1],'');</script></div>
 				</p>
 				<p>
 					直接包含的文件不一定能被打包，因为他可能被excludes 排除。
@@ -189,11 +193,17 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 				<p>
 					<ul>
 						比如
-						<div class='code'><script>renderSource("java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null,'');</script></div>
+						<script>//<![CDATA[
+__id__1478706227414_66=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227414_66[0],__id__1478706227414_66[1],'');</script></div>
 						<br/>
-						<div class='code'><script>renderSource("\u003c!-- file:index.xhtml -->\u000a...\u000a\u003chtml>\u000a\u003chead>\u000a\u003cscript src=\u0022/static/js/a.js\u0022>\u003c/script>\u000a\u003clink src=\u0022/static/css/a.css\u0022>\u003c/link>\u000a\u003c/head>\u000a\u003cbody>\u000a....",null,'');</script></div>
+						<script>//<![CDATA[
+__id__1478706227414_74=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227414_74[0],__id__1478706227414_74[1],'');</script></div>
 						<br/>
-						<div class='code'><script>renderSource("/* file: /static/css/a.css*/\u000a....\u000abody{\u000a	background:url(\u0027/static/img/a.png\u0027);\u000a}\u000a....",null,'');</script></div>
+						<script>//<![CDATA[
+__id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227414_22[0],__id__1478706227414_22[1],'');</script></div>
 						<p>因为文件/index.xhtml 中存在：/static/js/a.js 和 /static/css/a.css 的引用;
 							/static/css/a.css 中存在图片：/static/img/a.png的引用。
 							系统会分析到他们之间的关联，自动间接包含：

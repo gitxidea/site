@@ -78,7 +78,11 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					append(text)
 					<p>
 						用于添加静态文本。
-						<script>api_append="\u003c!-- 扩展html 语法 -->\u000a\u003cc:extension namespace=\u0022http://www.w3.org/1999/xhtml\u0022>\u000a	//我需要一个插件，让所有a标签都加上一个中括弧([]),实现代码如下。\u000a	function parseA(node){\u000a		this.append(\u0027[\u0027);\u000a		//让下一个解析器实现最终解析\u000a		this.next(node);\u000a		this.append(\u0027]\u0027);\u000a	}\u000a\u003c/c:extension>\u000a\u003ca href=\u0022#1\u0022/>\u003ca href=\u0022#2\u0022/>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+						<script>//<![CDATA[
+__id__1478706227675_55=["<!-- 扩展html 语法 -->\n<c:extension namespace=\"http://www.w3.org/1999/xhtml\">\n\t//我需要一个插件，让所有a标签都加上一个中括弧([]),实现代码如下。\n\tfunction parseA(node){\n\t\tthis.append('[');\n\t\t//让下一个解析器实现最终解析\n\t\tthis.next(node);\n\t\tthis.append(']');\n\t}\n</c:extension>\n<a href=\"#1\"/><a href=\"#2\"/>","{}"];
+//]]></script><script>//<![CDATA[
+api_append=__id__1478706227675_55[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_55[0],api_append)'>执行</span>
 					</p>
 				</li>
 				<li>
@@ -86,7 +90,11 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					<p>
 						用于添加一段表达式输出（不编码）
 
-						<script>api_appendEL="\u003c!-- 扩展Example 语法 -->\u000a\u003cdiv xmlns:x=\u0022http://www.xidea.org/lite/example\u0022>\u000a	\u003cc:extension namespace=\u0022http://www.xidea.org/lite/example\u0022>\u000a		/* 扩展content属性(为了简单，没有做IE兼容) */\u000a		function parseEL(node){\u000a			var value = node.textContent;\u000a			this.appendEL(value);\u000a		}\u000a	\u003c/c:extension>\u000a	\u003cx:el>\u0027一年有\u0027+24*365 +\u0027小时在\u0027+action\u003c/x:el>\u000a	\u003cx:el>result\u003c/x:el>\u000a\u003c/div>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+						<script>//<![CDATA[
+__id__1478706227675_38=["<!-- 扩展Example 语法 -->\n<div xmlns:x=\"http://www.xidea.org/lite/example\">\n\t<c:extension namespace=\"http://www.xidea.org/lite/example\">\n\t\t/* 扩展content属性(为了简单，没有做IE兼容) */\n\t\tfunction parseEL(node){\n\t\t\tvar value = node.textContent;\n\t\t\tthis.appendEL(value);\n\t\t}\n\t</c:extension>\n\t<x:el>'一年有'+24*365 +'小时在'+action</x:el>\n\t<x:el>result</x:el>\n</div>","{action:'敲代码',result:'<script\>出个xss漏洞也算正常^_^</script\>'}"];
+//]]></script><script>//<![CDATA[
+api_appendEL=__id__1478706227675_38[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_38[0],api_appendEL)'>执行</span>
 
 						
 					</p>
@@ -95,13 +103,21 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					appendIf(el)
 					<p>
 						用于开始一个条件判断（结束用appendEnd()）
-						<script>api_appendIf="\u003c!-- 扩展html 语法 -->\u000a\u003cc:extension namespace=\u0022http://www.w3.org/1999/xhtml\u0022>\u000a	function parseIf(node){\u000a		var el = node.getAttribute(\u0027test\u0027);\u000a		el = el.replace(/^\u005c$\u005c{([\u005cs\u005cS]+)\u005c}$/,\u0027$1\u0027);\u000a		this.appendIf(el);\u000a		this.parse(node.childNodes);\u000a		this.appendEnd();\u000a	}\u000a\u003c/c:extension>\u000a\u003cif test=\u0022${1\u003c2}\u0022>\u003cdiv>1\u003c2\u003c/div>\u003c/if>\u000a\u003cif test=\u0022${1>2}\u0022>\u003cdiv>1>2\u003c/div>\u003c/if>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+						<script>//<![CDATA[
+__id__1478706227675_58=["<!-- 扩展html 语法 -->\n<c:extension namespace=\"http://www.w3.org/1999/xhtml\">\n\tfunction parseIf(node){\n\t\tvar el = node.getAttribute('test');\n\t\tel = el.replace(/^\\$\\{([\\s\\S]+)\\}$/,'$1');\n\t\tthis.appendIf(el);\n\t\tthis.parse(node.childNodes);\n\t\tthis.appendEnd();\n\t}\n</c:extension>\n<if test=\"${1<2}\"><div>1<2</div></if>\n<if test=\"${1>2}\"><div>1>2</div></if>","{}"];
+//]]></script><script>//<![CDATA[
+api_appendIf=__id__1478706227675_58[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_58[0],api_appendIf)'>执行</span>
 					</p>
 				</li>
 				<li>
 					appendElse(el)
 					<p>用于开始一个条件判断（结束用appendEnd()）
-					<script>api_appendElse="\u003c!-- 扩展html 语法 -->\u000a\u003cc:extension namespace=\u0022http://www.w3.org/1999/xhtml\u0022>\u000a	function parseIf(node){\u000a		var el = node.getAttribute(\u0027test\u0027);\u000a		el = el.replace(/^\u005c$\u005c{([\u005cs\u005cS]+)\u005c}$/,\u0027$1\u0027);\u000a		this.appendIf(el);\u000a		this.parse(node.childNodes);\u000a		this.appendEnd();\u000a	}\u000a	function parseElse(node){\u000a		var el = node.getAttribute(\u0027test\u0027);\u000a		el = el.replace(/^\u005c$\u005c{([\u005cs\u005cS]+)\u005c}$/,\u0027$1\u0027);\u000a		this.appendElse(el || null);\u000a		this.parse(node.childNodes);\u000a		this.appendEnd();\u000a	}\u000a\u003c/c:extension>\u000a\u003cif test=\u0022${1>2}\u0022>\u003cdiv>if: 1>2\u003c/div>\u003c/if>\u000a\u003celse test=\u0022${1\u003c2}\u0022>\u003cdiv>else if : 1\u003c2\u003c/div>\u003c/else>\u000a\u003celse>\u003cdiv>else \u003c/div>\u003c/else>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+					<script>//<![CDATA[
+__id__1478706227675_32=["<!-- 扩展html 语法 -->\n<c:extension namespace=\"http://www.w3.org/1999/xhtml\">\n\tfunction parseIf(node){\n\t\tvar el = node.getAttribute('test');\n\t\tel = el.replace(/^\\$\\{([\\s\\S]+)\\}$/,'$1');\n\t\tthis.appendIf(el);\n\t\tthis.parse(node.childNodes);\n\t\tthis.appendEnd();\n\t}\n\tfunction parseElse(node){\n\t\tvar el = node.getAttribute('test');\n\t\tel = el.replace(/^\\$\\{([\\s\\S]+)\\}$/,'$1');\n\t\tthis.appendElse(el || null);\n\t\tthis.parse(node.childNodes);\n\t\tthis.appendEnd();\n\t}\n</c:extension>\n<if test=\"${1>2}\"><div>if: 1>2</div></if>\n<else test=\"${1<2}\"><div>else if : 1<2</div></else>\n<else><div>else </div></else>","{}"];
+//]]></script><script>//<![CDATA[
+api_appendElse=__id__1478706227675_32[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_32[0],api_appendElse)'>执行</span>
 					
 					</p>
 				</li>
@@ -113,7 +129,11 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					appendFor(varName, el, status)
 					<p>开始一个for循环,el表达式需要是一个符合javascript语法规则的表达式（不允许Core:for 标签中的 .. 语法）</p>
 					<p>el值类型只能有 list(Array),number(循环次数),map（Object，循环key 相当于 JavaScript的 for in 语法）
-						<script>api_appendFor="\u003c!-- 扩展html 语法 -->\u000a\u003cc:extension namespace=\u0022http://www.w3.org/1999/xhtml\u0022>\u000a	function parseFor(node){\u000a		var varName = node.getAttribute(\u0027var\u0027);\u000a		var el = node.getAttribute(\u0027list\u0027);\u000a		var status = node.getAttribute(\u0027status\u0027);\u000a		el = el.replace(/^\u005c$\u005c{([\u005cs\u005cS]+)\u005c}$/,\u0027$1\u0027);\u000a		this.appendFor(varName,el,status);\u000a		this.parse(node.childNodes);\u000a		this.appendEnd();\u000a	}\u000a\u003c/c:extension>\u000a\u003cfor var=\u0022item\u0022 list=\u0022${list}\u0022 status=\u0022status\u0022>\u003cdiv>${item}/${status.index}\u003c/div>\u003c/for>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+						<script>//<![CDATA[
+__id__1478706227675_97=["<!-- 扩展html 语法 -->\n<c:extension namespace=\"http://www.w3.org/1999/xhtml\">\n\tfunction parseFor(node){\n\t\tvar varName = node.getAttribute('var');\n\t\tvar el = node.getAttribute('list');\n\t\tvar status = node.getAttribute('status');\n\t\tel = el.replace(/^\\$\\{([\\s\\S]+)\\}$/,'$1');\n\t\tthis.appendFor(varName,el,status);\n\t\tthis.parse(node.childNodes);\n\t\tthis.appendEnd();\n\t}\n</c:extension>\n<for var=\"item\" list=\"${list}\" status=\"status\"><div>${item}/${status.index}</div></for>","{list:[1,2,3,4]}"];
+//]]></script><script>//<![CDATA[
+api_appendFor=__id__1478706227675_97[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_97[0],api_appendFor)'>执行</span>
 					
 					</p>
 				</li>
@@ -121,7 +141,11 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 					appendXA(attrName, el)
 					<p>添加一个XML 属性，当attrName 为空时，只做属性编码输出，不做属性语法输出（输出判断+属性名=".."）。
 					
-						<script>api_appendXA="\u003c!-- 扩展html 语法 -->\u000a\u003cc:extension namespace=\u0022http://www.w3.org/1999/xhtml\u0022>\u000a	/**\u000a	 * 重新定义 input 解析规则。\u000a	 * 让属性： readonly autofocus checked disabled required 不用带值，标签也可以省去关闭语法\u000a	 */\u000a	function parseInput(node){\u000a		var attributes = node.attributes;\u000a		this.append(\u0027\u003c\u0027+node.tagName);\u000a		for (var i=0; i\u003cattributes.length; i++) {\u000a		    var attr = attributes.item(i);\u000a		    if(/readonly|autofocus|checked|disabled|required/.test(attr.name)){\u000a		    	this.append(\u0022 \u0022+attr.name)\u000a		    }else{\u000a		    	this.parse(attr);\u000a		    }\u000a		}\u000a		this.append(\u0027>\u0027)\u000a	}\u000a\u003c/c:extension>\u000a\u003cinput checked disabled  value=\u0022test\u0022/>";</script><span class='runner' onclick='showExample({"+model+','+varName+")'>执行</span>
+						<script>//<![CDATA[
+__id__1478706227675_50=["<!-- 扩展html 语法 -->\n<c:extension namespace=\"http://www.w3.org/1999/xhtml\">\n\t/**\n\t * 重新定义 input 解析规则。\n\t * 让属性： readonly autofocus checked disabled required 不用带值，标签也可以省去关闭语法\n\t */\n\tfunction parseInput(node){\n\t\tvar attributes = node.attributes;\n\t\tthis.append('<'+node.tagName);\n\t\tfor (var i=0; i<attributes.length; i++) {\n\t\t    var attr = attributes.item(i);\n\t\t    if(/readonly|autofocus|checked|disabled|required/.test(attr.name)){\n\t\t    \tthis.append(\" \"+attr.name)\n\t\t    }else{\n\t\t    \tthis.parse(attr);\n\t\t    }\n\t\t}\n\t\tthis.append('>')\n\t}\n</c:extension>\n<input checked disabled  value=\"test\"/>","{list:[1,2,3,4]}"];
+//]]></script><script>//<![CDATA[
+api_appendXA=__id__1478706227675_50[1];
+//]]></script><span class='runner' onclick='showExample(__id__1478706227675_50[0],api_appendXA)'>执行</span>
 					
 					</p>
 				</li>
@@ -151,21 +175,29 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>示例1</h3>
 		<ul>
 			<p>有没有为javascript多行字符串申明苦恼过？我们可以写一个模板扩展，让这个事情顺利一点。</p>
-			<div class='code'><script>renderSource("\u003chtml xmlns:x=\u0022http://www.xidea.org/lite/example\u0022>\u000a\u003chead>\u000a\u003ctitle>==测试==\u003c/title>\u000a\u003cc:extension namespace=\u0022http://www.xidea.org/lite/example\u0022>\u000a	\u003c![CDATA[\u000a	function parseString(node){\u000a		var text = String(node.textContent || node.text);\u000a		text = text.replace(/^\u005cs*[\u005cr\u005cn]+|[\u005cr\u005cn]+\u005cs*$/g,\u0027\u0027);\u000a		var varName = node.getAttribute(\u0027var\u0027);\u000a		this.append(\u0022\u003cscript>var \u0022\u000a			+varName+\u0027=\u0027+JSON.stringify(text)\u000a			+\u0022;\u003c\u005c/script>\u0022);\u000a	}\u000a	]]>\u000a\u003c/c:extension>\u000a\u003c/head>\u000a\u003cbody>\u000a	\u003cx:string var=\u0022source\u0022>\u000a	\u003c![CDATA[\u000a	\u003chtml>\u000a	\u003cbody>\u000a		随便写点什么\u000a	\u003c/body>\u000a	\u003c/html>\u000a	]]>\u000a	\u003c/x:string>\u000a\u003c/body>\u000a\u003c/html>","{}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227675_5=["<html xmlns:x=\"http://www.xidea.org/lite/example\">\n<head>\n<title>==测试==</title>\n<c:extension namespace=\"http://www.xidea.org/lite/example\">\n\t<![CDATA[\n\tfunction parseString(node){\n\t\tvar text = String(node.textContent || node.text);\n\t\ttext = text.replace(/^\\s*[\\r\\n]+|[\\r\\n]+\\s*$/g,'');\n\t\tvar varName = node.getAttribute('var');\n\t\tthis.append(\"<script>var \"\n\t\t\t+varName+'='+JSON.stringify(text)\n\t\t\t+\";<\\/script>\");\n\t}\n\t]\]>\n</c:extension>\n</head>\n<body>\n\t<x:string var=\"source\">\n\t<![CDATA[\n\t<html>\n\t<body>\n\t\t随便写点什么\n\t</body>\n\t</html>\n\t]\]>\n\t</x:string>\n</body>\n</html>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227675_5[0],__id__1478706227675_5[1],'');</script></div>
 		</ul>
 		<h3>示例2</h3>
 		<ul>
 			<p>有时候，我们需要吧一些有换行的文本显示成换行，但是，有希望代码是编码安全的。通常，这种功能只能通过内置函数实现。
 				现在，我们尝试用一个插件解决这个问题。
 			</p>
-			<div class='code'><script>renderSource("\u003chtml xmlns:x=\u0022http://www.xidea.org/lite/example\u0022>\u000a\u003chead>\u000a\u003ctitle>==测试==\u003c/title>\u000a\u003cc:extension namespace=\u0022http://www.xidea.org/lite/example\u0022>\u000a	\u003c![CDATA[\u000a	function parseNL2BR(node){\u000a		var text = String(node.textContent || node.text);\u000a		var varId = this.allocateId();\u000a		//生成内容\u000a		this.appendCapture(varId)\u000a		//以不编码的方式捕捉内容\u000a		var list = this.parseText(text,0);\u000a		this.appendAll(list);\u000a		this.appendEnd();\u000a		\u000a		//将生成内容按行劈成数组，循环安全输出\u000a		var forId = this.allocateId();\u000a		this.appendFor(forId,varId+\u0022.split(\u0027\u005c\u005cn\u0027)\u0022,null);\u000a		this.appendXT(forId);\u000a		this.append(\u0022\u003cbr/>\u0022);\u000a		this.appendEnd();\u000a	}\u000a	]]>\u000a\u003c/c:extension>\u000a\u003c/head>\u000a\u003cbody>\u000a	\u003cx:nl2br>随便写点什么，\u000a	变量也行${text}\u000a	\u003c/x:nl2br>\u000a\u003c/body>\u000a\u003c/html>","{text: \u0027 abc \u005c ndef \u005c nghi \u005c n\u000d\u000a				\u003cscript>\u000d\u000a					该编码的还是的编码\u003c\u005c/script>\u0027}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227676_84=["<html xmlns:x=\"http://www.xidea.org/lite/example\">\n<head>\n<title>==测试==</title>\n<c:extension namespace=\"http://www.xidea.org/lite/example\">\n\t<![CDATA[\n\tfunction parseNL2BR(node){\n\t\tvar text = String(node.textContent || node.text);\n\t\tvar varId = this.allocateId();\n\t\t//生成内容\n\t\tthis.appendCapture(varId)\n\t\t//以不编码的方式捕捉内容\n\t\tvar list = this.parseText(text,0);\n\t\tthis.appendAll(list);\n\t\tthis.appendEnd();\n\t\t\n\t\t//将生成内容按行劈成数组，循环安全输出\n\t\tvar forId = this.allocateId();\n\t\tthis.appendFor(forId,varId+\".split('\\\\n')\",null);\n\t\tthis.appendXT(forId);\n\t\tthis.append(\"<br/>\");\n\t\tthis.appendEnd();\n\t}\n\t]\]>\n</c:extension>\n</head>\n<body>\n\t<x:nl2br>随便写点什么，\n\t变量也行${text}\n\t</x:nl2br>\n</body>\n</html>","{text: ' abc \\ ndef \\ nghi \\ n\r\n\t\t\t\t<script\>\r\n\t\t\t\t\t该编码的还是的编码<\\/script\>'}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227676_84[0],__id__1478706227676_84[1],'');</script></div>
 		</ul>
 		<h3>真实运用示例</h3>
 		<ul>
 			<p>该文档系统中，有个常用的模板语法扩展:代码着色语法，该语法的书写形式如：。</p>
-			<div class='code'><script>renderSource("\u003c!-- modelVar 属性用来指定一个模板数据模型，如果存在，她会生成一个运行按钮 -->\u000a\u003cx:code model=\u0022modelVar\u0022>\u003c![CDATA[\u000a	...这里你可以任意书写源码了,系统会自动作色...\u000a]]>\u003c/x:code>",null,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227676_79=["<!-- modelVar 属性用来指定一个模板数据模型，如果存在，她会生成一个运行按钮 -->\n<x:code model=\"modelVar\"><![CDATA[\n\t...这里你可以任意书写源码了,系统会自动作色...\n]\]></x:code>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227676_79[0],__id__1478706227676_79[1],'');</script></div>
 			<p>这个插件的实现在吗在layout.xhtml 中。片段如下。</p>
-			<div class='code'><script>renderSource("\u003cc:extension namespace=\u0022http://www.xidea.org/lite/example\u0022>\u000a	\u003c![CDATA[\u000a		var style = \u0027border: 1px solid #DFECF1;\u0027\u000a    			+\u0027font-family:\u0022Courier New\u0022,monospace;\u0027\u000a    			+\u0027padding:4px;margin:4px;\u0027\u000a    			+\u0027font-size:12px;overflow:auto;\u0027\u000a    			+\u0027background-color:#EEE;border:1px solid #222;\u0027;\u000a		//代码高亮标签解析器\u000a		function parseCode(node){\u000a			var text = String(node.textContent || node.text);\u000a			//清理相同的前置缩进\u000a			text = text.replace(/^\u005cs*[\u005cr\u005cn]+|[\u005cr\u005cn]+\u005cs*$/g,\u0027\u0027);\u000a			while(/^(?:[\u005ct ].*[\u005cr\u005cn]*)*$/.test(text)){\u000a				text = text.replace(/^[\u005ct ](.*)/mg,\u0027$1\u0027);\u000a			}\u000a			text = JSON.stringify(text);\u000a			//用于申明多行字符串\u000a			var varName = node.getAttribute(\u0022var\u0022);\u000a			if(varName){\u000a				this.append(\u0022\u003cscript>\u0022 + varName+\u0027=\u0027 +text+\u0022;\u003c\u005c/script>\u0022)\u000a			}else{\u000a				var model = node.getAttribute(\u0022model\u0022);\u000a				if(model){\u000a					if(/^\u005cs*\u005c{$/.test(model)){\u000a						model = JSON.stringify(text)\u000a					}\u000a					model = \u0027,\u0027+model+\u0027\u0027;\u000a				}\u000a				this.append(\u0022\u003cdiv class=\u0027code\u0027>\u003cscript>renderSource(\u0022+text+model+\u0022);\u003c\u005c/script>\u003c/div>\u0022)\u000a			}\u000a		};\u000a\u000a				]]>\u000a				\u003c/c:extension>",null,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227676_45=["<c:extension namespace=\"http://www.xidea.org/lite/example\">\n\t<![CDATA[\n\t\tvar style = 'border: 1px solid #DFECF1;'\n    \t\t\t+'font-family:\"Courier New\",monospace;'\n    \t\t\t+'padding:4px;margin:4px;'\n    \t\t\t+'font-size:12px;overflow:auto;'\n    \t\t\t+'background-color:#EEE;border:1px solid #222;';\n\t\t//代码高亮标签解析器\n\t\tfunction parseCode(node){\n\t\t\tvar text = String(node.textContent || node.text);\n\t\t\t//清理相同的前置缩进\n\t\t\ttext = text.replace(/^\\s*[\\r\\n]+|[\\r\\n]+\\s*$/g,'');\n\t\t\twhile(/^(?:[\\t ].*[\\r\\n]*)*$/.test(text)){\n\t\t\t\ttext = text.replace(/^[\\t ](.*)/mg,'$1');\n\t\t\t}\n\t\t\ttext = JSON.stringify(text);\n\t\t\t//用于申明多行字符串\n\t\t\tvar varName = node.getAttribute(\"var\");\n\t\t\tif(varName){\n\t\t\t\tthis.append(\"<script>\" + varName+'=' +text+\";<\\/script>\")\n\t\t\t}else{\n\t\t\t\tvar model = node.getAttribute(\"model\");\n\t\t\t\tif(model){\n\t\t\t\t\tif(/^\\s*\\{$/.test(model)){\n\t\t\t\t\t\tmodel = JSON.stringify(text)\n\t\t\t\t\t}\n\t\t\t\t\tmodel = ','+model+'';\n\t\t\t\t}\n\t\t\t\tthis.append(\"<div class='code'><script>renderSource(\"+text+model+\");<\\/script></div>\")\n\t\t\t}\n\t\t};\n\n\t\t\t\t]\]>\n\t\t\t\t</c:extension>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227676_45[0],__id__1478706227676_45[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

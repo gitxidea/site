@@ -68,11 +68,15 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 				</p>
 				<p>
 					示例
-					<div class='code'><script>renderSource("\u003cspan>\u000a您好：\u000a	\u003cc:if test=\u0022${displayName}\u0022>${displayName}\u003c/c:if>\u000a	\u003cc:else test=\u0022${loginName}\u0022>${loginName}\u003c/c:else>\u000a	\u003cc:else>匆匆过客\u003c/c:else>；\u000a今天是：\u000a	\u003cc:if test=\u0022${day>5}\u0022>休息\u003c/c:if>\u000a	\u003cc:else>工作\u003c/c:else>日\u000a\u003c/span>","{day:2}",'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227656_51=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227656_51[0],__id__1478706227656_51[1],'');</script></div>
 					<p>
 						<i>
 							小技巧1： JavaScript 与或运算（JavaScript与或技巧）和三目运算符号，也可以解决上述问题。语法如下：
-							<div class='code'><script>renderSource("\u003cspan>您好：${displayName||loginName||\u0027匆匆过客\u0027}；今天是：${day>5?\u0027休息\u0027:\u0027工作\u0027}日\u003c/span>","{day:2}",'');</script></div>
+							<script>//<![CDATA[
+__id__1478706227656_12=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227656_12[0],__id__1478706227656_12[1],'');</script></div>
 						</i>
 					</p>
 				</p>
@@ -82,7 +86,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 				<strong>for 循环中的else 语法</strong>
 				<p>
 					else 语法可以直接接for循环，用来处理空循环分支
-					<div class='code'><script>renderSource("\u003cc:for var=\u0022item\u0022 list=\u0022${result}\u0022>\u000a	${item}\u000a\u003c/c:for>\u000a\u003cc:else>\u000a	没有你需要的数据\u000a\u003c/c:else>","{result:[]}",'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227656_63=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227656_63[0],__id__1478706227656_63[1],'');</script></div>
 				</p>
 				<p>
 					<i>

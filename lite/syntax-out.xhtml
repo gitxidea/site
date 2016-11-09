@@ -117,9 +117,13 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 				
 		<h3>示例</h3>
 		<ul>
-			<script>blogModel="{\u000a	author:{\u000a		//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\u000a		username:\u0027危险分子 \u003cscript>\u0027,\u000a		//打破属性规则，插入危险代码\u000a		title:\u0027坏蛋！ \u0022 onclick=\u0022alert(\u005c\u0027插入危险代码成功!!\u005c\u0027)\u0027,\u000a		disabled:false\u000a	},\u000a	blog:{\u000a		\u0027title\u0027:\u0027html特殊字符：&\u003c\u0022\u0027,\u000a		\u0027content\u0027:\u0027lite应该怎么自动编码这些特殊字符呢？\u0027+\u000a				\u0027XML特殊字符有两个:&\u003c，加上属性括弧\u0022,一共三个\u0027+\u000a				\u0027（LiteXML属性括弧一律自动转化为\u0022）；\u0027+\u000a				\u0027只要编码好这些特殊字符，用户就很难插入危险代码了。\u005cn\u005cn\u0027+\u000a				\u0027但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。\u0027+\u000a				\u0027我们还要让这些字符实体不过度转义。\u0027\u000a	}\u000a}";</script>
+			<script>//<![CDATA[
+__id__1478706227703_22=["{\n\tauthor:{\n\t\t//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\n\t\tusername:'危险分子 <script>',\n\t\t//打破属性规则，插入危险代码\n\t\ttitle:'坏蛋！ \" onclick=\"alert(\\'插入危险代码成功!!\\')',\n\t\tdisabled:false\n\t},\n\tblog:{\n\t\t'title':'html特殊字符：&<\"',\n\t\t'content':'lite应该怎么自动编码这些特殊字符呢？'+\n\t\t\t\t'XML特殊字符有两个:&<，加上属性括弧\",一共三个'+\n\t\t\t\t'（LiteXML属性括弧一律自动转化为\"）；'+\n\t\t\t\t'只要编码好这些特殊字符，用户就很难插入危险代码了。\\n\\n'+\n\t\t\t\t'但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。'+\n\t\t\t\t'我们还要让这些字符实体不过度转义。'\n\t}\n}",null];
+//]]></script>
 
-			<div class='code'><script>renderSource("\u003c!-- 自动编码，免遭一劫 -->\u000a\u003cspan class=\u0022user\u0022 title=\u0022${author.title}\u0022>${author.username}\u003c/span>\u000a\u000a....\u000a\u003c!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\u000a\u003cinput type=\u0022submit\u0022 value=\u0022发表留言\u0022 disabled=\u0022${author.disabled||null}\u0022/>\u000a\u000a\u000a		\u000a\u003c!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\u000a\u003c!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\u000a\u003cp title=\u0022${blog.title}\u0022>${blog.content}\u003c/p>\u000a\u003c!-- 避免过度转义： 网开一面的$#{...} 语法！-->\u000a\u003cp title=\u0022${blog.title}\u0022>$#{blog.content}\u003c/p>\u000a\u000a\u003c!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\u000a\u003cp title=\u0022$!{blog.title}\u0022>$!{blog.content}\u003c/p>",blogModel,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"user\" title=\"${author.title}\">${author.username}</span>\n\n....\n<!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\n<input type=\"submit\" value=\"发表留言\" disabled=\"${author.disabled||null}\"/>\n\n\n\t\t\n<!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\n<!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\n<p title=\"${blog.title}\">${blog.content}</p>\n<!-- 避免过度转义： 网开一面的$#{...} 语法！-->\n<p title=\"${blog.title}\">$#{blog.content}</p>\n\n<!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\n<p title=\"$!{blog.title}\">$!{blog.content}</p>",blogModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227703_14[0],__id__1478706227703_14[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

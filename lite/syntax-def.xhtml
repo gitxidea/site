@@ -66,9 +66,13 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		</p>
 		<h3>用法示例</h3>
 		<ul>
-		<div class='code'><script>renderSource("\u003cc:def name=\u0022max(a,b)\u0022>\u000a${a>b?a:b}\u000a\u003c/c:def>\u000a\u003cspan>${max(1000,200)}\u003c/span>","{}",'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227630_80=["<c:def name=\"max(a,b)\">\n${a>b?a:b}\n</c:def>\n<span>${max(1000,200)}</span>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227630_80[0],__id__1478706227630_80[1],'');</script></div>
 		<br/><br/>
-		<div class='code'><script>renderSource("\u003cc:def name=\u0022showList(list,target=\u0027_blank\u0027)\u0022>\u000a	\u003cc:for var=\u0022a\u0022 list=\u0022${list}\u0022>\u000a		\u003cli>\u003ca href=\u0022${a.href}\u0022 target=\u0022${target}\u0022>${for.index}:${a.text}\u003c/a>\u003c/li>\u000a	\u003c/c:for>\u000a\u003c/c:def>\u000a\u003cul>$!{showList(list)}\u003c/ul>\u000a\u003cul>$!{showList(list,\u0027_self\u0027)}\u003c/ul>","{list:[{href:\u0027#1\u0027,text:\u0027a1\u0027},{href:\u0027#2\u0027,text:\u0027a2\u0027},{href:\u0027#3\u0027,text:\u0027a3\u0027}]}",'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227630_68=["<c:def name=\"showList(list,target='_blank')\">\n\t<c:for var=\"a\" list=\"${list}\">\n\t\t<li><a href=\"${a.href}\" target=\"${target}\">${for.index}:${a.text}</a></li>\n\t</c:for>\n</c:def>\n<ul>$!{showList(list)}</ul>\n<ul>$!{showList(list,'_self')}</ul>","{list:[{href:'#1',text:'a1'},{href:'#2',text:'a2'},{href:'#3',text:'a3'}]}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227630_68[0],__id__1478706227630_68[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

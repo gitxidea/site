@@ -75,16 +75,22 @@ onclick="showNext(this,this.parentNode,&#34;展开示例&#34;,&#34;隐藏示例&
 				<h4>最简模板示例</h4>
 				<p>
 					以显示一个简单的个人信息为例，形式如：
-					<div class='code'><script>renderSource("\u003chtml>\u000a\u003ctitle>模板测试\u003c/title>\u000a\u003cbody>\u000a我是：张三,来自：北京\u000a\u003c/body>\u000a\u003c/html>",null,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227572_45=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227572_45[0],__id__1478706227572_45[1],'');</script></div>
 				</p>
 				<p>
 					其中，姓名 "张三" 和城市 "北京" 需要从后端获取，后端数据模型如下：
-					<script>testModel="{\u000a\u0022name\u0022: \u0022张三\u0022,\u000a\u0022city\u0022:\u0022北京\u0022\u000a}";</script><div class='code'><script>renderSource("{\u000a\u0022name\u0022: \u0022张三\u0022,\u000a\u0022city\u0022:\u0022北京\u0022\u000a}",null,'/testmodel.json');</script></div>
+					<script>//<![CDATA[
+__id__1478706227572_38=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
+//]]></script><script>testModel=__id__1478706227572_38[0];</script><div class='code'><script>renderSource(__id__1478706227572_38[0],__id__1478706227572_38[1],'/testmodel.json');</script></div>
 				</p>
 				<p>
 					为了实现上述内容的动态展示，我们需要编写一个简单的模板：
 					<script>var testModel = editorMap['/testmodel.json'].getValue();</script>
-					<div class='code'><script>renderSource("\u003chtml>\u000a	\u003ctitle>模板测试\u003c/title>\u000a	\u003cbody>\u000a		我是：${name},来自：${city}\u000a	\u003c/body>\u000a\u003c/html>",testModel,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227573_59=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227573_59[0],__id__1478706227573_59[1],'');</script></div>
 				</p>
 			</ul>
 		</div>
@@ -143,8 +149,12 @@ onclick="showNext(this,this.parentNode,&#34;展开示例&#34;,&#34;隐藏示例&
 				<strong>基于 JavaScript</strong>
 				<p>
 					兼容JavaScript的表达式和函数库，方便前端工程师学习。
-					<script>elModel="{\u000a	\u0022object\u0022:{\u0022key\u0022:\u0022value\u0022},\u000a	\u0022a\u0022:1,\u0022b\u0022:2,\u0022c\u0022:3,\u0022d\u0022:4,\u0022e\u0022:5,\u0022f\u0022:6,\u000a	\u0022array\u0022:[1,2,3,4],\u000a	\u0022str\u0022:\u0022testString\u0022\u000a}";</script>
-					<div class='code'><script>renderSource("\u003ctextarea>\u000a//表达式示例:\u000a${JSON.stringify(object)}\u000a${[a,b,c].concat(d,[e,f]).join(\u0027,\u0027)}\u000a${[a,b,c,d].concat(array).length}\u000a${str.charAt(0)}\u000a${str.substring(1,2)}\u000a\u003c/textarea>",elModel,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227573_37=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
+//]]></script>
+					<script>//<![CDATA[
+__id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227573_90[0],__id__1478706227573_90[1],'');</script></div>
 				</p>
 				<p>
 					基于JavaScript的扩展机制，可以轻松扩展模板语法，方便前端工程师二次开发。

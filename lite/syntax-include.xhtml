@@ -68,7 +68,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<p>该功能运用并不广泛,更多场景我们建议采用模板继承的思想实现:<a href="syntax-extends.xhtml">syntax-extends.xhtml</a></p>
 		<h3>用法示例</h3>
 		<ul>
-		<div class='code'><script>renderSource("\u003cc:include path=\u0022menu.xhtml\u0022/>\u000a\u003cc:include path=\u0022controls.xhtml\u0022 xpath=\u0022//*[@id=\u0027pageList\u0027]\u0022/>\u000a\u003cc:include path=\u0022${page}\u0022 xpath=\u0022//xhtml:body\u0022/>",null,'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227712_71=["<c:include path=\"menu.xhtml\"/>\n<c:include path=\"controls.xhtml\" xpath=\"//*[@id='pageList']\"/>\n<c:include path=\"${page}\" xpath=\"//xhtml:body\"/>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227712_71[0],__id__1478706227712_71[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

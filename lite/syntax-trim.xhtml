@@ -86,9 +86,13 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		</p>
 		<h3>用法示例</h3>
 		<ul>
-		<div class='code'><script>renderSource("\u003chtml>\u000a\u003cbody>\u000a\u003c!-- 这个注释会自动清理 -->\u000a\u003c!--[if IE 5]>\u000a	\u003cp>IE 条件注释不能清理\u003c/p>\u000a	\u003cp>但是你必须保证注释内的标签是完整的，不能有始（开始节点）无终（关闭节点）或者有终（关闭节点）无始（开始节点）\u003c/p>\u000a\u003c![endif]-->\u000a\u000a\u003c!--[if IE9]>\u003c!-->\u000a	\u003cp>IE 9 或者非IE展示此行\u003c/p>\u000a\u003c!--\u003c![endif]-->\u000a\u003c/body>\u000a\u003c/html>","{}",'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227689_2=["<html>\n<body>\n<!-- 这个注释会自动清理 -->\n<!--[if IE 5]>\n\t<p>IE 条件注释不能清理</p>\n\t<p>但是你必须保证注释内的标签是完整的，不能有始（开始节点）无终（关闭节点）或者有终（关闭节点）无始（开始节点）</p>\n<![endif]-->\n\n<!--[if IE9]><!-->\n\t<p>IE 9 或者非IE展示此行</p>\n<!--<![endif]-->\n</body>\n</html>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227689_2[0],__id__1478706227689_2[1],'');</script></div>
 		<br/><br/>
-		<div class='code'><script>renderSource("\u003c!-- 从根节点上设置一个trim规则（全删除） -->\u000a\u003chtml h:trim=\u0022true\u0022>\u000a	\u003c!-- 这里多余的语法空白都会删除 -->\u000a	\u003chead>\u000a		\u003ctitle>test\u003c/title>\u000a	\u003c/head>\u000a	\u003cbody>\u000a		\u003cp>中间的十个空格          也会压缩成一个\u003c/p>\u000a		\u003ctextarea>\u000a			这里的    语法空白会强制保留。\u000a		\u003c/textarea>\u000a		\u000a		\u003c!-- textarea pre 外面都会因为html 设置了trim而全部删除 -->\u000a		\u003cpre>\u000a			aa     bb\u000a		\u003c/pre>\u000a		\u000a		\u003cp h:trim=\u0022null\u0022>\u000a			开辟了一块自留地，这里的空格将按默认规则，只压缩首尾多余的空格（连续两个或以上）\u000a		\u003c/p>\u000a		\u000a		\u003cp h:trim=\u0022false\u0022>\u000a			再开辟一块自留地，这里的空格会全部保留。\u000a		\u003c/p>\u000a	\u003c/body>\u000a\u003c/html>","{}",'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227690_65=["<!-- 从根节点上设置一个trim规则（全删除） -->\n<html h:trim=\"true\">\n\t<!-- 这里多余的语法空白都会删除 -->\n\t<head>\n\t\t<title>test</title>\n\t</head>\n\t<body>\n\t\t<p>中间的十个空格          也会压缩成一个</p>\n\t\t<textarea>\n\t\t\t这里的    语法空白会强制保留。\n\t\t</textarea>\n\t\t\n\t\t<!-- textarea pre 外面都会因为html 设置了trim而全部删除 -->\n\t\t<pre>\n\t\t\taa     bb\n\t\t</pre>\n\t\t\n\t\t<p h:trim=\"null\">\n\t\t\t开辟了一块自留地，这里的空格将按默认规则，只压缩首尾多余的空格（连续两个或以上）\n\t\t</p>\n\t\t\n\t\t<p h:trim=\"false\">\n\t\t\t再开辟一块自留地，这里的空格会全部保留。\n\t\t</p>\n\t</body>\n</html>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227690_65[0],__id__1478706227690_65[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

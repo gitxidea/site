@@ -67,7 +67,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		</p>
 		<p>
 			示例：
-			<div class='code'><script>renderSource("\u003chtml>\u000a\u003cbody>\u000a	\u003c!--   简单变量值 -->\u000a	\u003cp>您好：${user.name}\u003c/p> \u000a	\u003c!-- 比较表达式，给条件判断提供数据 -->\u000a	\u003cc:if test=\u0022${user.age\u003c28}\u0022>\u000a		\u003cp>年轻的朋友，五四青年节有半天公假，可别忘了！\u003c/p>\u000a		\u003cp>你一共还有${28 - user.age}次机会：）\u003c/p>\u000a	\u003c/c:if>\u000a	\u003cc:else>\u000a		\u003cp>可怜的中年人，五四青年节与你无缘了：（\u003c/p>\u000a	\u003c/c:else>\u000a\u003c/body>\u000a\u003c/html>","{\u0022user\u0022:{\u0022name\u0022:\u0022张三\u0022,\u0022age\u0022:27}}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您好：${user.name}</p> \n\t<!-- 比较表达式，给条件判断提供数据 -->\n\t<c:if test=\"${user.age<28}\">\n\t\t<p>年轻的朋友，五四青年节有半天公假，可别忘了！</p>\n\t\t<p>你一共还有${28 - user.age}次机会：）</p>\n\t</c:if>\n\t<c:else>\n\t\t<p>可怜的中年人，五四青年节与你无缘了：（</p>\n\t</c:else>\n</body>\n</html>","{\"user\":{\"name\":\"张三\",\"age\":27}}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227524_81[0],__id__1478706227524_81[1],'');</script></div>
 		</p>
 		<h3>相关参考</h3>
 		<ul>

@@ -59,14 +59,18 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>本质上是if/else语法的另外一种形式。</h3>
 		<ul>
 			<strong>示例：</strong>
-			<div class='code'><script>renderSource("\u003cdiv> \u000a  今天是：\u003cspan>\u000a		\u003cc:choose value=\u0022${day}\u0022>\u000a			\u003cc:when test=\u0022${0}\u0022>周一\u003c/c:when>\u000a			\u003cc:when test=\u0022${1}\u0022>周二\u003c/c:when>\u000a			\u003cc:when test=\u0022${2}\u0022>周三\u003c/c:when>\u000a			\u003cc:when test=\u0022${3}\u0022>周四\u003c/c:when>\u000a			\u003cc:when test=\u0022${4}\u0022>周五\u003c/c:when>\u000a			\u003cc:when test=\u0022${5}\u0022>周六\u003c/c:when>\u000a			\u003cc:otherwise>周日\u003c/c:otherwise>\u000a		\u003c/c:choose>\u000a	\u003c/span>\u000a\u003c/div>","{day:1}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227606_30=["<div> \n  今天是：<span>\n\t\t<c:choose value=\"${day}\">\n\t\t\t<c:when test=\"${0}\">周一</c:when>\n\t\t\t<c:when test=\"${1}\">周二</c:when>\n\t\t\t<c:when test=\"${2}\">周三</c:when>\n\t\t\t<c:when test=\"${3}\">周四</c:when>\n\t\t\t<c:when test=\"${4}\">周五</c:when>\n\t\t\t<c:when test=\"${5}\">周六</c:when>\n\t\t\t<c:otherwise>周日</c:otherwise>\n\t\t</c:choose>\n\t</span>\n</div>","{day:1}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227606_30[0],__id__1478706227606_30[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
 				<i>
 					小技巧1： JavaScript 数组和与或运算也可以解决类似问题：
 					<ul>
-					<div class='code'><script>renderSource("\u003cdiv>\u000a今天是：\u003cspan>周${\u0022一二三四五六日\u0022.charAt(day)}\u003c/span>\u000a------------------\u000a或者：\u000a\u000a今天是：\u003cspan>周${day == 0 && \u0027一\u0027 ||\u000a				 day == 1 && \u0027二\u0027 ||\u000a				 day == 2 && \u0027三\u0027 || \u000a				 day == 3 && \u0027四\u0027 || \u000a				 day == 4 && \u0027五\u0027 || \u000a				 day == 5 && \u0027六\u0027 || \u000a				 day == 6 && \u0027日\u0027}\u003c/span>\u000a\u003c/div>","{day:1}",'');</script></div></ul>
+					<script>//<![CDATA[
+__id__1478706227606_2=["<div>\n今天是：<span>周${\"一二三四五六日\".charAt(day)}</span>\n------------------\n或者：\n\n今天是：<span>周${day == 0 && '一' ||\n\t\t\t\t day == 1 && '二' ||\n\t\t\t\t day == 2 && '三' || \n\t\t\t\t day == 3 && '四' || \n\t\t\t\t day == 4 && '五' || \n\t\t\t\t day == 5 && '六' || \n\t\t\t\t day == 6 && '日'}</span>\n</div>","{day:1}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227606_2[0],__id__1478706227606_2[1],'');</script></div></ul>
 				</i>
 			</p>
 		</p>

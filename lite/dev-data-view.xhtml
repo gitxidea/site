@@ -64,7 +64,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>如何扩展</h3>
 		<ul>
 			<li>重写DataView.render 方法
-			<div class='code'><script>renderSource("var defaultRender = DataView.render;\u000aDataView.render = function(){\u000a	//在原有render之前打印一些样式如何?\u000a	document.write(\u0027\u003cstyle>html body{background-color:red}\u003c/style>\u0027);\u000a	//别忘了运行默认的渲染器,除非你想自己完全控制代码调试界面\u000a	defaultRender.apply(this,arguments);\u000a	//在后面添加两个按钮吧?\u000a	document.write(\u0022\u003cinput type=\u0027button\u0027 value=\u0027测试\u0027 onclick=\u005c\u0022alert(\u0027hello world\u0027)\u005c\u0022/>\u0022);\u000a}	",null,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227465_5=["var defaultRender = DataView.render;\nDataView.render = function(){\n\t//在原有render之前打印一些样式如何?\n\tdocument.write('<style>html body{background-color:red}</style>');\n\t//别忘了运行默认的渲染器,除非你想自己完全控制代码调试界面\n\tdefaultRender.apply(this,arguments);\n\t//在后面添加两个按钮吧?\n\tdocument.write(\"<input type='button' value='测试' onclick=\\\"alert('hello world')\\\"/>\");\n}\t",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227465_5[0],__id__1478706227465_5[1],'');</script></div>
 			</li>
 			<li>覆盖DataView其他行为方法</li>
 			<li><p>待续.....</p></li>

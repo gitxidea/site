@@ -85,7 +85,9 @@ onclick="showNext(this,this.parentNode,&#34;展开安装说明&#34;,&#34;隐藏�
 onclick="showNext(this,this.parentNode,&#34;展开web.xml(Java)&#34;,&#34;隐藏web.xml(Java)&#34;);return false">展开web.xml(Java)</a>
 				]</p>
 				<div style="display:none">
-					<div class='code'><script>renderSource("\u003cweb-app xmlns=\u0022http://java.sun.com/xml/ns/j2ee\u0022 version=\u00222.4\u0022>\u000a	\u003c!-- base info  略.... -->\u000a	\u003c!-- servlet info -->\u000a	\u003cservlet>\u000a		\u003cservlet-name>LiteXML\u003c/servlet-name>\u000a		\u003cservlet-class>org.xidea.lite.servlet.TemplateServlet\u003c/servlet-class>\u000a		\u003c!-- debug support config -->\u000a		\u003cinit-param>\u000a			\u003cparam-name>debugService\u003c/param-name>\u000a			\u003cparam-value>/.debug.xhtml\u003c/param-value>\u000a		\u003c/init-param>\u000a	\u003c/servlet>\u000a	\u003c!-- servlet mapping info -->\u000a	\u003cservlet-mapping>\u000a		\u003cservlet-name>LiteXML\u003c/servlet-name>\u000a		\u003curl-pattern>*.xhtml\u003c/url-pattern>\u000a	\u003c/servlet-mapping>\u000a	\u003c!-- other info 略.... -->\u000a	\u000a\u003c/web-app>",null,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227581_33=["<web-app xmlns=\"http://java.sun.com/xml/ns/j2ee\" version=\"2.4\">\n\t<!-- base info  略.... -->\n\t<!-- servlet info -->\n\t<servlet>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<servlet-class>org.xidea.lite.servlet.TemplateServlet</servlet-class>\n\t\t<!-- debug support config -->\n\t\t<init-param>\n\t\t\t<param-name>debugService</param-name>\n\t\t\t<param-value>/.debug.xhtml</param-value>\n\t\t</init-param>\n\t</servlet>\n\t<!-- servlet mapping info -->\n\t<servlet-mapping>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<url-pattern>*.xhtml</url-pattern>\n\t</servlet-mapping>\n\t<!-- other info 略.... -->\n\t\n</web-app>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227581_33[0],__id__1478706227581_33[1],'');</script></div>
 				</div>
 			</li>
 			<li>
@@ -96,14 +98,20 @@ onclick="showNext(this,this.parentNode,&#34;展开web.xml(Java)&#34;,&#34;隐藏
 			<li>
 				NodeJS环境搭建<a name="nodejs"></a>
 				<ul>
-					<li>安装：<div class='code'><script>renderSource("npm install lite",null,'');</script></div>
+					<li>安装：<script>//<![CDATA[
+__id__1478706227582_30=["npm install lite",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227582_30[0],__id__1478706227582_30[1],'');</script></div>
 						<p><i>如果被墙了，也可手动下载<a href="http://code.google.com/p/lite/downloads/list"> nodelite-YYYYMMDD.tgz</a>，解压到当前目录的node_modules/目录下完成安装</i></p>
 					</li>
 					<li>简单测试:
-						<div class='code'><script>renderSource("//启动测试服务器， 直接浏览模板，模板的同名json即模拟数据。\u000anew (require(\u0027lite\u0027).LiteEngine)(\u0027./\u0027).	startTestServer(\u0022127.0.0.1\u0022,1985);",null,'');</script></div>
+						<script>//<![CDATA[
+__id__1478706227582_66=["//启动测试服务器， 直接浏览模板，模板的同名json即模拟数据。\nnew (require('lite').LiteEngine)('./').\tstartTestServer(\"127.0.0.1\",1985);",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227582_66[0],__id__1478706227582_66[1],'');</script></div>
 					</li>
 					<li>代码示例：
-						<div class='code'><script>renderSource("var LiteEngine = require(\u0027lite\u0027).LiteEngine;\u000avar root =__dirname;\u000avar liteEngine = new LiteEngine(root);\u000a.....\u000a	// 传入模板路径(以\u0027/\u0027开头)，模型对象(Object描述的key->value集)，\u000a	// response 对象:用于模板渲染时输出 head(response.writeHead())/内容(response.write())\u000a	// 并结束请求(response.end())\u000a	liteEngine.render(path,data,response);\u000a	//传入模型生成函数，用于提前输出静态内容(如script标签)，优化加载性能。\u000a	liteEngine.render(path,callback,response);",null,'');</script></div>
+						<script>//<![CDATA[
+__id__1478706227582_16=["var LiteEngine = require('lite').LiteEngine;\nvar root =__dirname;\nvar liteEngine = new LiteEngine(root);\n.....\n\t// 传入模板路径(以'/'开头)，模型对象(Object描述的key->value集)，\n\t// response 对象:用于模板渲染时输出 head(response.writeHead())/内容(response.write())\n\t// 并结束请求(response.end())\n\tliteEngine.render(path,data,response);\n\t//传入模型生成函数，用于提前输出静态内容(如script标签)，优化加载性能。\n\tliteEngine.render(path,callback,response);",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227582_16[0],__id__1478706227582_16[1],'');</script></div>
 					</li>
 				</ul>
 				
@@ -116,7 +124,9 @@ onclick="showNext(this,this.parentNode,&#34;展开web.xml(Java)&#34;,&#34;隐藏
 		<p>
 			如果你采用的是UTF-8编码,那么你一般可以忽略掉Lite的配置(系统默认值).
 			如果您希望自定义一些信息(最常见的是 ContentType输出), 那么您需要手写lite.xml文件.
-			<div class='code'><script>renderSource("\u003clite encoding=\u0022utf-8\u0022>\u000a	\u003cgroup contentType=\u0022application/wml;charset=utf-8\u0022>\u000a		\u003cinclude>/*.wml\u003c/include>\u000a	\u003c/group>\u000a	\u003c!-- contentType 默认值: contentType=\u0022text/html;charset=utf-8\u0022 -->\u000a	\u003cgroup layout=\u0022/doc/guide/layout.xhtml\u0022>\u000a		\u003cinclude>/doc/guide/*.xhtml\u003c/include>\u000a		\u003cinclude>/doc/guide/*test*\u003c/include>\u000a	\u003c/group>\u000a	\u003cgroup>\u000a		\u003cinclude>/*.xhtml\u003c/include>\u000a	\u003c/group>\u000a\u003c/lite>",null,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227582_36=["<lite encoding=\"utf-8\">\n\t<group contentType=\"application/wml;charset=utf-8\">\n\t\t<include>/*.wml</include>\n\t</group>\n\t<!-- contentType 默认值: contentType=\"text/html;charset=utf-8\" -->\n\t<group layout=\"/doc/guide/layout.xhtml\">\n\t\t<include>/doc/guide/*.xhtml</include>\n\t\t<include>/doc/guide/*test*</include>\n\t</group>\n\t<group>\n\t\t<include>/*.xhtml</include>\n\t</group>\n</lite>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227582_36[0],__id__1478706227582_36[1],'');</script></div>
 			<p>匹配规则为: 分组匹配, 匹配即退出, 后续分组再配置也无效, 属性可从上级节点继承.</p>
 			<p>遍历文件时, 先 include 决定是否可能匹配, 再用exclude排除, 得出该文件最终是否匹配改组.</p>
 		</p>

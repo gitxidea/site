@@ -78,8 +78,12 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>用法示例</h3>
 		<ul>
 		
-		<script>autoformModel="{\u000a	title:\u0022特殊字符\u005c\u0022&&lt;\u0022,\u000a	cityList:[\u0022北京\u0022,\u0022杭州\u0022,\u0022上海\u0022],\u000a	user:{name:\u0022金大为\u0022,city:\u0022杭州\u0022,married:true}\u000a}";</script>
-		<div class='code'><script>renderSource("\u003c!-- 自动表单填充 -->\u000a\u003cform h:autoform=\u0022true\u0022>\u000a	大名：\u003cinput name=\u0022user.name\u0022 type=\u0022text\u0022/>\u000a	城市：\u003cselect name=\u0022user.city\u0022>\u000a			\u003coption c:for=\u0022${city:cityList}\u0022>${city}\u003c/option>\u000a		\u003c/select>\u000a	婚否： \u003cinput name=\u0022user.married\u0022 type=\u0022radio\u0022 value=\u0022true\u0022/>是\u000a		  \u003cinput name=\u0022user.married\u0022 type=\u0022radio\u0022 value=\u0022false\u0022/>否\u000a\u003c/form>",autoformModel,'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227615_36=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
+//]]></script>
+		<script>//<![CDATA[
+__id__1478706227615_75=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227615_75[0],__id__1478706227615_75[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

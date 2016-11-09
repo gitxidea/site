@@ -88,8 +88,12 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>用法示例</h3>
 		<ul>
 
-			<script>htmlxmlModel="{\u000a	title:\u0022特殊字符\u005c\u0022&&lt;\u0022,\u000a	url:\u0022http://www.xidea.org/lite?test=测试#1234\u0022,\u000a	content:\u0022危险代码&lt;script>alert(\u005c\u0022想做点坏事，能得逞吗？\u005c\u0022) &lt;\u005c/script>\u0022,\u000a	\u0022disabled\u0022:null,\u000a	data:{p1:\u0022属性1\u0022,p2:\u0022属性2\u0022}\u000a}";</script>
-			<div class='code'><script>renderSource("\u003c!-- javascript自动编码(JSON.stringify) -->\u000a\u003cdiv onclick=\u0022alert(${content})\u0022>...\u003c/div>\u000a\u003c!-- URL 自动编码(encodeURI) -->\u000a\u003ca href=\u0022${url}\u0022>encodeURI转义\u003c/a>\u000a\u003c!--IE amp 问题 -->\u000a\u003ca href=\u0022?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${\u0027中文自动编码\u0027}\u0022>...\u003c/a>\u000a\u003c!-- xml/html自动编码  -->\u000a\u003cp title=\u0022${title}\u0022>${content}\u003c/p>\u000a\u003cscript>\u000a	//script 中的内容将自动放到CDATA块中，其内容不做自动编码\u000a	if(content.length\u003c10){\u000a		alert(content.length);\u000a	}\u000a	alert(${content})\u000a\u003c/script>",htmlxmlModel,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227555_55=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\turl:\"http://www.xidea.org/lite?test=测试#1234\",\n\tcontent:\"危险代码&lt;script>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
+//]]></script>
+			<script>//<![CDATA[
+__id__1478706227555_69=["<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURI) -->\n<a href=\"${url}\">encodeURI转义</a>\n<!--IE amp 问题 -->\n<a href=\"?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${'中文自动编码'}\">...</a>\n<!-- xml/html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script>",htmlxmlModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227555_69[0],__id__1478706227555_69[1],'');</script></div>
 
 		</ul>
 	

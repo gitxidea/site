@@ -75,13 +75,19 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<h3>示例1（四种循环类型）</h3>
 		<ul>
 		
-		<div class='code'><script>renderSource("\u003clabel>时间：\u003c/label>\u000a\u003c!-- 最常见的是对数组循环 -->\u000a\u003cselect name=\u0022year\u0022>\u000a	\u003cc:for var=\u0022year\u0022 list=\u0022${[1981,1982,1983]}\u0022>\u000a		\u003coption>${year}\u003c/option>\u000a	\u003c/c:for>\u000a\u003c/select>年\u000a\u003c!-- 您还可以指定区间循环(偷个懒，还是属性模式简单,效果与标签模式一样)-->\u000a\u003cselect name=\u0022month\u0022>\u000a	\u003coption c:for=\u0022${month:[1..12]}\u0022>${month}\u003c/option>\u000a\u003c/select>月\u000a\u003c!-- 您也可以对数字循环，数字循环的时候，var变量从1开始 -->\u000a\u003cselect name=\u0022date\u0022>\u000a	\u003coption c:for=\u0022${date:31}\u0022>${date}\u003c/option>\u000a\u003c/select>日\u000a\u003c!-- 先申明一个循环对象 -->\u000a\u003cc:var name=\u0022apMap\u0022 value=\u0022${ {\u0027AM\u0027:\u0027上午\u0027,\u0027PM\u0027:\u0027下午\u0027} }\u0022/>\u000a\u003c!-- 您还可以对对象key循环 -->\u000a\u003cselect name=\u0022ap\u0022>\u000a	\u003cc:for var=\u0022ap\u0022 list=\u0022${apMap}\u0022>\u000a		\u003coption value=\u0027${ap}\u0027>${apMap[ap]}\u003c/option>\u000a	\u003c/c:for>\u000a\u003c/select>","{}",'');</script></div>
+		<script>//<![CDATA[
+__id__1478706227663_60=["<label>时间：</label>\n<!-- 最常见的是对数组循环 -->\n<select name=\"year\">\n\t<c:for var=\"year\" list=\"${[1981,1982,1983]}\">\n\t\t<option>${year}</option>\n\t</c:for>\n</select>年\n<!-- 您还可以指定区间循环(偷个懒，还是属性模式简单,效果与标签模式一样)-->\n<select name=\"month\">\n\t<option c:for=\"${month:[1..12]}\">${month}</option>\n</select>月\n<!-- 您也可以对数字循环，数字循环的时候，var变量从1开始 -->\n<select name=\"date\">\n\t<option c:for=\"${date:31}\">${date}</option>\n</select>日\n<!-- 先申明一个循环对象 -->\n<c:var name=\"apMap\" value=\"${ {'AM':'上午','PM':'下午'} }\"/>\n<!-- 您还可以对对象key循环 -->\n<select name=\"ap\">\n\t<c:for var=\"ap\" list=\"${apMap}\">\n\t\t<option value='${ap}'>${apMap[ap]}</option>\n\t</c:for>\n</select>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227663_60[0],__id__1478706227663_60[1],'');</script></div>
 		</ul>
 		<a name="forElse"></a>
 		<h3>示例2（循环空处理和for状态字）</h3>
 		<ul>
-			<script>resultJsonModel="{\u000a	\u0022result\u0022:[\u000a		{\u0022name\u0022:\u0022张三\u0022,\u0022age\u0022:21},\u000a		{\u0022name\u0022:\u0022李四\u0022,\u0022age\u0022:22},\u000a		{\u0022name\u0022:\u0022王二\u0022,\u0022age\u0022:23}\u000a	]\u000a}";</script>
-		<div class='code'><script>renderSource("\u003cc:for var=\u0022item\u0022 list=\u0022${result}\u0022 status=\u0022outerFor\u0022>\u000a	\u003c!-- 这里 ${for.dataFor} 等价于 ${outerFor.index} -->\u000a	\u003cdiv>第${for.index}条数据属性值为：\u003c/div>\u000a	\u003cdiv>\u000a		\u003cp c:for=\u0022${key:item}\u0022>\u000a			第${outerFor.index}条数据的第${for.index}个属性，属性名：${key}；属性值：${item[key]}\u000a		\u003c/p>\u000a	\u003c/div>\u000a\u003c/c:for>\u000a\u003cc:else>\u000a	\u003cp>没有数据\u003c/p>\u000a\u003c/c:else>",resultJsonModel,'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227664_34=["{\n\t\"result\":[\n\t\t{\"name\":\"张三\",\"age\":21},\n\t\t{\"name\":\"李四\",\"age\":22},\n\t\t{\"name\":\"王二\",\"age\":23}\n\t]\n}",null];
+//]]></script>
+		<script>//<![CDATA[
+__id__1478706227664_96=["<c:for var=\"item\" list=\"${result}\" status=\"outerFor\">\n\t<!-- 这里 ${for.dataFor} 等价于 ${outerFor.index} -->\n\t<div>第${for.index}条数据属性值为：</div>\n\t<div>\n\t\t<p c:for=\"${key:item}\">\n\t\t\t第${outerFor.index}条数据的第${for.index}个属性，属性名：${key}；属性值：${item[key]}\n\t\t</p>\n\t</div>\n</c:for>\n<c:else>\n\t<p>没有数据</p>\n</c:else>",resultJsonModel];
+//]]></script><div class='code'><script>renderSource(__id__1478706227664_96[0],__id__1478706227664_96[1],'');</script></div>
 		<p>
 			for 做为一个关键字，只包含两个属性 index 和lastIndex；在循环内不需要申明可以直接使用。
 			在循环嵌套的时候，for 关键字指向的是自己直接所在的循环的状态。
@@ -91,7 +97,9 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		</ul>
 		<h3>示例3（反向循环，跳跃循环）</h3>
 		<ul>
-			<div class='code'><script>renderSource("\u003c!-- 通过数据的reverse 函数实现数组逆转\u000a	（reverse为有副作用的函数，为了消除副作用，需要concat复制后调用） -->\u000a\u003cc:for var=\u0022item\u0022 list=\u0022${list.concat().reverse()}\u0022>\u000a	\u003cp>${item}\u003c/p>\u000a\u003c/c:for>\u000a\u000a\u003c!-- 对数组的偶数位循环 -->\u000a\u003cc:for var=\u0022item\u0022 list=\u0022${list}\u0022>\u000a	\u003cp c:if=\u0022${(for.index+1)%2}\u0022>\u000a		${item}\u000a	\u003c/p>\u000a\u003c/c:for>","{list:[1,2,3,4]}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227664_8=["<!-- 通过数据的reverse 函数实现数组逆转\n\t（reverse为有副作用的函数，为了消除副作用，需要concat复制后调用） -->\n<c:for var=\"item\" list=\"${list.concat().reverse()}\">\n\t<p>${item}</p>\n</c:for>\n\n<!-- 对数组的偶数位循环 -->\n<c:for var=\"item\" list=\"${list}\">\n\t<p c:if=\"${(for.index+1)%2}\">\n\t\t${item}\n\t</p>\n</c:for>","{list:[1,2,3,4]}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227664_8[0],__id__1478706227664_8[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

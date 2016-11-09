@@ -75,18 +75,26 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		<p>
 			比如，有如下两个相似的网页结构：
 			<ul>
-				<div class='code'><script>renderSource("\u003chtml>\u000a\u003chead>\u000a    \u003cmeta http-equiv=\u0022Content-Type\u0022 content=\u0022text/html; charset=utf-8\u0022>\u000a	\u003ctitle>标题1\u003c/title>\u000a	.... 完全相同的meta，link，scripts....\u000a\u003c/head>\u000a\u003cbody>\u000a	\u003cdiv id=\u0022head\u0022>...完全相同的head....\u003c/div>\u000a	\u003cdiv id=\u0022content\u0022>内容1...\u003c/div>\u000a	\u003cdiv id=\u0022foot\u0022>... 完全相同的foot...\u003c/div>\u000a\u003c/body>\u000a\u003c/html>",null,'');</script></div>
+				<script>//<![CDATA[
+__id__1478706227622_16=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>标题1</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">内容1...</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227622_16[0],__id__1478706227622_16[1],'');</script></div>
 				<hr/>
-				<div class='code'><script>renderSource("\u003chtml>\u000a\u003chead>\u000a    \u003cmeta http-equiv=\u0022Content-Type\u0022 content=\u0022text/html; charset=utf-8\u0022>\u000a	\u003ctitle>... 不同标题2...\u003c/title>\u000a	.... 完全相同的meta，link，scripts....\u000a\u003c/head>\u000a\u003cbody>\u000a	\u003cdiv id=\u0022head\u0022>...完全相同的head....\u003c/div>\u000a	\u003cdiv id=\u0022content\u0022>... 不同内容2\u003c/div>\u000a	\u003cdiv id=\u0022foot\u0022>... 完全相同的foot...\u003c/div>\u000a\u003c/body>\u000a\u003c/html>",null,'');</script></div>
+				<script>//<![CDATA[
+__id__1478706227622_38=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>... 不同标题2...</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">... 不同内容2</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227622_38[0],__id__1478706227622_38[1],'');</script></div>
 				<p>按传统的include方式，我们需要把head，foot,befor-title,after-title
 					等等，拆成许多小碎片，而且纵使如此，我们也无法集中控制这些小碎片的组织形式。
 					然而，有了模板继承思想，一切都很方便了。
 				</p>
 				<p>首先，我们只需要定义一个公共的父页面：</p>
-				<div class='code'><script>renderSource("\u003chtml>\u000a\u003chead>\u000a    \u003cmeta http-equiv=\u0022Content-Type\u0022 content=\u0022text/html; charset=utf-8\u0022>\u000a	\u003ctitle>\u003cc:block name=\u0022title\u0022/>\u003c/title>\u000a	.... 完全相同的meta，link，scripts....\u000a\u003c/head>\u000a\u003cbody>\u000a	\u003cdiv id=\u0022head\u0022>...完全相同的head....\u003c/div>\u000a	\u003cdiv id=\u0022content\u0022>\u003cc:block name=\u0022content\u0022/>\u003c/div>\u000a	\u003cdiv id=\u0022foot\u0022>... 完全相同的foot...\u003c/div>\u000a\u003c/body>\u000a\u003c/html>",null,'/parent.xhtml');</script></div>
+				<script>//<![CDATA[
+__id__1478706227622_51=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title><c:block name=\"title\"/></title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\"><c:block name=\"content\"/></div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227622_51[0],__id__1478706227622_51[1],'/parent.xhtml');</script></div>
 				<p>然后，每个具体模板可以如此：</p>
 
-				<div class='code'><script>renderSource("\u003cc:extends path=\u0022parent.xhtml\u0022>\u000a    \u003cc:block name=\u0022title\u0022>标题1\u003c/c:block>\u000a    \u003cc:block name=\u0022content\u0022>内容1...\u003c/c:block>\u000a\u003c/c:extends>","{}",'');</script></div>
+				<script>//<![CDATA[
+__id__1478706227622_58=["<c:extends path=\"parent.xhtml\">\n    <c:block name=\"title\">标题1</c:block>\n    <c:block name=\"content\">内容1...</c:block>\n</c:extends>","{}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227622_58[0],__id__1478706227622_58[1],'');</script></div>
 			</ul>
 		</p>
 		<h3>什么是元素继承</h3>

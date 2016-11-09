@@ -95,14 +95,18 @@ onclick="i18n_reload(&#34;en&#34;)">English</span>
 		</ul>
 		<h3>示例：</h3>
 		<ul>
-			<div class='code'><script>renderSource("\u003cdiv> \u000a  今天是：\u003cc:date-format pattern=\u0022YYYY-MM-DD\u0022 value=\u0022${date}\u0022/>\u000a  现在是：\u003cc:date-format pattern=\u0022hh:mm:ss\u0022 value=\u0022${date}\u0022/>\u000a\u003c/div>","{date:+new Date()}",'');</script></div>
+			<script>//<![CDATA[
+__id__1478706227639_22=["<div> \n  今天是：<c:date-format pattern=\"YYYY-MM-DD\" value=\"${date}\"/>\n  现在是：<c:date-format pattern=\"hh:mm:ss\" value=\"${date}\"/>\n</div>","{date:+new Date()}"];
+//]]></script><div class='code'><script>renderSource(__id__1478706227639_22[0],__id__1478706227639_22[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
 				<i>
 					小技巧1：我们可以通过自定义模板函数，实现日期格式化的函数支持：
 					<ul>
-					<div class='code'><script>renderSource("\u003cc:def name=\u0027dateFormat(date)\u0027>\u003cc:date-format pattern=\u0027YYYY-MM-DD hh:mm:ss\u0027 value=\u0027${date}\u0027/>\u003c/c:def>\u000a\u003cdiv>今天是：${dateFormat(date)}	\u003c/div>",null,'');</script></div>
+					<script>//<![CDATA[
+__id__1478706227639_4=["<c:def name='dateFormat(date)'><c:date-format pattern='YYYY-MM-DD hh:mm:ss' value='${date}'/></c:def>\n<div>今天是：${dateFormat(date)}\t</div>",null];
+//]]></script><div class='code'><script>renderSource(__id__1478706227639_4[0],__id__1478706227639_4[1],'');</script></div>
 					
 					</ul>
 				</i>
