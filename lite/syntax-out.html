@@ -1,0 +1,298 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>输出语法</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link href="default.css" rel="stylesheet" type="text/css"/>
+		
+		
+	</head>
+	<body>
+		
+		<style>
+			.cm-lite-el{ color:#d30;}
+			.cm-lite-tag{
+			color:#9933FF;font-weight:bold;}
+		</style>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"/>
+		<script src="editor.js"/>
+		<div id="main">
+	<div id="header">
+		<div class="logo" onclick="location = 'http://www.xidea.org/lite/'">
+			
+				<div style="left:0px;top:0px;width:19px;height:100px;"> </div>
+			
+				<div style="left:0px;top:81px;width:42px;height:19px;"> </div>
+			
+				<div style="left:23px;top:0px;width:19px;height:19px;"> </div>
+			
+				<div style="left:23px;top:23px;width:19px;height:54px;"> </div>
+			
+				<div style="left:46px;top:0px;width:42px;height:19px;"> </div>
+			
+				<div style="left:46px;top:23px;width:19px;height:77px;"> </div>
+			
+				<div style="left:69px;top:81px;width:19px;height:19px;"> </div>
+			
+		</div>
+		<h1>
+			输出语法
+		</h1>
+		<div class="top-box">
+			<div id="i18n">
+				<span class="i18n_zh" onclick="i18n_reload(&quot;zh&quot;)">中文</span>|
+				<span class="i18n_en" onclick="i18n_reload(&quot;en&quot;)">English</span>
+				<div style="display:none">
+				|<input type="checkbox" id="i18n_on" checked="checked"/>
+				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
+				</div>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+			</div>
+			<div class="test"><a href="../test.html">查看测试报表</a></div>
+		</div>
+		<div class="line"/>
+	</div>
+	<div id="content">
+		
+		<h3>功能支持</h3>
+		<ul>
+			<li>表达式输出
+				<p>将模板变量或表达式运算值按照指定规则输出。</p>
+			</li>
+			<li>日期格式化输出
+				<p>一种跨平台统一的日期格式化模式：<a href="syntax-date.html">syntax-date.xhtml</a>。</p>
+			</li>
+		</ul>
+		<h3>表达式输出</h3>
+		<p>
+			输出动态数据是模板最基本的功能，Lite可以将表达式的值，通过如下三种方式输出：</p>
+		<ul>
+			<li>
+				<strong>HTML/XML自动编码输出（${...}）。</strong>
+				<p>
+					在HTML/XML文本中，为了确保代码安全性， XML保留字符
+					<strong>(&lt;&amp;)</strong>
+					和属性中的
+					<strong>(")</strong>
+					都将被自动转义；
+				</p>
+				<p>
+					脚本/资源地址中的表达式，将自动加上JSON.stringify和encodeURIComponent。
+					</p>
+				<p>
+					关于自动编码的详细介绍，请参考：
+					<a href="feature-autoencode.html">自动编码特性介绍</a>
+				</p>
+				<p>
+					自动编码的表达式，如果是属性的单一值，他还具备一个隐含的特设功能：条件属性输出！
+					<i>
+						<p>
+							在XML 属性中，如果属性值为单一表达式且运行时表达式值为
+							<strong>null</strong>，则整个属性不输出，否则自动按xml属性的编码规则(&lt;&amp;和
+							<strong>"</strong>
+							)，编码XML属性内容并输出。
+
+							这点在html 定值属性（如：disabled/checked/selected/...）输出时非常有用。
+						</p>
+					</i>
+				</p>
+
+			</li>
+			<li>
+				<strong>避免过度转义的安全输出（$#{...}）。</strong>
+				<p>有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体(如：&amp;#0x7C21;&amp;#0x7E41;);
+					默认的自动编码输出，在这些数据的输出展现的时候，不能直接用完全编码输出的方式。</p>
+			</li>
+			<li>
+				<strong>XSS风险自负的直接输出（$!{...}）。</strong>
+				<p>慎用！！！</p>
+			</li>
+		</ul>
+		<h3>日期格式化输出语法</h3>
+		<p>
+			该详细功能请参考独立文档：<a href="syntax-date.html">syntax-date.xhtml</a>
+		</p>
+				
+		<h3>示例</h3>
+		<ul>
+			<script>//<![CDATA[
+__id__1478706227703_22=["{\n\tauthor:{\n\t\t//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\n\t\tusername:'危险分子 <script>',\n\t\t//打破属性规则，插入危险代码\n\t\ttitle:'坏蛋！ \" onclick=\"alert(\\'插入危险代码成功!!\\')',\n\t\tdisabled:false\n\t},\n\tblog:{\n\t\t'title':'html特殊字符：&<\"',\n\t\t'content':'lite应该怎么自动编码这些特殊字符呢？'+\n\t\t\t\t'XML特殊字符有两个:&<，加上属性括弧\",一共三个'+\n\t\t\t\t'（LiteXML属性括弧一律自动转化为\"）；'+\n\t\t\t\t'只要编码好这些特殊字符，用户就很难插入危险代码了。\\n\\n'+\n\t\t\t\t'但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。'+\n\t\t\t\t'我们还要让这些字符实体不过度转义。'\n\t}\n}",null];
+//]]></script>
+
+			<script>//<![CDATA[
+__id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"user\" title=\"${author.title}\">${author.username}</span>\n\n....\n<!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\n<input type=\"submit\" value=\"发表留言\" disabled=\"${author.disabled||null}\"/>\n\n\n\t\t\n<!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\n<!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\n<p title=\"${blog.title}\">${blog.content}</p>\n<!-- 避免过度转义： 网开一面的$#{...} 语法！-->\n<p title=\"${blog.title}\">$#{blog.content}</p>\n\n<!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\n<p title=\"$!{blog.title}\">$!{blog.content}</p>",blogModel];
+//]]></script><div class="code"><script>renderSource(__id__1478706227703_14[0],__id__1478706227703_14[1],'');</script></div>
+		</ul>
+	
+		<div id="post">
+
+	<div class="ds-thread"/>
+<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+
+</div>
+	</div>
+	<div id="footer"/>
+</div>
+		<div id="menu">
+	<div class="menuInner">
+		<h3>入门</h3>
+		<ul>
+			<li>
+				<a href="index.html">Lite模板简介</a>
+			</li>
+			<li>
+				<a href="install.html">测试与安装</a>
+			</li>
+		</ul>
+
+		<h3>表达式参考</h3>
+		<ul>
+			<li>
+				<a href="el.html">什么是表达式</a>
+			</li>
+			<li>
+				<a href="el-value.html">变量/原子值/复合值</a>
+			</li>
+			<li>
+				<a href="el-op.html">操作符与函数</a>
+			</li>
+			<li>
+				<a href="el-function.html">内置函数参考</a>
+			</li>
+		</ul>
+
+		<h3>核心模板语法参考</h3>
+		<ul>
+			
+			<li>
+				<a href="syntax-out.html">输出语法[${},$!{},$#{},日期]</a>
+			</li>
+			<li>
+				<a href="syntax-if.html">条件判断[c:if]</a>
+			</li>
+			<li>
+				<a href="syntax-choose.html">分支选择[c:choose]</a>
+			</li>
+			<li>
+				<a href="syntax-for.html">四种循环[c:for]</a>
+			</li>
+			<li>
+				<a href="syntax-extends.html">模板继承[c:extends]</a>
+			</li>
+			<li>
+				<a href="syntax-include.html">静态包含[c:include]</a>
+			</li>
+			<li>
+				<a href="syntax-var.html">变量申明[c:var]</a>
+			</li>
+			<li>
+				<a href="syntax-def.html">模板函数申明[c:def]</a>
+			</li>
+			<li>
+				<a href="syntax-extension.html">自定义扩展[c:extension]</a>
+			</li>
+		</ul>
+
+		<h3>XML/HTML相关语法参考</h3>
+		<ul>
+			<li>
+				<a href="syntax-trim.html">注释/语法空格控制[h:trim]</a>
+			</li>
+			<li>
+				<a href="syntax-client.html">前端模板函数申明[h:client]</a>
+			</li>
+			<li>
+				<a href="syntax-autoform.html">自动表单[h:autofrom]</a>
+			</li>
+			<li>
+				<a href="feature-autoencode.html">自动编码</a>
+			</li>
+			<li>
+				<a href="feature-xml.html" title="标记语言特有的语法，如：条件属性,自动编码,自动语义补全等...">其他特性</a>
+			</li>
+		</ul>
+		<h3>开发调试辅助</h3>
+		<ul>
+			<li>
+				<a href="debug-model.html">查看数据模型</a>
+			</li>
+			<li>
+				<a href="debug-log.html">查看编译日志</a>
+			</li>
+		</ul>
+		<h3>编译打包</h3>
+		<ul>
+			<li>
+				<a href="compiler-cmd.html">批量编译</a>
+			</li>
+			<li>
+				<a href="compiler-spec.html">编译规范</a>
+			</li>
+			<li>
+				<a href="compiler-api.html">自定义编译</a>
+			</li>
+		</ul>
+		<h3>常见问题</h3>
+		<ul>
+			<li>
+				<a href="faq-newer.html">致初学者</a>
+			</li>
+			<li>
+				<a href="faq-badcase.html">常犯错误</a>
+			</li>
+			<li>
+				<a href="faq-plan.html">开发计划</a>
+			</li>
+		</ul>
+		<h3>二次开发参考</h3>
+		<ul>
+			<li>
+				<a href="dev-function.html">扩展运行时函数(PHP)</a>
+			</li>
+			<li>
+				<a href="dev-function.html">扩展运行时函数(Java)</a>
+			</li>
+			<li>
+				<a href="dev-extension.html">扩展模板语法</a>
+			</li>
+			<li>
+				<a href="dev-data-view.html">扩展数据模型调试窗口</a>
+			</li>
+			<li>
+				<a href="dev-translator.html">创建新的运行环境</a>
+			</li>
+		</ul>
+	</div>
+</div>
+		<div class="dialog">
+	<div class="mask"/>
+	<div id="exampleRunner">
+		<div class="head">
+			===模板测试 ===
+			<a class="close" onclick="closeExample()">X</a>
+		</div>
+		<div class="jsonSource">
+			<h5>数据模型</h5>
+			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+		</div>
+		<div class="templateSource">
+			<h5>模板代码</h5>
+			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+		</div>
+		<div class="resultSource" id="exampleResult">
+			<h5>结果输出</h5>
+			<div id="resultLoader"/>
+			<div id="resultSource"/>
+		</div>
+		<div class="toolbar">
+			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
+			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
+			<input type="button" value="编译(NodeJS)" onclick="compileToNodeJS()"/>
+			<input type="button" title="lite" value="编译(Java)" onclick="compileToLite()"/>
+			<input type="button" id="runButton" disabled="disabled" value="运行(?)" onclick="runTemplate()"/>
+		</div>
+	</div>
+</div>
+		
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+	</body>
+</html>

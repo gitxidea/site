@@ -1,316 +1,0 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>静态文件编译规范</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-		<link href="default.css" rel="stylesheet" type="text/css"/>
-		
-		
-	</head>
-	<body>
-		
-		<style>
-			.cm-lite-el{ color:#d30;}
-			.cm-lite-tag{
-			color:#9933FF;font-weight:bold;}
-		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
-		<script src="editor.js"></script>
-		<div id="main">
-	<div id="header">
-		<div class="logo"
-onclick="location = 'http://www.xidea.org/lite/'">
-			
-				<div style="left:0px;top:0px;width:19px;height:100px;"> </div>
-			
-				<div style="left:0px;top:81px;width:42px;height:19px;"> </div>
-			
-				<div style="left:23px;top:0px;width:19px;height:19px;"> </div>
-			
-				<div style="left:23px;top:23px;width:19px;height:54px;"> </div>
-			
-				<div style="left:46px;top:0px;width:42px;height:19px;"> </div>
-			
-				<div style="left:46px;top:23px;width:19px;height:77px;"> </div>
-			
-				<div style="left:69px;top:81px;width:19px;height:19px;"> </div>
-			
-		</div>
-		<h1>
-			静态文件编译规范
-		</h1>
-		<div class="top-box">
-			<div id="i18n">
-				<span class="i18n_zh"
-onclick="i18n_reload(&#34;zh&#34;)">中文</span>|
-				<span class="i18n_en"
-onclick="i18n_reload(&#34;en&#34;)">English</span>
-				<div style="display:none">
-				|<input type="checkbox" id="i18n_on" checked="checked"/>
-				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
-				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
-			</div>
-			<div class="test"><a href="../test.xhtml">查看测试报表</a></div>
-		</div>
-		<div class="line"></div>
-	</div>
-	<div id="content">
-		
-		<h3>基本风格</h3>
-		<p>不作恶，基于已有语法，这是Lite一贯坚持的风格，在静态资源编译规范中也体现的淋漓尽致^_^</p>
-		<a name="js"></a>
-		<h3>JS处理规范</h3>
-		<ul>
-			<li>合并规范
-				<p>文件合并采用javascript已有的document.write脚本html代码的方式，基于js/html已有的规则和行为。
-				但是，为了避免与代码逻辑中确实需要的document.write的信息冲突，我们采用前面加个<strong>!</strong>操作符的方式加以区别。
-				</p>
-				<label>示例代码见：</label>
-				<p>
-					<script>//<![CDATA[
-__id__1478706227429_45=["!document.write(\"<script src='/static/js/absolute-path1.js'></script>\");\n!document.write(\"<script src='/static/js/absolute-path2.js'></script>\");\n!document.write(\"<script src='/static/js/absolute-path3.js'></script>\");",null];
-//]]></script><div class='code'><script>renderSource(__id__1478706227429_45[0],__id__1478706227429_45[1],'');</script></div>
-				</p>
-				<p>建议有 !document.write 的脚本不要在有脚本内容（若有，将与大多数浏览器一致，合并在document.write的其他脚本之前）。</p> 
-				<p>不建议嵌套 !document.write，因为嵌套document.write 在不同浏览器上表现不完全一致。</p>
-			</li>
-			<li>压缩规范
-				<p>上线的JS必须被压缩</p>
-				<p><i>默认清理首尾注释和前置空行，如果网站带有JSA或者YUI库（WEB-INF/lib中），将自动采用这些工具压缩。</i></p>
-			</li>
-			
-		</ul>
-		<a name="css"></a>
-		<h3>CSS处理规范</h3>
-		<ul>
-			<li>合并规范
-				<p>CSS 合并采用CSS 自身的import 语法，因为某些问题，这个语法基本是是不推荐的状态，但是，我们完全可以借用。</p>
-				<p>
-					<script>//<![CDATA[
-__id__1478706227430_25=["@import url('/static/css/inc/absolute-path1.css')\n@import url('/static/css/inc/absolute-path2.css')",null];
-//]]></script><div class='code'><script>renderSource(__id__1478706227430_25[0],__id__1478706227430_25[1],'');</script></div>
-				</p>
-				<p>@import 语法后面一定要用url标注被包含css路径(见资源地址规范)。</p>
-				<p>@import 的css 将出现在@import 出现的位置。</p>
-			</li>
-			<li>压缩规范
-				<p>上线的CSS必须被压缩</p>
-				<p><i>默认实现中，他清理首尾注释和前置空行，建议用户重新实现css压缩程序。</i></p>
-			</li>
-			<li>图片合并规范
-				<p>待续。。。</p>
-			</li>
-		</ul>
-		<a name="resource"></a>
-		<h3>资源地址书写规范</h3>
-		<ul>
-			<li>模板中的资源地址
-				<p>模板中的资源地址默认</p>
-			</li>
-			<li>CSS中的资源地址
-				<p>CSS 中的资源地址(如背景图片)一律采用url()标注，以便编译器查找。</p>
-			</li>
-			<li>JavaScript中的资源地址
-				<p>JavaScript 中的资源地址一律采用encodeURI()函数标注，以便编译器查找。</p>
-				<p>这种方式被认为是多此一举，但是，为了我们的资源地址可被有效替换（如线上地址替换，自动添加MD5戳），我们需要一个标注的方法，encodeURI这个函数，也算一个不错的选择。
-				</p>
-			</li>
-		</ul>
-		<h3>模板HTML规范检查</h3>
-		<p>
-			检查HTML5规范之外的标签，属性，主要用于发现书写错误，改良编码习惯。
-			<a href="compiler-api.xhtml#htmlValidate">更多信息</a>。
-		</p>
-		<ul>
-			<li>
-				检查模板中出现的全部 html标签，如果您试用的标签不是html规范，编译期间将给出警告。
-			</li>
-			<li>
-				检查模板中出现的全部 html属性，如果您试用的标签不是html规范或者是不推荐规范，编译期间将给出警告。
-			</li>
-			<li>
-				检查特定标签内容，发现并警告代码问题，比如出现的src="" 的img标签（将导致当前页重新请求，引发性能问题）。
-			</li>
-		</ul>
-		<p><i>默认实现中，只能检查合法的xhtml文件（lite源码）</i></p>
-		
-	
-		<div id="post">
-
-	<div class="ds-thread"></div>
-<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
-
-</div>
-	</div>
-	<div id="footer"></div>
-</div>
-		<div id="menu">
-	<div class="menuInner">
-		<h3>入门</h3>
-		<ul>
-			<li>
-				<a href="index.xhtml">Lite模板简介</a>
-			</li>
-			<li>
-				<a href="install.xhtml">测试与安装</a>
-			</li>
-		</ul>
-
-		<h3>表达式参考</h3>
-		<ul>
-			<li>
-				<a href="el.xhtml">什么是表达式</a>
-			</li>
-			<li>
-				<a href="el-value.xhtml">变量/原子值/复合值</a>
-			</li>
-			<li>
-				<a href="el-op.xhtml">操作符与函数</a>
-			</li>
-			<li>
-				<a href="el-function.xhtml">内置函数参考</a>
-			</li>
-		</ul>
-
-		<h3>核心模板语法参考</h3>
-		<ul>
-			
-			<li>
-				<a href="syntax-out.xhtml">输出语法[${},$!{},$#{},日期]</a>
-			</li>
-			<li>
-				<a href="syntax-if.xhtml">条件判断[c:if]</a>
-			</li>
-			<li>
-				<a href="syntax-choose.xhtml">分支选择[c:choose]</a>
-			</li>
-			<li>
-				<a href="syntax-for.xhtml">四种循环[c:for]</a>
-			</li>
-			<li>
-				<a href="syntax-extends.xhtml">模板继承[c:extends]</a>
-			</li>
-			<li>
-				<a href="syntax-include.xhtml">静态包含[c:include]</a>
-			</li>
-			<li>
-				<a href="syntax-var.xhtml">变量申明[c:var]</a>
-			</li>
-			<li>
-				<a href="syntax-def.xhtml">模板函数申明[c:def]</a>
-			</li>
-			<li>
-				<a href="syntax-extension.xhtml">自定义扩展[c:extension]</a>
-			</li>
-		</ul>
-
-		<h3>XML/HTML相关语法参考</h3>
-		<ul>
-			<li>
-				<a href="syntax-trim.xhtml">注释/语法空格控制[h:trim]</a>
-			</li>
-			<li>
-				<a href="syntax-client.xhtml">前端模板函数申明[h:client]</a>
-			</li>
-			<li>
-				<a href="syntax-autoform.xhtml">自动表单[h:autofrom]</a>
-			</li>
-			<li>
-				<a href="feature-autoencode.xhtml">自动编码</a>
-			</li>
-			<li>
-				<a href="feature-xml.xhtml" title="标记语言特有的语法，如：条件属性,自动编码,自动语义补全等...">其他特性</a>
-			</li>
-		</ul>
-		<h3>开发调试辅助</h3>
-		<ul>
-			<li>
-				<a href="debug-model.xhtml">查看数据模型</a>
-			</li>
-			<li>
-				<a href="debug-log.xhtml">查看编译日志</a>
-			</li>
-		</ul>
-		<h3>编译打包</h3>
-		<ul>
-			<li>
-				<a href="compiler-cmd.xhtml">批量编译</a>
-			</li>
-			<li>
-				<a href="compiler-spec.xhtml">编译规范</a>
-			</li>
-			<li>
-				<a href="compiler-api.xhtml">自定义编译</a>
-			</li>
-		</ul>
-		<h3>常见问题</h3>
-		<ul>
-			<li>
-				<a href="faq-newer.xhtml">致初学者</a>
-			</li>
-			<li>
-				<a href="faq-badcase.xhtml">常犯错误</a>
-			</li>
-			<li>
-				<a href="faq-plan.xhtml">开发计划</a>
-			</li>
-		</ul>
-		<h3>二次开发参考</h3>
-		<ul>
-			<li>
-				<a href="dev-function.xhtml">扩展运行时函数(PHP)</a>
-			</li>
-			<li>
-				<a href="dev-function.xhtml">扩展运行时函数(Java)</a>
-			</li>
-			<li>
-				<a href="dev-extension.xhtml">扩展模板语法</a>
-			</li>
-			<li>
-				<a href="dev-data-view.xhtml">扩展数据模型调试窗口</a>
-			</li>
-			<li>
-				<a href="dev-translator.xhtml">创建新的运行环境</a>
-			</li>
-		</ul>
-	</div>
-</div>
-		<div class="dialog">
-	<div class="mask"></div>
-	<div id="exampleRunner">
-		<div class="head">
-			===模板测试 ===
-			<a class="close"
-onclick="closeExample()">X</a>
-		</div>
-		<div class="jsonSource">
-			<h5>数据模型</h5>
-			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
-		</div>
-		<div class="templateSource">
-			<h5>模板代码</h5>
-			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
-		</div>
-		<div class="resultSource" id="exampleResult">
-			<h5>结果输出</h5>
-			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
-		</div>
-		<div class="toolbar">
-			<input type="button" value="编译(JS)"
-onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)"
-onclick="compileToPHP()"/>
-			<input type="button" value="编译(NodeJS)"
-onclick="compileToNodeJS()"/>
-			<input type="button" title="lite" value="编译(Java)"
-onclick="compileToLite()"/>
-			<input type="button" id="runButton" disabled="disabled" value="运行(?)"
-onclick="runTemplate()"/>
-		</div>
-	</div>
-</div>
-		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
-	</body>
-</html>

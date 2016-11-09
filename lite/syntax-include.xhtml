@@ -1,254 +1,0 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>模板包含</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-		<link href="default.css" rel="stylesheet" type="text/css"/>
-		
-		
-	</head>
-	<body>
-		
-		<style>
-			.cm-lite-el{ color:#d30;}
-			.cm-lite-tag{
-			color:#9933FF;font-weight:bold;}
-		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
-		<script src="editor.js"></script>
-		<div id="main">
-	<div id="header">
-		<div class="logo"
-onclick="location = 'http://www.xidea.org/lite/'">
-			
-				<div style="left:0px;top:0px;width:19px;height:100px;"> </div>
-			
-				<div style="left:0px;top:81px;width:42px;height:19px;"> </div>
-			
-				<div style="left:23px;top:0px;width:19px;height:19px;"> </div>
-			
-				<div style="left:23px;top:23px;width:19px;height:54px;"> </div>
-			
-				<div style="left:46px;top:0px;width:42px;height:19px;"> </div>
-			
-				<div style="left:46px;top:23px;width:19px;height:77px;"> </div>
-			
-				<div style="left:69px;top:81px;width:19px;height:19px;"> </div>
-			
-		</div>
-		<h1>
-			模板包含
-		</h1>
-		<div class="top-box">
-			<div id="i18n">
-				<span class="i18n_zh"
-onclick="i18n_reload(&#34;zh&#34;)">中文</span>|
-				<span class="i18n_en"
-onclick="i18n_reload(&#34;en&#34;)">English</span>
-				<div style="display:none">
-				|<input type="checkbox" id="i18n_on" checked="checked"/>
-				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
-				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
-			</div>
-			<div class="test"><a href="../test.xhtml">查看测试报表</a></div>
-		</div>
-		<div class="line"></div>
-	</div>
-	<div id="content">
-		
-		<h3>功能支持</h3>
-		<p>
-			<ul>
-				<li>包含某个完全的页面。</li>
-				<li>通过xpath,只包含某个完整页面的部分选中的内容。</li>
-			</ul>
-		</p>
-		<h3>功能限制</h3>
-		<p>受xml完整性约束的限制,我们不能把一个完整的元素拆成<strong>不完整</strong>两半分别放在不同的备包含文件中(常见的不完整的head,foot模式的包含,不能支持).</p>
-		<p>该功能运用并不广泛,更多场景我们建议采用模板继承的思想实现:<a href="syntax-extends.xhtml">syntax-extends.xhtml</a></p>
-		<h3>用法示例</h3>
-		<ul>
-		<script>//<![CDATA[
-__id__1478706227712_71=["<c:include path=\"menu.xhtml\"/>\n<c:include path=\"controls.xhtml\" xpath=\"//*[@id='pageList']\"/>\n<c:include path=\"${page}\" xpath=\"//xhtml:body\"/>",null];
-//]]></script><div class='code'><script>renderSource(__id__1478706227712_71[0],__id__1478706227712_71[1],'');</script></div>
-		</ul>
-	
-		<div id="post">
-
-	<div class="ds-thread"></div>
-<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
-
-</div>
-	</div>
-	<div id="footer"></div>
-</div>
-		<div id="menu">
-	<div class="menuInner">
-		<h3>入门</h3>
-		<ul>
-			<li>
-				<a href="index.xhtml">Lite模板简介</a>
-			</li>
-			<li>
-				<a href="install.xhtml">测试与安装</a>
-			</li>
-		</ul>
-
-		<h3>表达式参考</h3>
-		<ul>
-			<li>
-				<a href="el.xhtml">什么是表达式</a>
-			</li>
-			<li>
-				<a href="el-value.xhtml">变量/原子值/复合值</a>
-			</li>
-			<li>
-				<a href="el-op.xhtml">操作符与函数</a>
-			</li>
-			<li>
-				<a href="el-function.xhtml">内置函数参考</a>
-			</li>
-		</ul>
-
-		<h3>核心模板语法参考</h3>
-		<ul>
-			
-			<li>
-				<a href="syntax-out.xhtml">输出语法[${},$!{},$#{},日期]</a>
-			</li>
-			<li>
-				<a href="syntax-if.xhtml">条件判断[c:if]</a>
-			</li>
-			<li>
-				<a href="syntax-choose.xhtml">分支选择[c:choose]</a>
-			</li>
-			<li>
-				<a href="syntax-for.xhtml">四种循环[c:for]</a>
-			</li>
-			<li>
-				<a href="syntax-extends.xhtml">模板继承[c:extends]</a>
-			</li>
-			<li>
-				<a href="syntax-include.xhtml">静态包含[c:include]</a>
-			</li>
-			<li>
-				<a href="syntax-var.xhtml">变量申明[c:var]</a>
-			</li>
-			<li>
-				<a href="syntax-def.xhtml">模板函数申明[c:def]</a>
-			</li>
-			<li>
-				<a href="syntax-extension.xhtml">自定义扩展[c:extension]</a>
-			</li>
-		</ul>
-
-		<h3>XML/HTML相关语法参考</h3>
-		<ul>
-			<li>
-				<a href="syntax-trim.xhtml">注释/语法空格控制[h:trim]</a>
-			</li>
-			<li>
-				<a href="syntax-client.xhtml">前端模板函数申明[h:client]</a>
-			</li>
-			<li>
-				<a href="syntax-autoform.xhtml">自动表单[h:autofrom]</a>
-			</li>
-			<li>
-				<a href="feature-autoencode.xhtml">自动编码</a>
-			</li>
-			<li>
-				<a href="feature-xml.xhtml" title="标记语言特有的语法，如：条件属性,自动编码,自动语义补全等...">其他特性</a>
-			</li>
-		</ul>
-		<h3>开发调试辅助</h3>
-		<ul>
-			<li>
-				<a href="debug-model.xhtml">查看数据模型</a>
-			</li>
-			<li>
-				<a href="debug-log.xhtml">查看编译日志</a>
-			</li>
-		</ul>
-		<h3>编译打包</h3>
-		<ul>
-			<li>
-				<a href="compiler-cmd.xhtml">批量编译</a>
-			</li>
-			<li>
-				<a href="compiler-spec.xhtml">编译规范</a>
-			</li>
-			<li>
-				<a href="compiler-api.xhtml">自定义编译</a>
-			</li>
-		</ul>
-		<h3>常见问题</h3>
-		<ul>
-			<li>
-				<a href="faq-newer.xhtml">致初学者</a>
-			</li>
-			<li>
-				<a href="faq-badcase.xhtml">常犯错误</a>
-			</li>
-			<li>
-				<a href="faq-plan.xhtml">开发计划</a>
-			</li>
-		</ul>
-		<h3>二次开发参考</h3>
-		<ul>
-			<li>
-				<a href="dev-function.xhtml">扩展运行时函数(PHP)</a>
-			</li>
-			<li>
-				<a href="dev-function.xhtml">扩展运行时函数(Java)</a>
-			</li>
-			<li>
-				<a href="dev-extension.xhtml">扩展模板语法</a>
-			</li>
-			<li>
-				<a href="dev-data-view.xhtml">扩展数据模型调试窗口</a>
-			</li>
-			<li>
-				<a href="dev-translator.xhtml">创建新的运行环境</a>
-			</li>
-		</ul>
-	</div>
-</div>
-		<div class="dialog">
-	<div class="mask"></div>
-	<div id="exampleRunner">
-		<div class="head">
-			===模板测试 ===
-			<a class="close"
-onclick="closeExample()">X</a>
-		</div>
-		<div class="jsonSource">
-			<h5>数据模型</h5>
-			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
-		</div>
-		<div class="templateSource">
-			<h5>模板代码</h5>
-			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
-		</div>
-		<div class="resultSource" id="exampleResult">
-			<h5>结果输出</h5>
-			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
-		</div>
-		<div class="toolbar">
-			<input type="button" value="编译(JS)"
-onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)"
-onclick="compileToPHP()"/>
-			<input type="button" value="编译(NodeJS)"
-onclick="compileToNodeJS()"/>
-			<input type="button" title="lite" value="编译(Java)"
-onclick="compileToLite()"/>
-			<input type="button" id="runButton" disabled="disabled" value="运行(?)"
-onclick="runTemplate()"/>
-		</div>
-	</div>
-</div>
-		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
-	</body>
-</html>
