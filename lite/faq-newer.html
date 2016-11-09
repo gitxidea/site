@@ -63,13 +63,17 @@
 			<ul>
 			<strong>示例1：</strong>
 			<script>//<![CDATA[
-__id__1478706227534_8=["<div class=\"logo\" title=\"${null}\"/>\n-------------------\n输出是：\n<div class=\"logo\"></div>\n而不是：\n<div class=\"logo\" title=\"null\"/>",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227534_8[0],__id__1478706227534_8[1],'');</script></div>
+__id__1478712003782_73=["<div class=\"logo\" title=\"${null}\"/>\n-------------------\n输出是：\n<div class=\"logo\"></div>\n而不是：\n<div class=\"logo\" title=\"null\"/>",null];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003782_73[0],__id__1478712003782_73[1],'');</script></div>
 			</ul><ul>
 			<strong>示例2：</strong>
 			<script>//<![CDATA[
-__id__1478706227534_76=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>\n-------------------\n输出是：\n<div onclick=\"alert(&#34;您好&#34;+&#34;匆匆过客&#34;)\"></div>\n而不是：\n<div onclick=\"alert('您好：'+匆匆过客)\"/>",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227534_76[0],__id__1478706227534_76[1],'');</script></div>
+__id__1478712003782_27=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>\n-------------------\n输出是：\n<div onclick=\"alert(&#34;您好&#34;+&#34;匆匆过客&#34;)\"></div>\n而不是：\n<div onclick=\"alert('您好：'+匆匆过客)\"/>",null];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003782_27[0],__id__1478712003782_27[1],'');</script></div>
 			</ul>
 		</p>
 		<h3>体验至上</h3>
@@ -79,8 +83,10 @@ __id__1478706227534_76=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>
 			
 			 <ul>
 			 <script>//<![CDATA[
-__id__1478706227534_50=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">test</c:if>\n<!--  br hr img 免闭合容错 -->\n<div>\n\t<img src=\"/static/img/logo.png\">\n\t<br><hr>\n</div>",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227534_50[0],__id__1478706227534_50[1],'');</script></div>
+__id__1478712003782_78=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">test</c:if>\n<!--  br hr img 免闭合容错 -->\n<div>\n\t<img src=\"/static/img/logo.png\">\n\t<br><hr>\n</div>",null];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003782_78[0],__id__1478712003782_78[1],'');</script></div>
 			 </ul>
 		</p>
 		<h3>不要打破XML语法结构</h3>
@@ -90,15 +96,19 @@ __id__1478706227534_50=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">t
 			<ul>
 			<strong>文本语法的自由</strong>
 			<script>//<![CDATA[
-__id__1478706227534_14=["<code>\n\t$for{item:list}\n\t\n\t$if{for.index == 0}<div>第一条数据： ${item},\n\t$else{for.index == for.lastIndex}最后一条数据：${item}</div> \n\t$else$第${for.index+1}条数据：${item},$end$\n\t\n\t$end$\n</code>","{list:[1,2,3,4]} "];
-//]]></script><div class="code"><script>renderSource(__id__1478706227534_14[0],__id__1478706227534_14[1],'');</script></div>
+__id__1478712003782_5=["<code>\n\t$for{item:list}\n\t\n\t$if{for.index == 0}<div>第一条数据： ${item},\n\t$else{for.index == for.lastIndex}最后一条数据：${item}</div> \n\t$else$第${for.index+1}条数据：${item},$end$\n\t\n\t$end$\n</code>","{list:[1,2,3,4]} "];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003782_5[0],__id__1478712003782_5[1],'');</script></div>
 			</ul>
 			<p>但是，这种语法是很难阅读和维护的，所以。LiteXML中，极不推荐这种做法。</p>
 			<strong>无法通过的Lite XML 语法</strong>
 			<ul>
 			<script>//<![CDATA[
-__id__1478706227534_81=["<c:for var=\"item\" list=\"${list}\">\n\t<c:if test=\"${for.index == 0}\">\n\t\t<div>第一条数据： ${item},\n\t</c:if>\n\t<c:else test=\"${for.index == for.lastIndex}\">\n\t\t最后一条数据：${item}</div> \n\t</c:else>\n\t<c:else>\n\t\t第${for.index+1}条数据：${item},$end$\n\t</c:else>\n</c:for>","{list:[1,2,3,4]}"];
-//]]></script><div class="code"><script>renderSource(__id__1478706227534_81[0],__id__1478706227534_81[1],'');</script></div>
+__id__1478712003782_66=["<c:for var=\"item\" list=\"${list}\">\n\t<c:if test=\"${for.index == 0}\">\n\t\t<div>第一条数据： ${item},\n\t</c:if>\n\t<c:else test=\"${for.index == for.lastIndex}\">\n\t\t最后一条数据：${item}</div> \n\t</c:else>\n\t<c:else>\n\t\t第${for.index+1}条数据：${item},$end$\n\t</c:else>\n</c:for>","{list:[1,2,3,4]}"];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003782_66[0],__id__1478712003782_66[1],'');</script></div>
 			</ul>
 		</p>
 	

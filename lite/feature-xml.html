@@ -79,19 +79,35 @@
 		<ul>
 
 			<script>//<![CDATA[
-__id__1478706227563_57=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
-//]]></script>
+__id__1478712003758_47=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
+//]]>
+</script>
+<script>//<![CDATA[
+autoformModel=__id__1478712003758_47[0];
+//]]>
+</script>
+
 			<script>//<![CDATA[
-__id__1478706227563_10=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
-//]]></script><div class="code"><script>renderSource(__id__1478706227563_10[0],__id__1478706227563_10[1],'');</script></div>
+__id__1478712003758_92=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003758_92[0],__id__1478712003758_92[1],'');</script></div>
 			<br/>
 			<br/>
 			<script>//<![CDATA[
-__id__1478706227563_67=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcontent:\"危险代码&lt;script>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
-//]]></script>
+__id__1478712003758_45=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
+//]]>
+</script>
+<script>//<![CDATA[
+htmlxmlModel=__id__1478712003758_45[0];
+//]]>
+</script>
+
 			<script>//<![CDATA[
-__id__1478706227563_63=["<!-- html/xml 条件属性\n\t\t若 disabled 变量为null， 则disabled 属性不输出 -->\n<input type=\"submit\" disabled=\"${disabled}\" value=\"\"/>\n\n....\n<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURIComponent) -->\n<a href=\"/test?p1=${data.p1}&p2=${data.p2}&p3=${'中文自动编码'}\">...</a>\n<!-- html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script>\n\n\n...\n<!-- 自动Hash戳（用于设置服务器永久缓存）和文件缺失检查【该功能只在上线编译时启用】 -->\n<link href=\"/styles/default.css\" type=\"text/css\" rel=\"stylesheet\"/>\n<script src=\"/scripts/boot.js\"/>\n<!-- 自动图片文件信息补全(width,height) 【该功能只在上线编译时启用】-->\n<img src=\"/images/logo.png\"/>",htmlxmlModel];
-//]]></script><div class="code"><script>renderSource(__id__1478706227563_63[0],__id__1478706227563_63[1],'');</script></div>
+__id__1478712003758_60=["<!-- html/xml 条件属性\n\t\t若 disabled 变量为null， 则disabled 属性不输出 -->\n<input type=\"submit\" disabled=\"${disabled}\" value=\"\"/>\n\n....\n<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURIComponent) -->\n<a href=\"/test?p1=${data.p1}&p2=${data.p2}&p3=${'中文自动编码'}\">...</a>\n<!-- html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>\n\n\n...\n<!-- 自动Hash戳（用于设置服务器永久缓存）和文件缺失检查【该功能只在上线编译时启用】 -->\n<link href=\"/styles/default.css\" type=\"text/css\" rel=\"stylesheet\"/>\n<script src=\"/scripts/boot.js\"/>\n<!-- 自动图片文件信息补全(width,height) 【该功能只在上线编译时启用】-->\n<img src=\"/images/logo.png\"/>",htmlxmlModel];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003758_60[0],__id__1478712003758_60[1],'');</script></div>
 
 		</ul>
 	

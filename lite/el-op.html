@@ -74,8 +74,10 @@
 				<p><i>与JavaScript语义完全一致，&amp;&amp;||运算同时具有条件运算功能。
 				例如：
 				<script>//<![CDATA[
-__id__1478706227496_68=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 输出  true-->\n${true||'str'}\n<!-- 如下两个语法是等价的 -->\n${a ? a : b} 等价于： ${a || b}\n${user.name ? user.name : '匆匆过客'} 等价于 ${user.name || '匆匆过客'} \n</textarea>","{a:0,b:'b',user:{name:null}}"];
-//]]></script><div class="code"><script>renderSource(__id__1478706227496_68[0],__id__1478706227496_68[1],'');</script></div> 
+__id__1478712003725_89=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 输出  true-->\n${true||'str'}\n<!-- 如下两个语法是等价的 -->\n${a ? a : b} 等价于： ${a || b}\n${user.name ? user.name : '匆匆过客'} 等价于 ${user.name || '匆匆过客'} \n</textarea>","{a:0,b:'b',user:{name:null}}"];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003725_89[0],__id__1478712003725_89[1],'');</script></div> 
 				</i>
 				
 				</p>
@@ -99,13 +101,17 @@ __id__1478706227496_68=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 
 		<p>Lite 模板支持成员方法和普通函数两种函数调用方式。</p>
 		<p>其中成员方法包括标准JavaScript对象的成员方法，这些函数一般是模板系统内置。
 		<script>//<![CDATA[
-__id__1478706227497_24=["${\"abc\".substring(1,2)}\n${[1,2,3,4].join('|')}\n${(1000).toString(16)}","{}"];
-//]]></script><div class="code"><script>renderSource(__id__1478706227497_24[0],__id__1478706227497_24[1],'');</script></div>
+__id__1478712003725_33=["${\"abc\".substring(1,2)}\n${[1,2,3,4].join('|')}\n${(1000).toString(16)}","{}"];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003725_33[0],__id__1478712003725_33[1],'');</script></div>
 		</p>
 		<p>普通函数包括部分内置的JavaScript标准全局函数，同时模板中自定义的函数，也属于这一类型，调用方法完全一致（查看<a href="syntax-def.html">函数定义语法参考</a>）。
 		<script>//<![CDATA[
-__id__1478706227497_36=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\")}","{}"];
-//]]></script><div class="code"><script>renderSource(__id__1478706227497_36[0],__id__1478706227497_36[1],'');</script></div>
+__id__1478712003725_64=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\")}","{}"];
+//]]>
+</script>
+<div class="code"><script>renderSource(__id__1478712003725_64[0],__id__1478712003725_64[1],'');</script></div>
 		</p>
 		<p>系统内置了JavaScript的大部分标准函数，详细情况请查看:<a href="el-function.html">el-function.xhtml</a>
 		</p>
