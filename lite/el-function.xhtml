@@ -1,0 +1,392 @@
+<!DOCTYPE html><html>
+	<head>
+		<title>内置函数清单（PHP/Java）</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link href="default.css" rel="stylesheet" type="text/css"/>
+		
+		
+	</head>
+	<body>
+		
+		<style>
+			.cm-lite-el{ color:#d30;}
+			.cm-lite-tag{
+			color:#9933FF;font-weight:bold;}
+		</style>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
+		<div id="main">
+	<div id="header">
+		<div class="logo"
+onclick="location = 'http://www.xidea.org/lite/'">
+			
+				<div style="left:0px;top:0px;width:19px;height:100px;"> </div>
+			
+				<div style="left:0px;top:81px;width:42px;height:19px;"> </div>
+			
+				<div style="left:23px;top:0px;width:19px;height:19px;"> </div>
+			
+				<div style="left:23px;top:23px;width:19px;height:54px;"> </div>
+			
+				<div style="left:46px;top:0px;width:42px;height:19px;"> </div>
+			
+				<div style="left:46px;top:23px;width:19px;height:77px;"> </div>
+			
+				<div style="left:69px;top:81px;width:19px;height:19px;"> </div>
+			
+		</div>
+		<h1>
+			内置函数清单（PHP/Java）
+		</h1>
+		<div class="top-box">
+			<div id="i18n">
+				<span class="i18n_zh"
+onclick="i18n_reload(&#34;zh&#34;)">中文</span>|
+				<span class="i18n_en"
+onclick="i18n_reload(&#34;en&#34;)">English</span>
+				<div style="display:none">
+				|<input type="checkbox" id="i18n_on" checked="checked"/>
+				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
+				</div>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+			</div>
+			<div class="test"><a href="../test.xhtml">查看测试报表</a></div>
+		</div>
+		<div class="line"></div>
+	</div>
+	<div id="content">
+		
+	
+	<script>var globalsRefMap = {"decodeURI":"toplev.html#1120957","decodeURIComponent":"toplev.html#1119005","encodeURI":"toplev.html#1118346","encodeURIComponent":"toplev.html#1115986","eval":"toplev.html#1063795","Infinity":"toplev.html#1063963","isFinite":"toplev.html#1063988","isNaN":"toplev.html#1064024","NaN":"toplev.html#1064064","Number":"toplev.html#1064092","parseFloat":"toplev.html#1064132","parseInt":"toplev.html#1064173","String":"toplev.html#1064506","Array":"array.html#1193137","Boolean":"boolean.html#1193137","Date":"date.html#1193137","Function":"function.html#1193137","Math":"math.html#1193138","Number":"number.html#1193137","RegExp":"regexp.html#1193136","String":"string.html#1193137"}var globals = ["lite__parseInt($value, $radix=null) ","lite__parseFloat($value) ","lite__encodeURIComponent($item,$encoding='UTF-8')","lite__decodeURIComponent($item,$encoding='UTF-8')","lite__encodeURI($uri,$encoding='UTF-8')","lite__decodeURI($uri,$encoding='UTF-8')","lite__isFinite($op) ","lite__isNaN($op)","-eval"];var memberRefMap = {"Math":{"abs":"math.html#1195395","acos":"math.html#1195429","asin":"math.html#1195485","atan":"math.html#1195541","atan2":"math.html#1195597","ceil":"math.html#1195654","cos":"math.html#1195695","exp":"math.html#1196408","floor":"math.html#1196455","log":"math.html#1196917","max":"math.html#1197362","min":"math.html#1197403","pow":"math.html#1197651","random":"math.html#1197697","round":"math.html#1197725","sin":"math.html#1197769","sqrt":"math.html#1197825","tan":"math.html#1194346"},"JSON":{},"Number":{"toFixed":"number.html#1200964","toString":"number.html#1193464"},"String":{"anchor":"string.html#1196382","big":"string.html#1196447","blink":"string.html#1196495","bold":"string.html#1196546","charAt":"string.html#1196596","charCodeAt":"string.html#1196647","concat":"string.html#1196678","fixed":"string.html#1196715","fontcolor":"string.html#1196753","fontsize":"string.html#1196806","fromCharCode":"string.html#1225094","indexOf":"string.html#1196895","italics":"string.html#1196955","lastIndexOf":"string.html#1197005","link":"string.html#1198070","match":"string.html#1205239","replace":"string.html#1194258","search":"string.html#1194332","slice":"string.html#1194366","small":"string.html#1194405","split":"string.html#1194452","strike":"string.html#1194525","sub":"string.html#1194575","substr":"string.html#1194618","substring":"string.html#1194665","sup":"string.html#1194721","toLowerCase":"string.html#1194765","toSource":"string.html#1194796","Object.toSource":"object.html#1193320","toString":"string.html#1210667","Object.toString":"object.html#1193350","toUpperCase":"string.html#1194823","valueOf":"string.html#1210732","Object.valueOf":"object.html#1193540"},"Array":{"concat":"array.html#1194827","join":"array.html#1195456","pop":"array.html#1196003","push":"array.html#1196550","reverse":"array.html#1193641","shift":"array.html#1193677","slice":"array.html#1193713","splice":"array.html#1193766","sort":"array.html#1196882","toSource":"array.html#1193889","Object.toSource":"object.html#1193320","toString":"array.html#1193921","Object.toString":"object.html#1193350","unshift":"array.html#1193964","valueOf":"array.html#1202613","Object.valueOf":"object.html#1193540"},"Date":{"getDate":"date.html#1193537","getDay":"date.html#1193573","getFullYear":"date.html#1193607","getHours":"date.html#1193644","getMilliseconds":"date.html#1193677","getMinutes":"date.html#1193710","getMonth":"date.html#1193744","getSeconds":"date.html#1193778","getTime":"date.html#1193811","getTimezoneOffset":"date.html#1193844","getUTCDate":"date.html#1219395","getUTCDay":"date.html#1193904","getUTCFullYear":"date.html#1193940","getUTCHours":"date.html#1193973","getUTCMilliseconds":"date.html#1194006","getUTCMinutes":"date.html#1194039","getUTCMonth":"date.html#1194072","getUTCSeconds":"date.html#1194105","getYear":"date.html#1194138","parse":"date.html#1194184","setDate":"date.html#1194228","setFullYear":"date.html#1194264","setHours":"date.html#1194314","setMilliseconds":"date.html#1194367","setMinutes":"date.html#setMinutes","setMonth":"date.html#1194453","setSeconds":"date.html#1194498","setTime":"date.html#1194543","setUTCDate":"date.html#1194580","setUTCFullYear":"date.html#1194617","setUTCHours":"date.html#1194663","setUTCMilliseconds":"date.html#1194713","setUTCMinutes":"date.html#1194750","setUTCMonth":"date.html#1194796","setUTCSeconds":"date.html#1194838","setYear":"date.html#1194880","toGMTString":"date.html#1194931","toLocaleString":"date.html#1194970","toLocaleDateString":"date.html#toLocaleDateString","toLocaleTimeString":"date.html#toLocaleTimeString","toSource":"date.html#1195016","Object.toSource":"object.html#1193320","toString":"date.html#1206669","Object.toString":"object.html#1193350","toUTCString":"date.html#1195045","UTC":"date.html#1195078","valueOf":"date.html#1206897","Object.valueOf":"object.html#1193540"}}var memberMap = {"String":["lite_member_charAt($obj, $index)","lite_member_charCodeAt($obj, $index)","lite_member_indexOf($obj, $needle, $from_index=0)","lite_member_lastIndexOf($obj, $needle, $from_index=null)","lite_member_toLowerCase($obj)","lite_member_toUpperCase($obj)","?lite_member_toLocaleLowerCase()","?lite_member_toLocaleUpperCase()","lite_member_substr($obj, $start, $length=false)","lite_member_substring($obj, $start, $end=null)","lite_member_split($obj, $separator=null, $limit=false)","lite_member_slice($obj, $start, $end=0)","lite_member_match($obj, $regexp)","lite_member_concat($obj)","?lite_member_search(regexp)","?valueOf","lite_member_replace($obj, $regexp, $replacement)"],"Array":["lite_member_slice($obj, $start, $end=0)","lite_member_join($obj, $separator=',')","lite_member_concat($obj)","?toLocaleString","?sort","-lite_member_pop($obj)","-lite_member_push($obj,$dummy)","-lite_member_shift($obj)","-lite_member_unshift($obj, $dummy)","-lite_member_splice($obj, $index=0, $count=0)","lite_member_reverse($obj)"],"Date":["lite_member_getFullYear($d)","lite_member_getYear($d)","lite_member_getMonth($d)","lite_member_getDay($d)","lite_member_getDate($d)","lite_member_getHours($d)","lite_member_getMinutes($d)","lite_member_getSeconds($d)"],"Number":["lite_member_toFixed($obj, $digits=0)","lite_member_toString($obj, $radix=10)","?toLocaleString","?valueOf","?toExponential","?toPrecision"],"JSON":["lite_member_stringify($obj, $arg, $from_enc=NULL)","lite_member_parse($obj,$arg,$from_enc=NULL){"],"Math":["lite_member_max($obj)","lite_member_min($obj)","lite_member_random($obj)","lite_member_floor($obj, $op)","lite_member_round($obj, $op)","lite_member_acos($obj,$arg)","lite_member_asin($obj,$arg)","lite_member_atan($obj,$arg)","lite_member_atan2($obj,$arg1,$arg2)","lite_member_cos($obj,$arg)","lite_member_sin($obj,$arg)","lite_member_sqrt($obj,$arg)","lite_member_tan($obj,$arg)","lite_member_ceil($obj,$arg)","lite_member_pow($obj,$arg1,$arg2)","lite_member_abs($obj,$arg1)","lite_member_log($obj,$arg)","lite_member_exp($obj,$arg)"]}</script>
+	
+	<script>//<![CDATA[
+function showFunctionTable(__context__,__out__){
+	function __x__(source,e){return String(source).replace(e||/&(?!#\d+;|#x[\da-f]+;|[a-z]+;)|[<"]/ig,function(c){return '&#'+c.charCodeAt()+';'});}
+	if(!Object.keys)Object.keys=function(o){var r=[];for(var n in o){r.push(n)};return r;};
+	var memberRefMap=("memberRefMap" in __context__?__context__:this)["memberRefMap"];
+	var memberMap=("memberMap" in __context__?__context__:this)["memberMap"];
+	var globalsRefMap=("globalsRefMap" in __context__?__context__:this)["globalsRefMap"];
+	var globals=("globals" in __context__?__context__:this)["globals"];
+	if(memberRefMap instanceof Promise){memberRefMap.then(function(v){memberRefMap = v});}
+	if(memberMap instanceof Promise){memberMap.then(function(v){memberMap = v});}
+	if(globalsRefMap instanceof Promise){globalsRefMap.then(function(v){globalsRefMap = v});}
+	if(globals instanceof Promise){globals.then(function(v){globals = v});}
+	__g__ = __g__();function __n__(){var n = __g__.next().value;if(n instanceof Promise){n.then(__n__);console.log('is promise',n)}};__n__();
+
+	function* __g__(){
+	__out__.push("\r\n\t\t<div style=\"float:left;height:220px;\">\r\n\t\t\t<h4>全局函数列表</h4>\r\n\t\t\t<table border=\"1\">\r\n\t\t\t\t<tr><th>函数名</th><th>参考标准</th></tr>\r\n\t\t\t\t");
+	yield* __out__.wait(globals)
+	var $_2=globals;
+	var $_0=0;
+	var $_1 = ($_2=$_2 instanceof Array?$_2:Object.keys($_2)).length-1;
+	for(;$_0<=$_1;$_0++){
+		var item=$_2[$_0];
+		__out__.push("\r\n\t\t\t\t<tr");
+		yield* __out__.wait(item)
+		var $_3=item.style
+		if($_3!=null){
+			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
+		}
+		yield* __out__.wait(item)
+		var $_3=item.title
+		if($_3!=null){
+			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
+		}
+		__out__.push(">\r\n\t\t\t\t\t<td><a");
+		yield* __out__.wait(item)
+		var $_3=item.style
+		if($_3!=null){
+			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
+		}
+		yield* __out__.wait(item)
+		var $_3=item.title||item.impl
+		if($_3!=null){
+			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
+		}
+		__out__.push(" href0=\"el-function-source.html#lite__");
+		yield* __out__.wait(item)
+		__out__.push(__x__(item.name,/[&<\"]/g),"\">");
+		yield* __out__.wait(item)
+		__out__.push(__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
+		yield* __out__.wait(item)
+		var $_3=item.style
+		if($_3!=null){
+			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
+		}
+		yield* __out__.wait(item)
+		var $_3=item.title
+		if($_3!=null){
+			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
+		}
+		__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/");
+		yield* __out__.wait(item,globalsRefMap)
+		__out__.push(__x__(encodeURI(globalsRefMap[item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
+	}
+	if(!$_0){
+		__out__.push("<tr><td colspan=\"2\">找不到匹配的函数</td></tr>");
+	}
+	__out__.push("\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t\t");
+	yield* __out__.wait(memberMap)
+	var $_2=memberMap;
+	var $_0=0;
+	var $_1 = ($_2=$_2 instanceof Array?$_2:Object.keys($_2)).length-1;
+	for(;$_0<=$_1;$_0++){
+		var ownerName=$_2[$_0];
+		__out__.push("\r\n\t\t<div style=\"float:left;overflow:auto;\">\r\n\t\t\t<h4>成员函数列表(<a href=\"http://www.xidea.org/project/jsidoc/js1.5/");
+		yield* __out__.wait(ownerName,globalsRefMap)
+		__out__.push(__x__(encodeURI(globalsRefMap[ownerName]),/[&<\"]/g),"\">");
+		yield* __out__.wait(ownerName)
+		__out__.push(__x__(ownerName,/[&<]/g),"</a>)</h4>\r\n\t\t\t<table border=\"1\">\r\n\t\t\t\t<tr><th>方法名</th><th>参考标准</th></tr>\r\n\t\t\t\t");
+		yield* __out__.wait(ownerName,memberMap)
+		var $_5=memberMap[ownerName];
+		var $_3=0;
+		var $_4 = ($_5=$_5 instanceof Array?$_5:Object.keys($_5)).length-1;
+		for(;$_3<=$_4;$_3++){
+			var item=$_5[$_3];
+			__out__.push("\r\n\t\t\t\t<tr");
+			yield* __out__.wait(item)
+			var $_6=item.style
+			if($_6!=null){
+				__out__.push(' style="',__x__($_6,/[&<\"]/g),'"');
+			}
+			yield* __out__.wait(item)
+			var $_6=item.title
+			if($_6!=null){
+				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
+			}
+			__out__.push(">\r\n\t\t\t\t\t<td><a");
+			yield* __out__.wait(item)
+			var $_6=item.title||item.impl
+			if($_6!=null){
+				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
+			}
+			__out__.push(" href0=\"el-function-source.html#lite_member_");
+			yield* __out__.wait(item)
+			__out__.push(__x__(item.name,/[&<\"]/g),"\">");
+			yield* __out__.wait(item)
+			__out__.push(__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
+			yield* __out__.wait(item)
+			var $_6=item.style
+			if($_6!=null){
+				__out__.push(' style="',__x__($_6,/[&<\"]/g),'"');
+			}
+			yield* __out__.wait(item)
+			var $_6=item.title
+			if($_6!=null){
+				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
+			}
+			__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/");
+			yield* __out__.wait(item,memberRefMap)
+			__out__.push(__x__(encodeURI(memberRefMap[item.type][item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
+		}
+		if(!$_3){
+			__out__.push("<tr><td colspan=\"2\">找不到匹配的函数</td></tr>");
+		}
+		__out__.push("\r\n\t\t\t</table>\r\n\t\t\t</div>\r\n\t\t");
+	}
+	__out__.push("\r\n\t");
+	return __out__.join("");
+	}
+}
+//]]></script>
+	<ul style="clean:both">
+		<label for="name" style="float:left">
+			<strong>输入过滤条件：</strong>
+			<input id="name"
+oninput="showFilter(this.value)"
+onpropertychange="showFilter(this.value)"/>
+		</label>
+		
+		<table border="1" style="float:left;">
+		<tr><td>图例：</td><td style="text-decoration:line-through;background-color:#960;" title="影响上下文函数">不支持！</td>
+		<td style="text-decoration:line-through;background-color:#cc6;" title="不常用函数">暂不支持。</td></tr></table>
+		<div style="float:right;">
+			<p>Lite 按照JavaScript语法规则，<br/>在PHP，Java等其他环境下实现的内置模板函数。</p>
+		<div style="opacity:0.3;">
+			<div class='code'><script>renderSource("//函数调用表达式示例:\u000a${encodeURIComponent(text1)}\u000a${JSON.stringify(object)}\u000a${[a,b,c].concat(d,[e,f]).join(\u0027\u005cn\u0027)}\u000a${str.substring(1,2)}",null,'');</script></div></div>
+			</div>
+		<hr/>
+		
+	</ul>
+	<div id="functionTable"></div>
+	<script>/*<![CDATA[*/function showFilter(key){var memberMap2 = {};if(key){key = key.replace(/^\s+|\s+$/g,'').toLowerCase();}for(var m in memberMap){var ms = memberMap[m];var tm = m.toLowerCase().indexOf(key)>=0;var _members = [];memberMap2[m] = _membersfor(var i=0;i<ms.length;i++){var impl = ms[i];var prefix = impl.match(/^[?\-]/);var style = null,title = null;var n = impl.replace(/lite_member_(\w+).*/,'$1')if(prefix){prefix = prefix[0];impl = impl.substr(1);title=prefix=='?'?"尚未实现":"副作用函数,不予实现!!!";style ="text-decoration:line-through;background-color:"+ (prefix=='?'?'#cc6;':'#960;')}else if(n == 'reverse'){title="可控副作用函数,需要先调用concat复制本身，例如：concat().reverse()!!!";style ="background-color:yellow;"}if(!key || tm || n.toLowerCase().indexOf(key)>=0){_members.push({style:style,title:title,'type':m,name:n,impl:impl});}}}var _globals = [];for(var i=0;i<globals.length;i++){var impl = globals[i];var prefix = impl.match(/^[?\-]/);var style = null,title = null;var n = impl.replace(/lite__(\w+).*/,'$1')if(prefix){prefix = prefix[0];impl = impl.substr(1);title=prefix=='?'?"尚未实现":"副作用函数,不予实现!!!";style ="text-decoration:line-through;background-color:"+ (prefix=='?'?'#cc6;':'#960;')}if(!key || n.toLowerCase().indexOf(key)>=0){_globals.push({style:style,title:title,name:n,impl:impl});}}document.getElementById("functionTable").innerHTML = showFunctionTable({globals:_globals,memberMap:memberMap2,globalsRefMap:globalsRefMap,memberRefMap:memberRefMap});}showFilter()//]]></script>
+	
+		<div id="post">
+
+	<div class="ds-thread"></div>
+<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+
+</div>
+	</div>
+	<div id="footer"></div>
+</div>
+		<div id="menu">
+	<div class="menuInner">
+		<h3 c:i18n="0">入门</h3>
+		<ul>
+			<li>
+				<a c:i18n="0_1" href="index.xhtml">Lite模板简介</a>
+			</li>
+			<li>
+				<a c:i18n="0_2" href="install.xhtml">测试与安装</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="1">表达式参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="1_1" href="el.xhtml">什么是表达式</a>
+			</li>
+			<li>
+				<a c:i18n="1_2" href="el-value.xhtml">变量/原子值/复合值</a>
+			</li>
+			<li>
+				<a c:i18n="1_3" href="el-op.xhtml">操作符与函数</a>
+			</li>
+			<li>
+				<a c:i18n="1_4" href="el-function.xhtml" class=" current">内置函数参考</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="2">核心模板语法参考</h3>
+		<ul>
+			
+			<li>
+				<a c:i18n="2_1" href="syntax-out.xhtml">输出语法[${},$!{},$#{},日期]</a>
+			</li>
+			<li>
+				<a c:i18n="2_2" href="syntax-if.xhtml">条件判断[c:if]</a>
+			</li>
+			<li>
+				<a c:i18n="2_3" href="syntax-choose.xhtml">分支选择[c:choose]</a>
+			</li>
+			<li>
+				<a c:i18n="2_4" href="syntax-for.xhtml">四种循环[c:for]</a>
+			</li>
+			<li>
+				<a c:i18n="2_5" href="syntax-extends.xhtml">模板继承[c:extends]</a>
+			</li>
+			<li>
+				<a c:i18n="2_6" href="syntax-include.xhtml">静态包含[c:include]</a>
+			</li>
+			<li>
+				<a c:i18n="2_7" href="syntax-var.xhtml">变量申明[c:var]</a>
+			</li>
+			<li>
+				<a c:i18n="2_8" href="syntax-def.xhtml">模板函数申明[c:def]</a>
+			</li>
+			<li>
+				<a c:i18n="2_9" href="syntax-extension.xhtml">自定义扩展[c:extension]</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="3">XML/HTML相关语法参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="3_1" href="syntax-trim.xhtml">注释/语法空格控制[h:trim]</a>
+			</li>
+			<li>
+				<a c:i18n="3_2" href="syntax-client.xhtml">前端模板函数申明[h:client]</a>
+			</li>
+			<li>
+				<a c:i18n="3_3" href="syntax-autoform.xhtml">自动表单[h:autofrom]</a>
+			</li>
+			<li>
+				<a c:i18n="3_4" href="feature-autoencode.xhtml">自动编码</a>
+			</li>
+			<li>
+				<a c:i18n="3_5" href="feature-xml.xhtml" title="标记语言特有的语法，如：条件属性,自动编码,自动语义补全等...">其他特性</a>
+			</li>
+		</ul>
+		<h3 c:i18n="4">开发调试辅助</h3>
+		<ul>
+			<li>
+				<a c:i18n="4_1" href="debug-model.xhtml">查看数据模型</a>
+			</li>
+			<li>
+				<a c:i18n="4_2" href="debug-log.xhtml">查看编译日志</a>
+			</li>
+		</ul>
+		<h3 c:i18n="5">编译打包</h3>
+		<ul>
+			<li>
+				<a c:i18n="5_1" href="compiler-cmd.xhtml">批量编译</a>
+			</li>
+			<li>
+				<a c:i18n="5_2" href="compiler-spec.xhtml">编译规范</a>
+			</li>
+			<li>
+				<a c:i18n="5_3" href="compiler-api.xhtml">自定义编译</a>
+			</li>
+		</ul>
+		<h3 c:i18n="6">常见问题</h3>
+		<ul>
+			<li>
+				<a c:i18n="6_1" href="faq-newer.xhtml">致初学者</a>
+			</li>
+			<li>
+				<a c:i18n="6_2" href="faq-badcase.xhtml">常犯错误</a>
+			</li>
+			<li>
+				<a c:i18n="6_3" href="faq-plan.xhtml">开发计划</a>
+			</li>
+		</ul>
+		<h3 c:i18n="7">二次开发参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="7_1" href="dev-function.xhtml">扩展运行时函数(PHP)</a>
+			</li>
+			<li>
+				<a c:i18n="7_2" href="dev-function.xhtml">扩展运行时函数(Java)</a>
+			</li>
+			<li>
+				<a c:i18n="7_3" href="dev-extension.xhtml">扩展模板语法</a>
+			</li>
+			<li>
+				<a c:i18n="7_4" href="dev-data-view.xhtml">扩展数据模型调试窗口</a>
+			</li>
+			<li>
+				<a c:i18n="7_5" href="dev-translator.xhtml">创建新的运行环境</a>
+			</li>
+		</ul>
+	</div>
+</div>
+		<div class="dialog">
+	<div class="mask"></div>
+	<div id="exampleRunner">
+		<div class="head">
+			===模板测试 ===
+			<a class="close"
+onclick="closeExample()">X</a>
+		</div>
+		<div class="jsonSource">
+			<h5>数据模型</h5>
+			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+		</div>
+		<div class="templateSource">
+			<h5>模板代码</h5>
+			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+		</div>
+		<div class="resultSource" id="exampleResult">
+			<h5>结果输出</h5>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
+		</div>
+		<div class="toolbar">
+			<input type="button" value="编译(JS)"
+onclick="compileToJS()"/>
+			<input type="button" value="编译(PHP)"
+onclick="compileToPHP()"/>
+			<input type="button" value="编译(NodeJS)"
+onclick="compileToNodeJS()"/>
+			<input type="button" title="lite" value="编译(Java)"
+onclick="compileToLite()"/>
+			<input type="button" id="runButton" disabled="disabled" value="运行(?)"
+onclick="runTemplate()"/>
+		</div>
+	</div>
+</div>
+		
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+	</body>
+</html>

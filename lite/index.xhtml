@@ -1,0 +1,347 @@
+<!DOCTYPE html><html>
+	<head>
+		<title>入门指南 </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link href="default.css" rel="stylesheet" type="text/css"/>
+		
+		
+	</head>
+	<body>
+		
+		<style>
+			.cm-lite-el{ color:#d30;}
+			.cm-lite-tag{
+			color:#9933FF;font-weight:bold;}
+		</style>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
+		<div id="main">
+	<div id="header">
+		<div class="logo"
+onclick="location = 'http://www.xidea.org/lite/'">
+			
+				<div style="left:0px;top:0px;width:19px;height:100px;"> </div>
+			
+				<div style="left:0px;top:81px;width:42px;height:19px;"> </div>
+			
+				<div style="left:23px;top:0px;width:19px;height:19px;"> </div>
+			
+				<div style="left:23px;top:23px;width:19px;height:54px;"> </div>
+			
+				<div style="left:46px;top:0px;width:42px;height:19px;"> </div>
+			
+				<div style="left:46px;top:23px;width:19px;height:77px;"> </div>
+			
+				<div style="left:69px;top:81px;width:19px;height:19px;"> </div>
+			
+		</div>
+		<h1>
+			入门指南 
+		</h1>
+		<div class="top-box">
+			<div id="i18n">
+				<span class="i18n_zh"
+onclick="i18n_reload(&#34;zh&#34;)">中文</span>|
+				<span class="i18n_en"
+onclick="i18n_reload(&#34;en&#34;)">English</span>
+				<div style="display:none">
+				|<input type="checkbox" id="i18n_on" checked="checked"/>
+				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
+				</div>
+				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+			</div>
+			<div class="test"><a href="../test.xhtml">查看测试报表</a></div>
+		</div>
+		<div class="line"></div>
+	</div>
+	<div id="content">
+		
+		<a name="what"></a>
+		<h3>什么是模板?</h3>
+		<p>
+			数据+
+			<strong>模板</strong>
+			=> 视图，这就是模板的价值和定位。
+		</p>
+		<p>
+			在Web开发中，前端工程师通常使用模板，将后端数据转化/拼装为一个前端可读的HTML内容
+			[
+			<a
+onclick="showNext(this,this.parentNode,&#34;展开示例&#34;,&#34;隐藏示例&#34;);return false" href="#">展开示例</a>
+			]。
+		</p>
+		<div style="display:none">
+			<ul>
+				<h4>最简模板示例</h4>
+				<p>
+					以显示一个简单的个人信息为例，形式如：
+					<div class='code'><script>renderSource("\u003chtml>\u000a\u003ctitle>模板测试\u003c/title>\u000a\u003cbody>\u000a我是：张三,来自：北京\u000a\u003c/body>\u000a\u003c/html>",null,'');</script></div>
+				</p>
+				<p>
+					其中，姓名 "张三" 和城市 "北京" 需要从后端获取，后端数据模型如下：
+					<script>testModel="{\u000a\u0022name\u0022: \u0022张三\u0022,\u000a\u0022city\u0022:\u0022北京\u0022\u000a}";</script><div class='code'><script>renderSource("{\u000a\u0022name\u0022: \u0022张三\u0022,\u000a\u0022city\u0022:\u0022北京\u0022\u000a}",null,'/testmodel.json');</script></div>
+				</p>
+				<p>
+					为了实现上述内容的动态展示，我们需要编写一个简单的模板：
+					<script>var testModel = editorMap['/testmodel.json'].getValue();</script>
+					<div class='code'><script>renderSource("\u003chtml>\u000a	\u003ctitle>模板测试\u003c/title>\u000a	\u003cbody>\u000a		我是：${name},来自：${city}\u000a	\u003c/body>\u000a\u003c/html>",testModel,'');</script></div>
+				</p>
+			</ul>
+		</div>
+		<a name="style"></a>
+		<h3>Lite 模板快速参考 </h3>
+		<p>Lite 模板的主要功能包括：
+			<ul>
+				<li><a href="syntax-out.xhtml">变量/表达式输出</a></li>
+				<li><a href="syntax-if.xhtml">条件</a>/<a href="syntax-for.xhtml">循环控制</a></li>
+				<li><a href="syntax-def.xhtml">函数</a>/<a href="syntax-var.xhtml">变量申明</a></li>
+				<li><a href="syntax-extends.xhtml">模板继承</a>/<a href="syntax-include.xhtml">静态包含</a>/动态调用</li>
+				<li><strong>前端功能</strong>（如：
+				<a href="syntax-client.xhtml">前端模板</a>/
+				<a href="syntax-autoform.xhtml">自动表单</a>/
+				<a href="feature-autoencode.xhtml">HTML自动编码</a>）</li>
+			</ul>
+		</p>
+		<h3>Lite 模板风格 </h3>
+		<p>在Lite出现之前，已经有很多广泛运用的模板系统，Java中，Velocity，FreeMarker 算是先驱，
+			PHP中Smarty出现较早， 前端JavaScript模板， 太杂，成熟的不多，这里就不多说。</p>
+
+		<p>那么Lite存在的价值又在那里呢？</p>
+		<p> 与这些流行的模板系统不同， Lite有如下三大特点：</p>
+		<ul>
+			<li>
+				<strong>懂HTML/XML的语法,绝对安全</strong>
+				<p>在Lite环境下，你基本无法打破html自身约束，写不出有XSS漏洞的网页。</p>
+				<p>因为Lite
+					XML语法本身是基于标记去扩展的，他对文档中所有动态的和静态的内容，都有感知，他可以据此合理的自动优化，还可以在标记语法的基础上设计一些漂亮的语法特征。
+				</p>
+				<ul>
+					<li>
+						通过HTML/XML上下文实现的：
+						<a href="feature-autoencode.xhtml">自动编码</a>
+					</li>
+					<li>
+						通过过滤原生表单元素实现的：
+						<a href="syntax-autoform.xhtml">自动表单填充</a>
+					</li>
+					<li>
+						通过HTML/XML属性语义实现的：
+						<a href="feature-xml.xhtml#attribute">条件属性</a>
+					</li>
+					<li>
+						通过HTML/XML块结构和空格语义要求实现的：
+						<a href="syntax-trim.xhtml">标签空格控制</a>
+					</li>
+					<li>
+						通过过滤原生HTML/XML标签实现的：
+						<a href="feature-xml.xhtml#">自动HTML标签补全</a>
+					</li>
+				</ul>
+			</li>
+
+			<li>
+				<strong>基于 JavaScript</strong>
+				<p>
+					兼容JavaScript的表达式和函数库，方便前端工程师学习。
+					<script>elModel="{\u000a	\u0022object\u0022:{\u0022key\u0022:\u0022value\u0022},\u000a	\u0022a\u0022:1,\u0022b\u0022:2,\u0022c\u0022:3,\u0022d\u0022:4,\u0022e\u0022:5,\u0022f\u0022:6,\u000a	\u0022array\u0022:[1,2,3,4],\u000a	\u0022str\u0022:\u0022testString\u0022\u000a}";</script>
+					<div class='code'><script>renderSource("\u003ctextarea>\u000a//表达式示例:\u000a${JSON.stringify(object)}\u000a${[a,b,c].concat(d,[e,f]).join(\u0027,\u0027)}\u000a${[a,b,c,d].concat(array).length}\u000a${str.charAt(0)}\u000a${str.substring(1,2)}\u000a\u003c/textarea>",elModel,'');</script></div>
+				</p>
+				<p>
+					基于JavaScript的扩展机制，可以轻松扩展模板语法，方便前端工程师二次开发。
+				</p>
+				<p>
+					<i>
+						关于扩展的话题，本指南有一些简单介绍：
+						<a href="syntax-extension.xhtml">syntax-extension.xhtml</a>
+					</i>
+				</p>
+			</li>
+			
+			<li>
+				<strong>功能完备，前后端统一，跨平台的实现</strong>
+				<p>Lite
+					目前拥有功能强大且成熟的Java，PHP版本，支持目前主流和一些超前的模板编程方法，并且在前端JavaScript模板上，完全拥有与后端模板同样完备的功能。你可以在PHP，Java，乃至浏览器JavaScript中随意切换。
+				</p>
+				<p>而且，因为他中间代码的设计方法，非常方便迁移到其他平台。</p>
+			</li>
+		</ul>
+	
+		<div id="post">
+
+	<div class="ds-thread"></div>
+<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+
+</div>
+	</div>
+	<div id="footer"></div>
+</div>
+		<div id="menu">
+	<div class="menuInner">
+		<h3 c:i18n="0">入门</h3>
+		<ul>
+			<li>
+				<a c:i18n="0_1" href="index.xhtml" class=" current">Lite模板简介</a>
+			</li>
+			<li>
+				<a c:i18n="0_2" href="install.xhtml">测试与安装</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="1">表达式参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="1_1" href="el.xhtml">什么是表达式</a>
+			</li>
+			<li>
+				<a c:i18n="1_2" href="el-value.xhtml">变量/原子值/复合值</a>
+			</li>
+			<li>
+				<a c:i18n="1_3" href="el-op.xhtml">操作符与函数</a>
+			</li>
+			<li>
+				<a c:i18n="1_4" href="el-function.xhtml">内置函数参考</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="2">核心模板语法参考</h3>
+		<ul>
+			
+			<li>
+				<a c:i18n="2_1" href="syntax-out.xhtml">输出语法[${},$!{},$#{},日期]</a>
+			</li>
+			<li>
+				<a c:i18n="2_2" href="syntax-if.xhtml">条件判断[c:if]</a>
+			</li>
+			<li>
+				<a c:i18n="2_3" href="syntax-choose.xhtml">分支选择[c:choose]</a>
+			</li>
+			<li>
+				<a c:i18n="2_4" href="syntax-for.xhtml">四种循环[c:for]</a>
+			</li>
+			<li>
+				<a c:i18n="2_5" href="syntax-extends.xhtml">模板继承[c:extends]</a>
+			</li>
+			<li>
+				<a c:i18n="2_6" href="syntax-include.xhtml">静态包含[c:include]</a>
+			</li>
+			<li>
+				<a c:i18n="2_7" href="syntax-var.xhtml">变量申明[c:var]</a>
+			</li>
+			<li>
+				<a c:i18n="2_8" href="syntax-def.xhtml">模板函数申明[c:def]</a>
+			</li>
+			<li>
+				<a c:i18n="2_9" href="syntax-extension.xhtml">自定义扩展[c:extension]</a>
+			</li>
+		</ul>
+
+		<h3 c:i18n="3">XML/HTML相关语法参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="3_1" href="syntax-trim.xhtml">注释/语法空格控制[h:trim]</a>
+			</li>
+			<li>
+				<a c:i18n="3_2" href="syntax-client.xhtml">前端模板函数申明[h:client]</a>
+			</li>
+			<li>
+				<a c:i18n="3_3" href="syntax-autoform.xhtml">自动表单[h:autofrom]</a>
+			</li>
+			<li>
+				<a c:i18n="3_4" href="feature-autoencode.xhtml">自动编码</a>
+			</li>
+			<li>
+				<a c:i18n="3_5" href="feature-xml.xhtml" title="标记语言特有的语法，如：条件属性,自动编码,自动语义补全等...">其他特性</a>
+			</li>
+		</ul>
+		<h3 c:i18n="4">开发调试辅助</h3>
+		<ul>
+			<li>
+				<a c:i18n="4_1" href="debug-model.xhtml">查看数据模型</a>
+			</li>
+			<li>
+				<a c:i18n="4_2" href="debug-log.xhtml">查看编译日志</a>
+			</li>
+		</ul>
+		<h3 c:i18n="5">编译打包</h3>
+		<ul>
+			<li>
+				<a c:i18n="5_1" href="compiler-cmd.xhtml">批量编译</a>
+			</li>
+			<li>
+				<a c:i18n="5_2" href="compiler-spec.xhtml">编译规范</a>
+			</li>
+			<li>
+				<a c:i18n="5_3" href="compiler-api.xhtml">自定义编译</a>
+			</li>
+		</ul>
+		<h3 c:i18n="6">常见问题</h3>
+		<ul>
+			<li>
+				<a c:i18n="6_1" href="faq-newer.xhtml">致初学者</a>
+			</li>
+			<li>
+				<a c:i18n="6_2" href="faq-badcase.xhtml">常犯错误</a>
+			</li>
+			<li>
+				<a c:i18n="6_3" href="faq-plan.xhtml">开发计划</a>
+			</li>
+		</ul>
+		<h3 c:i18n="7">二次开发参考</h3>
+		<ul>
+			<li>
+				<a c:i18n="7_1" href="dev-function.xhtml">扩展运行时函数(PHP)</a>
+			</li>
+			<li>
+				<a c:i18n="7_2" href="dev-function.xhtml">扩展运行时函数(Java)</a>
+			</li>
+			<li>
+				<a c:i18n="7_3" href="dev-extension.xhtml">扩展模板语法</a>
+			</li>
+			<li>
+				<a c:i18n="7_4" href="dev-data-view.xhtml">扩展数据模型调试窗口</a>
+			</li>
+			<li>
+				<a c:i18n="7_5" href="dev-translator.xhtml">创建新的运行环境</a>
+			</li>
+		</ul>
+	</div>
+</div>
+		<div class="dialog">
+	<div class="mask"></div>
+	<div id="exampleRunner">
+		<div class="head">
+			===模板测试 ===
+			<a class="close"
+onclick="closeExample()">X</a>
+		</div>
+		<div class="jsonSource">
+			<h5>数据模型</h5>
+			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+		</div>
+		<div class="templateSource">
+			<h5>模板代码</h5>
+			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+		</div>
+		<div class="resultSource" id="exampleResult">
+			<h5>结果输出</h5>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
+		</div>
+		<div class="toolbar">
+			<input type="button" value="编译(JS)"
+onclick="compileToJS()"/>
+			<input type="button" value="编译(PHP)"
+onclick="compileToPHP()"/>
+			<input type="button" value="编译(NodeJS)"
+onclick="compileToNodeJS()"/>
+			<input type="button" title="lite" value="编译(Java)"
+onclick="compileToLite()"/>
+			<input type="button" id="runButton" disabled="disabled" value="运行(?)"
+onclick="runTemplate()"/>
+		</div>
+	</div>
+</div>
+		
+		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+	</body>
+</html>
