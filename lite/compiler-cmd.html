@@ -13,8 +13,8 @@
 			.cm-lite-tag{
 			color:#9933FF;font-weight:bold;}
 		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"/>
-		<script src="editor.js"/>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
 		<div id="main">
 	<div id="header">
 		<div class="logo" onclick="location = 'http://www.xidea.org/lite/'">
@@ -45,11 +45,11 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/*</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
-		<div class="line"/>
+		<div class="line"></div>
 	</div>
 	<div id="content">
 		
@@ -127,9 +127,7 @@
 			<p>
 				<strong>示例</strong>
 			</p>
-			<script>//<![CDATA[
-__id__1478706227413_36=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227413_36[0],__id__1478706227413_36[1],'');</script></div>
+			<script>//</script><div class="code"><script>renderSource(__id__1478706227413_36[0],__id__1478706227413_36[1],'');</script></div>
 
 			<p title="这是一个java执行命令，命令模式是: java -jar &lt;JARPATH> -arg value -args value1 value2">
 				在这个编译程序中，-jar 用于指定jar库（编译程序）的地址，必须放在最开始的位置；
@@ -172,9 +170,7 @@ __id__1478706227413_36=["java -jar WEB-INF/lib/Lite.jar -output ../output -inclu
 					他可同时接受多个模式，通过空格分割，模式规则为：*
 					代表某个目录下的任意文件，**
 					代表任意文件和任意级子目录下的任意文件。
-					<script>//<![CDATA[
-__id__1478706227414_76=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227414_76[0],__id__1478706227414_76[1],'');</script></div>
+					<script>//</script><div class="code"><script>renderSource(__id__1478706227414_76[0],__id__1478706227414_76[1],'');</script></div>
 				</p>
 				<p>
 					直接包含的文件不一定能被打包，因为他可能被excludes 排除。
@@ -183,24 +179,18 @@ __id__1478706227414_76=["//目录module 下的任意xhtml扩展名的文件\n/mo
 			</li>
 			<li>
 				<strong>-linked</strong>
-				<a name="linked"/>
+				<a name="linked"></a>
 				<p>
 					该参数用来指定是否启用间接包含，间接包含是指自动将关联的静态资源做为间接包含文件一起打包。
 				</p>
 				<p>
 					<ul>
 						比如
-						<script>//<![CDATA[
-__id__1478706227414_66=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227414_66[0],__id__1478706227414_66[1],'');</script></div>
+						<script>//</script><div class="code"><script>renderSource(__id__1478706227414_66[0],__id__1478706227414_66[1],'');</script></div>
 						<br/>
-						<script>//<![CDATA[
-__id__1478706227414_74=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227414_74[0],__id__1478706227414_74[1],'');</script></div>
+						<script>//</script><div class="code"><script>renderSource(__id__1478706227414_74[0],__id__1478706227414_74[1],'');</script></div>
 						<br/>
-						<script>//<![CDATA[
-__id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227414_22[0],__id__1478706227414_22[1],'');</script></div>
+						<script>//</script><div class="code"><script>renderSource(__id__1478706227414_22[0],__id__1478706227414_22[1],'');</script></div>
 						<p>因为文件/index.xhtml 中存在：/static/js/a.js 和 /static/css/a.css 的引用;
 							/static/css/a.css 中存在图片：/static/img/a.png的引用。
 							系统会分析到他们之间的关联，自动间接包含：
@@ -227,12 +217,12 @@ __id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground
 	
 		<div id="post">
 
-	<div class="ds-thread"/>
+	<div class="ds-thread"></div>
 <script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
 
 </div>
 	</div>
-	<div id="footer"/>
+	<div id="footer"></div>
 </div>
 		<div id="menu">
 	<div class="menuInner">
@@ -366,7 +356,7 @@ __id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground
 	</div>
 </div>
 		<div class="dialog">
-	<div class="mask"/>
+	<div class="mask"></div>
 	<div id="exampleRunner">
 		<div class="head">
 			===模板测试 ===
@@ -382,8 +372,8 @@ __id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
-			<div id="resultLoader"/>
-			<div id="resultSource"/>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
@@ -395,6 +385,6 @@ __id__1478706227414_22=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/*</script>
 	</body>
 </html>

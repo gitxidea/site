@@ -13,8 +13,8 @@
 			.cm-lite-tag{
 			color:#9933FF;font-weight:bold;}
 		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"/>
-		<script src="editor.js"/>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
 		<div id="main">
 	<div id="header">
 		<div class="logo" onclick="location = 'http://www.xidea.org/lite/'">
@@ -45,11 +45,11 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/*</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
-		<div class="line"/>
+		<div class="line"></div>
 	</div>
 	<div id="content">
 		
@@ -114,23 +114,19 @@
 				
 		<h3>示例</h3>
 		<ul>
-			<script>//<![CDATA[
-__id__1478706227703_22=["{\n\tauthor:{\n\t\t//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\n\t\tusername:'危险分子 <script>',\n\t\t//打破属性规则，插入危险代码\n\t\ttitle:'坏蛋！ \" onclick=\"alert(\\'插入危险代码成功!!\\')',\n\t\tdisabled:false\n\t},\n\tblog:{\n\t\t'title':'html特殊字符：&<\"',\n\t\t'content':'lite应该怎么自动编码这些特殊字符呢？'+\n\t\t\t\t'XML特殊字符有两个:&<，加上属性括弧\",一共三个'+\n\t\t\t\t'（LiteXML属性括弧一律自动转化为\"）；'+\n\t\t\t\t'只要编码好这些特殊字符，用户就很难插入危险代码了。\\n\\n'+\n\t\t\t\t'但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。'+\n\t\t\t\t'我们还要让这些字符实体不过度转义。'\n\t}\n}",null];
-//]]></script>
+			<script>//</script>
 
-			<script>//<![CDATA[
-__id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"user\" title=\"${author.title}\">${author.username}</span>\n\n....\n<!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\n<input type=\"submit\" value=\"发表留言\" disabled=\"${author.disabled||null}\"/>\n\n\n\t\t\n<!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\n<!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\n<p title=\"${blog.title}\">${blog.content}</p>\n<!-- 避免过度转义： 网开一面的$#{...} 语法！-->\n<p title=\"${blog.title}\">$#{blog.content}</p>\n\n<!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\n<p title=\"$!{blog.title}\">$!{blog.content}</p>",blogModel];
-//]]></script><div class="code"><script>renderSource(__id__1478706227703_14[0],__id__1478706227703_14[1],'');</script></div>
+			<script>//</script><div class="code"><script>renderSource(__id__1478706227703_14[0],__id__1478706227703_14[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
 
-	<div class="ds-thread"/>
+	<div class="ds-thread"></div>
 <script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
 
 </div>
 	</div>
-	<div id="footer"/>
+	<div id="footer"></div>
 </div>
 		<div id="menu">
 	<div class="menuInner">
@@ -264,7 +260,7 @@ __id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"use
 	</div>
 </div>
 		<div class="dialog">
-	<div class="mask"/>
+	<div class="mask"></div>
 	<div id="exampleRunner">
 		<div class="head">
 			===模板测试 ===
@@ -280,8 +276,8 @@ __id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"use
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
-			<div id="resultLoader"/>
-			<div id="resultSource"/>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
@@ -293,6 +289,6 @@ __id__1478706227703_14=["<!-- 自动编码，免遭一劫 -->\n<span class=\"use
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/*</script>
 	</body>
 </html>

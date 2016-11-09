@@ -13,8 +13,8 @@
 			.cm-lite-tag{
 			color:#9933FF;font-weight:bold;}
 		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"/>
-		<script src="editor.js"/>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
 		<div id="main">
 	<div id="header">
 		<div class="logo" onclick="location = 'http://www.xidea.org/lite/'">
@@ -45,15 +45,15 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/*</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
-		<div class="line"/>
+		<div class="line"></div>
 	</div>
 	<div id="content">
 		
-		<a name="what"/>
+		<a name="what"></a>
 		<h3>什么是模板?</h3>
 		<p>
 			数据+
@@ -71,26 +71,20 @@
 				<h4>最简模板示例</h4>
 				<p>
 					以显示一个简单的个人信息为例，形式如：
-					<script>//<![CDATA[
-__id__1478706227572_45=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
-//]]></script><div class="code"><script>renderSource(__id__1478706227572_45[0],__id__1478706227572_45[1],'');</script></div>
+					<script>//</script><div class="code"><script>renderSource(__id__1478706227572_45[0],__id__1478706227572_45[1],'');</script></div>
 				</p>
 				<p>
 					其中，姓名 "张三" 和城市 "北京" 需要从后端获取，后端数据模型如下：
-					<script>//<![CDATA[
-__id__1478706227572_38=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
-//]]></script><script>testModel=__id__1478706227572_38[0];</script><div class="code"><script>renderSource(__id__1478706227572_38[0],__id__1478706227572_38[1],'/testmodel.json');</script></div>
+					<script>//</script><script>testModel=__id__1478706227572_38[0];</script><div class="code"><script>renderSource(__id__1478706227572_38[0],__id__1478706227572_38[1],'/testmodel.json');</script></div>
 				</p>
 				<p>
 					为了实现上述内容的动态展示，我们需要编写一个简单的模板：
 					<script>var testModel = editorMap['/testmodel.json'].getValue();</script>
-					<script>//<![CDATA[
-__id__1478706227573_59=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
-//]]></script><div class="code"><script>renderSource(__id__1478706227573_59[0],__id__1478706227573_59[1],'');</script></div>
+					<script>//</script><div class="code"><script>renderSource(__id__1478706227573_59[0],__id__1478706227573_59[1],'');</script></div>
 				</p>
 			</ul>
 		</div>
-		<a name="style"/>
+		<a name="style"></a>
 		<h3>Lite 模板快速参考 </h3>
 		<p>Lite 模板的主要功能包括：
 			<ul>
@@ -145,12 +139,8 @@ __id__1478706227573_59=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t�
 				<strong>基于 JavaScript</strong>
 				<p>
 					兼容JavaScript的表达式和函数库，方便前端工程师学习。
-					<script>//<![CDATA[
-__id__1478706227573_37=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
-//]]></script>
-					<script>//<![CDATA[
-__id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
-//]]></script><div class="code"><script>renderSource(__id__1478706227573_90[0],__id__1478706227573_90[1],'');</script></div>
+					<script>//</script>
+					<script>//</script><div class="code"><script>renderSource(__id__1478706227573_90[0],__id__1478706227573_90[1],'');</script></div>
 				</p>
 				<p>
 					基于JavaScript的扩展机制，可以轻松扩展模板语法，方便前端工程师二次开发。
@@ -174,12 +164,12 @@ __id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 	
 		<div id="post">
 
-	<div class="ds-thread"/>
+	<div class="ds-thread"></div>
 <script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
 
 </div>
 	</div>
-	<div id="footer"/>
+	<div id="footer"></div>
 </div>
 		<div id="menu">
 	<div class="menuInner">
@@ -313,7 +303,7 @@ __id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 	</div>
 </div>
 		<div class="dialog">
-	<div class="mask"/>
+	<div class="mask"></div>
 	<div id="exampleRunner">
 		<div class="head">
 			===模板测试 ===
@@ -329,8 +319,8 @@ __id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
-			<div id="resultLoader"/>
-			<div id="resultSource"/>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
@@ -342,6 +332,6 @@ __id__1478706227573_90=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/*</script>
 	</body>
 </html>

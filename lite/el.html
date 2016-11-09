@@ -13,8 +13,8 @@
 			.cm-lite-tag{
 			color:#9933FF;font-weight:bold;}
 		</style>
-		<script src="http://www.xidea.org/lite/codemirror/o.js"/>
-		<script src="editor.js"/>
+		<script src="http://www.xidea.org/lite/codemirror/o.js"></script>
+		<script src="editor.js"></script>
 		<div id="main">
 	<div id="header">
 		<div class="logo" onclick="location = 'http://www.xidea.org/lite/'">
@@ -45,11 +45,11 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/*</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
-		<div class="line"/>
+		<div class="line"></div>
 	</div>
 	<div id="content">
 		
@@ -64,9 +64,7 @@
 		</p>
 		<p>
 			示例：
-			<script>//<![CDATA[
-__id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您好：${user.name}</p> \n\t<!-- 比较表达式，给条件判断提供数据 -->\n\t<c:if test=\"${user.age<28}\">\n\t\t<p>年轻的朋友，五四青年节有半天公假，可别忘了！</p>\n\t\t<p>你一共还有${28 - user.age}次机会：）</p>\n\t</c:if>\n\t<c:else>\n\t\t<p>可怜的中年人，五四青年节与你无缘了：（</p>\n\t</c:else>\n</body>\n</html>","{\"user\":{\"name\":\"张三\",\"age\":27}}"];
-//]]></script><div class="code"><script>renderSource(__id__1478706227524_81[0],__id__1478706227524_81[1],'');</script></div>
+			<script>//</script><div class="code"><script>renderSource(__id__1478706227524_81[0],__id__1478706227524_81[1],'');</script></div>
 		</p>
 		<h3>相关参考</h3>
 		<ul>
@@ -86,12 +84,12 @@ __id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您�
 	
 		<div id="post">
 
-	<div class="ds-thread"/>
+	<div class="ds-thread"></div>
 <script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
 
 </div>
 	</div>
-	<div id="footer"/>
+	<div id="footer"></div>
 </div>
 		<div id="menu">
 	<div class="menuInner">
@@ -225,7 +223,7 @@ __id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您�
 	</div>
 </div>
 		<div class="dialog">
-	<div class="mask"/>
+	<div class="mask"></div>
 	<div id="exampleRunner">
 		<div class="head">
 			===模板测试 ===
@@ -241,8 +239,8 @@ __id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您�
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
-			<div id="resultLoader"/>
-			<div id="resultSource"/>
+			<div id="resultLoader"></div>
+			<div id="resultSource"></div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
@@ -254,6 +252,6 @@ __id__1478706227524_81=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您�
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/*</script>
 	</body>
 </html>

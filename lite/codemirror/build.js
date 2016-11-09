@@ -71,7 +71,7 @@ list.map(function(n){
 	    					node.setAttribute('href',href.replace(/\.xhtml$/,'.html'))
 	    				};
 	    			}
-					rawData = dom.toString().replace(/^<!DOCTYPE html><html>/,'<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">');
+					rawData = dom.toString(true).replace(/^<!DOCTYPE html><html>/,'<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">');
 				}
 				fs.writeFileSync(dest+'/'+n.replace(/\.xhtml$/,'.html'),rawData);
 			})
