@@ -66,12 +66,15 @@ list.map(function(n){
 					var place = metas.length && metas[metas.length-1].nextSibling;
 					var script = dom.createElement('script');
 					script.appendChild(dom.createTextNode(insertCode));
-					
+					console.log(head+'')
 					if(place && place.parentNode == head){
-						head.insertBefore(place,script);
+						console.log('test insert before')
+						head.insertBefore(script,place);
 					}else{
+						console.log('test append child')
 						head.appendChild(script)
 					}
+					console.log(head+'')
 
 	    			var nodes = xpath(dom.documentElement,'//a');
 	    			for(var i=0;i<nodes.length;i++){
