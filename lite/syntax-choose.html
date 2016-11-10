@@ -1,11 +1,16 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>分支选择</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-		<link href="default.css" rel="stylesheet" type="text/css"/>
-		
-		
-	</head>
+		<script>(function (){
+      	var _vds = _vds || [];
+      	window._vds = _vds;
+        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+        var vds = document.createElement('script');
+        vds.type='text/javascript';
+        vds.async = true;
+        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(vds, s);
+      })();</script></head>
 	<body>
 		
 		<style>
@@ -57,10 +62,10 @@
 		<ul>
 			<strong>示例：</strong>
 			<script>//<![CDATA[
-__id__1478712003836_31=["<div> \n  今天是：<span>\n\t\t<c:choose value=\"${day}\">\n\t\t\t<c:when test=\"${0}\">周一</c:when>\n\t\t\t<c:when test=\"${1}\">周二</c:when>\n\t\t\t<c:when test=\"${2}\">周三</c:when>\n\t\t\t<c:when test=\"${3}\">周四</c:when>\n\t\t\t<c:when test=\"${4}\">周五</c:when>\n\t\t\t<c:when test=\"${5}\">周六</c:when>\n\t\t\t<c:otherwise>周日</c:otherwise>\n\t\t</c:choose>\n\t</span>\n</div>","{day:1}"];
+__id__1478753366666_48=["<div> \n  今天是：<span>\n\t\t<c:choose value=\"${day}\">\n\t\t\t<c:when test=\"${0}\">周一</c:when>\n\t\t\t<c:when test=\"${1}\">周二</c:when>\n\t\t\t<c:when test=\"${2}\">周三</c:when>\n\t\t\t<c:when test=\"${3}\">周四</c:when>\n\t\t\t<c:when test=\"${4}\">周五</c:when>\n\t\t\t<c:when test=\"${5}\">周六</c:when>\n\t\t\t<c:otherwise>周日</c:otherwise>\n\t\t</c:choose>\n\t</span>\n</div>","{day:1}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478712003836_31[0],__id__1478712003836_31[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1478753366666_48[0],__id__1478753366666_48[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
@@ -68,10 +73,10 @@ __id__1478712003836_31=["<div> \n  今天是：<span>\n\t\t<c:choose value=\"${d
 					小技巧1： JavaScript 数组和与或运算也可以解决类似问题：
 					<ul>
 					<script>//<![CDATA[
-__id__1478712003836_40=["<div>\n今天是：<span>周${\"一二三四五六日\".charAt(day)}</span>\n------------------\n或者：\n\n今天是：<span>周${day == 0 && '一' ||\n\t\t\t\t day == 1 && '二' ||\n\t\t\t\t day == 2 && '三' || \n\t\t\t\t day == 3 && '四' || \n\t\t\t\t day == 4 && '五' || \n\t\t\t\t day == 5 && '六' || \n\t\t\t\t day == 6 && '日'}</span>\n</div>","{day:1}"];
+__id__1478753366666_42=["<div>\n今天是：<span>周${\"一二三四五六日\".charAt(day)}</span>\n------------------\n或者：\n\n今天是：<span>周${day == 0 && '一' ||\n\t\t\t\t day == 1 && '二' ||\n\t\t\t\t day == 2 && '三' || \n\t\t\t\t day == 3 && '四' || \n\t\t\t\t day == 4 && '五' || \n\t\t\t\t day == 5 && '六' || \n\t\t\t\t day == 6 && '日'}</span>\n</div>","{day:1}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478712003836_40[0],__id__1478712003836_40[1],'');</script></div></ul>
+<div class="code"><script>renderSource(__id__1478753366666_42[0],__id__1478753366666_42[1],'');</script></div></ul>
 				</i>
 			</p>
 		</p>

@@ -1,11 +1,16 @@
 <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>日期格式化</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-		<link href="default.css" rel="stylesheet" type="text/css"/>
-		
-		
-	</head>
+		<script>(function (){
+      	var _vds = _vds || [];
+      	window._vds = _vds;
+        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+        var vds = document.createElement('script');
+        vds.type='text/javascript';
+        vds.async = true;
+        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(vds, s);
+      })();</script></head>
 	<body>
 		
 		<style>
@@ -93,10 +98,10 @@
 		<h3>示例：</h3>
 		<ul>
 			<script>//<![CDATA[
-__id__1478712003822_60=["<div> \n  今天是：<c:date-format pattern=\"YYYY-MM-DD\" value=\"${date}\"/>\n  现在是：<c:date-format pattern=\"hh:mm:ss\" value=\"${date}\"/>\n</div>","{date:+new Date()}"];
+__id__1478753366726_35=["<div> \n  今天是：<c:date-format pattern=\"YYYY-MM-DD\" value=\"${date}\"/>\n  现在是：<c:date-format pattern=\"hh:mm:ss\" value=\"${date}\"/>\n</div>","{date:+new Date()}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478712003822_60[0],__id__1478712003822_60[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1478753366726_35[0],__id__1478753366726_35[1],'');</script></div>
 		</ul>
 		<p>
 			<p>
@@ -104,10 +109,10 @@ __id__1478712003822_60=["<div> \n  今天是：<c:date-format pattern=\"YYYY-MM-
 					小技巧1：我们可以通过自定义模板函数，实现日期格式化的函数支持：
 					<ul>
 					<script>//<![CDATA[
-__id__1478712003822_38=["<c:def name='dateFormat(date)'><c:date-format pattern='YYYY-MM-DD hh:mm:ss' value='${date}'/></c:def>\n<div>今天是：${dateFormat(date)}\t</div>",null];
+__id__1478753366726_14=["<c:def name='dateFormat(date)'><c:date-format pattern='YYYY-MM-DD hh:mm:ss' value='${date}'/></c:def>\n<div>今天是：${dateFormat(date)}\t</div>",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478712003822_38[0],__id__1478712003822_38[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1478753366726_14[0],__id__1478753366726_14[1],'');</script></div>
 					
 					</ul>
 				</i>

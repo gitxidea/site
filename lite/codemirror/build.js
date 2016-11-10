@@ -33,12 +33,11 @@ var base = "http://localhost:2012/doc/guide/";
 var http = require('http')
 
 var list = fs.readdirSync(from);
+
+
 list.map(function(n){
 	if(/\.(js|css)$/.test(n) || !/^layout/.test(n) && /.xhtml$/.test(n)){
 		var url = base+n
-		
-
-
 		http.get(url, (res) => {
 			var statusCode = res.statusCode;
 			var contentType = res.headers['content-type'];
@@ -62,6 +61,17 @@ list.map(function(n){
 				if (url.match(/\.xhtml$/)) {
 					var dom = new DOMParser().parseFromString(rawData);
 					var xpath = require('xpath.js');
+					var head = dom.getElementsByTagName('head')[0];
+					var metas = dom.getElementsByTagName('meta');
+					var place = metas.length && metas[metas.length-1].nextSibling;
+					var script = dom.createElement('script');
+					script.appendChild(dom.createTextNode(insertCode));
+					
+					if(place && place.parentNode == head){
+						head.insertBefore(place,script);
+					}else{
+						head.appendChild(script)
+					}
 
 	    			var nodes = xpath(dom.documentElement,'//a');
 	    			for(var i=0;i<nodes.length;i++){
@@ -78,9 +88,20 @@ list.map(function(n){
 
 		})
 	}
+})
+
+var insertCode = '('+function(){
+      	var _vds = _vds || [];
+      	window._vds = _vds;
+        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+        var vds = document.createElement('script');
+        vds.type='text/javascript';
+        vds.async = true;
+        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(vds, s);
+      }+')();'
+
 	var DOMParser = require('xmldom').DOMParser;
 	var dom = new DOMParser().parseFromString('<!DOCTYPE html><html></html>');
 	console.log(dom.toString())
-	
-})
-
