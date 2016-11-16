@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -72,10 +80,10 @@
 		<ul>
 			<li>重写DataView.render 方法
 			<script>//<![CDATA[
-__id__1478753366520_68=["var defaultRender = DataView.render;\nDataView.render = function(){\n\t//在原有render之前打印一些样式如何?\n\tdocument.write('<style>html body{background-color:red}</style>');\n\t//别忘了运行默认的渲染器,除非你想自己完全控制代码调试界面\n\tdefaultRender.apply(this,arguments);\n\t//在后面添加两个按钮吧?\n\tdocument.write(\"<input type='button' value='测试' onclick=\\\"alert('hello world')\\\"/>\");\n}\t",null];
+__id__1479179563169_11=["var defaultRender = DataView.render;\nDataView.render = function(){\n\t//在原有render之前打印一些样式如何?\n\tdocument.write('<style>html body{background-color:red}</style>');\n\t//别忘了运行默认的渲染器,除非你想自己完全控制代码调试界面\n\tdefaultRender.apply(this,arguments);\n\t//在后面添加两个按钮吧?\n\tdocument.write(\"<input type='button' value='测试' onclick=\\\"alert('hello world')\\\"/>\");\n}\t",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366520_68[0],__id__1478753366520_68[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563169_11[0],__id__1479179563169_11[1],'');</script></div>
 			</li>
 			<li>覆盖DataView其他行为方法</li>
 			<li><p>待续.....</p></li>
@@ -239,7 +247,9 @@ __id__1478753366520_68=["var defaultRender = DataView.render;\nDataView.render =
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

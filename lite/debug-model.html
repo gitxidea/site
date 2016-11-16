@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -246,7 +254,9 @@
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

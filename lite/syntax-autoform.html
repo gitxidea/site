@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -86,19 +94,19 @@
 		<ul>
 		
 		<script>//<![CDATA[
-__id__1478753366675_91=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
+__id__1479179563253_97=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
 //]]>
 </script>
 <script>//<![CDATA[
-autoformModel=__id__1478753366675_91[0];
+autoformModel=__id__1479179563253_97[0];
 //]]>
 </script>
 
 		<script>//<![CDATA[
-__id__1478753366675_55=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
+__id__1479179563253_50=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366675_55[0],__id__1478753366675_55[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563253_50[0],__id__1479179563253_50[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -259,7 +267,9 @@ __id__1478753366675_55=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

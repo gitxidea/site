@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -74,16 +82,16 @@
 		<h3>用法示例</h3>
 		<ul>
 		<script>//<![CDATA[
-__id__1478753366736_7=["<h:client name=\"buildList(list)\">\n\t<ul>\n\t\t<c:for var=\"a\" list=\"${list}\">\n\t\t\t<li><a href=\"${a.href}\">${for.index}:${a.text}</a></li>\n\t\t</c:for>\n\t</ul>\n</h:client>\n<script\>\n\tvar list = [\n\t\t{href:'#1',text:'a1'},\n\t\t{href:'#2',text:'a2'},\n\t\t{href:'#3',text:'a3'}\n\t];\n\tdocument.write(buildList(list));\n</script\>","{}"];
+__id__1479179563288_15=["<h:client name=\"buildList(list)\">\n\t<ul>\n\t\t<c:for var=\"a\" list=\"${list}\">\n\t\t\t<li><a href=\"${a.href}\">${for.index}:${a.text}</a></li>\n\t\t</c:for>\n\t</ul>\n</h:client>\n<script\>\n\tvar list = [\n\t\t{href:'#1',text:'a1'},\n\t\t{href:'#2',text:'a2'},\n\t\t{href:'#3',text:'a3'}\n\t];\n\tdocument.write(buildList(list));\n</script\>","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366736_7[0],__id__1478753366736_7[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563288_15[0],__id__1479179563288_15[1],'');</script></div>
 		<br/><br/>
 		<script>//<![CDATA[
-__id__1478753366736_1=["<h:client name=\"buildUser(id,sex,username='匆匆过客')\">\n\t<ul>\n\t\t<li>用户id:${id}</li>\n\t\t<li>性别:${sex==1?'男':'女'}</li>\n\t\t<li>用户名:${username}</li>\n\t</ul>\n</h:client>\n<script\>\n\tdocument.write(buildUser(123,1,'张三'));\n\tdocument.write(buildUser(234,1));\n</script\>","{}"];
+__id__1479179563288_88=["<h:client name=\"buildUser(id,sex,username='匆匆过客')\">\n\t<ul>\n\t\t<li>用户id:${id}</li>\n\t\t<li>性别:${sex==1?'男':'女'}</li>\n\t\t<li>用户名:${username}</li>\n\t</ul>\n</h:client>\n<script\>\n\tdocument.write(buildUser(123,1,'张三'));\n\tdocument.write(buildUser(234,1));\n</script\>","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366736_1[0],__id__1478753366736_1[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563288_88[0],__id__1479179563288_88[1],'');</script></div>
 		<br/><br/>
 		</ul>
 	
@@ -245,7 +253,9 @@ __id__1478753366736_1=["<h:client name=\"buildUser(id,sex,username='匆匆过客
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

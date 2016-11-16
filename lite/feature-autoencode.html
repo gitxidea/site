@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -81,7 +89,7 @@
 				</li>
 				<li>
 					普通的XML/HTML属性将按XML属性规则编码：必须编码
-					<strong>&amp;&lt;"</strong>
+					<code>&amp;&lt;"</code>
 					三个XML特殊字符（所有XML属性将自动规范为" 做为属性引号！）
 				</li>
 				<li>src,href,form@action等，属性中出现的模板变量，将先做自动url编码（encodeURI），再做html属性编码
@@ -96,19 +104,19 @@
 		<ul>
 
 			<script>//<![CDATA[
-__id__1478753366653_90=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\turl:\"http://www.xidea.org/lite?test=测试#1234\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
+__id__1479179563243_91=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\turl:\"http://www.xidea.org/lite?test=测试#1234\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
 //]]>
 </script>
 <script>//<![CDATA[
-htmlxmlModel=__id__1478753366653_90[0];
+htmlxmlModel=__id__1479179563243_91[0];
 //]]>
 </script>
 
 			<script>//<![CDATA[
-__id__1478753366653_2=["<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURI) -->\n<a href=\"${url}\">encodeURI转义</a>\n<!--IE amp 问题 -->\n<a href=\"?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${'中文自动编码'}\">...</a>\n<!-- xml/html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>",htmlxmlModel];
+__id__1479179563243_24=["<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURI) -->\n<a href=\"${url}\">encodeURI转义</a>\n<!--IE amp 问题 -->\n<a href=\"?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${'中文自动编码'}\">...</a>\n<!-- xml/html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>",htmlxmlModel];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366653_2[0],__id__1478753366653_2[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563243_24[0],__id__1479179563243_24[1],'');</script></div>
 
 		</ul>
 	
@@ -270,7 +278,9 @@ __id__1478753366653_2=["<!-- javascript自动编码(JSON.stringify) -->\n<div on
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

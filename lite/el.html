@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -75,10 +83,10 @@
 		<p>
 			示例：
 			<script>//<![CDATA[
-__id__1478753366586_60=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您好：${user.name}</p> \n\t<!-- 比较表达式，给条件判断提供数据 -->\n\t<c:if test=\"${user.age<28}\">\n\t\t<p>年轻的朋友，五四青年节有半天公假，可别忘了！</p>\n\t\t<p>你一共还有${28 - user.age}次机会：）</p>\n\t</c:if>\n\t<c:else>\n\t\t<p>可怜的中年人，五四青年节与你无缘了：（</p>\n\t</c:else>\n</body>\n</html>","{\"user\":{\"name\":\"张三\",\"age\":27}}"];
+__id__1479179563204_55=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您好：${user.name}</p> \n\t<!-- 比较表达式，给条件判断提供数据 -->\n\t<c:if test=\"${user.age<28}\">\n\t\t<p>年轻的朋友，五四青年节有半天公假，可别忘了！</p>\n\t\t<p>你一共还有${28 - user.age}次机会：）</p>\n\t</c:if>\n\t<c:else>\n\t\t<p>可怜的中年人，五四青年节与你无缘了：（</p>\n\t</c:else>\n</body>\n</html>","{\"user\":{\"name\":\"张三\",\"age\":27}}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366586_60[0],__id__1478753366586_60[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563204_55[0],__id__1479179563204_55[1],'');</script></div>
 		</p>
 		<h3>相关参考</h3>
 		<ul>
@@ -254,7 +262,9 @@ __id__1478753366586_60=["<html>\n<body>\n\t<!--   简单变量值 -->\n\t<p>您�
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

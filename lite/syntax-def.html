@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -74,16 +82,16 @@
 		<h3>用法示例</h3>
 		<ul>
 		<script>//<![CDATA[
-__id__1478753366714_58=["<c:def name=\"max(a,b)\">\n${a>b?a:b}\n</c:def>\n<span>${max(1000,200)}</span>","{}"];
+__id__1479179563276_48=["<c:def name=\"max(a,b)\">\n${a>b?a:b}\n</c:def>\n<span>${max(1000,200)}</span>","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366714_58[0],__id__1478753366714_58[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563276_48[0],__id__1479179563276_48[1],'');</script></div>
 		<br/><br/>
 		<script>//<![CDATA[
-__id__1478753366714_95=["<c:def name=\"showList(list,target='_blank')\">\n\t<c:for var=\"a\" list=\"${list}\">\n\t\t<li><a href=\"${a.href}\" target=\"${target}\">${for.index}:${a.text}</a></li>\n\t</c:for>\n</c:def>\n<ul>$!{showList(list)}</ul>\n<ul>$!{showList(list,'_self')}</ul>","{list:[{href:'#1',text:'a1'},{href:'#2',text:'a2'},{href:'#3',text:'a3'}]}"];
+__id__1479179563276_15=["<c:def name=\"showList(list,target='_blank')\">\n\t<c:for var=\"a\" list=\"${list}\">\n\t\t<li><a href=\"${a.href}\" target=\"${target}\">${for.index}:${a.text}</a></li>\n\t</c:for>\n</c:def>\n<ul>$!{showList(list)}</ul>\n<ul>$!{showList(list,'_self')}</ul>","{list:[{href:'#1',text:'a1'},{href:'#2',text:'a2'},{href:'#3',text:'a3'}]}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366714_95[0],__id__1478753366714_95[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563276_15[0],__id__1479179563276_15[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -244,7 +252,9 @@ __id__1478753366714_95=["<c:def name=\"showList(list,target='_blank')\">\n\t<c:f
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

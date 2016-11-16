@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -74,10 +82,10 @@
 		<h3>示例1</h3>
 		<ul>
 			<script>//<![CDATA[
-__id__1478753366833_55=["<!-- 通过value 属性申明一个测试数组 -->\n<c:var name=\"list\" value='${ [\"key1\",\"key2\",\"key3\",\"key4\"] }'/>\n\n<!-- 捕捉一段输出内容，申明为变量result（这段内容在申明处不会被直接输出） -->\n<c:var name=\"result\">\n\t{\n\t<c:for var=\"item\" list=\"${list}\">\n\t\t${JSON.stringify(item)}:${for.index}\n\t\t<c:if test=\"${for.index != for.lastIndex}\">,</c:if>\n\t</c:for>\n\t}\n</c:var>\n\n<!-- 输出申明对象 -->\n<div>${result}</div>","{}"];
+__id__1479179563321_57=["<!-- 通过value 属性申明一个测试数组 -->\n<c:var name=\"list\" value='${ [\"key1\",\"key2\",\"key3\",\"key4\"] }'/>\n\n<!-- 捕捉一段输出内容，申明为变量result（这段内容在申明处不会被直接输出） -->\n<c:var name=\"result\">\n\t{\n\t<c:for var=\"item\" list=\"${list}\">\n\t\t${JSON.stringify(item)}:${for.index}\n\t\t<c:if test=\"${for.index != for.lastIndex}\">,</c:if>\n\t</c:for>\n\t}\n</c:var>\n\n<!-- 输出申明对象 -->\n<div>${result}</div>","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366833_55[0],__id__1478753366833_55[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563321_57[0],__id__1479179563321_57[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -238,7 +246,9 @@ __id__1478753366833_55=["<!-- 通过value 属性申明一个测试数组 -->\n<c
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

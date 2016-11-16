@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -76,18 +84,18 @@
 				<p>
 					示例
 					<script>//<![CDATA[
-__id__1478753366769_32=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
+__id__1479179563297_77=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366769_32[0],__id__1478753366769_32[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563297_77[0],__id__1479179563297_77[1],'');</script></div>
 					<p>
 						<i>
 							小技巧1： JavaScript 与或运算（JavaScript与或技巧）和三目运算符号，也可以解决上述问题。语法如下：
 							<script>//<![CDATA[
-__id__1478753366769_0=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
+__id__1479179563297_21=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366769_0[0],__id__1478753366769_0[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563297_21[0],__id__1479179563297_21[1],'');</script></div>
 						</i>
 					</p>
 				</p>
@@ -98,10 +106,10 @@ __id__1478753366769_0=["<span>您好：${displayName||loginName||'匆匆过客'}
 				<p>
 					else 语法可以直接接for循环，用来处理空循环分支
 					<script>//<![CDATA[
-__id__1478753366769_96=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
+__id__1479179563297_43=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366769_96[0],__id__1478753366769_96[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563297_43[0],__id__1479179563297_43[1],'');</script></div>
 				</p>
 				<p>
 					<i>
@@ -281,7 +289,9 @@ __id__1478753366769_96=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

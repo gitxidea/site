@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -84,10 +92,10 @@
 				<p><i>与JavaScript语义完全一致，&amp;&amp;||运算同时具有条件运算功能。
 				例如：
 				<script>//<![CDATA[
-__id__1478753366474_29=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 输出  true-->\n${true||'str'}\n<!-- 如下两个语法是等价的 -->\n${a ? a : b} 等价于： ${a || b}\n${user.name ? user.name : '匆匆过客'} 等价于 ${user.name || '匆匆过客'} \n</textarea>","{a:0,b:'b',user:{name:null}}"];
+__id__1479179563177_40=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 输出  true-->\n${true||'str'}\n<!-- 如下两个语法是等价的 -->\n${a ? a : b} 等价于： ${a || b}\n${user.name ? user.name : '匆匆过客'} 等价于 ${user.name || '匆匆过客'} \n</textarea>","{a:0,b:'b',user:{name:null}}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366474_29[0],__id__1478753366474_29[1],'');</script></div> 
+<div class="code"><script>renderSource(__id__1479179563177_40[0],__id__1479179563177_40[1],'');</script></div> 
 				</i>
 				
 				</p>
@@ -111,17 +119,17 @@ __id__1478753366474_29=["<textarea>\n<!-- 输出 str -->\n${false||'str'}\n<!-- 
 		<p>Lite 模板支持成员方法和普通函数两种函数调用方式。</p>
 		<p>其中成员方法包括标准JavaScript对象的成员方法，这些函数一般是模板系统内置。
 		<script>//<![CDATA[
-__id__1478753366475_29=["${\"abc\".substring(1,2)}\n${[1,2,3,4].join('|')}\n${(1000).toString(16)}","{}"];
+__id__1479179563177_19=["${\"abc\".substring(1,2)}\n${[1,2,3,4].join('|')}\n${(1000).toString(16)}","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366475_29[0],__id__1478753366475_29[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563177_19[0],__id__1479179563177_19[1],'');</script></div>
 		</p>
 		<p>普通函数包括部分内置的JavaScript标准全局函数，同时模板中自定义的函数，也属于这一类型，调用方法完全一致（查看<a href="syntax-def.html">函数定义语法参考</a>）。
 		<script>//<![CDATA[
-__id__1478753366475_8=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\")}","{}"];
+__id__1479179563177_22=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\")}","{}"];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366475_8[0],__id__1478753366475_8[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563177_22[0],__id__1479179563177_22[1],'');</script></div>
 		</p>
 		<p>系统内置了JavaScript的大部分标准函数，详细情况请查看:<a href="el-function.html">el-function.xhtml</a>
 		</p>
@@ -284,7 +292,9 @@ __id__1478753366475_8=["${encodeURIComponent(\"汉字\")}\n${parseInt(\"100个\"
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -76,10 +84,10 @@
 		<h3>用法示例</h3>
 		<ul>
 		<script>//<![CDATA[
-__id__1478753366747_3=["<c:include path=\"menu.xhtml\"/>\n<c:include path=\"controls.xhtml\" xpath=\"//*[@id='pageList']\"/>\n<c:include path=\"${page}\" xpath=\"//xhtml:body\"/>",null];
+__id__1479179563293_40=["<c:include path=\"menu.xhtml\"/>\n<c:include path=\"controls.xhtml\" xpath=\"//*[@id='pageList']\"/>\n<c:include path=\"${page}\" xpath=\"//xhtml:body\"/>",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366747_3[0],__id__1478753366747_3[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479179563293_40[0],__id__1479179563293_40[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -240,7 +248,9 @@ __id__1478753366747_3=["<c:include path=\"menu.xhtml\"/>\n<c:include path=\"cont
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

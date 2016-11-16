@@ -11,6 +11,14 @@
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       })();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
@@ -74,126 +82,88 @@ function showFunctionTable(__context__,__out__){
 	var memberMap=("memberMap" in __context__?__context__:this)["memberMap"];
 	var globalsRefMap=("globalsRefMap" in __context__?__context__:this)["globalsRefMap"];
 	var globals=("globals" in __context__?__context__:this)["globals"];
-	if(memberRefMap instanceof Promise){memberRefMap.then(function(v){memberRefMap = v});}
-	if(memberMap instanceof Promise){memberMap.then(function(v){memberMap = v});}
-	if(globalsRefMap instanceof Promise){globalsRefMap.then(function(v){globalsRefMap = v});}
-	if(globals instanceof Promise){globals.then(function(v){globals = v});}
-	__g__ = __g__();function __n__(){var n = __g__.next().value;if(n instanceof Promise){n.then(__n__);console.log('is promise',n)}};__n__();
-
-	function* __g__(){
+	__out__ || (__out__=[]);
 	__out__.push("\r\n\t\t<div style=\"float:left;height:220px;\">\r\n\t\t\t<h4>全局函数列表</h4>\r\n\t\t\t<table border=\"1\">\r\n\t\t\t\t<tr><th>函数名</th><th>参考标准</th></tr>\r\n\t\t\t\t");
-	yield* __out__.wait(globals)
 	var $_2=globals;
 	var $_0=0;
 	var $_1 = ($_2=$_2 instanceof Array?$_2:Object.keys($_2)).length-1;
 	for(;$_0<=$_1;$_0++){
 		var item=$_2[$_0];
 		__out__.push("\r\n\t\t\t\t<tr");
-		yield* __out__.wait(item)
 		var $_3=item.style
 		if($_3!=null){
 			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
 		}
-		yield* __out__.wait(item)
 		var $_3=item.title
 		if($_3!=null){
 			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
 		}
 		__out__.push(">\r\n\t\t\t\t\t<td><a");
-		yield* __out__.wait(item)
 		var $_3=item.style
 		if($_3!=null){
 			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
 		}
-		yield* __out__.wait(item)
 		var $_3=item.title||item.impl
 		if($_3!=null){
 			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
 		}
-		__out__.push(" href0=\"el-function-source.html#lite__");
-		yield* __out__.wait(item)
-		__out__.push(__x__(item.name,/[&<\"]/g),"\">");
-		yield* __out__.wait(item)
-		__out__.push(__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
-		yield* __out__.wait(item)
+		__out__.push(" href0=\"el-function-source.html#lite__",__x__(item.name,/[&<\"]/g),"\">",__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
 		var $_3=item.style
 		if($_3!=null){
 			__out__.push(' style="',__x__($_3,/[&<\"]/g),'"');
 		}
-		yield* __out__.wait(item)
 		var $_3=item.title
 		if($_3!=null){
 			__out__.push(' title="',__x__($_3,/[&<\"]/g),'"');
 		}
-		__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/");
-		yield* __out__.wait(item,globalsRefMap)
-		__out__.push(__x__(encodeURI(globalsRefMap[item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
+		__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/",__x__(encodeURI(globalsRefMap[item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
 	}
 	if(!$_0){
 		__out__.push("<tr><td colspan=\"2\">找不到匹配的函数</td></tr>");
 	}
 	__out__.push("\r\n\t\t\t</table>\r\n\t\t</div>\r\n\t\t");
-	yield* __out__.wait(memberMap)
 	var $_2=memberMap;
 	var $_0=0;
 	var $_1 = ($_2=$_2 instanceof Array?$_2:Object.keys($_2)).length-1;
 	for(;$_0<=$_1;$_0++){
 		var ownerName=$_2[$_0];
-		__out__.push("\r\n\t\t<div style=\"float:left;overflow:auto;\">\r\n\t\t\t<h4>成员函数列表(<a href=\"http://www.xidea.org/project/jsidoc/js1.5/");
-		yield* __out__.wait(ownerName,globalsRefMap)
-		__out__.push(__x__(encodeURI(globalsRefMap[ownerName]),/[&<\"]/g),"\">");
-		yield* __out__.wait(ownerName)
-		__out__.push(__x__(ownerName,/[&<]/g),"</a>)</h4>\r\n\t\t\t<table border=\"1\">\r\n\t\t\t\t<tr><th>方法名</th><th>参考标准</th></tr>\r\n\t\t\t\t");
-		yield* __out__.wait(ownerName,memberMap)
+		__out__.push("\r\n\t\t<div style=\"float:left;overflow:auto;\">\r\n\t\t\t<h4>成员函数列表(<a href=\"http://www.xidea.org/project/jsidoc/js1.5/",__x__(encodeURI(globalsRefMap[ownerName]),/[&<\"]/g),"\">",__x__(ownerName,/[&<]/g),"</a>)</h4>\r\n\t\t\t<table border=\"1\">\r\n\t\t\t\t<tr><th>方法名</th><th>参考标准</th></tr>\r\n\t\t\t\t");
 		var $_5=memberMap[ownerName];
 		var $_3=0;
 		var $_4 = ($_5=$_5 instanceof Array?$_5:Object.keys($_5)).length-1;
 		for(;$_3<=$_4;$_3++){
 			var item=$_5[$_3];
 			__out__.push("\r\n\t\t\t\t<tr");
-			yield* __out__.wait(item)
 			var $_6=item.style
 			if($_6!=null){
 				__out__.push(' style="',__x__($_6,/[&<\"]/g),'"');
 			}
-			yield* __out__.wait(item)
 			var $_6=item.title
 			if($_6!=null){
 				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
 			}
 			__out__.push(">\r\n\t\t\t\t\t<td><a");
-			yield* __out__.wait(item)
 			var $_6=item.title||item.impl
 			if($_6!=null){
 				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
 			}
-			__out__.push(" href0=\"el-function-source.html#lite_member_");
-			yield* __out__.wait(item)
-			__out__.push(__x__(item.name,/[&<\"]/g),"\">");
-			yield* __out__.wait(item)
-			__out__.push(__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
-			yield* __out__.wait(item)
+			__out__.push(" href0=\"el-function-source.html#lite_member_",__x__(item.name,/[&<\"]/g),"\">",__x__(item.name,/[&<]/g),"</a></td>\r\n\t\t\t\t\t\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t<a");
 			var $_6=item.style
 			if($_6!=null){
 				__out__.push(' style="',__x__($_6,/[&<\"]/g),'"');
 			}
-			yield* __out__.wait(item)
 			var $_6=item.title
 			if($_6!=null){
 				__out__.push(' title="',__x__($_6,/[&<\"]/g),'"');
 			}
-			__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/");
-			yield* __out__.wait(item,memberRefMap)
-			__out__.push(__x__(encodeURI(memberRefMap[item.type][item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
+			__out__.push(" href=\"http://www.xidea.org/project/jsidoc/js1.5/",__x__(encodeURI(memberRefMap[item.type][item.name]),/[&<\"]/g),"\">JS API</a>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\t\t\t\t");
 		}
 		if(!$_3){
 			__out__.push("<tr><td colspan=\"2\">找不到匹配的函数</td></tr>");
 		}
 		__out__.push("\r\n\t\t\t</table>\r\n\t\t\t</div>\r\n\t\t");
 	}
-	__out__.push("\r\n\t");
-	return __out__.join("");
-	}
+	__out__.push("\r\n\t");return __out__.join("")
 }
 //]]></script>
 	<ul style="clean:both">
@@ -209,10 +179,10 @@ function showFunctionTable(__context__,__out__){
 			<p>Lite 按照JavaScript语法规则，<br/>在PHP，Java等其他环境下实现的内置模板函数。</p>
 		<div style="opacity:0.3;">
 			<script>//<![CDATA[
-__id__1478753366498_51=["//函数调用表达式示例:\n${encodeURIComponent(text1)}\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join('\\n')}\n${str.substring(1,2)}",null];
+__id__1479179563150_67=["//函数调用表达式示例:\n${encodeURIComponent(text1)}\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join('\\n')}\n${str.substring(1,2)}",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1478753366498_51[0],__id__1478753366498_51[1],'');</script></div></div>
+<div class="code"><script>renderSource(__id__1479179563150_67[0],__id__1479179563150_67[1],'');</script></div></div>
 			</div>
 		<hr/>
 		
@@ -378,7 +348,9 @@ __id__1478753366498_51=["//函数调用表达式示例:\n${encodeURIComponent(te
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
-			<div id="resultSource"></div>
+			<div id="resultSource">
+				<script src="c.js"></script>
+			</div>
 		</div>
 		<div class="toolbar">
 			<input type="button" value="编译(JS)" onclick="compileToJS()"/>

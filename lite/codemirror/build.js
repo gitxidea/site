@@ -29,23 +29,37 @@ fs.writeFileSync(__dirname+'/o.js',source);
 
 var from = '/Users/jinjinyun/Documents/workspace/node_modules/lite/doc/guide/'
 var dest = path.join(__dirname,'../');
+
+
+require('jsi/lib/exports').doExport(from,['./compiler.js'],function(content,externalDeps){
+	console.log(externalDeps)
+	var out = dest+'c.js';
+	
+	fs.writeFile(out,content,function(err){
+		if(err){
+			console.log('export failed! write file error',err)
+		}else{
+			console.log('write complete:',out);
+		}
+	})
+})
+
+
+
 var base = "http://localhost:2012/doc/guide/";
 var http = require('http')
-
 var list = fs.readdirSync(from);
-
-
 list.map(function(n){
 	if(/\.(js|css)$/.test(n) || !/^layout/.test(n) && /.xhtml$/.test(n)){
 		var url = base+n
-		http.get(url, (res) => {
+		http.get(url, function(res){
 			var statusCode = res.statusCode;
 			var contentType = res.headers['content-type'];
 
 			var error;
 			if (statusCode !== 200) {
-				error = new Error(`Request Failed.\n` +
-				`Status Code: ${statusCode}`);
+				error = new Error('Request Failed.\n' +
+				'Status Code: ${statusCode}');
 			} 
 			if (error) {
 				console.log(error.message);
@@ -56,8 +70,8 @@ list.map(function(n){
 
 			res.setEncoding('utf8');
 			var rawData = '';
-			res.on('data', (chunk) => rawData += chunk);
-			res.on('end', () => {
+			res.on('data', function(chunk) {return rawData += chunk});
+			res.on('end', function(){
 				if (url.match(/\.xhtml$/)) {
 					var dom = new DOMParser().parseFromString(rawData);
 					var xpath = require('xpath.js');
@@ -66,15 +80,15 @@ list.map(function(n){
 					var place = metas.length && metas[metas.length-1].nextSibling;
 					var script = dom.createElement('script');
 					script.appendChild(dom.createTextNode(insertCode));
-					console.log(head+'')
+					//console.log(head+'')
 					if(place && place.parentNode == head){
-						console.log('test insert before')
+						//console.log('test insert before')
 						head.insertBefore(script,place);
 					}else{
-						console.log('test append child')
+						//console.log('test append child')
 						head.appendChild(script)
 					}
-					console.log(head+'')
+					//console.log(head+'')
 
 	    			var nodes = xpath(dom.documentElement,'//a');
 	    			for(var i=0;i<nodes.length;i++){
@@ -103,6 +117,14 @@ var insertCode = '('+function(){
         vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(vds, s);
+        
+        
+        
+var _hmt = _hmt || [];
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
       }+')();'
 
 	var DOMParser = require('xmldom').DOMParser;
