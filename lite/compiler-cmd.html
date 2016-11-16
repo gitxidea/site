@@ -146,10 +146,10 @@ var _hmt = _hmt || [];
 				<strong>示例</strong>
 			</p>
 			<script>//<![CDATA[
-__id__1479179563113_75=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
+__id__1479302483264_5=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1479179563113_75[0],__id__1479179563113_75[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479302483264_5[0],__id__1479302483264_5[1],'');</script></div>
 
 			<p title="这是一个java执行命令，命令模式是: java -jar &lt;JARPATH> -arg value -args value1 value2">
 				在这个编译程序中，-jar 用于指定jar库（编译程序）的地址，必须放在最开始的位置；
@@ -193,10 +193,10 @@ __id__1479179563113_75=["java -jar WEB-INF/lib/Lite.jar -output ../output -inclu
 					代表某个目录下的任意文件，**
 					代表任意文件和任意级子目录下的任意文件。
 					<script>//<![CDATA[
-__id__1479179563113_4=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
+__id__1479302483264_24=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1479179563113_4[0],__id__1479179563113_4[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479302483264_24[0],__id__1479302483264_24[1],'');</script></div>
 				</p>
 				<p>
 					直接包含的文件不一定能被打包，因为他可能被excludes 排除。
@@ -213,22 +213,22 @@ __id__1479179563113_4=["//目录module 下的任意xhtml扩展名的文件\n/mod
 					<ul>
 						比如
 						<script>//<![CDATA[
-__id__1479179563113_31=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
+__id__1479302483264_0=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1479179563113_31[0],__id__1479179563113_31[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479302483264_0[0],__id__1479302483264_0[1],'');</script></div>
 						<br/>
 						<script>//<![CDATA[
-__id__1479179563113_97=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script\>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
+__id__1479302483264_88=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script\>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1479179563113_97[0],__id__1479179563113_97[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479302483264_88[0],__id__1479302483264_88[1],'');</script></div>
 						<br/>
 						<script>//<![CDATA[
-__id__1479179563113_94=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
+__id__1479302483264_84=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
 //]]>
 </script>
-<div class="code"><script>renderSource(__id__1479179563113_94[0],__id__1479179563113_94[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1479302483264_84[0],__id__1479302483264_84[1],'');</script></div>
 						<p>因为文件/index.xhtml 中存在：/static/js/a.js 和 /static/css/a.css 的引用;
 							/static/css/a.css 中存在图片：/static/img/a.png的引用。
 							系统会分析到他们之间的关联，自动间接包含：

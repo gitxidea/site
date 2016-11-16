@@ -30,6 +30,9 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     while ((next = stream.next()) != null) {
       if (next == end && !escaped)
         return false;
+      if(end='/' && next == '['){
+      	nextUntilUnescaped(stream, ']')
+      }
       escaped = !escaped && next == "\\";
     }
     return escaped;

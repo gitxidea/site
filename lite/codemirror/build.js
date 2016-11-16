@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 
 
-/*
+//*
 //var root = path.resolve(,'/');
 var list = fs.readdirSync(__dirname);
 var filename = __filename.replace(/.*[\/\\]/,'');
@@ -25,7 +25,7 @@ var source = list.map(function(f){
 fs.writeFileSync(__dirname+'/o.js',source);
 //console.log(uglifyjs.minify());
 //list.map()
-*/
+//*/
 
 var from = '/Users/jinjinyun/Documents/workspace/node_modules/lite/doc/guide/'
 var dest = path.join(__dirname,'../');
