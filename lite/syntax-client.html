@@ -1,25 +1,24 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>前端模板定义</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/><script>(function (){
-      	var _vds = _vds || [];
-      	window._vds = _vds;
-        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
-        var vds = document.createElement('script');
-        vds.type='text/javascript';
-        vds.async = true;
-        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(vds, s);
-        
-        
-        
-var _hmt = _hmt || [];
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-      })();</script>
+	var _vds = _vds || [];
+	window._vds = _vds;
+	_vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+	var vds = document.createElement('script');
+	vds.type='text/javascript';
+	vds.async = true;
+	vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(vds, s);
+
+	var _hmt = _hmt || [];
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
 		
@@ -63,7 +62,7 @@ var _hmt = _hmt || [];
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -81,17 +80,17 @@ var _hmt = _hmt || [];
 		</p>
 		<h3>用法示例</h3>
 		<ul>
-		<script>//<![CDATA[
-__id__1479302483501_36=["<h:client name=\"buildList(list)\">\n\t<ul>\n\t\t<c:for var=\"a\" list=\"${list}\">\n\t\t\t<li><a href=\"${a.href}\">${for.index}:${a.text}</a></li>\n\t\t</c:for>\n\t</ul>\n</h:client>\n<script\>\n\tvar list = [\n\t\t{href:'#1',text:'a1'},\n\t\t{href:'#2',text:'a2'},\n\t\t{href:'#3',text:'a3'}\n\t];\n\tdocument.write(buildList(list));\n</script\>","{}"];
-//]]>
+		<script>//
+__id__1480275965789_1=["<h:client name=\"buildList(list)\">\n\t<ul>\n\t\t<c:for var=\"a\" list=\"${list}\">\n\t\t\t<li><a href=\"${a.href}\">${for.index}:${a.text}</a></li>\n\t\t</c:for>\n\t</ul>\n</h:client>\n<script\>\n\tvar list = [\n\t\t{href:'#1',text:'a1'},\n\t\t{href:'#2',text:'a2'},\n\t\t{href:'#3',text:'a3'}\n\t];\n\tdocument.write(buildList(list));\n</script\>","{}"];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483501_36[0],__id__1479302483501_36[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965789_1[0],__id__1480275965789_1[1],'');</script></div>
 		<br/><br/>
-		<script>//<![CDATA[
-__id__1479302483501_83=["<h:client name=\"buildUser(id,sex,username='匆匆过客')\">\n\t<ul>\n\t\t<li>用户id:${id}</li>\n\t\t<li>性别:${sex==1?'男':'女'}</li>\n\t\t<li>用户名:${username}</li>\n\t</ul>\n</h:client>\n<script\>\n\tdocument.write(buildUser(123,1,'张三'));\n\tdocument.write(buildUser(234,1));\n</script\>","{}"];
-//]]>
+		<script>//
+__id__1480275965789_30=["<h:client name=\"buildUser(id,sex,username='匆匆过客')\">\n\t<ul>\n\t\t<li>用户id:${id}</li>\n\t\t<li>性别:${sex==1?'男':'女'}</li>\n\t\t<li>用户名:${username}</li>\n\t</ul>\n</h:client>\n<script\>\n\tdocument.write(buildUser(123,1,'张三'));\n\tdocument.write(buildUser(234,1));\n</script\>","{}"];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483501_83[0],__id__1479302483501_83[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965789_30[0],__id__1480275965789_30[1],'');</script></div>
 		<br/><br/>
 		</ul>
 	
@@ -254,19 +253,19 @@ __id__1479302483501_83=["<h:client name=\"buildUser(id,sex,username='匆匆过�
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src="c.js"></script>
+				<script src=".c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">
-			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
+			<input type="button" value="编译(JavaScript)" onclick="compileToJS()"/>
 			<input type="button" value="编译(NodeJS)" onclick="compileToNodeJS()"/>
+			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
 			<input type="button" title="lite" value="编译(Java)" onclick="compileToLite()"/>
 			<input type="button" id="runButton" disabled="disabled" value="运行(?)" onclick="runTemplate()"/>
 		</div>
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
 	</body>
 </html>

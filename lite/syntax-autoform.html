@@ -1,25 +1,24 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>自动表单填充</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/><script>(function (){
-      	var _vds = _vds || [];
-      	window._vds = _vds;
-        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
-        var vds = document.createElement('script');
-        vds.type='text/javascript';
-        vds.async = true;
-        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(vds, s);
-        
-        
-        
-var _hmt = _hmt || [];
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-      })();</script>
+	var _vds = _vds || [];
+	window._vds = _vds;
+	_vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+	var vds = document.createElement('script');
+	vds.type='text/javascript';
+	vds.async = true;
+	vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(vds, s);
+
+	var _hmt = _hmt || [];
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
 		
@@ -63,7 +62,7 @@ var _hmt = _hmt || [];
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -93,20 +92,20 @@ var _hmt = _hmt || [];
 		<h3>用法示例</h3>
 		<ul>
 		
-		<script>//<![CDATA[
-__id__1479302483454_36=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
-//]]>
+		<script>//
+__id__1480275965782_47=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
+//
 </script>
-<script>//<![CDATA[
-autoformModel=__id__1479302483454_36[0];
-//]]>
+<script>//
+autoformModel=__id__1480275965782_47[0];
+//
 </script>
 
-		<script>//<![CDATA[
-__id__1479302483454_28=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
-//]]>
+		<script>//
+__id__1480275965782_65=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483454_28[0],__id__1479302483454_28[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965782_65[0],__id__1480275965782_65[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -268,19 +267,19 @@ __id__1479302483454_28=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src="c.js"></script>
+				<script src=".c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">
-			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
+			<input type="button" value="编译(JavaScript)" onclick="compileToJS()"/>
 			<input type="button" value="编译(NodeJS)" onclick="compileToNodeJS()"/>
+			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
 			<input type="button" title="lite" value="编译(Java)" onclick="compileToLite()"/>
 			<input type="button" id="runButton" disabled="disabled" value="运行(?)" onclick="runTemplate()"/>
 		</div>
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
 	</body>
 </html>

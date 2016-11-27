@@ -1,25 +1,24 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>初学者建议</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/><script>(function (){
-      	var _vds = _vds || [];
-      	window._vds = _vds;
-        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
-        var vds = document.createElement('script');
-        vds.type='text/javascript';
-        vds.async = true;
-        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(vds, s);
-        
-        
-        
-var _hmt = _hmt || [];
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-      })();</script>
+	var _vds = _vds || [];
+	window._vds = _vds;
+	_vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+	var vds = document.createElement('script');
+	vds.type='text/javascript';
+	vds.async = true;
+	vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(vds, s);
+
+	var _hmt = _hmt || [];
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
 		
@@ -63,7 +62,7 @@ var _hmt = _hmt || [];
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -80,18 +79,18 @@ var _hmt = _hmt || [];
 			我们不能以传统的字符串拼接的思维来看待Lite XML 否则，你会很困惑。
 			<ul>
 			<strong>示例1：</strong>
-			<script>//<![CDATA[
-__id__1479302483387_46=["<div class=\"logo\" title=\"${null}\"/>\n-------------------\n输出是：\n<div class=\"logo\"></div>\n而不是：\n<div class=\"logo\" title=\"null\"/>",null];
-//]]>
+			<script>//
+__id__1480275965685_87=["<div class=\"logo\" title=\"${null}\"/>\n-------------------\n输出是：\n<div class=\"logo\"></div>\n而不是：\n<div class=\"logo\" title=\"null\"/>",null];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483387_46[0],__id__1479302483387_46[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965685_87[0],__id__1480275965685_87[1],'');</script></div>
 			</ul><ul>
 			<strong>示例2：</strong>
-			<script>//<![CDATA[
-__id__1479302483387_69=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>\n-------------------\n输出是：\n<div onclick=\"alert(&#34;您好&#34;+&#34;匆匆过客&#34;)\"></div>\n而不是：\n<div onclick=\"alert('您好：'+匆匆过客)\"/>",null];
-//]]>
+			<script>//
+__id__1480275965685_6=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>\n-------------------\n输出是：\n<div onclick=\"alert(&#34;您好&#34;+&#34;匆匆过客&#34;)\"></div>\n而不是：\n<div onclick=\"alert('您好：'+匆匆过客)\"/>",null];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483387_69[0],__id__1479302483387_69[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965685_6[0],__id__1480275965685_6[1],'');</script></div>
 			</ul>
 		</p>
 		<h3>体验至上</h3>
@@ -100,11 +99,11 @@ __id__1479302483387_69=["<div onclick=\"alert('您好：'+${'匆匆过客'})\"/>
 			容错之后， &amp; &lt; 等XML 特殊字符，在不产生歧义的情况下，是可以兼容的。
 			
 			 <ul>
-			 <script>//<![CDATA[
-__id__1479302483387_83=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">test</c:if>\n<!--  br hr img 免闭合容错 -->\n<div>\n\t<img src=\"/static/img/logo.png\">\n\t<br><hr>\n</div>",null];
-//]]>
+			 <script>//
+__id__1480275965685_58=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">test</c:if>\n<!--  br hr img 免闭合容错 -->\n<div>\n\t<img src=\"/static/img/logo.png\">\n\t<br><hr>\n</div>",null];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483387_83[0],__id__1479302483387_83[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965685_58[0],__id__1480275965685_58[1],'');</script></div>
 			 </ul>
 		</p>
 		<h3>不要打破XML语法结构</h3>
@@ -113,20 +112,20 @@ __id__1479302483387_83=["<!-- <&容错处理 -->\n<c:if test=\"${a<b && c>d}\">t
 			这些在LiteXML 中是很不推荐，也较难实现的。
 			<ul>
 			<strong>文本语法的自由</strong>
-			<script>//<![CDATA[
-__id__1479302483387_50=["<code>\n\t$for{item:list}\n\t\n\t$if{for.index == 0}<div>第一条数据： ${item},\n\t$else{for.index == for.lastIndex}最后一条数据：${item}</div> \n\t$else$第${for.index+1}条数据：${item},$end$\n\t\n\t$end$\n</code>","{list:[1,2,3,4]} "];
-//]]>
+			<script>//
+__id__1480275965685_52=["<code>\n\t$for{item:list}\n\t\n\t$if{for.index == 0}<div>第一条数据： ${item},\n\t$else{for.index == for.lastIndex}最后一条数据：${item}</div> \n\t$else$第${for.index+1}条数据：${item},$end$\n\t\n\t$end$\n</code>","{list:[1,2,3,4]} "];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483387_50[0],__id__1479302483387_50[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965685_52[0],__id__1480275965685_52[1],'');</script></div>
 			</ul>
 			<p>但是，这种语法是很难阅读和维护的，所以。LiteXML中，极不推荐这种做法。</p>
 			<strong>无法通过的Lite XML 语法</strong>
 			<ul>
-			<script>//<![CDATA[
-__id__1479302483387_7=["<c:for var=\"item\" list=\"${list}\">\n\t<c:if test=\"${for.index == 0}\">\n\t\t<div>第一条数据： ${item},\n\t</c:if>\n\t<c:else test=\"${for.index == for.lastIndex}\">\n\t\t最后一条数据：${item}</div> \n\t</c:else>\n\t<c:else>\n\t\t第${for.index+1}条数据：${item},$end$\n\t</c:else>\n</c:for>","{list:[1,2,3,4]}"];
-//]]>
+			<script>//
+__id__1480275965686_84=["<c:for var=\"item\" list=\"${list}\">\n\t<c:if test=\"${for.index == 0}\">\n\t\t<div>第一条数据： ${item},\n\t</c:if>\n\t<c:else test=\"${for.index == for.lastIndex}\">\n\t\t最后一条数据：${item}</div> \n\t</c:else>\n\t<c:else>\n\t\t第${for.index+1}条数据：${item},$end$\n\t</c:else>\n</c:for>","{list:[1,2,3,4]}"];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483387_7[0],__id__1479302483387_7[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965686_84[0],__id__1480275965686_84[1],'');</script></div>
 			</ul>
 		</p>
 	
@@ -289,19 +288,19 @@ __id__1479302483387_7=["<c:for var=\"item\" list=\"${list}\">\n\t<c:if test=\"${
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src="c.js"></script>
+				<script src=".c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">
-			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
+			<input type="button" value="编译(JavaScript)" onclick="compileToJS()"/>
 			<input type="button" value="编译(NodeJS)" onclick="compileToNodeJS()"/>
+			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
 			<input type="button" title="lite" value="编译(Java)" onclick="compileToLite()"/>
 			<input type="button" id="runButton" disabled="disabled" value="运行(?)" onclick="runTemplate()"/>
 		</div>
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
 	</body>
 </html>

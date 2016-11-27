@@ -1,25 +1,24 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>入门指南 </title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/><script>(function (){
-      	var _vds = _vds || [];
-      	window._vds = _vds;
-        _vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
-        var vds = document.createElement('script');
-        vds.type='text/javascript';
-        vds.async = true;
-        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(vds, s);
-        
-        
-        
-var _hmt = _hmt || [];
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-      })();</script>
+	var _vds = _vds || [];
+	window._vds = _vds;
+	_vds.push(['setAccountId', 'b1c2a262a2f852ea']);_vds.push(['setCS','v','1'])
+	var vds = document.createElement('script');
+	vds.type='text/javascript';
+	vds.async = true;
+	vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+	var s = document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(vds, s);
+
+	var _hmt = _hmt || [];
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?823940207798086de3e5c2d659cdbc3e";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();</script>
 		<link href="default.css" rel="stylesheet" type="text/css"/>
 		
 		
@@ -63,7 +62,7 @@ var _hmt = _hmt || [];
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/*<![CDATA[*/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//]]></script>
+				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -89,30 +88,30 @@ var _hmt = _hmt || [];
 				<h4>最简模板示例</h4>
 				<p>
 					以显示一个简单的个人信息为例，形式如：
-					<script>//<![CDATA[
-__id__1479302483425_98=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
-//]]>
+					<script>//
+__id__1480275965736_73=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483425_98[0],__id__1479302483425_98[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965736_73[0],__id__1480275965736_73[1],'');</script></div>
 				</p>
 				<p>
 					其中，姓名 "张三" 和城市 "北京" 需要从后端获取，后端数据模型如下：
-					<script>//<![CDATA[
-__id__1479302483425_96=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
-//]]>
+					<script>//
+__id__1480275965736_98=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
+//
 </script>
-<script>testModel=__id__1479302483425_96[0];
+<script>testModel=__id__1480275965736_98[0];
 </script>
-<div class="code"><script>renderSource(__id__1479302483425_96[0],__id__1479302483425_96[1],'/testmodel.json');</script></div>
+<div class="code"><script>renderSource(__id__1480275965736_98[0],__id__1480275965736_98[1],'/testmodel.json');</script></div>
 				</p>
 				<p>
 					为了实现上述内容的动态展示，我们需要编写一个简单的模板：
 					<script>var testModel = editorMap['/testmodel.json'].getValue();</script>
-					<script>//<![CDATA[
-__id__1479302483425_14=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
-//]]>
+					<script>//
+__id__1480275965736_68=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483425_14[0],__id__1479302483425_14[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965736_68[0],__id__1480275965736_68[1],'');</script></div>
 				</p>
 			</ul>
 		</div>
@@ -120,10 +119,11 @@ __id__1479302483425_14=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t�
 		<h3>Lite 模板快速参考 </h3>
 		<p>Lite 模板的主要功能包括：
 			<ul>
+				<li><a href="feature-weboptimize.html">自动渲染性能优化</a></li>
 				<li><a href="syntax-out.html">变量/表达式输出</a></li>
 				<li><a href="syntax-if.html">条件</a>/<a href="syntax-for.html">循环控制</a></li>
 				<li><a href="syntax-def.html">函数</a>/<a href="syntax-var.html">变量申明</a></li>
-				<li><a href="syntax-extends.html">模板继承</a>/<a href="syntax-include.html">静态包含</a>/动态调用</li>
+				<li><a href="syntax-extends.html">模板继承</a>/<a href="syntax-include.html">静态包含</a></li>
 				<li><strong>前端功能</strong>（如：
 				<a href="syntax-client.html">前端模板</a>/
 				<a href="syntax-autoform.html">自动表单</a>/
@@ -138,19 +138,18 @@ __id__1479302483425_14=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t�
 		<p> 与这些流行的模板系统不同， Lite有如下三大特点：</p>
 		<ul>
 			<li>
+				<strong>自动网络优化</strong>
+				<p>结合Promise 结构， 请求到达候第一时间输出静态内容，遇到未就绪的动态内容候自动等待。</p>
+				<p>遇到lazy-module 候，自动将其放到Bigpiple等候队列，先无阻塞输出其他更高优先级内容。</p>
+			</li>
+			<li>
 				<strong>懂HTML/XML的语法,绝对安全</strong>
 				<p>在Lite环境下，你基本无法打破html自身约束，写不出有XSS漏洞的网页。</p>
-				<p>因为Lite
-					XML语法本身是基于标记去扩展的，他对文档中所有动态的和静态的内容，都有感知，他可以据此合理的自动优化，还可以在标记语法的基础上设计一些漂亮的语法特征。
-				</p>
+				<p>他可以据所在位置html语义自动优化，还可以在标记语法的基础上设计一些漂亮的语法特征。</p>
 				<ul>
 					<li>
 						通过HTML/XML上下文实现的：
 						<a href="feature-autoencode.html">自动编码</a>
-					</li>
-					<li>
-						通过过滤原生表单元素实现的：
-						<a href="syntax-autoform.html">自动表单填充</a>
 					</li>
 					<li>
 						通过HTML/XML属性语义实现的：
@@ -159,6 +158,10 @@ __id__1479302483425_14=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t�
 					<li>
 						通过HTML/XML块结构和空格语义要求实现的：
 						<a href="syntax-trim.html">标签空格控制</a>
+					</li>
+					<li>
+						通过过滤原生表单元素实现的：
+						<a href="syntax-autoform.html">自动表单填充</a>
 					</li>
 					<li>
 						通过过滤原生HTML/XML标签实现的：
@@ -171,20 +174,20 @@ __id__1479302483425_14=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t�
 				<strong>基于 JavaScript</strong>
 				<p>
 					兼容JavaScript的表达式和函数库，方便前端工程师学习。
-					<script>//<![CDATA[
-__id__1479302483426_63=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
-//]]>
+					<script>//
+__id__1480275965738_21=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
+//
 </script>
-<script>//<![CDATA[
-elModel=__id__1479302483426_63[0];
-//]]>
+<script>//
+elModel=__id__1480275965738_21[0];
+//
 </script>
 
-					<script>//<![CDATA[
-__id__1479302483426_38=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
-//]]>
+					<script>//
+__id__1480275965738_60=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
+//
 </script>
-<div class="code"><script>renderSource(__id__1479302483426_38[0],__id__1479302483426_38[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480275965738_60[0],__id__1480275965738_60[1],'');</script></div>
 				</p>
 				<p>
 					基于JavaScript的扩展机制，可以轻松扩展模板语法，方便前端工程师二次开发。
@@ -200,7 +203,7 @@ __id__1479302483426_38=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 			<li>
 				<strong>功能完备，前后端统一，跨平台的实现</strong>
 				<p>Lite
-					目前拥有功能强大且成熟的Java，PHP版本，支持目前主流和一些超前的模板编程方法，并且在前端JavaScript模板上，完全拥有与后端模板同样完备的功能。你可以在PHP，Java，乃至浏览器JavaScript中随意切换。
+					目前拥有功能强大且成熟的Node，PHP，Java版本，支持目前主流和一些超前的模板编程方法，并且在前端JavaScript模板上，完全拥有与后端模板同样完备的功能。你可以在NodeJS，PHP，Java，乃至浏览器JavaScript中随意切换。
 				</p>
 				<p>而且，因为他中间代码的设计方法，非常方便迁移到其他平台。</p>
 			</li>
@@ -365,19 +368,19 @@ __id__1479302483426_38=["<textarea>\n//表达式示例:\n${JSON.stringify(object
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src="c.js"></script>
+				<script src=".c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">
-			<input type="button" value="编译(JS)" onclick="compileToJS()"/>
-			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
+			<input type="button" value="编译(JavaScript)" onclick="compileToJS()"/>
 			<input type="button" value="编译(NodeJS)" onclick="compileToNodeJS()"/>
+			<input type="button" value="编译(PHP)" onclick="compileToPHP()"/>
 			<input type="button" title="lite" value="编译(Java)" onclick="compileToLite()"/>
 			<input type="button" id="runButton" disabled="disabled" value="运行(?)" onclick="runTemplate()"/>
 		</div>
 	</div>
 </div>
 		
-		<script>/*<![CDATA[*/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//]]></script>
+		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
 	</body>
 </html>
