@@ -120,33 +120,33 @@ return false;
 			比如，有如下两个相似的网页结构：
 			<ul>
 				<script>//
-__id__1480353220079_95=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>标题1</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">内容1...</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+__id__1480353737164_80=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>标题1</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">内容1...</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353220079_95[0],__id__1480353220079_95[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353737164_80[0],__id__1480353737164_80[1],'');</script></div>
 				<hr/>
 				<script>//
-__id__1480353220079_88=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>... 不同标题2...</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">... 不同内容2</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+__id__1480353737164_46=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title>... 不同标题2...</title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\">... 不同内容2</div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353220079_88[0],__id__1480353220079_88[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353737164_46[0],__id__1480353737164_46[1],'');</script></div>
 				<p>按传统的include方式，我们需要把head，foot,befor-title,after-title
 					等等，拆成许多小碎片，而且纵使如此，我们也无法集中控制这些小碎片的组织形式。
 					然而，有了模板继承思想，一切都很方便了。
 				</p>
 				<p>首先，我们只需要定义一个公共的父页面：</p>
 				<script>//
-__id__1480353220079_13=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title><c:block name=\"title\"/></title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\"><c:block name=\"content\"/></div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
+__id__1480353737164_75=["<html>\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n\t<title><c:block name=\"title\"/></title>\n\t.... 完全相同的meta，link，scripts....\n</head>\n<body>\n\t<div id=\"head\">...完全相同的head....</div>\n\t<div id=\"content\"><c:block name=\"content\"/></div>\n\t<div id=\"foot\">... 完全相同的foot...</div>\n</body>\n</html>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353220079_13[0],__id__1480353220079_13[1],'/parent.xhtml');</script></div>
+<div class="code"><script>renderSource(__id__1480353737164_75[0],__id__1480353737164_75[1],'/parent.xhtml');</script></div>
 				<p>然后，每个具体模板可以如此：</p>
 
 				<script>//
-__id__1480353220079_49=["<c:extends path=\"parent.xhtml\">\n    <c:block name=\"title\">标题1</c:block>\n    <c:block name=\"content\">内容1...</c:block>\n</c:extends>","{}"];
+__id__1480353737164_69=["<c:extends path=\"parent.xhtml\">\n    <c:block name=\"title\">标题1</c:block>\n    <c:block name=\"content\">内容1...</c:block>\n</c:extends>","{}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353220079_49[0],__id__1480353220079_49[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353737164_69[0],__id__1480353737164_69[1],'');</script></div>
 			</ul>
 		</p>
 		<h3>什么是元素继承</h3>
@@ -337,7 +337,7 @@ mode: {name:"litexml"}
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src=".c.js"></script>
+				<script src="c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">

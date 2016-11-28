@@ -126,35 +126,35 @@ return false;
 		<ul>
 
 			<script>//
-__id__1480353219975_92=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
+__id__1480353737030_40=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcityList:[\"北京\",\"杭州\",\"上海\"],\n\tuser:{name:\"金大为\",city:\"杭州\",married:true}\n}",null];
 //
 </script>
 <script>//
-autoformModel=__id__1480353219975_92[0];
+autoformModel=__id__1480353737030_40[0];
 //
 </script>
 
 			<script>//
-__id__1480353219975_93=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
+__id__1480353737030_38=["<!-- 自动表单填充 -->\n<form h:autoform=\"true\">\n\t大名：<input name=\"user.name\" type=\"text\"/>\n\t城市：<select name=\"user.city\">\n\t\t\t<option c:for=\"${city:cityList}\">${city}</option>\n\t\t</select>\n\t婚否： <input name=\"user.married\" type=\"radio\" value=\"true\"/>是\n\t\t  <input name=\"user.married\" type=\"radio\" value=\"false\"/>否\n</form>",autoformModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353219975_93[0],__id__1480353219975_93[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353737030_38[0],__id__1480353737030_38[1],'');</script></div>
 			<br/>
 			<br/>
 			<script>//
-__id__1480353219975_68=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
+__id__1480353737030_94=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
 //
 </script>
 <script>//
-htmlxmlModel=__id__1480353219975_68[0];
+htmlxmlModel=__id__1480353737030_94[0];
 //
 </script>
 
 			<script>//
-__id__1480353219975_83=["<!-- html/xml 条件属性\n\t\t若 disabled 变量为null， 则disabled 属性不输出 -->\n<input type=\"submit\" disabled=\"${disabled}\" value=\"\"/>\n\n....\n<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURIComponent) -->\n<a href=\"/test?p1=${data.p1}&p2=${data.p2}&p3=${'中文自动编码'}\">...</a>\n<!-- html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>\n\n\n...\n<!-- 自动Hash戳（用于设置服务器永久缓存）和文件缺失检查【该功能只在上线编译时启用】 -->\n<link href=\"/styles/default.css\" type=\"text/css\" rel=\"stylesheet\"/>\n<script src=\"/scripts/boot.js\"/>\n<!-- 自动图片文件信息补全(width,height) 【该功能只在上线编译时启用】-->\n<img src=\"/images/logo.png\"/>",htmlxmlModel];
+__id__1480353737030_68=["<!-- html/xml 条件属性\n\t\t若 disabled 变量为null， 则disabled 属性不输出 -->\n<input type=\"submit\" disabled=\"${disabled}\" value=\"\"/>\n\n....\n<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURIComponent) -->\n<a href=\"/test?p1=${data.p1}&p2=${data.p2}&p3=${'中文自动编码'}\">...</a>\n<!-- html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>\n\n\n...\n<!-- 自动Hash戳（用于设置服务器永久缓存）和文件缺失检查【该功能只在上线编译时启用】 -->\n<link href=\"/styles/default.css\" type=\"text/css\" rel=\"stylesheet\"/>\n<script src=\"/scripts/boot.js\"/>\n<!-- 自动图片文件信息补全(width,height) 【该功能只在上线编译时启用】-->\n<img src=\"/images/logo.png\"/>",htmlxmlModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353219975_83[0],__id__1480353219975_83[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353737030_68[0],__id__1480353737030_68[1],'');</script></div>
 
 		</ul>
 	
@@ -340,7 +340,7 @@ mode: {name:"litexml"}
 			<h5>结果输出</h5>
 			<div id="resultLoader"></div>
 			<div id="resultSource">
-				<script src=".c.js"></script>
+				<script src="c.js"></script>
 			</div>
 		</div>
 		<div class="toolbar">
