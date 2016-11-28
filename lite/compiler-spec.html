@@ -62,7 +62,37 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
+				<script>/**/
+
+var cookie = ''+document.cookie;
+var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');
+if(i18n_lang == cookie){i18n_lang = 'cn'}
+function i18n_reload(i18n_lang){
+document.cookie = 'i18n_lang='+i18n_lang;
+location.reload();
+}
+document.getElementById('i18n').className ='i18n_'+ i18n_lang;
+var i18n_on = document.getElementById('i18n_on')
+document.body.oncontextmenu=function(event){
+if(i18n_on.checked ||true){
+var event = event || window.event;
+var src = event.target || event.srcElement;
+var id = src.getAttribute('data-i18n-key');
+if(id){
+var oldvalue = src.innerHTML;
+var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);
+if(value && value != oldvalue){
+var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);
+postData(location.href,data,function(){
+src.innerHTML = value;
+});
+}
+return false;
+}	
+}
+}
+
+//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -82,10 +112,10 @@
 				<label>示例代码见：</label>
 				<p>
 					<script>//
-__id__1480275965471_69=["!document.write(\"<script src='/static/js/absolute-path1.js'></script\>\");\n!document.write(\"<script src='/static/js/absolute-path2.js'></script\>\");\n!document.write(\"<script src='/static/js/absolute-path3.js'></script\>\");",null];
+__id__1480353219752_3=["!document.write(\"<script src='/static/js/absolute-path1.js'></script\>\");\n!document.write(\"<script src='/static/js/absolute-path2.js'></script\>\");\n!document.write(\"<script src='/static/js/absolute-path3.js'></script\>\");",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965471_69[0],__id__1480275965471_69[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353219752_3[0],__id__1480353219752_3[1],'');</script></div>
 				</p>
 				<p>建议有 !document.write 的脚本不要在有脚本内容（若有，将与大多数浏览器一致，合并在document.write的其他脚本之前）。</p> 
 				<p>不建议嵌套 !document.write，因为嵌套document.write 在不同浏览器上表现不完全一致。</p>
@@ -103,10 +133,10 @@ __id__1480275965471_69=["!document.write(\"<script src='/static/js/absolute-path
 				<p>CSS 合并采用CSS 自身的import 语法，因为某些问题，这个语法基本是是不推荐的状态，但是，我们完全可以借用。</p>
 				<p>
 					<script>//
-__id__1480275965474_54=["@import url('/static/css/inc/absolute-path1.css')\n@import url('/static/css/inc/absolute-path2.css')",null];
+__id__1480353219752_14=["@import url('/static/css/inc/absolute-path1.css')\n@import url('/static/css/inc/absolute-path2.css')",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965474_54[0],__id__1480275965474_54[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353219752_14[0],__id__1480353219752_14[1],'');</script></div>
 				</p>
 				<p>@import 语法后面一定要用url标注被包含css路径(见资源地址规范)。</p>
 				<p>@import 的css 将出现在@import 出现的位置。</p>
@@ -156,7 +186,17 @@ __id__1480275965474_54=["@import url('/static/css/inc/absolute-path1.css')\n@imp
 		<div id="post">
 
 	<div class="ds-thread"></div>
-<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"lite"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';ds.async = true;
+ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] 
+|| document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
 
 </div>
 	</div>
@@ -302,11 +342,24 @@ __id__1480275965474_54=["@import url('/static/css/inc/absolute-path1.css')\n@imp
 		</div>
 		<div class="jsonSource">
 			<h5>数据模型</h5>
-			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+			<script>
+var jsonEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"javascript",json:true}
+});
+</script>
 		</div>
 		<div class="templateSource">
 			<h5>模板代码</h5>
-			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+			<script>
+var templateEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"litexml"}
+});
+
+</script>
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
@@ -325,6 +378,24 @@ __id__1480275965474_54=["@import url('/static/css/inc/absolute-path1.css')\n@imp
 	</div>
 </div>
 		
-		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
+		<script>/**/
+var menu = document.getElementById('menu');
+var menuContent = menu.firstChild;
+menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;
+var as = document.body.getElementsByTagName('a');
+var height = menu.scrollHeight;
+for(var i = as.length;i--;){
+var a = as.item(i);
+if(/\bcurrent\b/.test(a.className)){
+var t= a.offsetTop;
+var bt = height - t;
+
+if(bt<120){
+menuContent.scrollTop = -bt+Math.min(150,height/3)+15
+}
+
+} 
+}
+//</script>
 	</body>
 </html>

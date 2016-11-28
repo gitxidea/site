@@ -62,7 +62,37 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
+				<script>/**/
+
+var cookie = ''+document.cookie;
+var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');
+if(i18n_lang == cookie){i18n_lang = 'cn'}
+function i18n_reload(i18n_lang){
+document.cookie = 'i18n_lang='+i18n_lang;
+location.reload();
+}
+document.getElementById('i18n').className ='i18n_'+ i18n_lang;
+var i18n_on = document.getElementById('i18n_on')
+document.body.oncontextmenu=function(event){
+if(i18n_on.checked ||true){
+var event = event || window.event;
+var src = event.target || event.srcElement;
+var id = src.getAttribute('data-i18n-key');
+if(id){
+var oldvalue = src.innerHTML;
+var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);
+if(value && value != oldvalue){
+var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);
+postData(location.href,data,function(){
+src.innerHTML = value;
+});
+}
+return false;
+}	
+}
+}
+
+//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -98,10 +128,10 @@
 				]</p>
 				<div style="display:none">
 					<script>//
-__id__1480275965750_64=["<web-app xmlns=\"http://java.sun.com/xml/ns/j2ee\" version=\"2.4\">\n\t<!-- base info  略.... -->\n\t<!-- servlet info -->\n\t<servlet>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<servlet-class>org.xidea.lite.servlet.TemplateServlet</servlet-class>\n\t\t<!-- debug support config -->\n\t\t<init-param>\n\t\t\t<param-name>debugService</param-name>\n\t\t\t<param-value>/.debug.xhtml</param-value>\n\t\t</init-param>\n\t</servlet>\n\t<!-- servlet mapping info -->\n\t<servlet-mapping>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<url-pattern>*.xhtml</url-pattern>\n\t</servlet-mapping>\n\t<!-- other info 略.... -->\n\t\n</web-app>",null];
+__id__1480353220002_86=["<web-app xmlns=\"http://java.sun.com/xml/ns/j2ee\" version=\"2.4\">\n\t<!-- base info  略.... -->\n\t<!-- servlet info -->\n\t<servlet>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<servlet-class>org.xidea.lite.servlet.TemplateServlet</servlet-class>\n\t\t<!-- debug support config -->\n\t\t<init-param>\n\t\t\t<param-name>debugService</param-name>\n\t\t\t<param-value>/.debug.xhtml</param-value>\n\t\t</init-param>\n\t</servlet>\n\t<!-- servlet mapping info -->\n\t<servlet-mapping>\n\t\t<servlet-name>LiteXML</servlet-name>\n\t\t<url-pattern>*.xhtml</url-pattern>\n\t</servlet-mapping>\n\t<!-- other info 略.... -->\n\t\n</web-app>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965750_64[0],__id__1480275965750_64[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353220002_86[0],__id__1480353220002_86[1],'');</script></div>
 				</div>
 			</li>
 			<li>
@@ -113,25 +143,25 @@ __id__1480275965750_64=["<web-app xmlns=\"http://java.sun.com/xml/ns/j2ee\" vers
 				NodeJS环境搭建<a name="nodejs"></a>
 				<ul>
 					<li>安装：<script>//
-__id__1480275965750_66=["npm install lite",null];
+__id__1480353220002_73=["npm install lite",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965750_66[0],__id__1480275965750_66[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353220002_73[0],__id__1480353220002_73[1],'');</script></div>
 						<p><i>如果被墙了，也可手动下载<a href="http://code.google.com/p/lite/downloads/list"> nodelite-YYYYMMDD.tgz</a>，解压到当前目录的node_modules/目录下完成安装</i></p>
 					</li>
 					<li>简单测试:
 						<script>//
-__id__1480275965750_18=["//启动测试服务器， 直接浏览模板，模板的同名json即模拟数据。\nnew (require('lite').LiteEngine)('./').\tstartTestServer(\"127.0.0.1\",1985);",null];
+__id__1480353220003_42=["//启动测试服务器， 直接浏览模板，模板的同名json即模拟数据。\nnew (require('lite').LiteEngine)('./').\tstartTestServer(\"127.0.0.1\",1985);",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965750_18[0],__id__1480275965750_18[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353220003_42[0],__id__1480353220003_42[1],'');</script></div>
 					</li>
 					<li>代码示例：
 						<script>//
-__id__1480275965750_18=["var LiteEngine = require('lite').LiteEngine;\nvar root =__dirname;\nvar liteEngine = new LiteEngine(root);\n.....\n\t// 传入模板路径(以'/'开头)，模型对象(Object描述的key->value集)，\n\t// response 对象:用于模板渲染时输出 head(response.writeHead())/内容(response.write())\n\t// 并结束请求(response.end())\n\tliteEngine.render(path,data,response);\n\t//传入模型生成函数，用于提前输出静态内容(如script标签)，优化加载性能。\n\tliteEngine.render(path,callback,response);",null];
+__id__1480353220003_48=["var LiteEngine = require('lite').LiteEngine;\nvar root =__dirname;\nvar liteEngine = new LiteEngine(root);\n.....\n\t// 传入模板路径(以'/'开头)，模型对象(Object描述的key->value集)，\n\t// response 对象:用于模板渲染时输出 head(response.writeHead())/内容(response.write())\n\t// 并结束请求(response.end())\n\tliteEngine.render(path,data,response);\n\t//传入模型生成函数，用于提前输出静态内容(如script标签)，优化加载性能。\n\tliteEngine.render(path,callback,response);",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965750_18[0],__id__1480275965750_18[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353220003_48[0],__id__1480353220003_48[1],'');</script></div>
 					</li>
 				</ul>
 				
@@ -145,10 +175,10 @@ __id__1480275965750_18=["var LiteEngine = require('lite').LiteEngine;\nvar root 
 			如果你采用的是UTF-8编码,那么你一般可以忽略掉Lite的配置(系统默认值).
 			如果您希望自定义一些信息(最常见的是 ContentType输出), 那么您需要手写lite.xml文件.
 			<script>//
-__id__1480275965750_47=["<lite encoding=\"utf-8\">\n\t<group contentType=\"application/wml;charset=utf-8\">\n\t\t<include>/*.wml</include>\n\t</group>\n\t<!-- contentType 默认值: contentType=\"text/html;charset=utf-8\" -->\n\t<group layout=\"/doc/guide/layout.xhtml\">\n\t\t<include>/doc/guide/*.xhtml</include>\n\t\t<include>/doc/guide/*test*</include>\n\t</group>\n\t<group>\n\t\t<include>/*.xhtml</include>\n\t</group>\n</lite>",null];
+__id__1480353220003_8=["<lite encoding=\"utf-8\">\n\t<group contentType=\"application/wml;charset=utf-8\">\n\t\t<include>/*.wml</include>\n\t</group>\n\t<!-- contentType 默认值: contentType=\"text/html;charset=utf-8\" -->\n\t<group layout=\"/doc/guide/layout.xhtml\">\n\t\t<include>/doc/guide/*.xhtml</include>\n\t\t<include>/doc/guide/*test*</include>\n\t</group>\n\t<group>\n\t\t<include>/*.xhtml</include>\n\t</group>\n</lite>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480275965750_47[0],__id__1480275965750_47[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1480353220003_8[0],__id__1480353220003_8[1],'');</script></div>
 			<p>匹配规则为: 分组匹配, 匹配即退出, 后续分组再配置也无效, 属性可从上级节点继承.</p>
 			<p>遍历文件时, 先 include 决定是否可能匹配, 再用exclude排除, 得出该文件最终是否匹配改组.</p>
 		</p>
@@ -164,7 +194,17 @@ __id__1480275965750_47=["<lite encoding=\"utf-8\">\n\t<group contentType=\"appli
 		<div id="post">
 
 	<div class="ds-thread"></div>
-<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"lite"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';ds.async = true;
+ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] 
+|| document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
 
 </div>
 	</div>
@@ -310,11 +350,24 @@ __id__1480275965750_47=["<lite encoding=\"utf-8\">\n\t<group contentType=\"appli
 		</div>
 		<div class="jsonSource">
 			<h5>数据模型</h5>
-			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+			<script>
+var jsonEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"javascript",json:true}
+});
+</script>
 		</div>
 		<div class="templateSource">
 			<h5>模板代码</h5>
-			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+			<script>
+var templateEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"litexml"}
+});
+
+</script>
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
@@ -333,6 +386,24 @@ __id__1480275965750_47=["<lite encoding=\"utf-8\">\n\t<group contentType=\"appli
 	</div>
 </div>
 		
-		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
+		<script>/**/
+var menu = document.getElementById('menu');
+var menuContent = menu.firstChild;
+menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;
+var as = document.body.getElementsByTagName('a');
+var height = menu.scrollHeight;
+for(var i = as.length;i--;){
+var a = as.item(i);
+if(/\bcurrent\b/.test(a.className)){
+var t= a.offsetTop;
+var bt = height - t;
+
+if(bt<120){
+menuContent.scrollTop = -bt+Math.min(150,height/3)+15
+}
+
+} 
+}
+//</script>
 	</body>
 </html>

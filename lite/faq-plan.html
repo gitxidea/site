@@ -62,7 +62,37 @@
 				|<input type="checkbox" id="i18n_on" checked="checked"/>
 				<label for="i18n_on" title="右键点击内容片段在弹出框输入翻译">翻译</label>
 				</div>
-				<script>/**/var cookie = ''+document.cookie;var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');if(i18n_lang == cookie){i18n_lang = 'cn'}function i18n_reload(i18n_lang){document.cookie = 'i18n_lang='+i18n_lang;location.reload();}document.getElementById('i18n').className ='i18n_'+ i18n_lang;var i18n_on = document.getElementById('i18n_on')document.body.oncontextmenu=function(event){if(i18n_on.checked ||true){var event = event || window.event;var src = event.target || event.srcElement;var id = src.getAttribute('data-i18n-key');if(id){var oldvalue = src.innerHTML;var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);if(value && value != oldvalue){var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);postData(location.href,data,function(){src.innerHTML = value;});}return false;}	}}//</script>
+				<script>/**/
+
+var cookie = ''+document.cookie;
+var i18n_lang = cookie.replace(/^.*\bi18n_lang=([\w]+).*$/,'$1');
+if(i18n_lang == cookie){i18n_lang = 'cn'}
+function i18n_reload(i18n_lang){
+document.cookie = 'i18n_lang='+i18n_lang;
+location.reload();
+}
+document.getElementById('i18n').className ='i18n_'+ i18n_lang;
+var i18n_on = document.getElementById('i18n_on')
+document.body.oncontextmenu=function(event){
+if(i18n_on.checked ||true){
+var event = event || window.event;
+var src = event.target || event.srcElement;
+var id = src.getAttribute('data-i18n-key');
+if(id){
+var oldvalue = src.innerHTML;
+var value = prompt('更正翻译('+i18n_lang+')：',oldvalue);
+if(value && value != oldvalue){
+var data = 'i18n_action=save&i18n_id='+encodeURIComponent(id)+'&i18n_value='+encodeURIComponent(value);
+postData(location.href,data,function(){
+src.innerHTML = value;
+});
+}
+return false;
+}	
+}
+}
+
+//</script>
 			</div>
 			<div class="test"><a href="../test.html">查看测试报表</a></div>
 		</div>
@@ -125,7 +155,17 @@
 		<div id="post">
 
 	<div class="ds-thread"></div>
-<script type="text/javascript">var duoshuoQuery = {short_name:"lite"};(function() {var ds = document.createElement('script');ds.type = 'text/javascript';ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';ds.charset = 'UTF-8';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);})();</script>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"lite"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';ds.async = true;
+ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] 
+|| document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
 
 </div>
 	</div>
@@ -271,11 +311,24 @@
 		</div>
 		<div class="jsonSource">
 			<h5>数据模型</h5>
-			<script>var jsonEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"javascript",json:true}});</script>
+			<script>
+var jsonEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"javascript",json:true}
+});
+</script>
 		</div>
 		<div class="templateSource">
 			<h5>模板代码</h5>
-			<script>var templateEditor = CodeMirror(placeMirror, {value: '',lineNumbers: true,mode: {name:"litexml"}});</script>
+			<script>
+var templateEditor = CodeMirror(placeMirror, {
+value: '',
+lineNumbers: true,
+mode: {name:"litexml"}
+});
+
+</script>
 		</div>
 		<div class="resultSource" id="exampleResult">
 			<h5>结果输出</h5>
@@ -294,6 +347,24 @@
 	</div>
 </div>
 		
-		<script>/**/var menu = document.getElementById('menu');var menuContent = menu.firstChild;menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;var as = document.body.getElementsByTagName('a');var height = menu.scrollHeight;for(var i = as.length;i--;){var a = as.item(i);if(/\bcurrent\b/.test(a.className)){var t= a.offsetTop;var bt = height - t;if(bt<120){menuContent.scrollTop = -bt+Math.min(150,height/3)+15}} }//</script>
+		<script>/**/
+var menu = document.getElementById('menu');
+var menuContent = menu.firstChild;
+menuContent = menuContent.nodeType==1 ?menuContent:menuContent.nextSibling;
+var as = document.body.getElementsByTagName('a');
+var height = menu.scrollHeight;
+for(var i = as.length;i--;){
+var a = as.item(i);
+if(/\bcurrent\b/.test(a.className)){
+var t= a.offsetTop;
+var bt = height - t;
+
+if(bt<120){
+menuContent.scrollTop = -bt+Math.min(150,height/3)+15
+}
+
+} 
+}
+//</script>
 	</body>
 </html>

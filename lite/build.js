@@ -5,7 +5,7 @@ var uglifyjs = require('uglifyjs');
 var fs = require('fs');
 
 console.log('step:1')
-//*
+/*
 var codemirror = path.join(__dirname,'codemirror')
 var list = fs.readdirSync(codemirror);
 var filename = __filename.replace(/.*[\/\\]/,'');
