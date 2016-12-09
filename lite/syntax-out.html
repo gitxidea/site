@@ -162,20 +162,20 @@ return false;
 		<h3>示例</h3>
 		<ul>
 			<script>//
-__id__1481289780515_53=["{\n\tauthor:{\n\t\t//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\n\t\tusername:'危险分子 <script\>',\n\t\t//打破属性规则，插入危险代码\n\t\ttitle:'坏蛋！ \" onclick=\"alert(\\'插入危险代码成功!!\\')',\n\t\tdisabled:false\n\t},\n\tblog:{\n\t\t'title':'html特殊字符：&<\"',\n\t\t'content':'lite应该怎么自动编码这些特殊字符呢？'+\n\t\t\t\t'XML特殊字符有两个:&<，加上属性括弧\",一共三个'+\n\t\t\t\t'（LiteXML属性括弧一律自动转化为\"）；'+\n\t\t\t\t'只要编码好这些特殊字符，用户就很难插入危险代码了。\\n\\n'+\n\t\t\t\t'但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。'+\n\t\t\t\t'我们还要让这些字符实体不过度转义。'\n\t}\n}",null];
+__id__1481291606599_78=["{\n\tauthor:{\n\t\t//百度曾碰到过的严重xss漏洞。用户名带有关键字，导致该用户去哪哪瘫痪！\n\t\tusername:'危险分子 <script\>',\n\t\t//打破属性规则，插入危险代码\n\t\ttitle:'坏蛋！ \" onclick=\"alert(\\'插入危险代码成功!!\\')',\n\t\tdisabled:false\n\t},\n\tblog:{\n\t\t'title':'html特殊字符：&<\"',\n\t\t'content':'lite应该怎么自动编码这些特殊字符呢？'+\n\t\t\t\t'XML特殊字符有两个:&<，加上属性括弧\",一共三个'+\n\t\t\t\t'（LiteXML属性括弧一律自动转化为\"）；'+\n\t\t\t\t'只要编码好这些特殊字符，用户就很难插入危险代码了。\\n\\n'+\n\t\t\t\t'但是，有的时候，特别是老的GBK中文环境下，我们数据库中存储有字符实体，比如：&#0x7C21;&#0x7E41;&#0x6F22;&#0x5B57;。'+\n\t\t\t\t'我们还要让这些字符实体不过度转义。'\n\t}\n}",null];
 //
 </script>
 <script>//
-blogModel=__id__1481289780515_53[0];
+blogModel=__id__1481291606599_78[0];
 //
 </script>
 
 
 			<script>//
-__id__1481289780515_93=["<!-- 自动编码，免遭一劫 -->\n<span class=\"user\" title=\"${author.title}\">${author.username}</span>\n\n....\n<!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\n<input type=\"submit\" value=\"发表留言\" disabled=\"${author.disabled||null}\"/>\n\n\n\t\t\n<!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\n<!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\n<p title=\"${blog.title}\">${blog.content}</p>\n<!-- 避免过度转义： 网开一面的$#{...} 语法！-->\n<p title=\"${blog.title}\">$#{blog.content}</p>\n\n<!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\n<p title=\"$!{blog.title}\">$!{blog.content}</p>",blogModel];
+__id__1481291606599_36=["<!-- 自动编码，免遭一劫 -->\n<span class=\"user\" title=\"${author.title}\">${author.username}</span>\n\n....\n<!-- 条件属性就是方便（如果属性值为null，则整个属性不输出） -->\n<input type=\"submit\" value=\"发表留言\" disabled=\"${author.disabled||null}\"/>\n\n\n\t\t\n<!-- ${blog.title} 将按属性规则编码，确保不打破属性语义。 -->\n<!-- ${blog.content} 将按属性xml文本编码，确保不被插入危险标签。 -->\n<p title=\"${blog.title}\">${blog.content}</p>\n<!-- 避免过度转义： 网开一面的$#{...} 语法！-->\n<p title=\"${blog.title}\">$#{blog.content}</p>\n\n<!-- 不建议的危险代码 ,用户可以为所欲为，插入任意代码了！-->\n<p title=\"$!{blog.title}\">$!{blog.content}</p>",blogModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780515_93[0],__id__1481289780515_93[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606599_36[0],__id__1481291606599_36[1],'');</script></div>
 		</ul>
 	
 		<div id="post">

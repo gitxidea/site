@@ -105,19 +105,19 @@ return false;
 		<p>
 
 			<script>//
-__id__1481289780369_39=["var LiteEngine = require('lite').LiteEngine;\nvar engine = new LiteEngine('./');\nrequire('http').createServer(function (request, response) {\n\n\t//get data promise(data is not available)\n    var data1Promise = APIProxy.getDataAsPromise('http://api.xxx.com/search?keyword=data1&...')\n    var data2Promise = APIProxy.getDataAsPromise('http://api.xxx.com/search?keyword=data2&...')\n    //template path\n    var path = '/index.xhtml';\n\n    //model(available data and unavailable data(pending Promise))\n    var model = {\n        title:'static first and promise auto wait test'\n        data1:data1Promise,//output available contents first and wait until the promise is ready!!\n        data2:data2Promise\n    };\n    engine.render(path,model,request,response);\n}).listen(2012);",null];
+__id__1481291606461_8=["var LiteEngine = require('lite').LiteEngine;\nvar engine = new LiteEngine('./');\nrequire('http').createServer(function (request, response) {\n\n\t//get data promise(data is not available)\n    var data1Promise = APIProxy.getDataAsPromise('http://api.xxx.com/search?keyword=data1&...')\n    var data2Promise = APIProxy.getDataAsPromise('http://api.xxx.com/search?keyword=data2&...')\n    //template path\n    var path = '/index.xhtml';\n\n    //model(available data and unavailable data(pending Promise))\n    var model = {\n        title:'static first and promise auto wait test'\n        data1:data1Promise,//output available contents first and wait until the promise is ready!!\n        data2:data2Promise\n    };\n    engine.render(path,model,request,response);\n}).listen(2012);",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780369_39[0],__id__1481289780369_39[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606461_8[0],__id__1481291606461_8[1],'');</script></div>
 		</p>
 		<h3>输出优先级控制（BigPiple）</h3>
 		<p>原理： 避免个别过慢接口影响整体性能，允许各个接口并行下载，先到先得</p>
 		<p>
 			<script>//
-__id__1481289780369_11=["<html>\n<body>\n<c:lazy-module>\n\t......\n\t${slowApiData}\n</c:lazy-module>\n<body>\n</html>","{slowApiData:'...'}"];
+__id__1481291606461_58=["<html>\n<body>\n<c:lazy-module>\n\t......\n\t${slowApiData}\n</c:lazy-module>\n<body>\n</html>","{slowApiData:'...'}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780369_11[0],__id__1481289780369_11[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606461_58[0],__id__1481291606461_58[1],'');</script></div>
 		</p>
 		<h3>渲染优先级控制（BigRender）</h3>
 		<p>原理： 避免生成过多的html节点影响页面性能</p>

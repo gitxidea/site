@@ -133,19 +133,19 @@ return false;
 		<ul>
 
 			<script>//
-__id__1481289780303_4=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\turl:\"http://www.xidea.org/lite?test=测试#1234\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
+__id__1481291606445_23=["{\n\ttitle:\"特殊字符\\\"&&lt;\",\n\turl:\"http://www.xidea.org/lite?test=测试#1234\",\n\tcontent:\"危险代码&lt;script\>alert(\\\"想做点坏事，能得逞吗？\\\") &lt;\\/script\>\",\n\t\"disabled\":null,\n\tdata:{p1:\"属性1\",p2:\"属性2\"}\n}",null];
 //
 </script>
 <script>//
-htmlxmlModel=__id__1481289780303_4[0];
+htmlxmlModel=__id__1481291606445_23[0];
 //
 </script>
 
 			<script>//
-__id__1481289780303_10=["<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURI) -->\n<a href=\"${url}\">encodeURI转义</a>\n<!--IE amp 问题 -->\n<a href=\"?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${'中文自动编码'}\">...</a>\n<!-- xml/html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>",htmlxmlModel];
+__id__1481291606445_82=["<!-- javascript自动编码(JSON.stringify) -->\n<div onclick=\"alert(${content})\">...</div>\n<!-- URL 自动编码(encodeURI) -->\n<a href=\"${url}\">encodeURI转义</a>\n<!--IE amp 问题 -->\n<a href=\"?amp_1=${data.p1}&amp_2=${data.p2}&amp_p3=${'中文自动编码'}\">...</a>\n<!-- xml/html自动编码  -->\n<p title=\"${title}\">${content}</p>\n<script\>\n\t//script 中的内容将自动放到CDATA块中，其内容不做自动编码\n\tif(content.length<10){\n\t\talert(content.length);\n\t}\n\talert(${content})\n</script\>",htmlxmlModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780303_10[0],__id__1481289780303_10[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606445_82[0],__id__1481291606445_82[1],'');</script></div>
 
 		</ul>
 	

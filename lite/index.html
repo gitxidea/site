@@ -119,30 +119,30 @@ return false;
 				<p>
 					以显示一个简单的个人信息为例，形式如：
 					<script>//
-__id__1481289780402_56=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
+__id__1481291606471_84=["<html>\n<title>模板测试</title>\n<body>\n我是：张三,来自：北京\n</body>\n</html>",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780402_56[0],__id__1481289780402_56[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606471_84[0],__id__1481291606471_84[1],'');</script></div>
 				</p>
 				<p>
 					其中，姓名 "张三" 和城市 "北京" 需要从后端获取，后端数据模型如下：
 					<script>//
-__id__1481289780402_61=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
+__id__1481291606472_40=["{\n\"name\": \"张三\",\n\"city\":\"北京\"\n}",null];
 //
 </script>
-<script>testModel=__id__1481289780402_61[0];
+<script>testModel=__id__1481291606472_40[0];
 </script>
-<div class="code"><script>renderSource(__id__1481289780402_61[0],__id__1481289780402_61[1],'/testmodel.json');</script></div>
+<div class="code"><script>renderSource(__id__1481291606472_40[0],__id__1481291606472_40[1],'/testmodel.json');</script></div>
 				</p>
 				<p>
 					为了实现上述内容的动态展示，我们需要编写一个简单的模板：
 					<script>var testModel = editorMap['/testmodel.json'].getValue();
 </script>
 					<script>//
-__id__1481289780402_1=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
+__id__1481291606472_23=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我是：${name},来自：${city}\n\t</body>\n</html>",testModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780402_1[0],__id__1481289780402_1[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606472_23[0],__id__1481291606472_23[1],'');</script></div>
 				</p>
 			</ul>
 		</div>
@@ -206,19 +206,19 @@ __id__1481289780402_1=["<html>\n\t<title>模板测试</title>\n\t<body>\n\t\t我
 				<p>
 					兼容JavaScript的表达式和函数库，方便前端工程师学习。
 					<script>//
-__id__1481289780403_76=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
+__id__1481291606472_71=["{\n\t\"object\":{\"key\":\"value\"},\n\t\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"e\":5,\"f\":6,\n\t\"array\":[1,2,3,4],\n\t\"str\":\"testString\"\n}",null];
 //
 </script>
 <script>//
-elModel=__id__1481289780403_76[0];
+elModel=__id__1481291606472_71[0];
 //
 </script>
 
 					<script>//
-__id__1481289780403_22=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
+__id__1481291606472_15=["<textarea>\n//表达式示例:\n${JSON.stringify(object)}\n${[a,b,c].concat(d,[e,f]).join(',')}\n${[a,b,c,d].concat(array).length}\n${str.charAt(0)}\n${str.substring(1,2)}\n</textarea>",elModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1481289780403_22[0],__id__1481289780403_22[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481291606472_15[0],__id__1481291606472_15[1],'');</script></div>
 				</p>
 				<p>
 					基于JavaScript的扩展机制，可以轻松扩展模板语法，方便前端工程师二次开发。

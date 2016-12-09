@@ -41,8 +41,9 @@ var list = fs.readdirSync(guideDir);
 
 
 var exec = require('child_process').execSync
-var msg1 = exec('jsi export ./compiler.js -f compressed -o c.js',{cwd:guideDir});
-var msg2 = exec('jsi export ./web-compiler.js -o .wc.js',{cwd:path.join(liteDir,'php')})
+var format = 'compressed';//compressed,raw
+var msg1 = exec('jsi export ./compiler.js -f '+format+' -o c.js',{cwd:guideDir});
+var msg2 = exec('jsi export ./web-compiler.js -f '+format+' -o .wc.js',{cwd:path.join(liteDir,'php')})
 console.log(msg1+'',msg2+'')
 
 var insertCode = '('+function(){
