@@ -32,16 +32,18 @@ fs.writeFileSync(codemirror+'/o.js',source);
 
 
 
-
-
-
-
-
-var from = path.join(path.dirname(require.resolve('lite')),'./doc/guide/')
+var liteDir = path.dirname(require.resolve('lite'));
+var guideDir = path.join(liteDir,'./doc/guide/')
 var dest = __dirname;
 var base = "http://localhost:2012/doc/guide/";
 var http = require('http')
-var list = fs.readdirSync(from);
+var list = fs.readdirSync(guideDir);
+
+
+var exec = require('child_process').execSync
+var msg1 = exec('jsi export ./compiler.js -f compressed -o c.js',{cwd:guideDir});
+var msg2 = exec('jsi export ./web-compiler.js -o .wc.js',{cwd:path.join(liteDir,'php')})
+console.log(msg1+'',msg2+'')
 
 var insertCode = '('+function(){
 	var _vds = _vds || [];
@@ -61,10 +63,11 @@ var insertCode = '('+function(){
 	s.parentNode.insertBefore(hm, s);
 }+')();'
 
-console.log('@!!!!')
+//console.log('@!!!!')
 var DOMParser = require('xmldom').DOMParser;
+var index = 0;
+//console.log(list.length,list)
 list.map(function(n){
-	
 	if(/\.(js|css)$/.test(n) || !/^layout/.test(n) && /.xhtml$/.test(n)){
 		var url = base+n
 		http.get(url, function(res){
@@ -129,14 +132,17 @@ list.map(function(n){
 				}
 				fs.writeFileSync(dest+'/'+n.replace(/\.xhtml$/,'.html'),rawData);
 				console.log('update:'+dest+'/'+n.replace(/\.xhtml$/,'.html'))
+				console.log(index++)
 			})
 
 		})
+	}else{
+		console.log('ignore file:'+n)
+		index++;
 	}
 })
 
-
-console.log('@!33333!!!')
+//setInterval(function(){console.log(index)},1000)
 var http = require('http'),
     url = require('url'),
     fs = require('fs');

@@ -1,94 +1,16829 @@
-~function(){function r(e){if("number"==typeof e){var n=i[e];if(!n){var u="./"+e;n=i[e]={exports:{},id:u},t[e](n.exports,r,n,u)}return n.exports}return require(e)}function e(n){var t="number"==typeof n?n:u.indexOf(n);return t>=0?r(t):e}function n(r,e){for(var n in r)e[n]=r[n]}var t=arguments,u=[].pop.call(t),i={},a=this.require;a&&a.backup?a.backup.push(e):(this.require=function(r){if(r instanceof Function){for(var e=arguments,t=e.length,u={};--t;)n(require(e[t]),u);return r(u),u}for(var e=require.backup,t=e.length;t--;){var i=e[t](r);if(i!=e[t])return i}return a?a.apply(this,arguments):{}},this.require.backup=[e]),n(r(0),this)}(function(t,e){function n(t,e){t=t||new P,this.config=t,this.currentURI=h,this.configMap=t.getConfig(e),this.textType=0,this._path=e,this._attributeMap=[[],[],{}],this._result=new c,this._context=this,this._result._context=this,this._resources=[],r(this,t.getExtensionMap(e))}function r(t,e){var n=new _;for(var r in e)for(var s=e[r],a=s.length,u=0;a>u;u++)n.addExtension(r,s[u]);t._nodeParsers=[o,d,i],t._textParsers=[n],t._extensionParser=n,t._topChain=g(t)}function i(t,e,n){return e._extensionParser.parse(t,e,n)}function o(t,e){return"string"==typeof t?v(t,e,e._textParsers):void console.error("未知节点类型",typeof t,t)}function s(t){return function(){var e=this._result;return e[t].apply(e,arguments)}}function a(t,e){if((t=t[2])&&"string"==typeof e)return e in t?t[e]:null;for(var n=t[0],r=t[1],i=n.length;i--;)if(e==n[i])return r[i]}function u(t,e,n){if(t[2]&&"string"==typeof e)t[2][e]=n;else{for(var r=t[0],i=t[1],o=r.length;o--;)if(e==r[o])return void(i[o]=n);r.push(e),i.push(n)}}var c=e(5).ResultContext,f=e(6).URI,h=new f("lite:///");n.prototype={parseText:function(t,e){switch(e){case w:case T:case y:break;default:throw console.error("未知编码模式："+e),new Error}var n=this.mark(),r=this.textType;this._context.textType=e,o(t,this),this._context.textType=r;var i=this.reset(n);return i},parse:function(t){var e=t.nodeType;if(e>0)this._topChain.next(t);else{if(t instanceof f){var n=this.currentURI;this.setCurrentURI(t),t=this.loadXML(t),"string"==typeof t&&(t=t.replace(/#.*[\r\n]*/,""))}if("string"!=typeof t){var r=t.length,i=t.nodeType;if(void 0===i&&"undefined"!=typeof t.item){if(0===r)return;for(var o=0;r>o;o++)this._topChain.next(t.item(o));return}}this._topChain.next(t),n&&this.setCurrentURI(n)}},createURI:function(t){var e=this.config.root.toString();if(!t)return t;t=String(t),0==t.indexOf(e)&&(t=t.substring(e.length-1));var n=this.currentURI;return n?n.resolve(t):(t=t.replace(/^[\\\/]/,"./"),h.resolve(t))},loadText:function(t){if("lite"==t.scheme){var e=t.path+(t.query||"");e=e.replace(/^\//,"./"),t=this.config.root.resolve(e)}var n=new XMLHttpRequest;return n.open("GET",t,!1),n.send(""),n.responseText},loadXML:function(t){var e=+new Date;if(t instanceof f||(/^\s*</.test(t)?n=x(t,this.config.root):t=new f(t)),t instanceof f){var n=x(t,this.config.root);this._context._loadTime+=new Date-e}var r=n&&n.documentElement;return r&&(r.setAttribute("xmlns:xhtml","http://www.w3.org/1999/xhtml"),r.setAttribute("xmlns:c","http://www.xidea.org/lite/core")),n},openStream:function(t){throw new Error("only for java")},setAttribute:function(t,e){u(this._context._attributeMap,t,e)},getAttribute:function(t){return a(this._context._attributeMap,t)},addNodeParser:function(t){this._nodeParsers.push(t)},addTextParser:function(t){this._textParsers.push(t)},addExtension:function(t,e){this._extensionParser.addExtension(t,e)},getConfig:function(t){return this.configMap[t]},getConfigMap:function(){return this.configMap},setCurrentURI:function(t){this._context.addResource(t=new f(t)),this._context.currentURI=t},addResource:function(t){for(var e=this._resources,n=0;n<e.length;n++)if(e[n]+""==t)return;this._resources.push(t)},getResources:function(){return this._resources},createNew:function(){var t=new n(this.config,this.currentURI);return t.config=this.config,t.configMap=this.configMap,t._resources=this._resources,t},_loadTime:0};var p=c.prototype;for(var l in p)p[l]instanceof Function&&(n.prototype[l]=s(l));var x=e(7).loadLiteXML,g=e(8).buildTopChain,_=e(9).ExtensionParser,d=(e(10).Extension,e(11).parseDefaultXMLNode),v=e(12).parseText,w=e(13).XA_TYPE,y=e(13).EL_TYPE,T=e(13).XT_TYPE,P=e(14).ParseConfig;t.ParseContext=n}
+~function(){
+var impls = arguments;
+var idIndex = [].pop.call(impls);
+var cached = {};
+var previous_require = this.require;
+function internal_require(i){
+if(typeof i=='number'){
+var module = cached[i];
+if(!module){
+var id = "./"+i;
+module = cached[i] = {exports:{},id:id};
+impls[i](module.exports,internal_require,module,id);
+}
+return module.exports;
+}else{
+return require(i) ;
+}
+}
+function external_require(path){
+var id = typeof path == 'number'?path:idIndex.indexOf(path);
+if(id>=0){
+return internal_require(id);
+}else{
+return external_require;
+}
+}
+if(previous_require && previous_require.backup){
+previous_require.backup.push(external_require)
+}else{
+this.require = function(pc){
+if(pc instanceof Function){
+var list = arguments;
+var i = list.length;
+var o = {};
+while(--i){
+copy(require(list[i]),o);
+}
+pc(o);
+return o;
+}else{
+var list = require.backup;
+var i = list.length;
+while(i--){
+var exports = list[i](pc);
+if(exports != list[i]){
+return exports
+}
+}
+return previous_require?previous_require.apply(this,arguments):{}
+}
+}
+this.require.backup = [external_require];
+}
+function copy(src,dest){
+for(var n in src){
+dest[n] = src[n];
+}
+}
+copy(internal_require(0),this);
+}(function(exports,require){
+var ResultContext=require(6).ResultContext;
+var URI=require(7).URI;
+var defaultBase = new URI("lite:///");
+var loadLiteXML=require(8).loadLiteXML;
+var buildTopChain=require(9).buildTopChain;
+var ExtensionParser=require(10).ExtensionParser;
+var Extension=require(11).Extension;
+var parseDefaultXMLNode=require(12).parseDefaultXMLNode;
+var parseText=require(13).parseText;
+var XA_TYPE=require(14).XA_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+var ParseConfig=require(15).ParseConfig;
+exports.ParseContext=ParseContext;
+
+function ParseContext(config,path){
+config = config || new ParseConfig();
+this.config = config;
+this.currentURI = defaultBase;
+this.configMap = config.getConfig(path);
+this.textType=0;
+this._path = path;
+this._attributeMap = [[],[],{}]
+this._result = new ResultContext();
+this._context = this;
+this._result._context = this;
+this._resources = [];
+initializeParser(this,config.getExtensionMap(path));
+}
+
+function initializeParser(context,extensionMap){
+var extensionParser = new ExtensionParser();
+
+for(var ns in extensionMap){
+var exts = extensionMap[ns];
+for(var len = exts.length,i=0;i<len;i++){
+extensionParser.addExtension(ns,exts[i])
+}
+}
+context._nodeParsers = [parseTextLeaf,parseDefaultXMLNode,parseExtension];
+context._textParsers = [extensionParser];
+context._extensionParser = extensionParser;
+context._topChain = buildTopChain(context);
+}
+function parseExtension(node,context,chain){
+return context._extensionParser.parse(node,context,chain);
+}
+function parseTextLeaf(text,context){
+if(typeof text == 'string'){
+return parseText(text,context,context._textParsers)
+}else{
+console.error("未知节点类型",typeof text,text)
+
+}
+}
+ParseContext.prototype = {
+parseText:function(source, textType) {
+switch(textType){
+case XA_TYPE :
+case XT_TYPE :
+case EL_TYPE :
+break;
+default:
+console.error("未知编码模式："+textType)
+throw new Error();
+}
+var mark = this.mark();
+var oldType = this.textType;
+this._context.textType = textType;
+parseTextLeaf(source,this);
+this._context.textType = oldType;
+var result = this.reset(mark);
+return result;
+},
+
+parse:function(source) {
+var type = source.nodeType;
+if(type>0){
+
+this._topChain.next(source);
+}else{
+if(source instanceof URI){
+var oldURI = this.currentURI;
+this.setCurrentURI(source);
+
+source = this.loadXML(source);
+if(typeof source == 'string'){
+source=source.replace(/#.*[\r\n]*/,'');
+}
+}
+if(typeof source != 'string'){
+
+var len = source.length;
+var nodeType = source.nodeType;
+if(nodeType === undefined && typeof source.item != 'undefined'){
+if(len === 0){
+return;
+}
+for(var i = 0;i<len;i++){
+this._topChain.next(source.item(i));
+}
+return;
+}
+}
+this._topChain.next(source);
+if(oldURI) this.setCurrentURI(oldURI)
+}
+},
+createURI:function(path) {
+
+var base = this.config.root.toString();
+if(!path){return path}
+path = String(path);
+if(path.indexOf(base) ==0){
+path = path.substring(base.length-1);
+}
+var cu = this.currentURI;
+if(cu){
+
+
+
+
+
+return cu.resolve(path);
+
+}else{
+path= path.replace(/^[\\\/]/,'./');
+
+
+
+return defaultBase.resolve(path);
+}
+},
+loadText:function(uri){
+
+if(uri.scheme == 'lite'){
+var path = uri.path+(uri.query||'');
+path = path.replace(/^\//,'./')
+uri = this.config.root.resolve(path);
+}
+if(uri.scheme == 'file'){
+var fs = require(4);
+var path = uri.path;
+if(fs.existsSync(path)){
+return fs.readFileSync(path).toString()
+}
+}else{
+var xhr = new XMLHttpRequest();
+xhr.open("GET",uri,false)
+xhr.send('');
+
+return xhr.responseText;
+}
+},
+loadXML:function(path){
+var t1 = +new Date();
+if(path instanceof URI){
+}else{
+if(/^\s*</.test(path)){
+doc = loadLiteXML(path,this.config.root)
+}else{
+path = new URI(path)
+}
+}
+if(path instanceof URI){
+var doc = loadLiteXML(path,this.config.root);
+this._context._loadTime+=(new Date()-t1);
+}
+var root = doc && doc.documentElement;
+if(root){
+root.setAttribute('xmlns:xhtml',"http://www.w3.org/1999/xhtml")
+root.setAttribute('xmlns:c',"http://www.xidea.org/lite/core")
+}
+return doc;
+},
+setAttribute:function(key,value){
+_setByKey(this._context._attributeMap,key,value)
+},
+getAttribute:function(key){
+return _getByKey(this._context._attributeMap,key)
+},
+addNodeParser:function(np){
+this._nodeParsers.push(np);
+},
+addTextParser:function(tp){
+this._textParsers.push(tp);
+},
+addExtension:function(ns,pkg){
+this._extensionParser.addExtension(ns,pkg);
+},
+getConfig:function(key){
+return this.configMap[key];
+},
+getConfigMap:function(){
+return this.configMap;
+},
+setCurrentURI:function(uri){
+this._context.addResource(uri=new URI(uri));
+this._context.currentURI = uri;
+},
+addResource:function(uri){
+for(var rs = this._resources, i=0;i<rs.length;i++){
+if(rs[i]+'' == uri){
+return ;
+}
+}
+this._resources.push(uri);
+},
+getResources:function(){
+return this._resources;
+},
+createNew:function(){
+var nc = new ParseContext(this.config,this.currentURI);
+nc.config = this.config;
+nc.configMap = this.configMap;
+nc._resources = this._resources;
+return nc;
+},
+_loadTime :0
+}
+var rm = ResultContext.prototype;
+for(var n in rm){
+if(rm[n] instanceof Function){
+ParseContext.prototype[n] = buildResultWrapper(n);
+}
+}
+function buildResultWrapper(n){
+return function(){
+var result = this._result;
+return result[n].apply(result,arguments)
+}
+}
+function _getByKey(map,key){
+if(typeof key == 'string'){
+map = map[2];
+return key in map ? map[key]:null;
+}
+var keys = map[0];
+var values = map[1];
+var i = keys.length;
+while(i--){
+if(key === keys[i]){
+return values[i];
+}
+}
+}
+function _setByKey(map,key,value){
+if(typeof key == 'string'){
+map[2][key] = value;
+}else{
+var keys = map[0];
+var values = map[1];
+var i = keys.length;
+while(i--){
+if(key === keys[i]){
+values[i] = value;
+if(value === undefined){
+values.splice(i,1)
+keys.splice(i,1)
+}
+return;
+}
+}
+keys.push(key);
+values.push(value);
+}
+}
+}
 ,
-function(t,n){function e(t){this.config=t||{}}function i(t){var n=t.header,e=t.body,i=t.name,r=t.params,s=r?r.join(","):"__context__,__out__",o=["function ",i,"(",s,"){\n",n,"\n"];if(t.waitPromise)o.push("	__g__ = __g__();","function __n__(){","var n = __g__.next().value;","if(n instanceof Promise){","n.then(__n__);console.log('is promise',n)","}","};__n__();\n"),o.push("	function* __g__(){\n",e,'\n	return __out__.join("");\n	}\n}\n');else{if(r){var a=e.match(/^\s*__out__\.push\((.*?)\);?\s*$/);if(a){var p="	return ["+a[1]+"]";try{return new Function(p),p.indexOf(",")>0?o.push(p,'.join("");\n}'):o.push("	return ",a[1],";\n}"),o.join("")}catch(h){}}o.push("	var __out__ = [];\n")}else o.push("	var __out__ = __out__||[];\n");o.push(e,'\n	return __out__.join("");\n}\n')}return o.join("")}function r(t,n,e,i,r){var s=r.concat(),o=e?e.join(","):"__context__";if(e&&i&&i.length){s.push("	switch(arguments.length){\n");for(var a=e.length-i.length,p=0;p<e.length;p++)s.push("		case ",p,":\n"),p>=a&&s.push("		",e[p],"=",JSON.stringify(i[p-a]),";\n");s.push("	}\n")}var h=t.join(""),u=/^\s*\__out__\.push\((?:(.*)\)\s*;?)\s*$/g;if(u.test(h)){var c=h.replace(u,"$1");h=c.indexOf(",")>0?"	return ["+c+"].join('');":"	return "+c+";"}else h="	var __out__=[]\n"+h.replace(/^\s*\n|\s*\n\s*$/g,"")+"\n	return __out__.join('');\n";return"function "+n+"("+o+"){\n"+s.join("")+h.replace(/^[\r\n]+/,"")+"\n}\n"}function s(t,n,e){var i=[],r={},s=n.externalRefMap,o=(n.callMap,n.varMap),a=n.paramMap;d(s,r);var p=[];for(var h in r)"*"==h||h in y||h in o||h in a||e||(i.push("	var ",h,'=("',h,'" in __context__?__context__:this)["',h,'"];\n'),p.push(h));return!e&&t.waitPromise&&i.push(p.join("\n").replace(/.+/gm,"	if($& instanceof Promise){$&.then(function(v){$& = v});}"),"\n"),i}function o(t){if(t.hasBuildIn)return"";var n=[""],e=t.xmlEncoder+2*t.entityEncoder;e&&(e>3?(t.optimizedEncoder=!0,n.push("	function __x__(source,e){return String(source).replace(e||/&(?!#\\d+;|#x[\\da-f]+;|[a-z]+;)|[<\"]/ig,function(c){return '&#'+c.charCodeAt()+';'});}\n")):n.push(" 	function __r__(c){return '&#'+c.charCodeAt()+';'}\n")),t.safeGetter&&n.push("	function __get__(o,p,a){try{return a?o[p].apply(o,a):o[p]}catch(e){return e}}\n"),t.forStack.hit&&n.push("	if(!Object.keys)Object.keys=function(o){var r=[];for(var n in o){r.push(n)};return r;};\n");var i=t.dateFormat;if(i.hit){var r=i.isFixLen?"__dl__(":"",s=i.isFixLen?",format.length)":"";r&&n.push("	function __dl__(date,len){return len > 1? ('000'+date).slice(-len):date;}\n"),i.T&&n.push("	function __tz__(offset){return offset?(offset>0?'-':offset*=-1,'+')+__dl__(offset/60,2)+':'+__dl__(offset%60,2):'Z'}\n"),i&&n.push("	function __df__(pattern,date){\n"),i&&n.push("		date = date?new Date(date):new Date();\n"),i&&n.push("	        return pattern.replace(/",i.qute?"'[^']+'|\"[^\"]+\"|":"","([YMDhms])\\1*",i["."]?"|\\.s":"",i.T?"|TZD$":"","/g,function(format){\n"),i&&n.push("	            switch(format.charAt()){\n"),i.Y&&n.push("	            case 'Y' :return ",r,"date.getFullYear()",s,";\n"),i.M&&n.push("	            case 'M' :return ",r,"date.getMonth()+1",s,";\n"),i.D&&n.push("	            case 'D' :return ",r,"date.getDate()",s,";\n"),i.h&&n.push("	            case 'h' :return ",r,"date.getHours()",s,";\n"),i.m&&n.push("	            case 'm' :return ",r,"date.getMinutes()",s,";\n"),i.s&&n.push("	            case 's' :return ",r,"date.getSeconds()",s,";\n"),i["."]&&n.push("	            case '.':return '.'+",r,"date.getMilliseconds(),3);\n"),i.T&&n.push("	            case 'T':return __tz__(date.getTimezoneOffset());\n"),i.qute&&n.push("	            case ''':case '\"':return format.slice(1,-1);\n"),i&&n.push("	            default :return format;\n"),i&&n.push("	            }\n"),i&&n.push("	        });\n"),i&&n.push("	    }\n")}return n.join("")}function a(t,n,e){var i=t.dateFormat,r=n[1],s=0;return-1!=n[0]&&(r="YYMMDDhhmmss.sTZD"),r.replace(/([YMDhms])\1*|\.s|TZD/g,function(t){len=t.length,t=t.charAt(),('"'==t||"'"==t)&&(i.qute=1),s=Math.max(s,i[t]=Math.max(i[t]||0,len))}),i.isEL=i.isEL||-2!=e[0],i.isFixLen=i.isFixLen||s>1,i.hit++,n=t.stringifyEL(n),e=t.stringifyEL(e),{toString:function(){return"__df__("+n+","+e+")"}}}function p(t,n,e,i){g.call(this,t,n,e,i),this.forStack=[],this.defaults=i,this.xmlEncoder=0,this.entityEncoder=0,this.dateFormat={hit:0},this.safeGetter={hit:0}}function h(t,n){if(t.waitPromise){var e=t.waitPromise[t.waitPromise.length-1];if(e){for(var i=Object.keys(new v(n).getVarMap()),r=[],s=0;s<i.length;s++){var o=i[s];"for"!=o&&e.indexOf(o)<0&&(r.push(o),e.push(o))}if(r.length)return"yield* __out__.wait("+r.join(",")+")"}}}function u(t){var n=t.out,e=t._lastOutGroup,i=n.length-1,r=n.splice.call(arguments,1);e&&n[i]===e?e.list.push.apply(e.list,r):t.append(t._lastOutGroup=new c(r))}function c(t){this.list=t}function _(t,n,e){return t.xmlEncoder++,n=t.stringifyEL(n),{toString:function(){var i=e?'/[&<\\"]/g':"/[&<]/g";return t.optimizedEncoder||t.hasBuildIn?"__x__("+n+","+i+")":"String("+n+").replace("+i+",__r__)"}}}function f(t,n){return n=t.stringifyEL(n),t.entityEncoder++,{toString:function(){return t.optimizedEncoder||t.hasBuildIn?"__x__("+n+")":"String("+n+').replace(/&(?!#\\d+;|#x[\\da-f]+;|[a-z]+;)|[<"]/ig,__r__)'}}}function d(t,n){for(var e in t)n[e]=t[e]}var l=n(13).ELSE_TYPE,g=n(15).TranslateContext,v=n(16).Expression,m={parseInt:1,parseFloat:1,encodeURIComponent:1,decodeURIComponent:1,encodeURI:1,decodeURI:1,isFinite:1,isNaN:1},y={JSON:1,Math:1};d(m,y),e.prototype={translate:function(t,n){n=n||{};var e=n.params,r=n.name,s=new p(t,r,e,n.defaults),o=this.config||{},a=o.liteImpl;s.waitPromise=o.waitPromise&&[],s.hasBuildIn=!!a,s.liteImpl=a&&("string"==typeof a?a:"liteImpl"),s.parse();var h=i(s);try{var u=new Function("return "+h),c=s.scope,_=c.refMap,f=c.varMap,d=Object.keys(_).filter(function(t){return!(t in f)});if(0==d&&e)return"function "+(r||"")+"(){return "+JSON.stringify(u()())+"}"}catch(l){var g=console.error("invalid code:",l,"<code>"+h+"</code>");h="return ("+JSON.stringify(g)+");"}return h.replace(/<\/script>/g,"<\\/script>").replace(/^\s*[\r\n]+/,"")}},p.prototype=new g,p.prototype.parse=function(){this.params;this.out=[];for(var t=this.scope.defs,n=this,e=[],i=0;i<t.length;i++){var a=this.scope.defMap[t[i]];this.outputIndent=1,this.appendCode(a.code);var p=s(this,a,a.params),h=n.reset();e.push({params:a.params,defaults:a.defaults,vars:p,name:a.name,toString:function(){var t=r(h,this.name,a.params,a.defaults,[]);return String(t).replace(/^(.)/gm,"	$1")}})}try{this.outputIndent=0,this.outputIndent++,this.appendCode(this.scope.code),this.outputIndent--}catch(u){throw u}var c=[],c=s(this,this.scope,this.params),_=o(this);_&&c.unshift(_),this.header=c.concat(e).join(""),this.body=this.reset().join("").replace(/^[\r\n]+/,"")},p.prototype.appendStatic=function(t){u(this,JSON.stringify(t))},p.prototype.appendEL=function(t){u(this,this.stringifyEL(t[1]))},p.prototype.appendXT=function(t){u(this,_(this,t[1]))},p.prototype.appendXA=function(t){var n=t[1],e=this.stringifyEL(n),i=t.length>2&&t[2];if(i){var r=this.allocateId(e);r!=e&&(n=new v(r).token,this.append("var ",r,"=",e)),this.append("if(",r,"!=null){"),this.pushBlock(),u(this,"' "+i+"=\"'",_(this,n,!0),"'\"'"),this.popBlock(),this.append("}"),this.freeId(r)}else u(this,_(this,n,!0))},p.prototype.appendVar=function(t){this.append("var ",t[2],"=",this.stringifyEL(t[1]),";")},p.prototype.appendEncodePlugin=function(t){u(this,f(this,t[1]))},p.prototype.appendDatePlugin=function(t,n){u(this,a(this,t[1],n[1]))},p.prototype.processCapture=function(t){var n=t[1];if(1==n.length&&n[0].constructor==String)t[1]=JSON.stringify(n[0]),this.appendVar(t);else{var e=t[2],i=this.allocateId();this.append("var ",i,"=__out__;__out__=[];"),this.appendCode(n),this.append("var ",e,"=__out__.join('');__out__=",i,";"),this.freeId(i)}},p.prototype.processIf=function(t,n){var e=t[n],i=e[1],r=e[2],s=this.stringifyEL(r);this.append("if(",s,"){"),this.pushBlock(),this.appendCode(i),this.popBlock(),this.append("}");var o=t[n+1],a=!0;for(this.pushBlock(!0);o&&o[0]==l;){n++;var i=o[1],r=o[2],s=this.stringifyEL(r);if(s){var p=h(this,r);this.append("else if(",p?"("+p+")||("+s+")":s,"){")}else a=!1,this.append("else{");this.pushBlock(),this.appendCode(i),this.popBlock(),this.append("}"),o=t[n+1]}return this.popBlock(!0),n},p.prototype.processFor=function(t,n){this.forStack.hit=!0;var e=t[n],i=this.allocateId(),r=this.allocateId(),s=this.allocateId(),o=this.stringifyEL(e[2]),a=e[3],p=e[1],u=this.findForStatus(e);this.append("var ",s,"=",o,";"),this.append("var ",i,"=0;"),this.append("var ",r," = (",s,"=",s," instanceof Array?",s,":Object.keys(",s,")",").length-1;");var c=u.ref,_=u.index||u.lastIndex;if(c){var f=this.allocateId();this.forStack.unshift([f,i,r]),this.append("var ",f," = {lastIndex:",r,"};")}else _&&this.forStack.unshift(["for",i,r]);this.append("for(;",i,"<=",r,";",i,"++){"),this.pushBlock(),c&&this.append(f,".index=",i,";"),this.append("var ",a,"=",s,"[",i,"];"),this.appendCode(p),this.popBlock(),this.append("}");var d=t[n+1],g=!0,v=0;for(this.pushBlock(!0);g&&d&&d[0]==l;){n++,v++;var p=d[1],m=d[2],y=this.stringifyEL(m),I=v>1?"else if":"if";if(y){var k=h(this,m);this.append(I,"(",k?"("+k+")|| !":"!",i,"&&(",y,")){")}else g=!1,this.append(I,"(!",i,"){");this.pushBlock(),this.appendCode(p),this.popBlock(),this.append("}"),d=t[n+1]}return this.popBlock(!0),c?(this.freeId(f),this.forStack.shift()):_&&this.forStack.shift(),this.freeId(r),this.freeId(s),this.freeId(i),n},p.prototype.pushBlock=function(t){t||this.outputIndent++;var n=this.waitPromise;if(n){var e=n[n.length-1];n.push(e?e.concat():[])}},p.prototype.popBlock=function(t){t||this.outputIndent--,this.waitPromise&&this.waitPromise.pop()},p.prototype.appendModulePlugin=function(t,n){this.waitPromise?(this.append("__out__.lazy(function* __lazy_module_",n.id,"__(__out__){"),this.pushBlock(),this.appendCode(t),this.popBlock(),this.append("})")):this.appendCode(t)},p.prototype.stringifyEL=function(t){return t?new v(t).toString(this):null},p.prototype.visitEL=function(t,n){t=t&&h(this,t),t&&this.append(t)},p.prototype.getVarName=function(t){return"for"==t&&console.log("invalue getVarName:"),t},p.prototype.getForName=function(){var t=this.forStack[0];return console.log("getForName:",t[0]),"for"==t[0],t&&t[0]},p.prototype.genGetCode=function(t,n){return this.safeGetter?(this.safeGetter.hit=!0,"__get__("+t+","+n+")"):/^"[a-zA-Z_\$][_\$\w]*"$/.test(n)?t+"."+n.slice(1,-1):t+"["+n+"]"},p.prototype.findForAttribute=function(t,n){for(var e=this.forStack,i="index"==n?1:"lastIndex"==n?2:0,r=0;i&&r<e.length;r++){var s=e[r];if(s&&s[0]==t)return s[i]}},c.prototype.toString=function(){return"__out__.push("+this.list.join(",")+");"},t.JSTranslator=e,t.GLOBAL_DEF_MAP=m,t.GLOBAL_VAR_MAP=y}
+function(exports,require){
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var TranslateContext=require(16).TranslateContext;
+var Expression=require(17).Expression;
+var GLOBAL_DEF_MAP ={
+"parseInt":1,	
+"parseFloat":1,	
+"encodeURIComponent":1,	
+"decodeURIComponent":1,	
+"encodeURI":1,	
+"decodeURI":1,	
+"isFinite":1,	
+"isNaN":1
+};
+var GLOBAL_VAR_MAP ={
+"JSON":1,
+"Math":1
+}
+copy(GLOBAL_DEF_MAP,GLOBAL_VAR_MAP);
+
+function JSTranslator(config){
+this.config = config||{};
+}
+
+JSTranslator.prototype = {
+
+translate:function(list,config){
+config = config||{};
+var params = config.params;
+var functionName = config.name;
+var ctx = new JSTranslateContext(list,functionName,params,config.defaults);
+var translatorConfig = this.config || {};
+var liteImpl = translatorConfig.liteImpl
+ctx.waitPromise = translatorConfig.waitPromise && [[]];
+ctx.hasBuildIn = !!liteImpl;
+ctx.liteImpl = liteImpl && (typeof liteImpl == 'string'?liteImpl:'liteImpl');
+ctx.parse();
+var code = genSource(ctx);
+
+try{
+var fn = new Function('return '+code);
+
+var scope = ctx.scope;
+var refMap = scope.refMap;
+var varMap = scope.varMap;
+var externalRefs = Object.keys(refMap).filter(function(n){return !(n in varMap)})
+if(externalRefs == 0 && params){
+return 'function '+(functionName||'')+'(){return '+JSON.stringify(fn()()) + '}'
+}
+
+}catch(e){
+var error = console.error("invalid code:",e,'<code>'+code+'</code>');
+code = "return ("+JSON.stringify(error)+');';
+}
+return code.replace(/<\/script>/g,'<\\/script>').replace(/^\s*[\r\n]+/,'');
+}
+}
+function genSource(ctx){
+var header = ctx.header;
+var body = ctx.body;
+var functionName = ctx.name;
+var params = ctx.params
+var args = params?params.join(','):'__context__,__out__';
+var result = ['function ',functionName,"(",args,'){\n',header,'\n']
+if (ctx.waitPromise) {
+result.push("\t__g__ = __g__();",
+"function __n__(){",
+"var n = __g__.next().value;",
+"if(n instanceof Promise){",
+"n.then(__n__);console.log('is promise',n)",
+
+
+
+"}",
+"};__n__();\n");
+result.push('\tfunction* __g__(){\n',body,'\n\treturn __out__.join("");\n\t}\n}\n');
+}else{
+if(params){
+var m = body.match(/^\s*__out__\.push\((.*?)\);?\s*$/)
+if(m){
+var item = '\treturn ['+m[1]+']'
+try{
+new Function(item)
+if(item.indexOf(',')>0){
+result.push(item,'.join("");\n}')
+}else{
+result.push('\treturn ',m[1],';\n}');
+}
+return result.join('');
+}catch(e){}
+}
+result.push('\tvar __out__ = [];\n');
+}else{
+result.push('\tvar __out__ = __out__||[];\n');
+}
+result.push(body,'\n\treturn __out__.join("");\n}\n');
+}
+return result.join('');
+}
+
+function genDecFunction(contents,functionName,params,defaults,modelVarsDec){
+var modelVarsDecAndParams = modelVarsDec.concat();
+
+var args = params?params.join(','):'__context__';
+if(params && defaults && defaults.length){
+
+modelVarsDecAndParams.push('\tswitch(arguments.length){\n');
+var begin = params.length - defaults.length
+for(var i =0;i<params.length;i++){
+modelVarsDecAndParams.push('\t	case ',i,':\n');
+if(i>=begin){
+modelVarsDecAndParams.push('\t	',params[i],'=',JSON.stringify(defaults[i-begin]),';\n');
+}
+}
+modelVarsDecAndParams.push('\t}\n');
+}
+
+var source = contents.join('')
+var SP = /^\s*\__out__\.push\((?:(.*)\)\s*;?)\s*$/g;
+if(SP.test(source)){
+var c =source.replace(SP,'$1');
+if(c.indexOf(',')>0){
+
+source = "\treturn ["+c+"].join('');";
+}else{
+source = "\treturn "+c+';';
+}
+}else{
+source = "\tvar __out__=[]\n"+source.replace(/^\s*\n|\s*\n\s*$/g,'')+"\n\treturn __out__.join('');\n";
+}
+return 'function '+functionName+"("+args+'){\n'+modelVarsDecAndParams.join('')+source.replace(/^[\r\n]+/,'')+'\n}\n'
+}
+function genModelDecVars(ctx,scope,params){
+var result = [];
+var map = {};
+var refMap = scope.externalRefMap;
+var callMap = scope.callMap;
+var varMap = scope.varMap;
+var paramMap = scope.paramMap;
+
+copy(refMap,map);
+
+var vars = [];
+for(var n in map){
+if(n != '*' && !((n in GLOBAL_VAR_MAP)|| (n in varMap) || (n in paramMap))){
+if(params){
+
+}else{
+
+result.push('\tvar ',n,'=("',n,'" in __context__?__context__:this)["',n,'"];\n');
+vars.push(n);
+}
+}
+}
+if(!params && ctx.waitPromise){
+result.push(vars.join('\n').replace(/.+/mg,'\tif($& instanceof Promise){$&.then(function(v){$& = v});}'),'\n');
+}
+
+return result;
+}
+
+function genBuildInSource(ctx){
+if(ctx.hasBuildIn){return ''}
+var buf = [''];
+var c = ctx.xmlEncoder + ctx.entityEncoder*2;
+if(c){
+if(c>3){
+ctx.optimizedEncoder = true;
+buf.push("	function __x__(source,e){return String(source).replace(e||/&(?!#\\d+;|#x[\\da-f]+;|[a-z]+;)|[<\"]/ig,function(c){return '&#'+c.charCodeAt()+';'});}\n");
+}else{
+buf.push(" 	function __r__(c){return '&#'+c.charCodeAt()+';'}\n");
+}
+}
+if(ctx.safeGetter){
+buf.push('	function __get__(o,p,a){try{return a?o[p].apply(o,a):o[p]}catch(e){return e}}\n')
+}
+
+if(ctx.forStack.hit){
+
+buf.push("	if(!Object.keys)Object.keys=function(o){var r=[];for(var n in o){r.push(n)};return r;};\n")
+}
+var df = ctx.dateFormat;
+if(df.hit){
+var dlstart = df.isFixLen?'__dl__(':''	
+var dlend = df.isFixLen?',format.length)':''	
+if(dlstart)	buf.push("	function __dl__(date,len){return len > 1? ('000'+date).slice(-len):date;}\n");
+if(df.T)	buf.push("	function __tz__(offset){return offset?(offset>0?'-':offset*=-1,'+')+__dl__(offset/60,2)+':'+__dl__(offset%60,2):'Z'}\n");
+if(df)	buf.push("	function __df__(pattern,date){\n");
+if(df)	buf.push("		date = date?new Date(date):new Date();\n");
+if(df)	buf.push("	        return pattern.replace(/",
+df.qute?"'[^']+'|\"[^\"]+\"|":'',
+"([YMDhms])\\1*",
+df['.']?"|\\.s":'',
+df.T?"|TZD$":'',
+"/g,function(format){\n");
+if(df)	buf.push("	            switch(format.charAt()){\n");
+if(df.Y)	buf.push("	            case 'Y' :return ",dlstart,"date.getFullYear()",dlend,";\n");
+if(df.M)	buf.push("	            case 'M' :return ",dlstart,"date.getMonth()+1",dlend,";\n");
+if(df.D)	buf.push("	            case 'D' :return ",dlstart,"date.getDate()",dlend,";\n");
+if(df.h)	buf.push("	            case 'h' :return ",dlstart,"date.getHours()",dlend,";\n");
+if(df.m)	buf.push("	            case 'm' :return ",dlstart,"date.getMinutes()",dlend,";\n");
+if(df.s)	buf.push("	            case 's' :return ",dlstart,"date.getSeconds()",dlend,";\n");
+if(df['.'])	buf.push("	            case '.':return '.'+",dlstart,"date.getMilliseconds(),3);\n");
+if(df.T)	buf.push("	            case 'T':return __tz__(date.getTimezoneOffset());\n");
+if(df.qute)	buf.push("	            case '\'':case '\"':return format.slice(1,-1);\n");
+if(df)	buf.push("	            default :return format;\n");
+if(df)	buf.push("	            }\n");
+if(df)	buf.push("	        });\n");
+if(df)	buf.push("	    }\n");
+}
+return buf.join('');
+}
+function createDateFormat(ctx,pattern,date){
+var df = ctx.dateFormat;
+var patternSample=pattern[1];
+var maxLen = 0;
+if(pattern[0] != -1){
+patternSample='YYMMDDhhmmss.sTZD';
+}
+patternSample.replace(/([YMDhms])\1*|\.s|TZD/g,function(c){
+len = c.length;
+c = c.charAt();
+if(c == '"' || c== '\''){
+df.qute = 1;
+}
+maxLen = Math.max(maxLen,df[c]=Math.max(df[c]||0,len));
+})
+
+df.isEL = df.isEL || date[0] != -2;
+df.isFixLen = df.isFixLen || maxLen>1;
+df.hit ++;
+pattern = ctx.stringifyEL(pattern);
+date = ctx.stringifyEL(date)
+return {toString:function(){
+return '__df__('+pattern+','+date+')';
+}}
+}
+function JSTranslateContext(code,name,params,defaults){
+TranslateContext.call(this,code,name,params,defaults);
+this.forStack = [];
+this.defaults = defaults;
+this.xmlEncoder = 0;
+this.entityEncoder=0;
+this.dateFormat = {hit:0};
+this.safeGetter = {hit:0}
+}
+JSTranslateContext.prototype = new TranslateContext();
+JSTranslateContext.prototype.parse=function(){
+var params = this.params;
+this.out = [];
+
+var defs = this.scope.defs;
+var thiz = this;
+var defVars = []
+
+for(var i=0;i<defs.length;i++){
+var def = this.scope.defMap[defs[i]];
+this.outputIndent=1;
+this.appendCode(def.code);
+var vars = genModelDecVars(this,def,def.params);
+var contents = thiz.reset();
+
+defVars.push({
+params:def.params,
+defaults:def.defaults,
+vars:vars,
+name:def.name,
+toString:function(){
+var fn = genDecFunction(contents,this.name,def.params,def.defaults,[]);
+return String(fn).replace(/^(.)/mg,'\t$1');
+}});
+}
+try{
+this.outputIndent=0;
+this.outputIndent++;
+this.appendCode(this.scope.code);
+this.outputIndent--;
+}catch(e){
+
+throw e;
+}
+
+
+
+
+
+var headers = [];
+var headers = genModelDecVars(this,this.scope,this.params);
+var buildIn = genBuildInSource(this);
+if(buildIn){
+headers.unshift(buildIn);
+}
+this.header = headers.concat(defVars).join('');
+
+this.body = this.reset().join('').replace(/^[\r\n]+/,'')
+}
+JSTranslateContext.prototype.appendStatic = function(item){
+appendOutput(this,JSON.stringify(item));
+}
+JSTranslateContext.prototype.appendEL=function(item){
+appendOutput(this,this.stringifyEL(item[1]))
+}
+JSTranslateContext.prototype.appendXT=function(item){
+appendOutput(this,createXMLEncoder(this,item[1]))
+}
+JSTranslateContext.prototype.appendXA=function(item){
+
+var el = item[1];
+var value = this.stringifyEL(el);
+var attributeName = item.length>2 && item[2];
+if(attributeName){
+var testId = this.allocateId(value);
+if(testId != value){
+el = new Expression(testId).token;
+this.append("var ",testId,"=",value);
+}
+this.append("if(",testId,"!=null){");
+this.pushBlock();
+appendOutput(this,"' "+attributeName+"=\"'",createXMLEncoder(this,el,true),"'\"'");
+this.popBlock();
+this.append("}");
+this.freeId(testId);
+}else{
+appendOutput(this,createXMLEncoder(this,el,true))
+}
+}
+JSTranslateContext.prototype.appendVar=function(item){
+this.append("var ",item[2],"=",this.stringifyEL(item[1]),";");
+},
+JSTranslateContext.prototype.appendEncodePlugin=function(item){
+appendOutput(this,createEntityEncoder(this,item[1]));
+},
+JSTranslateContext.prototype.appendDatePlugin=function(pattern,date){
+appendOutput(this,createDateFormat(this,pattern[1],date[1]))
+}
+JSTranslateContext.prototype.processCapture = function(item){
+var childCode = item[1];
+if(childCode.length == 1 && childCode[0].constructor == String){
+item[1] = JSON.stringify(childCode[0]);
+this.appendVar(item);
+}else{
+var varName = item[2];
+var bufbak = this.allocateId();
+this.append("var ",bufbak,"=__out__;__out__=[];");
+this.appendCode(childCode);
+this.append("var ",varName,"=__out__.join('');__out__=",bufbak,";");
+this.freeId(bufbak);
+}
+},
+JSTranslateContext.prototype.processIf=function(code,i){
+var item = code[i];
+var childCode = item[1];
+var testEL = item[2];
+var test = this.stringifyEL(testEL);
+
+
+this.append('if(',test,'){');
+this.pushBlock();
+this.appendCode(childCode)
+this.popBlock();
+this.append("}");
+var nextElse = code[i+1];
+var notEnd = true;
+this.pushBlock(true);
+while(nextElse && nextElse[0] == ELSE_TYPE){
+i++;
+var childCode = nextElse[1];
+var testEL = nextElse[2];
+var test = this.stringifyEL(testEL);
+if(test){
+var wel = genWaitEL(this,testEL);
+this.append('else if(',wel?'('+wel+')||('+test+')':test,'){');
+}else{
+notEnd = false;
+this.append("else{");
+}
+this.pushBlock();
+this.appendCode(childCode)
+this.popBlock();
+this.append("}");
+nextElse = code[i+1];
+}
+this.popBlock(true);
+return i;
+}
+JSTranslateContext.prototype.processFor=function(code,i){
+this.forStack.hit = true;
+var item = code[i];
+var indexId = this.allocateId();
+var lastIndexId = this.allocateId();
+var itemsId = this.allocateId();
+var itemsEL = this.stringifyEL(item[2]);
+var varNameId = item[3]; 
+
+var childCode = item[1];
+var forInfo = this.findForStatus(item)
+
+this.append("var ",itemsId,'=',itemsEL,';');
+this.append("var ",indexId,"=0;")
+this.append("var ",lastIndexId," = (",
+itemsId,'=',itemsId,' instanceof Array?',itemsId,':Object.keys(',itemsId,')'
+,").length-1;");
+
+var forRef = forInfo.ref ;
+var forAttr = forInfo.index || forInfo.lastIndex;
+if(forRef){
+var statusId = this.allocateId();
+this.forStack.unshift([statusId,indexId,lastIndexId]);
+this.append("var ",statusId," = {lastIndex:",lastIndexId,"};");
+}else if(forAttr){
+this.forStack.unshift(['for',indexId,lastIndexId]);
+}
+this.append("for(;",indexId,"<=",lastIndexId,";",indexId,"++){");
+this.pushBlock();
+if(forRef){
+this.append(statusId,".index=",indexId,";");
+}
+this.append("var ",varNameId,"=",itemsId,"[",indexId,"];");
+this.appendCode(childCode);
+this.popBlock();
+this.append("}");
+var nextElse = code[i+1];
+var notEnd = true;
+var elseIndex = 0;
+this.pushBlock(true);
+while(notEnd && nextElse && nextElse[0] == ELSE_TYPE){
+i++;
+elseIndex++;
+var childCode = nextElse[1];
+var testEL = nextElse[2];
+var test = this.stringifyEL(testEL);
+var ifstart = elseIndex >1 ?'else if' :'if';
+if(test){
+var wel = genWaitEL(this,testEL);
+this.append(ifstart,
+'(',wel?'('+wel+')|| !':'!'
+,indexId,'&&(',test,')){');
+}else{
+notEnd = false;
+this.append(ifstart,"(!",indexId,"){");
+}
+this.pushBlock();
+this.appendCode(childCode)
+this.popBlock();
+this.append("}");
+nextElse = code[i+1];
+}
+this.popBlock(true);
+if(forRef){
+this.freeId(statusId);
+this.forStack.shift();
+}else if(forAttr){
+this.forStack.shift();
+}
+this.freeId(lastIndexId);
+this.freeId(itemsId);;
+this.freeId(indexId);
+return i;
+}
+JSTranslateContext.prototype.pushBlock = function(ignoreIndent){
+if(!ignoreIndent){
+this.outputIndent++
+}
+var waitPromise = this.waitPromise;
+if(waitPromise){
+var topStatus = waitPromise[waitPromise.length-1]
+waitPromise.push(topStatus?topStatus.concat():[])
+}
+}
+JSTranslateContext.prototype.popBlock = function(ignoreIndent){
+if(!ignoreIndent){
+this.outputIndent--;
+}
+if(this.waitPromise){
+this.waitPromise.pop()
+}
+}
+JSTranslateContext.prototype.appendModulePlugin = function(child,config){
+if(this.waitPromise){
+this.append('__out__.lazy(function* __lazy_widget_',config.id,'__(__out__){');
+this.pushBlock();
+this.appendCode(child)
+this.popBlock();
+this.append('})');
+}else{
+this.appendCode(child)
+}
+}
+JSTranslateContext.prototype.stringifyEL= function (el){
+return el?new Expression(el).toString(this):null;
+};
+JSTranslateContext.prototype.visitEL= function (el,type){
+el = el && genWaitEL(this,el);
+el && this.append(el);
+};
+JSTranslateContext.prototype.getVarName = function(name){
+if(name == 'for'){
+console.error('invalue getVarName:')
+
+}
+return name;
+};
+JSTranslateContext.prototype.getForName = function(){
+var f = this.forStack[0];
+
+return f && f[0];
+};
+JSTranslateContext.prototype.genGetCode = function(owner,property){
+
+if(this.safeGetter){
+this.safeGetter.hit = true;
+return '__get__('+owner+','+property+')'
+}else{
+
+if(/^"[a-zA-Z_\$][_\$\w]*"$/.test(property)){
+return owner+'.'+property.slice(1,-1);
+}else{
+return owner+'['+property+']';
+}
+}
+};
+JSTranslateContext.prototype.findForAttribute= function(forName,forAttribute){
+var stack = this.forStack;
+var index = forAttribute == 'index'?1:(forAttribute == 'lastIndex'?2:0);
+for(var i=0;index && i<stack.length;i++){
+var s = stack[i];
+if(s && s[0] == forName){
+return s[index];
+}
+}
+}
+function genWaitEL(ctx,el){
+if(ctx.waitPromise){
+var topWaitedVars = ctx.waitPromise[ctx.waitPromise.length-1];
+if(topWaitedVars){
+var vars = Object.keys(new Expression(el).getVarMap());
+var vars2 = [];
+for(var i=0;i<vars.length;i++){
+var v = vars[i];
+if(v != 'for' && topWaitedVars.indexOf(v)<0){
+vars2.push(v)
+topWaitedVars.push(v)
+}
+}
+if (vars2.length) {
+return 'yield* __out__.wait('+vars2.join(',')+')'
+};
+}
+}
+}
+function appendOutput(ctx){
+var outList = ctx.out;
+var lastOutGroup = ctx._lastOutGroup;
+var lastIndex = outList.length-1;
+var args = outList.splice.call(arguments,1);
+if(lastOutGroup && outList[lastIndex] === lastOutGroup){
+lastOutGroup.list.push.apply(lastOutGroup.list,args)
+}else{
+ctx.append(ctx._lastOutGroup = new OutputGroup(args));
+}
+}
+function OutputGroup(args){
+this.list = args;
+}
+OutputGroup.prototype.toString = function(){
+return '__out__.push(' + this.list.join(',')+');'
+}
+function createXMLEncoder(thiz,el,isAttr){
+thiz.xmlEncoder ++;
+el = thiz.stringifyEL(el);
+return {toString:function(){
+var e = (isAttr?'/[&<\\"]/g':'/[&<]/g');
+if(thiz.optimizedEncoder||thiz.hasBuildIn){
+return '__x__('+el+','+e+')';
+}else{
+return 'String('+el+').replace('+e+',__r__)'
+}
+}}
+}
+function createEntityEncoder(thiz,el){
+el = thiz.stringifyEL(el);
+thiz.entityEncoder ++;
+return {
+toString:function(){
+if(thiz.optimizedEncoder || thiz.hasBuildIn){
+return '__x__('+el+')';
+}else{
+return 'String('+el+').replace(/&(?!#\\d+;|#x[\\da-f]+;|[a-z]+;)|[<"]/ig,__r__)'
+}
+}}
+}
+function copy(source,target){
+for(var n in source){
+target[n] = source[n];
+}
+}
+exports.JSTranslator=JSTranslator;
+exports.GLOBAL_DEF_MAP=GLOBAL_DEF_MAP;
+exports.GLOBAL_VAR_MAP=GLOBAL_VAR_MAP;
+}
 ,
-function(exports,require,module){function Template(code,config){try{this.impl=eval("["+code+"][0]")}catch(e){this.impl=function(){throw e}}this.config=config,this.contentType=config.contentType,this.encoding=config.encoding}function wrapResponse(e){var n=[],t=[],i=0;return{push:function(){for(var n=arguments.length,o=0;n>o;o++){var r=arguments[o];t.push(r),(i+=r)>1024&&(e.write(t.join("")),t=[],i=0)}},join:function(){e.write(t.join("")),t=[],doMutiLazyLoad(n,e)||e.end()},flush:function(){e.write(t.join("")),t=[],i=0},wait:modelWait,lazy:function(e){n.push(e)}}}function doMutiLazyLoad(e,n){function t(e,t){function i(){var s=e.next();if(s.done){var u=t.join("");return n.write("<script>"+(r?"!this__module_loaded__&&(this.__module_loaded__=function(id,h){document.getElementById(id).innerHTML=h});":"")+'__lazy_module_loaded__("'+a+'",'+JSON.stringify(u)+")</script>"),r=!1,0==--o&&n.end(),u}s.value.then(i)}var a=e.name;t.flush=function(){},t.wait=modelWait,e=e(t),i()}for(var i=e.length,o=i,r=!0,a=0;i>a;a++)t(e[a],[]);return i}Template.prototype.render=function(e,n){try{this.impl.call(null,e,wrapResponse(n))}catch(t){console.warn(this.impl+"");var i=require(4).inspect(t,!0)+"\n\n"+(t.message+t.stack);throw n.end(i),t}};try{var modelWait=Function("return function* modelWait(){var i = arguments.length;while(i--){if (arguments[i] instanceof Promise) {this.flush();yield arguments[i]}}}")()}catch(e){console.error("es6 yield is not support!!");var modelWait=function(){return{done:!0}}}exports.wrapResponse=wrapResponse,exports.Template=Template}
+function(exports,require,module){function Template(code,config){
+
+try{
+this.impl = code instanceof Function?code:eval('['+code+'][0]');
+}catch(e){
+
+this.impl = function(){throw e;};
+}
+this.config = config;
+this.contentType = config.contentType;
+this.encoding = config.encoding;
+}
+Template.prototype.render = function(context,response){
+try{
+this.impl.call(null,context,wrapResponse(response));
+}catch(e){
+console.warn(this.impl+'');
+var rtv = require(5).inspect(e,true)+'\n\n'+(e.message +e.stack);
+response.end(rtv);
+throw e;
+}
+}
+function wrapResponse(resp){
+var lazyList = [];
+var buf=[];
+var bufLen=0;
+return {
+push:function(){
+for(var len = arguments.length, i = 0;i<len;i++){
+
+var txt = arguments[i];
+buf.push(txt)
+if((bufLen+=txt)>1024){
+resp.write(buf.join(''));
+buf = [];
+bufLen = 0;
+}
+
+}
+},
+join:function(){
+resp.write(buf.join(''));
+buf = [];
+if(!doMutiLazyLoad(lazyList,resp)){
+resp.end();
+}
+},
+flush:function(){
+resp.write(buf.join(''));
+buf = [];
+bufLen = 0;
+},
+wait:modelWait,
+lazy:function(g){
+lazyList.push(g);
+}
+}
+}
+
+try{
+var modelWait = Function('return function* modelWait(){' +
+'var i = arguments.length;while(i--){if (arguments[i] instanceof Promise) {' +
+'this.flush();'+
+'yield arguments[i]}}}')()
+}catch(e){
+console.error('es6 yield is not support!!');
+var modelWait = function(){
+return {done:true}
+}
+}
+function doMutiLazyLoad(lazyList,resp){
+var len = lazyList.length;
+var dec = len;
+var first = true;
+for(var i = 0;i<len;i++){
+startModule(lazyList[i],[]);
+}
+
+function startModule(g,r){
+var id = g.name.replace(/^[^\d]+|[^\d]+$/g,'');
+r.flush = function(){};
+r.wait = modelWait;
+g = g(r);
+function next(){
+var n = g.next();
+
+if(n.done){
+
+var rtv = r.join('');
+
+
+
+resp.write('<script>'+
+(first?'!this.__widget_loaded__&&(this.__widget_loaded__=function(id,h){document.querySelector(id).innerHTML=h});':'')
++'__widget_loaded__("*[data-lazy-widget-id=\''+id+'\']",'+JSON.stringify(rtv).replace(/<\/script>/ig,'<\\/script>')+')</script>')
+first = false;
+if(--dec == 0){
+
+resp.end();
+}
+return rtv;
+}else{
+n.value.then(next);
+
+}
+}
+
+next();
+}
+return len;
+}
+exports.wrapResponse = wrapResponse;
+exports.Template = Template;
+}
 ,
-function(t,e){function i(t){this.waitPromise=t.waitPromise,this.liteImpl=t.liteImpl||"lite__"}function n(t,e){c.call(this,t,null),this.id=e}function s(t){for(var e in t)this[e]=t[e]}function p(t,e){if(t.length){if(e&&e.length){t=t.concat();for(var i=t.length,n=e.length;n--;)t[--i]+="="+$(e[n])}return"$"+t.join(",$")}return""}function a(t){var e="'";return t=t.replace(/['\\]|(\?>)|([\r\n]+$)|[\r\n]/gm,function(i,n,s){return s?(e="","',"+JSON.stringify(i)):n?"?','>":"\\"==i?"\\\\":"'"==i?"\\'":(console.error("非法输出行!!"+JSON.stringify(t)),"\\"==i?"\\\\":"\\'")}),t="'"+t+e,"'',"==t.substring(0,3)&&(t=t.substring(3)),t}function h(t,e,i){if(-1==e)var n="htmlspecialchars("+t+",ENT_COMPAT,"+i+",false)";else if(e==d)var n="htmlspecialchars("+t+",ENT_COMPAT,"+i+")";else if(e==f)var n="htmlspecialchars("+t+",ENT_NOQUOTES,"+i+")";else var n=t;return n}function r(t,e){for(var i in e.refMap)i in e.varMap||i in e.paramMap||(i in y?t.append("$",i,"='",i,"';"):i in P||t.append("$",i,"=function_exists('lite__",i,"')?'",i,"':null;"))}if("function"==typeof e)var d=e(13).XA_TYPE,o=e(13).ELSE_TYPE,l=e(13).EL_TYPE,f=e(13).XT_TYPE,c=e(15).TranslateContext,_=e(17).getELType,u=e(17).TYPE_ANY,g=e(17).TYPE_BOOLEAN,v=e(17).TYPE_NULL,E=e(17).TYPE_NUMBER,y=e(1).GLOBAL_DEF_MAP,P=e(1).GLOBAL_VAR_MAP;var m="$__for",L="$__tmp";if(i.prototype={translate:function(t,e){var i=new n(t||this.code,e.name);i.waitPromise=this.waitPromise,i.htmlspecialcharsEncoding=i.encoding=e.encoding||"UTF-8",i.contentType=e.contentType,i.i18n=e.i18n,i.resources=e.resources,i.parse();var s=i.toSource();return"<?php"+s}},s.prototype=c.prototype,n.prototype=new s({stringifyEL:function(t){return t?b(t,this):null},parse:function(){this.depth=0,this.out=[];for(var t=this.scope.defs,e=0;e<t.length;e++){var i=this.scope.defMap[t[e]],n=i.name;this.append("if(!function_exists('lite__",n,"')){function lite__",n,"(",p(i.params,i.defaults),"){"),this.depth++,this.append("ob_start();"),r(this,i),this.appendCode(i.code),this.append("$rtv= ob_get_contents();ob_end_clean();return $rtv;"),this.depth--,this.append("}}")}try{if(this.append("function lite_template",this.id,"($__context__){"),this.depth++,this.contentType&&this.append("if(!headers_sent())header('ContentType:"+this.contentType+"');"),this.append("mb_internal_encoding('"+this.encoding+"');"),r(this,this.scope),this.append("extract($__context__,EXTR_OVERWRITE);"),this.i18n&&this.resources){for(var s=new Function("return "+this.i18n)(),a=this.resources,h={},d=[],e=0;e<a.length;e++)h[C(a[e],"_").slice(0,-1)]=a[e];console.warn(a,h);for(var n in s)n=n.substring(0,n.indexOf("__")+2),n in h&&(d.push(n.slice(0,-2)),delete h[n]);this.append("$I18N = "+$(d).replace(/^array/,"lite_i18n")+";"),this.append("$I18N = array_merge("+$(s)+",$I18N);")}this.appendCode(this.scope.code),this.__lazy_module_&&this.append("lite_lazy_block($__lazy_module_);"),this.depth--,this.append("}")}catch(o){throw console.error("PHP编译失败:"+this.id,o),o}},appendStatic:function(t){for(var e=t.match(/.+[\r\n]*|[\r\n]+/g),i=0;i<e.length;i++){var n=e[i],s=0==i?"echo ":"	,",p=i==e.length-1?";":"";n=a(n),this.append(s,n,p)}},_appendEL:function(t,e,i,n){var s="'"+this.htmlspecialcharsEncoding+"'";n=null!=n?n:"echo ";var i=i||this.stringifyEL(t),p=_(t);if(I(i))var a=i,r=i;else r=L,a="("+r+"="+i+")";if(p!=u){if(p==v)return void this.append(n,"'null';");if(p==g)return void this.append(n,i,"?'true':'false';");if(p==E)return void this.append(n,i,";");if((v|g)==p)return void this.append(n,a,"?'true':(",r,"===null?'null':'false');");if(!((v|g)&p))return void this.append(n,h(i,e,s),";");if(!(p&v))return void this.append(n,a," === true?'true':","(",r,"===false?'false':",h(r,e,s),");");if(!(p&g))return void this.append(n,a,"===null?'null':",h(r,e,s),";")}this.append(n,"(",a,"===null||",r,"===false || ",r,"===true)?json_encode(",r,"):",h(r,e,s),";")},appendEL:function(t){this._appendEL(t[1],l)},appendXT:function(t){this._appendEL(t[1],f)},appendXA:function(t){var e=t[1],i=this.stringifyEL(e),n=t.length>2&&t[2],s=this.allocateId(i);s!=i&&this.append(s,"=",i,";"),n?(this.append("if(",s,"!=null){"),this.depth++,this.append("echo ' "+n+"=\"';"),this._appendEL(e,d,s),this.append("echo '\"';"),this.depth--,this.append("}")):this._appendEL(e,d,s),this.freeId(s)},appendVar:function(t){this.append("$",t[2],"=",this.stringifyEL(t[1]),";")},processCapture:function(t){var e=t[1],i=t[2];this.append("ob_start();"),this.appendCode(e),this.append("$",i,"= ob_get_contents();ob_end_clean();")},appendEncodePlugin:function(t){this._appendEL(t[1],-1,this.stringifyEL(t[1]))},appendDatePlugin:function(t,e){var t=this.stringifyEL(t[1]),e=this.stringifyEL(e[1]);/^(?:'[^']+'|"[^"]+")$/.test(t)&&(e+=",true"),this.append("echo lite__2(",t,",",e,");")},appendModulePlugin:function(t,e){this.waitPromise?(this.append("ob_start();"),this.outputIndent++,this.appendCode(t),this.outputIndent--,this.__lazy_module_?(this.append("array_push($__lazy_module_,"+e.id+");"),this.append("array_push($__lazy_module_,ob_get_contents());")):this.append("$__lazy_module_=array("+e.id+",ob_get_contents());"),this.append("ob_end_clean();"),this.__lazy_module_=!0):this.appendCode(t)},processIf:function(t,e){var i=t[e],n=i[1],s=i[2],p=this.stringifyEL(s);this.append("if(",T(s,p),"){"),this.depth++,this.appendCode(n),this.depth--,this.append("}");for(var a=t[e+1],h=!0;a&&a[0]==o;){e++;var n=a[1],s=a[2],p=this.stringifyEL(s);p?this.append("else if(",T(s,p),"){"):(h=!1,this.append("else{")),this.depth++,this.appendCode(n),this.depth--,this.append("}"),a=t[e+1]}return e},processFor:function(t,e){var i=t[e],n=this.allocateId(),s=this.allocateId(),p=this.allocateId(),a=this.stringifyEL(i[2]),h="$"+i[3],r=i[1],d=this.findForStatus(i);if(d.depth)var l=this.allocateId();if(/^\$[\w_]+$/.test(a))var f=a;else{var f=this.allocateId();this.append(f,"=",a,";")}this.append("if(",f,"<=PHP_INT_MAX){",f,"=",f,">0?range(1,",f,"):array();}");var c=d.ref||d.index||d.lastIndex;c&&(d.depth&&this.append(l,"=",m,";"),this.append(m," = array('lastIndex'=>count(",f,")-1);")),this.append(n,"=-1;"),this.append(p,"=false;"),this.append("foreach(",f," as ",s,"=>",h,"){"),this.depth++,this.append("if(++",n," === 0){"),this.depth++,this.append(p,"=",s," !== 0;"),this.depth--,this.append("}"),this.append("if(",p,"){",h,"=",s,";}"),c&&this.append(m,"['index']=",n,";"),this.appendCode(r),this.depth--,this.append("}"),c&&d.depth&&this.append(m,"=",l,";"),this.freeId(p),this.freeId(s),this.freeId(f),d.depth&&this.freeId(l);for(var _=t[e+1],u=!0,g=0;u&&_&&_[0]==o;){e++,g++;var r=_[1],v=_[2],E=this.stringifyEL(v),y=g>1?"else if":"if";E?this.append(y,"(",n,"<0&&",T(v,E),"){"):(u=!1,this.append(y,"(",n,"<0){")),this.depth++,this.appendCode(r),this.depth--,this.append("}"),_=t[e+1]}return this.freeId(n),e},toSource:function(){return this.out.join("")}}),"function"==typeof e){t.PHPTranslator=i;var T=e(18).php2jsBoolean,I=e(18).isSimplePHPEL,$=e(18).stringifyPHP,b=e(18).stringifyPHPEL,C=e(19).i18nHash}}
+function(exports,require){if(typeof require == 'function'){
+var XA_TYPE=require(14).XA_TYPE;
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+var TranslateContext=require(16).TranslateContext;
+var getELType=require(18).getELType;
+var TYPE_ANY=require(18).TYPE_ANY;
+var TYPE_BOOLEAN=require(18).TYPE_BOOLEAN;
+var TYPE_NULL=require(18).TYPE_NULL;
+var TYPE_NUMBER=require(18).TYPE_NUMBER;
+var GLOBAL_DEF_MAP=require(1).GLOBAL_DEF_MAP;
+var GLOBAL_VAR_MAP=require(1).GLOBAL_VAR_MAP;
+}
+
+var FOR_STATUS_KEY = '$__for';
+var VAR_LITE_TEMP="$__tmp";
+
+
+
+
+function PHPTranslator(config){
+this.waitPromise = config.waitPromise;
+
+this.liteImpl = config.liteImpl||'lite__'
+}
+PHPTranslator.prototype = {
+
+translate:function(list,config){
+
+var context = new PHPTranslateContext(list||this.code,config.name);
+context.waitPromise = this.waitPromise;
+context.htmlspecialcharsEncoding = context.encoding = config.encoding ||"UTF-8";
+context.contentType = config.contentType;
+
+context.i18n = config.i18n
+
+context.resources = config.resources;
+context.parse();
+var code = context.toSource();
+return '<?php'+code ;
+}
+}
+function PHPTranslateContext(code,id){
+TranslateContext.call(this,code,null);
+this.id = id;
+}
+function TCP(pt){
+for(var n in pt){
+this[n] = pt[n];
+}
+}
+TCP.prototype = TranslateContext.prototype;
+function toArgList(params,defaults){
+if(params.length){
+if(defaults && defaults.length){
+params = params.concat();
+var i = params.length;
+var j = defaults.length;
+while(j--){
+params[--i] += '='+stringifyPHP(defaults[j]);
+}
+}
+return '$'+params.join(',$')
+}else{
+return '';
+}
+}
+function _stringifyPHPLineArgs(line){
+var endrn="'";
+line = line.replace(/['\\]|(\?>)|([\r\n]+$)|[\r\n]/gm,function(a,pend,lend){
+if(lend){
+endrn = '';
+return "',"+JSON.stringify(a);
+}else if(pend){
+return "?','>";
+}else{
+if(a == '\\'){
+return '\\\\';
+}else if(a == "'"){
+return "\\'";
+}else{
+console.error("非法输出行!!"+JSON.stringify(line));
+}
+return a == '\\'?'\\\\': "\\'";
+}
+});
+line = "'"+line+endrn;
+if("''," == line.substring(0,3)){
+line = line.substring(3)
+}
+return line;
+}
+function _encodeEL(text,model,encoding){
+
+if(model == -1){
+var encode = "htmlspecialchars("+text+",ENT_COMPAT,"+encoding+",false)";
+
+}else if(model == XA_TYPE){
+var encode = "htmlspecialchars("+text+",ENT_COMPAT,"+encoding+')';
+}else if(model == XT_TYPE){
+
+var encode = "htmlspecialchars("+text+",ENT_NOQUOTES,"+encoding+')';
+}else{
+var encode = text;
+}
+return encode;
+}
+function _appendFunctionName(context,scope){
+for(var n in scope.refMap){
+if(!(n in scope.varMap || n in scope.paramMap)){
+if(n in GLOBAL_DEF_MAP){
+context.append('$',n,"='",n,"';");
+}else if(n in GLOBAL_VAR_MAP){
+}else{
+context.append('$',n,"=function_exists('lite__",n,"')?'",n,"':null;");
+}
+}
+}
+}
+PHPTranslateContext.prototype = new TCP({
+stringifyEL:function (el){
+return el?stringifyPHPEL(el,this):null;
+},
+parse:function(){
+this.depth = 0;
+this.out = [];
+
+var defs = this.scope.defs;
+for(var i=0;i<defs.length;i++){
+var def = this.scope.defMap[defs[i]];
+var n = def.name;
+this.append("if(!function_exists('lite__",n,"')){function lite__",
+n,"(",toArgList(def.params,def.defaults),'){')
+this.depth++;
+this.append("ob_start();");
+_appendFunctionName(this,def);
+this.appendCode(def.code);
+this.append("$rtv= ob_get_contents();ob_end_clean();return $rtv;");
+this.depth--;
+this.append("}}");
+}
+try{
+this.append("function lite_template",this.id,'($__context__){')
+this.depth++;
+if(this.contentType){
+this.append("if(!headers_sent())header('ContentType:"+this.contentType+"');")
+}
+this.append("mb_internal_encoding('"+this.encoding+"');")
+_appendFunctionName(this,this.scope);
+this.append("extract($__context__,EXTR_OVERWRITE);");
+if(this.i18n && this.resources){
+var i18ncode = new Function("return "+this.i18n)();
+var resources = this.resources;
+var resourceMap = {};
+var resourceList = [];
+for(var i=0;i<resources.length;i++){
+resourceMap[i18nHash(resources[i],'_').slice(0,-1)] = resources[i]
+}
+console.warn(resources,resourceMap)
+for(var n in i18ncode){
+n = n.substring(0,n.indexOf('__')+2);
+if(n in resourceMap){
+resourceList.push(n.slice(0,-2));
+delete resourceMap[n];
+}
+}
+this.append("$I18N = "+stringifyPHP(resourceList).replace(/^array/,'lite_i18n')+";")
+this.append("$I18N = array_merge("+stringifyPHP(i18ncode)+",$I18N);")
+}
+this.appendCode(this.scope.code);
+if(this.__lazy_module_){
+this.append('lite_lazy_block($__lazy_module_);');
+}
+this.depth--;
+this.append("}");
+}catch(e){
+
+console.error("PHP编译失败:"+this.id,e);
+throw e;
+}
+
+},
+appendStatic:function(value){
+
+var lines = value.match(/.+[\r\n]*|[\r\n]+/g);
+for(var i=0; i<lines.length; i++) {
+var line = lines[i];
+var start = i==0?'echo ':'\t,'
+var end = i == lines.length-1?';':'';
+line = _stringifyPHPLineArgs(line);
+this.append(start,line,end);
+}
+},
+_appendEL:function(el,model,text,prefix){
+var encoding = "'"+this.htmlspecialcharsEncoding+"'";
+prefix = prefix!=null? prefix : 'echo '
+
+var text = text || this.stringifyEL(el);
+var type = getELType(el);
+
+if(isSimplePHPEL(text)){
+var initText = text;
+var tmpId = text;
+}else{
+tmpId = VAR_LITE_TEMP;
+initText = '('+tmpId+'='+text+')';
+}
+if(type != TYPE_ANY){
+if(type == TYPE_NULL){
+this.append(prefix,"'null';");
+return;
+}else if(type == TYPE_BOOLEAN){
+this.append(prefix,text,"?'true':'false';");
+return;
+}else if(type == TYPE_NUMBER){
+this.append(prefix,text,";");
+return;
+}
+
+if((TYPE_NULL|TYPE_BOOLEAN)==type){
+this.append(prefix,initText,"?'true':(",tmpId,"===null?'null':'false');");
+return;
+}else if(!((TYPE_NULL|TYPE_BOOLEAN) & type)){
+this.append(prefix,_encodeEL(text,model,encoding),";");
+return;
+}
+
+if(!(type & TYPE_NULL)){
+this.append(prefix,
+initText," === true?'true':",
+"(",tmpId,"===false?'false':",_encodeEL(tmpId,model,encoding),");");
+return ;
+}else if(!(type & TYPE_BOOLEAN)){
+this.append(prefix,
+initText,"===null?'null':",_encodeEL(tmpId,model,encoding),";");
+return ;
+}
+}
+
+
+
+
+this.append(prefix,'(',initText,'===null||',tmpId,'===false || ',tmpId,'===true)?json_encode(',tmpId,'):',_encodeEL(tmpId,model,encoding),';')
+},
+appendEL:function(item){
+this._appendEL(item[1],EL_TYPE)
+},
+appendXT:function(item){
+this._appendEL(item[1],XT_TYPE)
+},
+appendXA:function(item){
+
+var el = item[1];
+var value = this.stringifyEL(el);
+var attributeName = item.length>2 && item[2];
+var testAutoId = this.allocateId(value);
+if(testAutoId != value){
+this.append(testAutoId,"=",value,';');
+}
+if(attributeName){
+this.append("if(",testAutoId,"!=null){");
+this.depth++;
+this.append("echo ' "+attributeName+"=\"';");
+this._appendEL(el,XA_TYPE,testAutoId)
+this.append("echo '\"';");
+this.depth--;
+this.append("}");
+}else{
+this._appendEL(el,XA_TYPE,testAutoId);
+}
+this.freeId(testAutoId);
+},
+appendVar:function(item){
+this.append("$",item[2],"=",this.stringifyEL(item[1]),";");
+},
+processCapture:function(item){
+var childCode = item[1];
+var varName = item[2];
+this.append("ob_start();");
+this.appendCode(childCode);
+this.append("$",varName,"= ob_get_contents();ob_end_clean();");
+},
+appendEncodePlugin:function(item){
+this._appendEL(item[1],-1,this.stringifyEL(item[1]));
+},
+appendDatePlugin:function(pattern,date){
+
+var pattern = this.stringifyEL(pattern[1]);
+var date = this.stringifyEL(date[1]);
+if(/^(?:'[^']+'|"[^"]+")$/.test(pattern)){
+date = date + ',true';
+}
+this.append('echo lite__2(',pattern,',',date,');')
+},
+appendModulePlugin:function(child,config){
+if(this.waitPromise){
+this.append("ob_start();");
+
+this.outputIndent++;
+this.appendCode(child)
+this.outputIndent--;
+
+if(this.__lazy_module_){
+this.append('array_push($__lazy_module_,'+config.id+');');
+this.append('array_push($__lazy_module_,ob_get_contents());');
+}else{
+this.append('$__lazy_module_=array('+config.id+',ob_get_contents());')
+}
+this.append('ob_end_clean();');
+this.__lazy_module_ = true;
+}else{
+this.appendCode(child)
+}
+},
+processIf:function(code,i){
+var item = code[i];
+var childCode = item[1];
+var testEL = item[2];
+var test = this.stringifyEL(testEL);
+this.append("if(",php2jsBoolean(testEL,test),"){");
+this.depth++;
+this.appendCode(childCode)
+this.depth--;
+this.append("}");
+var nextElse = code[i+1];
+var notEnd = true;
+while(nextElse && nextElse[0] == ELSE_TYPE){
+i++;
+var childCode = nextElse[1];
+var testEL = nextElse[2];
+var test = this.stringifyEL(testEL);
+if(test){
+this.append("else if(",php2jsBoolean(testEL,test),"){");
+}else{
+notEnd = false;
+this.append("else{");
+}
+this.depth++;
+this.appendCode(childCode)
+this.depth--;
+this.append("}");
+nextElse = code[i+1];
+}
+return i;
+},
+processFor:function(code,i){
+var item = code[i];
+var indexAutoId = this.allocateId();
+var keyAutoId = this.allocateId();
+var isKeyAutoId = this.allocateId();
+var itemsEL = this.stringifyEL(item[2]);
+var varName = '$'+item[3]; 
+
+var childCode = item[1];
+var forInfo = this.findForStatus(item)
+if(forInfo.depth){
+var preForAutoId = this.allocateId();
+}
+if(/^\$[\w_]+$/.test(itemsEL)){
+var itemsAutoId = itemsEL;
+}else{
+var itemsAutoId = this.allocateId();
+this.append(itemsAutoId,'=',itemsEL,';');
+}
+
+this.append('if(',itemsAutoId,'<=PHP_INT_MAX){',itemsAutoId,'=',itemsAutoId,'>0?range(1,',itemsAutoId,'):array();}');
+
+var needForStatus = forInfo.ref || forInfo.index || forInfo.lastIndex;
+if(needForStatus){
+if(forInfo.depth){
+this.append(preForAutoId ,"=",FOR_STATUS_KEY,";");
+}
+this.append(FOR_STATUS_KEY," = array('lastIndex'=>count(",itemsAutoId,")-1);");
+}
+this.append(indexAutoId,"=-1;")
+this.append(isKeyAutoId,'=false;')
+this.append("foreach(",itemsAutoId," as ",keyAutoId,"=>",varName,"){");
+this.depth++;
+this.append("if(++",indexAutoId," === 0){");
+this.depth++;
+this.append(isKeyAutoId,"=",keyAutoId," !== 0;");
+this.depth--;
+this.append("}");
+this.append("if(",isKeyAutoId,"){",varName,'=',keyAutoId,";}");
+if(needForStatus){
+this.append(FOR_STATUS_KEY,"['index']=",indexAutoId,";");
+}
+this.appendCode(childCode);
+this.depth--;
+this.append("}");
+if(needForStatus && forInfo.depth){
+this.append(FOR_STATUS_KEY,"=",preForAutoId,';');
+}
+this.freeId(isKeyAutoId);
+this.freeId(keyAutoId);
+this.freeId(itemsAutoId);
+if(forInfo.depth){
+this.freeId(preForAutoId);
+}
+var nextElse = code[i+1];
+var notEnd = true;
+var elseIndex = 0;
+while(notEnd && nextElse && nextElse[0] == ELSE_TYPE){
+i++;
+elseIndex++;
+var childCode = nextElse[1];
+var testEL = nextElse[2];
+var test = this.stringifyEL(testEL);
+var ifstart = elseIndex >1 ?'else if' :'if';
+if(test){
+this.append(ifstart,"(",indexAutoId,"<0&&",php2jsBoolean(testEL,test),"){");
+}else{
+notEnd = false;
+this.append(ifstart,"(",indexAutoId,"<0){");
+}
+this.depth++;
+this.appendCode(childCode)
+this.depth--;
+this.append("}");
+nextElse = code[i+1];
+}
+this.freeId(indexAutoId);
+return i;
+},
+toSource:function(){
+return this.out.join('');
+}
+});
+if(typeof require == 'function'){
+exports.PHPTranslator=PHPTranslator;
+var php2jsBoolean=require(19).php2jsBoolean;
+var isSimplePHPEL=require(19).isSimplePHPEL;
+var stringifyPHP=require(19).stringifyPHP;
+var stringifyPHPEL=require(19).stringifyPHPEL;
+var i18nHash=require(20).i18nHash;
+}
+}
 ,
-function(o,e,r){console.log("read module err!!!util\nError: ENOENT: no such file or directory, open 'util'")}
+function(exports,require,module){console.log("read module err!!!fs\nError: ENOENT: no such file or directory, open 'fs'")
+}
 ,
-function(t,n){function e(){this.result=[]}function i(t){var n=/^(break|case|catch|const|continue|default|do|else|false|finally|for|function|if|in|instanceof|new|null|return|switch|this|throw|true|try|var|void|while|with)$|^[a-zA-Z_][\w_]*$/,e=t.match(n);if(null==t||!e||null!=e[1])throw new Error("无效变量名：Lite有效变量名为(不包括括弧中的保留字)："+n+"\n当前变量名为："+t);return t}function s(t,n){return"string"==typeof n&&(n=t.parseEL(n)),n}function r(t){for(var n=t.length;n--;){var e=t[n];if("string"!=typeof e)break;t.pop()}}if(e.prototype={parseEL:function(t){try{return new Function("return ("+t.replace(/\bfor\b/g,"f")+")"),new u(t).token}catch(n){throw console.info("表达式解析失败[fileName:"+this._context.currentURI+"]",t,n.message),new Error}},append:function(t){for(var n=arguments.length,e=0;n>e;e++)this.result.push(String(arguments[e]))},appendAll:function(t){for(var n=t.length,e=0;n>e;e++)this.result.push(t[e])},appendEL:function(t){this.result.push([g,s(this,t)])},appendXA:function(t,n){this.result.push([f,s(this,n),t])},appendXT:function(t){this.result.push([P,s(this,t)])},appendIf:function(t){this.result.push([E,s(this,t)])},appendElse:function(t){r(this.result),this.result.push([c,t&&s(this,t)||null])},appendFor:function(t,n,e){this.result.push([T,s(this,n),t]),e&&this.appendVar(i(e),this.parseEL("for"))},appendEnd:function(){this.result.push([])},appendVar:function(t,n){this.result.push([a,s(this,n),i(t)])},appendCapture:function(t){this.result.push([d,i(t)])},appendPlugin:function(t,n){"string"==typeof n&&(n=JSON.parse(n)),n["class"]=t,this.result.push([o,n])},allocateId:function(){return this.inc?this.inc++:this.inc=1,"gid_"+this.inc.toString(32)},mark:function(){return this.result.length},reset:function(t){return p(this.result.splice(t,this.result.length))},toList:function(){if(!this.optimized){var t=p(this.result),n={},e=h(t,n);this.optimized=l(n,e)}return this.optimized}},"function"==typeof n){t.ResultContext=e;var u=n(16).Expression,o=n(13).PLUGIN_TYPE,h=n(21).buildTreeResult,p=n(21).optimizeResult,l=n(21).doOptimize,a=n(13).VAR_TYPE,f=n(13).XA_TYPE,c=n(13).ELSE_TYPE,o=n(13).PLUGIN_TYPE,d=n(13).CAPTURE_TYPE,E=n(13).IF_TYPE,g=n(13).EL_TYPE,P=n(13).XT_TYPE,T=n(13).FOR_TYPE}}
+function(exports,require,module){console.log("read module err!!!util\nError: ENOENT: no such file or directory, open 'util'")
+}
 ,
-function(e,t){function r(e){return"%"+(256+e).toString(16).substring(1)}function n(e){var t=e.charCodeAt();return 128>t?r(t):2048>t?r(192|t>>>6)+r(128|63&t):r(224|t>>>12&15)+r(128|t>>>6&63)+r(128|63&t)}function u(e){return"\\"==e?"/":n(e)}function a(e){if(e instanceof a)return e;if(/^\s*[<]/i.test(e))return e=String(e).replace(p,n),new a("data:text/xml,"+e);for(e=String(e).replace(p,u),e=e.replace(/\/\.\/|\\\.\\|\\/g,"/"),/^\/|^[a-z]\:\//i.test(e)&&(e="file://"+e);e!=(e=e.replace(/[^\/]+\/\.\.\//g,"")););var t=e.match(f);t?o(this,t):console.error("url must be absolute,"+e)}function o(e,t){e.value=t[0],e.scheme=t[1],e.authority=t[2],e.path=t[3],e.query=t[4],e.fragment=t[5],"data"==e.scheme&&(t=e.value,e.source=decodeURIComponent(t.substring(t.indexOf(",")+1)))}function i(e){var t=e.charCodeAt();return 2048>t?String.fromCharCode(192|t>>>6,128|63&t):String.fromCharCode(224|t>>>12&15,128|t>>>6&63,128|63&t)}function c(e){return e=e&&e.replace(/[\u0080-\uFFFF]/g,i)||"",e=d(e),encodeURIComponent(e)}function s(e){var t,r=/\*+|[^\*\\\/]+?|[\\\/]/g,n=["^"];for(r.lastIndex=0;t=r.exec(e);){var u=t[0],a=u.length,o=u.charAt(0);"*"==o?a>1?n.push(".*"):n.push("[^\\\\/]*"):1==a&&"/"==o||"\\"==o?n.push("[\\\\/]"):n.push(u.replace(/[^\w]/g,h))}return n.push("$"),n.join("")}function h(e){switch(e){case".":return"\\.";case"\\":return"\\\\";default:return"\\x"+(256+e.charCodeAt()).toString(16).substring(1)}}var f=/^([a-zA-Z][\w\.]*)\:(?:(\/\/[^\/]*))?(\/?[^?#]*)(\?[^#]*)?(#[\s\S]*)?$/,l=/^[a-zA-Z][\w\.]*\:/,p=/\\|[\x22\x3c\x3e\x5c\x5e\x60\u1680\u180e\u202f\u205f\u3000]|[\x00-\x20]|[\x7b-\x7d]|[\x7f-\xa0]|[\u2000-\u200b]|[\u2028-\u2029]/g;a.prototype={resolve:function(e){if(e=String(e),/^\s*[#<]/.test(e)||l.test(e))return e=new a(e.replace(/^\s+/,""));if(e=e.replace(p,u),"/"!=e.charAt()){var t=this.path;e=t.replace(/[^\/]*$/,e)}return new a(this.scheme+":"+(this.authority||"")+e)},toString:function(){return this.value}};var d=this.btoa||function(e){for(var t=[],r=0,n=e.length;n>r;){var u=e.charCodeAt(r++),a=e.charCodeAt(r++),o=e.charCodeAt(r++),i=(u<<16)+(a<<8)+(o||0);t.push(g[i>>18&63],g[i>>12&63],g[isNaN(a)?64:i>>6&63],g[isNaN(o)?64:63&i])}return t.join("")},g="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".split("");"function"==typeof t&&(e.URI=a,e.buildURIMatcher=s,e.base64Encode=c)}
+function(exports,require){
+
+
+function ResultContext(){
+this.result = [];
+}
+function checkVar(v){
+var exp = /^(break|case|catch|const|continue|default|do|else|false|finally|for|function|if|in|instanceof|new|null|return|switch|this|throw|true|try|var|void|while|with)$|^[a-zA-Z_][\w_]*$/;
+var match = v.match(exp);
+if(v == null || !match || match[1]!=null){
+throw new Error("无效变量名：Lite有效变量名为(不包括括弧中的保留字)："+exp+"\n当前变量名为："+v);
+}
+return v;
+}
+ResultContext.prototype = {
+
+parseEL : function(el){
+try{
+new Function("return ("+el.replace(/\bfor\b/g,"f")+')');
+return new Expression(el).token;
+}catch(e){
+console.info("表达式解析失败[fileName:"+this._context.currentURI+"]",el,e.message)
+throw new Error();
+}
+},
+
+appendText:function( text){
+for(var len = arguments.length,i=0;i<len;i++){
+this.result.push(String(arguments[i]));
+}
+
+},
+
+appendAll:function(ins){
+for(var len = ins.length,i=0;i<len;i++){
+this.result.push(ins[i]);
+}
+},
+
+appendEL:function( el){
+this.result.push([EL_TYPE, requireEL(this,el)]);
+},
+
+appendXA:function(attributeName, el){
+this.result.push([XA_TYPE, requireEL(this,el), attributeName ]);
+},
+
+appendXT:function(el){
+this.result.push([XT_TYPE, requireEL(this,el)]);
+},
+
+appendIf:function(testEL){
+this.result.push([IF_TYPE, requireEL(this,testEL) ]);
+},
+
+appendElse:function(testEL){
+clearPreviousText(this.result);
+this.result.push([ELSE_TYPE, testEL && requireEL(this,testEL) || null ]);
+},
+appendFor:function(varName, itemsEL, statusName){
+this.result.push([FOR_TYPE,requireEL(this,itemsEL), varName ]);
+if(statusName){
+this.appendVar(checkVar(statusName) , this.parseEL('for'));
+}
+},
+appendEnd:function(){
+this.result.push([])
+},
+appendVar:function(varName, valueEL){
+this.result.push([VAR_TYPE,requireEL(this,valueEL),checkVar(varName)]);
+},
+appendCapture:function(varName){
+this.result.push([CAPTURE_TYPE,checkVar(varName)]);
+},
+appendPlugin:function(clazz, config){
+if(typeof config == 'string'){
+config = JSON.parse(config);
+}
+config['class'] = clazz;
+this.result.push([PLUGIN_TYPE,config]);
+},
+allocateId:function(){
+if(this.inc){
+this.inc++;
+}else{
+this.inc = 1;
+}
+return 'gid_'+this.inc.toString(32);
+},
+mark:function(){
+return this.result.length;
+},
+reset:function(mark){
+return optimizeResult(this.result.splice(mark,this.result.length));
+},
+toList:function(){
+if(!this.optimized){
+var result = optimizeResult(this.result);
+var defMap = {};
+var pureCode = buildTreeResult(result,defMap);
+this.optimized = doOptimize(defMap,pureCode);
+}
+return this.optimized;
+}
+}
+function requireEL(context,el){
+if(typeof el == 'string'){
+el = context.parseEL(el);
+}
+return el;
+}
+
+function clearPreviousText(result){
+var i = result.length;
+while(i--){
+var item = result[i];
+if(typeof item == 'string'){
+result.pop();
+}else{
+break;
+}
+}
+}
+if(typeof require == 'function'){
+exports.ResultContext=ResultContext;
+var Expression=require(17).Expression;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var buildTreeResult=require(21).buildTreeResult;
+var optimizeResult=require(21).optimizeResult;
+var doOptimize=require(21).doOptimize;
+var VAR_TYPE=require(14).VAR_TYPE;
+var XA_TYPE=require(14).XA_TYPE;
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var CAPTURE_TYPE=require(14).CAPTURE_TYPE;
+var IF_TYPE=require(14).IF_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+var FOR_TYPE=require(14).FOR_TYPE;
+}
+}
 ,
-function(e,t){function r(e,t){try{if(e instanceof m){if(e.source)return o(e.source.replace(/^[\s\ufeff]*/,e));if("lite"==e.scheme){var r=e.path+(e.query||"")+(e.fragment||"");r=t.resolve(r.replace(/^\//,"./"))+""}else var r=String(e)}else var r=String(e);if(/^[\s\ufeff]*[<#]/.test(r))return o(r.replace(/^[\s\ufeff]*/,""),t);if(/^(?:\w+\:\/\/|\w\:\\|\/).*$/.test(r)){var n=r.indexOf("#")+1,u=n&&r.substr(n),r=n?r.substr(0,n-1):r,s=i(r.replace(/^file\:\/\/?/,"")),f=o(s,e);return u&&f.nodeType&&(f=a(f,u)),f}return o(r)}catch(c){throw console.error("文档解析失败:"+e,c),c}}function n(e){return"<out xmlns='http://www.xidea.org/lite/core'><![CDATA["+e.replace(/^\ufeff?#.*[\r\n]*/,"").replace(/]]>/,"]]]]><![CDATA[>")+"]]></out>"}function u(e,t){for(var r,n=/^\s*<\?(\w+)\s+(.*)\?>/,u=e.firstChild;r=t.match(n);){if("xml"==r[1]){var o=e.createProcessingInstruction(r[1],r[2]);e.insertBefore(o,u)}t=t.substring(r[0].length)}return e}function o(e,t){/^[\s\ufeff]*</.test(e)||(e=n(e));try{var r=new h({locator:{systemId:t},xmlns:{c:"http://www.xidea.org/lite/core",h:"http://www.xidea.org/lite/html-ext"}}).parseFromString(e,"text/html");return u(r,e)}catch(o){console.error("解析xml失败:",o,e)}}function i(e){var r=t(20),n=r.readFileSync(e,"utf-8");return n}function a(e,t){var r=g(e,t);return r.item=s,r}function s(e){return this[e]}function f(e,t){if(2==e.nodeType)return e.value;try{var r="*"==t.charAt();r&&(t=t.substr(1));for(var n=1,u=arguments.length;u>n;n++){var o=arguments[n];if("#text"==o)return e.textContent||e.text;var i=e.getAttribute(o);if(i||"undefined"!=typeof e.hasAttribute&&e.hasAttribute(o))return n>1&&"#"!=t.charAt(0)&&console.warn(e.tagName+" 标准属性名为："+t+"; 您采用的是："+o),i}r&&console.error("标记："+e.tagName+"属性：'"+t+"' 为必要属性。")}catch(a){console.error("findXMLAttribute error:",a)}return null}function c(e){if(e=f.apply(null,arguments),null!==e){var t=e.replace(/^\s*\$\{([\s\S]*)\}\s*$/,"$1");e==t?t&&console.warn("缺少表达式括弧,文本将直接按表达式返回",e):(t=t.replace(/^\s+|\s+$/g,""),t||console.warn("表达式内容为空:",e),e=t)}return e}function l(e){return e.lineNumber+","+e.columnNumber+"@"+e.ownerDocument.documentURI}if("function"==typeof t){var m=t(6).URI,h=t(23).DOMParser,g=t(24);e.loadLiteXML=r,e.selectByXPath=a,e.findXMLAttribute=f,e.findXMLAttributeAsEL=c,e.getLiteTagInfo=l}}
+function(exports,require){
+var uriPattern = /^([a-zA-Z][\w\.]*)\:(?:(\/\/[^\/]*))?(\/?[^?#]*)(\?[^#]*)?(#[\s\S]*)?$/;
+var absURIPattern = /^[a-zA-Z][\w\.]*\:/;
+var uriChars = /\\|[\x22\x3c\x3e\x5c\x5e\x60\u1680\u180e\u202f\u205f\u3000]|[\x00-\x20]|[\x7b-\x7d]|[\x7f-\xa0]|[\u2000-\u200b]|[\u2028-\u2029]/g;
+var allEncodes = /[\x2f\x60]|[\x00-\x29]|[\x2b-\x2c]|[\x3a-\x40]|[\x5b-\x5e]|[\x7b-\uffff]/g;
+
+function encodeChar(i){
+return "%"+(0x100+i).toString(16).substring(1)
+}
+function decodeChar(c){
+var n = c.charCodeAt();
+if (n < 0x80){
+return encodeChar(n);
+}else if (n < 0x800){
+return encodeChar(0xc0 | (n >>> 6))+encodeChar(0x80 | (n & 0x3f))
+}else{
+return encodeChar( 0xe0 | ((n >>> 12) & 0x0f))+
+encodeChar(0x80 | ((n >>> 6) & 0x3f))+
+encodeChar(0x80 | (n & 0x3f))
+}
+}
+function uriDecode(source){
+
+for(var result = [], i=1;i<source.length;i+=3){
+var c = parseInt(source.substr(i,2),16);
+if(c>=240){
+c = (c & 0x07)<<18;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f)<<12;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f)<<6;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f);
+}else if(c>=224){
+c = (c & 0x0f)<<12;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f)<<6;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f);
+}else if(c>=192){
+c = (c & 0x1f)<<6;
+c += (parseInt(source.substr(i+=3,2),16) &0x3f);
+}
+result.push(String.fromCharCode(c))
+}
+return result.join('');
+}
+function uriReplace(c){
+if(c == '\\'){
+return '/';
+}else{
+return decodeChar(c);
+}
+}
+function URI(path){
+if(path instanceof URI){
+return path;
+}
+if(/^\s*[<]/i.test(path)){
+path = String(path).replace(uriChars,decodeChar)
+return new URI("data:text/xml,"+path);
+}else{
+path = String(path).replace(uriChars,uriReplace)
+}
+
+path = path.replace(/\/\.\/|\\\.\\|\\/g,'/');
+if(/^\/|^[a-z]\:\//i.test(path)){
+path = 'file://'+path;
+}
+while(path != (path = path.replace(/[^\/]+\/\.\.\//g,'')));
+var match = path.match(uriPattern);
+if(match){
+setupURI(this,match);
+}else{
+console.error("url must be absolute,"+path)
+}
+}
+function setupURI(uri,match){
+uri.value = match[0];
+uri.scheme = match[1];
+uri.authority = match[2];
+uri.path = match[3];
+uri.query = match[4];
+uri.fragment = match[5];
+if('data' == uri.scheme){
+match = uri.value
+uri.source = decodeURIComponent(match.substring(match.indexOf(',')+1));
+}
+}
+URI.prototype = {
+resolve:function(path){
+path = String(path);
+if( /^\s*[#<]/.test(path) ||absURIPattern.test(path)){
+path = new URI(path.replace(/^\s+/,''));
+return path;
+}
+path = path.replace(uriChars,uriReplace)
+if(path.charAt() != '/'){
+var p = this.path;
+path = p.replace(/[^\/]*$/,path);
+}
+return new URI(this.scheme + ':'+(this.authority||'') + path);
+},
+toString:function(){
+return this.value;
+}
+}
+var btoa = this.btoa || function(bs){
+var b64 = [];
+var bi = 0;
+var len = bs.length;
+while (bi <len) {
+var b0 = bs.charCodeAt(bi++);
+var b1 = bs.charCodeAt(bi++);
+var b2 = bs.charCodeAt(bi++);
+var data = (b0 << 16) + (b1 << 8) + (b2||0);
+b64.push(
+b64codes[(data >> 18) & 0x3F ],
+b64codes[(data >> 12) & 0x3F],
+b64codes[isNaN(b1) ? 64 : (data >> 6) & 0x3F],
+b64codes[isNaN(b2) ? 64 : data & 0x3F]) ;
+}
+return b64.join('');
+}
+var b64codes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split('');
+function utf8Replacer(c){
+var n = c.charCodeAt();
+if (n < 0x800){
+return String.fromCharCode(
+(0xc0 | (n >>> 6)),
+(0x80|(n & 0x3f)));
+}else{
+return String.fromCharCode(
+(0xe0 | ((n >>> 12) & 0x0f)),
+(0x80 | ((n >>> 6) & 0x3f)),
+(0x80 | (n & 0x3f)));
+}
+}
+function base64Encode(data){
+data = data && data.replace(/[\u0080-\uFFFF]/g,utf8Replacer)||''
+data = btoa(data) ;
+return encodeURIComponent(data);
+}
+function buildURIMatcher(pattern){
+var matcher = /\*+|[^\*\\\/]+?|[\\\/]/g;
+var buf = ["^"];
+var m
+matcher.lastIndex = 0;
+while (m = matcher.exec(pattern)) {
+var item = m[0];
+var len = item.length;
+var c = item.charAt(0);
+if (c == '*') {
+if (len > 1) {
+buf.push(".*");
+} else {
+buf.push("[^\\\\/]*");
+}
+} else if(len == 1 && c == '/' || c == '\\') {
+buf.push("[\\\\/]");
+}else{
+buf.push(item.replace(/[^\w]/g,quteReqExp));
+}
+}
+buf.push("$");
+return buf.join('');
+}
+function quteReqExp(x){
+switch(x){
+case '.':
+return '\\.';
+case '\\':
+return '\\\\';
+default:
+return '\\x'+(0x100 + x.charCodeAt()).toString(16).substring(1);
+}
+}
+if(typeof require == 'function'){
+exports.URI=URI;
+exports.buildURIMatcher = buildURIMatcher;
+exports.base64Encode=base64Encode;
+}
+}
 ,
-function(n,i){function s(n){function i(){}i.prototype=n;var s=i.prototype=new i;return s.index=n._nodeParsers.length,s.subIndex=-1,s.getSubChain=r,s.next=t,s.constructor=i,new i}function t(n){if(this.subIndex>0)var i=this.getSubChain(this.subIndex-1);else i=this.nextChain||u(this,this.index-1);e(n,i)}function e(n,i){var s=i._nodeParsers[i.index];null==s&&console.error("解析栈异常",s,i.index,i._nodeParsers),s(n,i,i)}function r(n){null==this.subChains&&(this.subChains=[]);for(var i=this.subChains.length;n>=i;i++){var s=new this.constructor;s.index=this.index,s.subIndex=i,s.subChains=this.subChains,this.subChains.push(s)}return null==s&&(s=this.subChains[n]),s}function u(n,i){if(i>=0){var s=new n.constructor;return s.index=i,n.nextChain=s}return null}"function"==typeof i&&(n.buildTopChain=s)}
+function(exports,require){function loadLiteXML(uri,root){
+try{
+if(uri instanceof URI){ 
+if(uri.source){
+return parseXMLByText(uri.source.replace(/^[\s\ufeff]*/,uri))
+}else if(uri.scheme == 'lite'){
+var path = uri.path+(uri.query||'')+(uri.fragment || '');
+path = root.resolve(path.replace(/^\//,'./'))+'';
+}else{
+var path = String(uri);
+}
+}else{
+var path = String(uri);
+}
+if(/^[\s\ufeff]*[<#]/.test(path)){
+return parseXMLByText(path.replace(/^[\s\ufeff]*/,''),root)
+}else{
+
+if(/^(?:\w+\:\/\/|\w\:\\|\/).*$/.test(path)){
+var pos = path.indexOf('#')+1;
+var xpath = pos && path.substr(pos);
+var path = pos?path.substr(0,pos-1):path;
+var source = loadTextByPath(path.replace(/^file\:\/\/?/,''));
+var doc = parseXMLByText(source,uri);
+if(xpath && doc.nodeType){
+doc = selectByXPath(doc,xpath);
+}
+return doc;
+}else{
+
+return parseXMLByText(path);
+}
+}
+}catch(e){
+console.error("文档解析失败:"+uri,e)
+throw e;
+}
+}
+function txt2xml(source){
+return "<out xmlns='http://www.xidea.org/lite/core'><![CDATA["+
+source.replace(/^\ufeff?#.*[\r\n]*/, "").replace(/]]>/, "]]]]><![CDATA[>")+
+"]]></out>";
+}
+function addInst(xml,s){
+var p = /^\s*<\?(\w+)\s+(.*)\?>/;
+var m;
+var first = xml.firstChild;
+while(m = s.match(p)){
+if(m[1] == 'xml'){
+var pi = xml.createProcessingInstruction(m[1], m[2]);
+xml.insertBefore(pi, first);
+}
+s = s.substring(m[0].length);
+}
+return xml;
+}
+
+function parseXMLByText(text,path){
+if(!/^[\s\ufeff]*</.test(text)){
+text = txt2xml(text);
+}
+try{
+var doc = new DOMParser({locator:{systemId:path},
+xmlns:defaultNSMap
+}).parseFromString(text,"text/html")
+if(!doc.querySelectorAll){
+var elp = doc.documentElement.constructor.prototype;
+elp.querySelector = querySelector;
+elp.querySelectorAll = querySelectorAll;
+elp = doc.constructor.prototype;
+elp.querySelector = querySelector;
+elp.querySelectorAll = querySelectorAll;
+}
+return addInst(doc,text);
+}catch(e){
+console.error("解析xml失败:",e,text);
+}
+}
+function loadTextByPath(path){
+var fs = require(4);
+try{
+var text = fs.readFileSync(path,'utf-8');
+}catch(e){
+return fs.readFileSync(decodeURI(path),'utf-8');
+}
+return text;
+}
+function selectorInit(node){
+var doc = node.ownerDocument||node;
+var nw = doc.nwmatcher;
+if(!nw){
+nw = doc.nwmatcher = nwmatcher({document:doc});
+nw.configure( { USE_QSAPI: false, VERBOSITY: true } );
+}
+return nw;
+}
+function querySelectorAll(selector){
+var nodes = selectorInit(this).select(selector,this);
+nodes.item = nodeListItem;
+return nodes;
+}
+function querySelector(selector){
+return selectorInit(this).first(selector,this)
+}
+function selectByXPath(currentNode,xpath){
+var nodes = xpathSelectNodes(currentNode,xpath);
+nodes.item = nodeListItem;
+return nodes;
+}
+function nodeListItem(i){
+return this[i];
+}
+function findXMLAttribute(el,key){
+if(el.nodeType == 2){
+return el.value;
+}
+try{
+
+var required = key.charAt() == '*';
+if(required){
+key = key.substr(1);
+}
+for(var i=1,len = arguments.length;i<len;i++){
+var an = arguments[i];
+if(an == '#text'){
+return el.textContent||el.text;
+}else{
+var v = el.getAttribute(an);
+if(v || (typeof el.hasAttribute != 'undefined') && el.hasAttribute(an)){
+if(i>1 && key.charAt(0) != '#'){
+console.warn(el.tagName+" 标准属性名为："+key +'; 您采用的是：'+an);
+}
+return v;
+}
+}
+}
+if(required){
+console.error("标记："+el.tagName+"属性：'"+key +"' 为必要属性。");
+}
+}catch(e){
+console.error('findXMLAttribute error:',e)
+}
+return null;
+}
+function findXMLAttributeAsEL(el){
+el = findXMLAttribute.apply(null,arguments);
+if(el !== null){
+var el2 = el.replace(/^\s*\$\{([\s\S]*)\}\s*$/,"$1")
+if(el == el2){
+if(el2){
+console.warn("缺少表达式括弧,文本将直接按表达式返回",el);
+}
+}else{
+el2 = el2.replace(/^\s+|\s+$/g,'');
+if(!el2){
+console.warn("表达式内容为空:",el);
+}
+el = el2;
+}
+}
+return el;
+}
+function getLiteTagInfo(node){
+return node.lineNumber + ','+ node.columnNumber+'@'+node.ownerDocument.documentURI;
+}
+var defaultNSMap = {c:'http://www.xidea.org/lite/core',h:'http://www.xidea.org/lite/html-ext'}
+var nwmatcher = require(23);
+var URI=require(7).URI;
+var DOMParser = require(22).DOMParser;
+var xpathSelectNodes = require(26);
+exports.defaultNSMap = defaultNSMap;
+exports.querySelector = querySelector;
+exports.querySelectorAll = querySelectorAll;
+exports.loadLiteXML=loadLiteXML;
+exports.selectByXPath=selectByXPath;
+exports.findXMLAttribute=findXMLAttribute;
+exports.findXMLAttributeAsEL=findXMLAttributeAsEL;
+exports.getLiteTagInfo = getLiteTagInfo;
+}
 ,
-function(e,a){function t(e){f=e?e:u,this.packageMap={},this.addExtension(o,h),this.addExtension(p,v),this.addExtension(c,g)}function r(e){var a=e.localName||e.nodeName||"";return a=a.replace(/[\-]|^\w+\:/g,""),a.toLowerCase()}function n(e){try{var a,t,r=/\b(?:document|xmlns|(?:parse|before|seek)\w*)\b/g,n=new Function("console","var window = this;"+e+"\n return function(){return eval(arguments[0])}"),i={}}catch(s){throw console.error("扩展源码语法错误:",s,e),s}try{n=n(console)}catch(s){console.error("扩展脚本装载失败：",e,s)}for(;a=r.exec(e);)try{t=n(a[0]),t instanceof Function&&(i[a[0]]=t)}catch(s){}return i}function i(e,a){var t=[];for(var r in e)new RegExp("^"+r.replace(/\*/g,".*")+"$").test(a)&&t.push.apply(t,e[r]);return t.length?t:null}function s(e,a,t,r){var n=a[r];if(n){var i=e.newInstance();t.put(r,i);for(var s in n)i.put(s,n[s])}}var o="http://www.xidea.org/lite/core",c="http://www.xidea.org/lite/html-ext",p="http://www.w3.org/1999/xhtml",u={get:function(){return this.node},set:function(e){this.node=e}},f=u;if(t.prototype={mapJava:function(e){var a=e.newInstance();for(var t in this.packageMap){var r=this.packageMap[t],n=e.newInstance();a.put(t,n),r.namespaceParser&&n.put("namespaceParser",r.namespaceParser),s(e,r,n,"beforeMap"),s(e,r,n,"typeMap"),s(e,r,n,"tagMap"),s(e,r,n,"patternTagMap"),s(e,r,n,"attributeMap"),s(e,r,n,"patternAttributeMap"),s(e,r,n,"seekMap")}return a},doParse:function(e,a,t,r){var n=a.length-1;if(n>0){var i=t.subIndex;0>i&&(i=n,t=t.getSubChain(n)),a[i].call(t,e,r)}else a[0].call(t,e,r);return!0},parseElement:function(e,a,t){var n=e.namespaceURI,s=e.attributes,o=s.length;try{for(var c=o-1;c>=0;c--){var p=s.item(c),u=p.namespaceURI;if(u){var f=this.packageMap[u],l=r(p);if(f&&f.beforeMap){var h=f.beforeMap[l];if(h&&l in f.beforeMap)return h.call(t,p),!0}}}}finally{}var f=this.packageMap[n||""],v=r(e);if(f&&f.tagMap){if(v in f.tagMap){var g=f.tagMap[v];return this.doParse(e,g,t)}if(g=i(f.patternTagMap,v))return this.doParse(e,g,t)}},parse:function(e,a,t){var r=e.nodeType;if(1===r){var n=f.get();try{if(f.set(e),this.parseElement(e,a,t))return}finally{f.set(n)}}else if(2===r){if(this.parseAttribute(e,a,t))return}else if(9==r||8==r)for(var i in this.packageMap){var s=this.packageMap[i];if(s&&s.typeMap){var o=s.typeMap[r];if(o)return this.doParse(e,o,t,i)}}t.next(e)},parseAttribute:function(e,a,t){if(this.parseNamespace(e,a,t))return!0;try{var n=e.ownerElement||e.selectSingleNode(".."),s=e.namespaceURI||n&&n.namespaceURI||"",c=this.packageMap[s],p=r(e);if("__i"==p&&s==o)return!0;if(c&&c.attributeMap){if(p in c.attributeMap)return this.doParse(e,c.attributeMap[p],t);var u=i(c.patternAttributeMap,p);if(u)return this.doParse(e,u,t)}}catch(f){console.error("属性扩展解析异常：",f)}},parseNamespace:function(e,a,t){try{var r=0;if(/^xmlns(?:\:\w+)?/.test(e.name)){var n=e.value,i=this.packageMap[n||""];if(i){if(i.namespaceParser)return i.namespaceParser.call(t,e),!0;var s=e.ownerElement||e.selectSingleNode(".."),o=m(s);return o&&0==o.length||o.indexOf("|"+e.name+"|")>0?null!=i:!0}}}catch(c){console.error("名称空间解析异常：",r,c)}return!1},parseText:function(e,a,t){var r=e.substring(a+1),n=r.match(/^(?:(\w*)\:)?([\w!#]*)[\$\{]/);try{if(n){var i=n[0].length,s=f.get(),c=n[1],p=n[2];if(null==c)var u="";else if(s&&s.lookupNamespaceURI){var u=s.lookupNamespaceURI(c);if(null==u){var l=s.ownerDocument;u=l&&l.documentElement.lookupNamespaceURI(c)}}if(u||"c"!=c&&c||(u=o),null==u)console.warn("文本解析时,查找名称空间失败,请检查是否缺少XML名称空间申明：[code:$"+n[0]+",prefix:"+c+",document:"+t.currentURI+"]");else{var h=this.packageMap[u];if(h){var v=r.substring(i-1),g=h.seekMap;if(p in g){p=g[p];var m=p.call(t,v);if(m>0||0===m)return a+i+m+1}else console.warn("文本解析时,找不到相关的解析函数,请检查模板源码,是否手误：[function:"+p+",document:"+(t&&t.currentURI)+"]")}else console.warn("文本解析时,名称空间未注册实现程序,请检查lite.xml是否缺少语言扩展定义：[code:$"+n[0]+",namespace:"+u+",prefix:"+c+",document:"+t.currentURI+"]")}}}catch(d){console.error("文本解析异常：",d)}return-1},findStart:function(e,a,t){for(var r=a;;){if(r=e.indexOf("$",r),0>r||r>=t)return-1;var n=e.substring(r+1),i=n.match(/^(?:\w*\:)?[\w#!]*[\$\{]/);if(i)return r;r++}},addExtension:function(e,t){if("string"==typeof t)if(/^[\w\.\/]+$/.test(t)){var r={},i=a(t);for(var s in i)s.match(/^(?:document|xmlns|on|parse|before|seek).*/)&&(r[s]=i[s])}else r=n(t);else r=t;var o=this.packageMap[e||""];null==o&&(o=this.packageMap[e||""]=new l),o.initialize(r,e||"")},getPriority:function(){return 2}},"function"==typeof a){e.ExtensionParser=t;var l=a(10).Extension,h=a(22).Core,v=a(25).HTML,g=a(25).HTML_EXT,m=a(7).getLiteTagInfo}}
+function(exports,require){
+exports.buildTopChain=buildTopChain;
+
+function buildTopChain(context){
+function TopChain(){
+}
+TopChain.prototype = context;
+var pt = TopChain.prototype = new TopChain();
+pt.index = context._nodeParsers.length;
+pt.subIndex = -1;
+pt.getSubChain = getSubChain;
+pt.next = doNext;
+pt.constructor = TopChain;
+return new TopChain();
+}
+function doNext(node){
+
+if (this.subIndex > 0) {
+var next = this.getSubChain(this.subIndex - 1);
+} else {
+next = this.nextChain||buildNext(this,this.index-1);
+}
+doParse(node,next);
+}
+function doParse(node,chain){
+
+var parser = chain._nodeParsers[chain.index];
+if(parser == null){
+console.error('解析栈异常',parser,chain.index,chain._nodeParsers);
+}
+parser(node,chain,chain);
+
+
+
+
+}
+function getSubChain(subIndex){
+if (this.subChains == null) {
+this.subChains =[];
+}
+var i = this.subChains.length;
+for (;i <= subIndex; i++) {
+var subChain = new this.constructor();
+subChain.index = this.index
+
+subChain.subIndex = i;
+subChain.subChains = this.subChains;
+this.subChains.push(subChain);
+}
+if (subChain == null) {
+subChain = this.subChains[subIndex];
+}
+return subChain;
+}
+function buildNext(thiz,index){
+if(index>=0){
+var n = new thiz.constructor();
+n.index = index
+return thiz.nextChain = n;
+}
+return null;
+}
+}
 ,
-function(e,t){function a(){this.namespaceParser=null,this.beforeMap=null,this.typeMap=null,this.tagMap=null,this.patternTagMap=null,this.attributeMap=null,this.patternAttributeMap=null,this.seekMap=null}function i(e,t,a){t in e?e[t].push(a):e[t]=[a]}function n(e,t,a,n,r){var p=e[t];if(n.indexOf("*")>=0){var s=e[a];if(s||(e[a]=s={}),i(s,n,r),p){var l=new RegExp("^"+n.replace(/\*/g,".*")+"$");for(var f in p)l.test(f)&&i(p,f,r)}}else{if(!p){e[t]=p={};var s=e[a];if(s)for(var l in s)new RegExp("^"+l.replace(/\*/g,".*")+"$").test(n)&&i(p,n,s[l])}i(p,n,r)}}function r(e){return e=e.replace(/[\-]/g,""),e.toLowerCase()}a.prototype={initialize:function(e){for(var t in e){var a=e[t];if(a instanceof Function){var p=null,s=t.match(/^(parse|seek|before|xmlns)(.*)/),l=s[1],f=r(s[2]);if("parse"==l){var o=f.charAt(0);f=f.replace(/^[12]/,""),"2"==o?n(this,"attributeMap","patternAttributeMap",f,a):"0">o||o>"9"||"1"==o?n(this,"tagMap","patternTagMap",f,a):(this.typeMap||(this.typeMap={}),i(this.typeMap,f,a))}else"xmlns"==l?this.namespaceParser=a:"before"==l?(p=this.beforeMap||(this.beforeMap={}),p[f]=a):"seek"==l&&(p=this.seekMap||(this.seekMap={}),p[f]=a)}}}},"function"==typeof t&&(e.Extension=a)}
+function(exports,require){
+var CORE_URI = "http://www.xidea.org/lite/core"
+var HTML_EXT_URI = "http://www.xidea.org/lite/html-ext"
+var HTML_URI = "http://www.w3.org/1999/xhtml"
+var currentExtension;
+var defaultNodeLocal={
+get:function(){
+return this.node
+},
+set:function(n){
+this.node = n;
+}
+}
+var nodeLocal = defaultNodeLocal;
+var Extension=require(11).Extension;
+var HTML=require(24).HTML;
+var HTML_EXT=require(24).HTML_EXT;
+var getLiteTagInfo=require(8).getLiteTagInfo;
+
+var Core=require(25).Core;
+exports.ExtensionParser=ExtensionParser;
+copyTo(require(27),Core);
+copyTo(require(20),Core);
+copyTo(require(28),Core);
+function copyTo(from,to){
+for(var n in from){
+to[n]=from[n];
+}
+}
+function ExtensionParser(newNodeLocal){
+if(newNodeLocal){
+nodeLocal = newNodeLocal;
+}else{
+nodeLocal = defaultNodeLocal;
+}
+this.packageMap = {};
+this.addExtension(CORE_URI,Core);
+this.addExtension(HTML_URI,HTML)
+this.addExtension(HTML_EXT_URI,HTML_EXT)
+}
+function formatName(el){
+var tagName = el.localName|| el.nodeName ||''
+tagName = tagName.replace(/[\-]|^\w+\:/g,"");
+return tagName.toLowerCase();
+}
+function loadExtObject(source){
+try{
+var p = /\b(?:document|xmlns|(?:parse|intercept|seek)\w*)\b/g;
+var fn = new Function("console","var window = this;"+source+"\n return function(){return eval(arguments[0])}");
+var m,o;
+var objectMap = {};
+}catch(e){
+console.error("扩展源码语法错误:",e,source)
+throw e;
+}
+try{
+fn = fn(console);
+}catch(e){
+console.error("扩展脚本装载失败：",source,e);
+}
+while(m = p.exec(source)){
+try{
+o = fn(m[0]);
+if(o instanceof Function){
+objectMap[m[0]] = o;
+}
+}catch(e){
+}
+}
+return objectMap;
+}
+function findPatternParser(map,key){
+var buf = [];
+for(var n in map){
+if(new RegExp('^'+n.replace(/\*/g,'.*')+'$').test(key)){
+buf.push.apply(buf,map[n]);
+}
+}
+return buf.length ? buf:null;
+}
+function copyParserMap(mapClazz,p,p2,key){
+var map = p[key];
+if(map){
+var result = mapClazz.newInstance();
+p2.put(key ,result);
+for(var n in map){
+result.put(n, map[n]);
+}
+}
+}
+
+ExtensionParser.prototype = {
+mapJava:function(mapClazz){
+var result = mapClazz.newInstance();
+for(var n in this.packageMap){
+var p = this.packageMap[n];
+var p2 = mapClazz.newInstance();
+result.put(n,p2);
+if(p.namespaceParser){
+p2.put('namespaceParser', p.namespaceParser);
+}
+copyParserMap(mapClazz,p,p2,"interceptMap")
+copyParserMap(mapClazz,p,p2,"typeMap")
+copyParserMap(mapClazz,p,p2,"tagMap")
+copyParserMap(mapClazz,p,p2,"patternTagMap")
+copyParserMap(mapClazz,p,p2,"attributeMap")
+copyParserMap(mapClazz,p,p2,"patternAttributeMap")
+copyParserMap(mapClazz,p,p2,"seekMap")
+}
+return result
+},
+parseElement:function(el, context,chain){
+
+var ns = el.namespaceURI;
+var attrs = el.attributes;
+var len = attrs.length;
+try{
+
+for (var i = len- 1; i >= 0; i--) {
+var attr = attrs.item(i);
+var ans = attr.namespaceURI;
+if(ans){
+var ext = this.packageMap[ans];
+var an = formatName(attr);
+
+if (ext && ext.interceptMap) {
+var fn = ext.interceptMap[an];
+if(fn && an in ext.interceptMap){
+
+
+
+fn.call(chain,attr);
+
+
+return true;
+}
+}
+}
+}
+
+
+
+
+}finally{
+}
+var ext = this.packageMap[ns||''];
+var n = formatName(el);
+if(ext && ext.tagMap){
+if(n in ext.tagMap){
+var fns = ext.tagMap[n];
+return doParse(el,fns,chain);
+}else if(fns = findPatternParser(ext.patternTagMap,n)){
+return doParse(el,fns,chain);
+}
+}
+},
+parse:function(node,context,chain){
+
+
+var type = node.nodeType;
+
+if(type === 1){
+
+var old = nodeLocal.get();
+
+try{
+nodeLocal.set(node);
+if(this.parseElement(node,context,chain)){
+return;
+}
+}finally{
+nodeLocal.set(old);
+}
+
+}else if(type === 2){
+if(this.parseAttribute(node,context,chain)){
+return;
+}
+} else{
+if(type == 9 || type == 8){
+for(var ns in this.packageMap){
+
+var p = this.packageMap[ns];
+if(p && p.typeMap){
+var fns = p.typeMap['$'+type];
+if(fns){
+return doParse(node,fns,chain,ns);
+}
+}
+}
+}
+}
+
+chain.next(node)
+
+
+
+},
+parseAttribute:function(node,context,chain){
+if(this.parseNamespace(node,context,chain)){
+return true;
+}
+try{
+
+var el = node.ownerElement || node.selectSingleNode("..");
+
+var ns = node.namespaceURI || el && el.namespaceURI||'';
+var ext = this.packageMap[ns];
+var n = formatName(node);
+if(n == '__i' && ns == CORE_URI){
+return true;
+}
+
+if(ext && ext.attributeMap){
+if(n in ext.attributeMap){
+return doParse(node,ext.attributeMap[n],chain);
+}else{
+var fns = findPatternParser(ext.patternAttributeMap,n);
+if(fns){
+return doParse(node,fns,chain);
+}
+}
+}
+}catch(e){
+console.error("属性扩展解析异常：",e)
+}
+},
+parseNamespace:function(attr,context,chain){
+try{
+var es = 0;
+if(/^xmlns(?:\:\w+)?/.test(attr.name)){
+var v = attr.value;
+var fp = this.packageMap[v||''];
+if(fp){
+if(fp.namespaceParser){
+fp.namespaceParser.call(chain,attr);
+return true;
+}
+var el = attr.ownerElement || attr.selectSingleNode("..");
+var info = getLiteTagInfo(el);
+if(info && info.length ==0 || info.indexOf("|"+attr.name+"|")>0){
+return fp!=null;
+}else{
+return true;
+}
+}
+
+}
+}catch(e){
+console.error("名称空间解析异常：",es,e)
+}
+return false;
+},
+parseText:function(text,start,context){
+var text2 = text.substring(start+1);
+var match = text2.match(/^(?:(\w*)\:)?([\w!#]*)[\$\{]/);
+try{
+
+if(match){
+var matchLength = match[0].length;
+var node = nodeLocal.get();
+var prefix = match[1];
+var fn = match[2]
+if(prefix == null){
+var ns = ""
+}else{
+
+if(node && node.lookupNamespaceURI){
+var ns = node.lookupNamespaceURI(prefix);
+if (ns == null) {
+var doc = node.ownerDocument;
+ns = doc && doc.documentElement.lookupNamespaceURI(prefix);
+}
+}
+
+}
+if(!ns && (prefix == 'c' || !prefix)){
+ns = CORE_URI
+}
+if(ns == null){
+console.warn("文本解析时,查找名称空间失败,请检查是否缺少XML名称空间申明：[code:$"+match[0]+",prefix:"+prefix+",document:"+context.currentURI+"]")
+}else{
+var fp = this.packageMap[ns];
+if(fp){
+
+var text3 = text2.substring(matchLength-1);
+var seekMap = fp.seekMap;
+if(fn in seekMap){
+fn = seekMap[fn];
+var rtv = fn.call(context,text3);
+if(rtv>0 || rtv === 0){
+return start+matchLength+rtv+1
+}
+}else{
+console.warn("文本解析时,找不到相关的解析函数,请检查模板源码,是否手误：[function:"+fn+",document:"+(context && context.currentURI)+"]")
+
+}
+}else{
+console.warn("文本解析时,名称空间未注册实现程序,请检查lite.xml是否缺少语言扩展定义：[code:$"+match[0]+",namespace:"+ns+",prefix:"+prefix+",document:"+context.currentURI+"]")
+}
+}
+}
+}catch(e){
+console.error("文本解析异常：",e)
+}
+
+return -1;
+},
+
+findStart:function(text,start,otherStart){
+var begin = start;
+while(true){
+begin = text.indexOf('$',begin);
+if(begin<0 || otherStart <= begin){
+return -1;
+}
+var text2 = text.substring(begin+1);
+var match = text2.match(/^(?:\w*\:)?[\w#!]*[\$\{]/);
+if(match){
+return begin;
+}
+begin++;
+}
+},
+addExtension:function(namespace,packageName){
+if(typeof packageName == 'string'){
+if(/^[\w\.\/]+$/.test(packageName)){
+var objectMap = {};
+var packageObject = require(packageName);
+for(var n in packageObject){
+if(n.match(/^(?:document|xmlns|on|parse|intercept|seek).*/)){
+objectMap[n] = packageObject[n];
+}
+}
+}else{
+objectMap = loadExtObject(packageName)
+}
+}else{
+objectMap = packageName;
+}
+var ext = this.packageMap[namespace||''];
+if(ext == null){
+ext = this.packageMap[namespace||''] = new Extension();
+}
+ext.initialize(objectMap,namespace||'');
+},
+getPriority:function() {
+
+
+
+return 2;
+}
+}
+function doParse (node,fns,chain,ns){
+var last = fns.length-1;
+if(last>0){
+var subIndex = chain.subIndex;
+if(subIndex <0){
+subIndex = last;
+chain = chain.getSubChain(last);
+}
+
+fns[subIndex].call(chain,node,ns);
+}else{
+
+
+
+fns[0].call(chain,node,ns);
+}
+return true;
+}
+}
 ,
-function(e,a){function n(e,a,n){switch(e.nodeType){case 1:p(e,a,n);break;case 2:t(e,a,n);break;case 3:r(e,a,n);break;case 4:i(e,a,n);break;case 5:d(e,a,n);break;case 6:l(e,a,n);break;case 7:s(e,a,n);break;case 8:u(e,a,n);break;case 9:case 11:c(e,a,n);break;case 10:o(e,a,n);break;case 12:f(e,a,n);break;default:n.next(e)}}function p(e,a,n){var p=e.attributes,t=e.tagName;a.append("<"+t);for(var r=0;r<p.length;r++){try{var i=p.item(r)}catch(d){var i=p[r]}a.parse(i)}if(h.test(t))return void a.append("/>");a.append(">");var l=e.firstChild;if(l)do a.parse(l);while(l=l.nextSibling);a.append("</"+e.tagName+">")}function t(e,a,n){for(var p,t,r=String(e.name),i=String(e.value),d=a.parseText(i,b),l=d.length;l--;){var i=d[l];i.constructor==String?i?p=!0:d.splice(l,1):t=!0}if(t&&!p){if(d.length>1)throw new Error("属性内只能有单一EL表达式！！");if(d[0][0]==b)return a.appendXA(r,d[0][1]),null}a.append((/^on/.test(r)?"\n":" ")+r+'="'),/^xmlns$/i.test(r)&&"http://www.xidea.org/lite/xhtml"==d[0]&&(d[0]="http://www.w3.org/1999/xhtml"),a.appendAll(d),a.append('"')}function r(e,a,n){var p=String(e.data),t=a.getAttribute(T);1==t?p=p.replace(/^\s*|\s*$|(\s)\s+/g,"$1"):0!=t&&(p=p.replace(/^\s*([\r\n])\s*|\s*([\r\n])\s*$|^(\s)+|(\s)+$/g,"$1$2$3$4")),a.appendAll(a.parseText(p,m))}function i(e,a,n){a.append("<![CDATA["),a.appendAll(a.parseText(e.data,g)),a.append("]]>")}function d(){return null}function l(){return null}function s(e,a,n){a.append("<?"+e.nodeName+" "+e.data+"?>")}function u(){return null}function c(e,a,n){for(var p=e.firstChild;null!=p;p=p.nextSibling)a.parse(p)}function o(e,a,n){if(e.xml)a.append(e.xml);else{var p=e.publicId,t=e.nodeName,r=e.systemId;if("."==r&&(r=null),p){if("org.xidea.lite.OUTPUT_DTD"==p)return void(r&&a.append(decodeURIComponent(r)));a.append("<!DOCTYPE "),a.append(t),a.append(' PUBLIC "'),a.append(p),null==r&&(a.append('" "'),a.append(r)),a.append('">')}else if(r)a.append("<!DOCTYPE "),a.append(t),a.append(' SYSTEM "'),a.append(r),a.append('">');else{a.append("<!DOCTYPE "),a.append(t);var i=e.internalSubset;i&&(a.append(" ["),a.append(i),a.append("]")),a.append(">")}}}function f(e,a,n){return null}var b=a(13).XA_TYPE,g=a(13).EL_TYPE,m=a(13).XT_TYPE;e.parseDefaultXMLNode=n;var T=e.XML_SPACE_TRIM="http://www.xidea.org/lite/attribute/h:trim-space",h=/^(?:meta|link|img|br|hr|input)$/i}
+function(exports,require){
+function Extension(){
+this.namespaceParser = null;
+this.interceptMap = null;
+this.typeMap = null;
+this.tagMap = null;
+this.patternTagMap = null;
+this.attributeMap = null;
+this.patternAttributeMap = null;
+this.seekMap = null;
+}
+function add(m,fn,o){
+if(fn in m){
+m[fn].push(o);
+}else{
+m[fn] = [o];
+}
+}
+function appendParser(ext,key,patternKey,fn,o){
+var m = ext[key];
+if(fn.indexOf('*')>=0){
+var pm = ext[patternKey];
+if(!pm){
+ext[patternKey] = pm = {};
+}
+add(pm,fn,o);
+
+if(m){
+var p = new RegExp('^'+fn.replace(/\*/g,'.*')+'$');
+for(var n in m){
+if(p.test(n)){
+add(m,n,o);
+}
+}
+}
+}else{
+if(!m){
+ext[key] = m = {};
+var pm = ext[patternKey];
+if(pm){
+for(var p in pm){
+if(new RegExp('^'+p.replace(/\*/g,'.*')+'$').test(fn)){
+add(m,fn,pm[p]);
+}
+}
+}
+}
+add(m,fn,o);
+}
+}
+Extension.prototype={
+initialize:function(objectMap){
+
+for(var key in objectMap){
+var o = objectMap[key];
+
+if(o instanceof Function){
+var dest = null;
+var match = key.match(/^(parse|seek|intercept|xmlns|on)(.*)/);
+var prefix =match&& match[1];
+var fn = match &&formatName(match[2]);
+if(prefix == "parse"){
+var c = fn.charAt(0);
+fn = fn.replace(/^[12]/,'');
+if( c == '$'){
+if(!this.typeMap){
+this.typeMap = {};
+}
+add(this.typeMap,fn,o);
+}else{
+appendParser(this,"tagMap","patternTagMap",fn,o);
+}
+}else if(prefix == "on"){
+appendParser(this,"attributeMap","patternAttributeMap",fn,o);
+}else if(prefix == "xmlns"){
+this.namespaceParser = o;
+}else if(prefix == "intercept"){
+dest = this.interceptMap ||(this.interceptMap={});
+dest[fn] = o;
+}else if(prefix == "seek"){
+dest = this.seekMap ||(this.seekMap={});
+dest[fn] = o;
+}
+}
+}
+}
+}
+function formatName(tagName){
+tagName = tagName.replace(/[\-]/g,"");
+return tagName.toLowerCase();
+}
+if(typeof require == 'function'){
+exports.Extension=Extension;
+}
+}
 ,
-function(r,e){function t(r,e,t){switch(e.textType){case c:var n='"';case f:var o=!0;case u:break;default:return void console.error("未知编码模式："+e.textType+r)}var l=r.length,p=0;do{for(var v=null,g=l+1,h=0,T=t.length;T--;){var d=t[T],b=d.findStart(r,p,g),x=d.priority||1;b>=p&&(g>b||b==g&&x>h)&&(g=b,v=d,h=x)}if(null==v)break;var y=s(r,g);if(a(e,r.substring(p,g-(y+1>>1)),o,n),1==(1&y))p=i(e,r,g);else{p=g;var w=e.mark();try{p=v.parseText(r,p,e)}catch(E){console.warn("尝试表达式解析失败:[source:"+r+",fileName:"+e.currentURI+"]",E)}g>=p&&(e.reset(w),p=i(e,r,g))}}while(l>p);l>p&&a(e,r.substring(p),o,n)}function a(r,e,t,a){if(t){if('"'==a)var i=/[<&"]/g;else if("'"==a)var i=/[<&']/g;else var i=/[<&]/g;e=e.replace(i,n)}r.append(e)}function n(r){switch(r){case"<":return"&lt;";case">":return"&gt;";case"&":return"&amp;";case"'":return"&#39;";case'"':return"&#34;"}}function i(r,e,t){return r.append(e.substring(t,t+1)),t+1}function s(r,e){if(e>0&&"\\"==r.charAt(e-1)){for(var t=e-1;t-- >0&&"\\"==r.charAt(t););return e-t-1}return 0}if("function"==typeof e){r.parseText=t;var c=e(13).XA_TYPE,u=e(13).EL_TYPE,f=e(13).XT_TYPE}}
+function(exports,require){
+
+
+
+var XA_TYPE = require(14).XA_TYPE;
+var EL_TYPE = require(14).EL_TYPE;
+var XT_TYPE = require(14).XT_TYPE;
+exports.parseDefaultXMLNode = parseDefaultXMLNode;
+var XML_SPACE_TRIM =exports.XML_SPACE_TRIM = "http://www.xidea.org/lite/attribute/h:trim-space" 
+function parseDefaultXMLNode(node,context,chain){
+
+switch(node.nodeType){
+case 1: 
+processElement(node,context,chain)
+break;
+case 2: 
+processAttribute(node,context,chain)
+break;
+case 3: 
+processTextNode(node,context,chain)
+break;
+case 4: 
+processCDATA(node,context,chain)
+break;
+case 5: 
+processEntityReference(node,context,chain)
+break;
+case 6: 
+processEntity(node,context,chain)
+break;
+case 7: 
+processProcessingInstruction(node,context,chain)
+break;
+case 8: 
+processComment(node,context,chain)
+break;
+case 9: 
+case 11:
+processDocument(node,context,chain)
+break;
+case 10:
+processDocumentType(node,context,chain)
+
+
+break;
+case 12:
+processNotation(node,context,chain);
+break;
+default:
+chain.next(node);
+
+}
+
+
+
+}
+var htmlLeaf = /^(?:meta|link|img|br|hr|input)$/i;
+var htmlReserved = /^(?:script|style|pre|textarea)$/i
+var scriptTag = /^script$/i
+function processElement(node,context,chain){
+var attributes = node.attributes;
+var tagName = node.tagName;
+context.appendText('<'+tagName);
+for (var i=0; i<attributes.length; i++) {
+try{
+
+var attr = attributes.item(i);
+}catch(e){
+var attr =attributes[i];
+}
+context.parse(attr)
+}
+if(htmlLeaf.test(tagName)){
+context.appendText('/>')
+return ;
+}
+context.appendText('>')
+var child = node.firstChild
+if(child){
+
+
+
+do{
+context.parse(child)
+}while(child = child.nextSibling)
+}
+context.appendText('</'+node.tagName+'>')
+}
+
+function processAttribute(node,context,chain){
+var name = String(node.name);
+var value = String(node.value);
+var buf = context.parseText(value,XA_TYPE);
+var isStatic;
+var isDynamic;
+
+var i = buf.length;
+while(i--){
+
+var value = buf[i];
+if(value.constructor == String){
+if(value){
+isStatic = true;
+}else{
+buf.splice(i,1);
+}
+}else{
+isDynamic = true;
+}
+}
+if(isDynamic && !isStatic){
+
+
+if(buf.length > 1){
+
+throw new Error("属性内只能有单一EL表达式！！");
+}else{
+if(buf[0][0] == XA_TYPE){
+
+context.appendXA(name,buf[0][1]);
+return null;
+}
+}
+}
+context.appendText((/^on/.test(name)?'\n':' ')+name+'="');
+if(/^xmlns$/i.test(name)){
+if(buf[0] == 'http://www.xidea.org/lite/xhtml'){
+buf[0] = 'http://www.w3.org/1999/xhtml'
+}
+}
+context.appendAll(buf);
+context.appendText('"');
+}
+function processTextNode(node,context,chain){
+var data = String(node.data);
+
+var space = context.getAttribute(XML_SPACE_TRIM);
+
+if(space == true){
+data = data.replace(/^\s*|\s*$|(\s)\s+/g,"$1");
+}else if(space != false){
+data = data.replace(/^\s*([\r\n])\s*|\s*([\r\n])\s*$|^(\s)+|(\s)+$/g,"$1$2$3$4");
+}
+context.appendAll(context.parseText(data,XT_TYPE))
+}
+function processCDATA(node,context,chain){
+context.appendText("<![CDATA[");
+context.appendAll(context.parseText(node.data,EL_TYPE));
+context.appendText("]]>");
+}
+function processEntityReference(){
+return null;
+}
+function processEntity(){
+return null;
+}
+function processProcessingInstruction(node,context,chain){
+context.appendText("<?"+node.nodeName+" "+node.data+"?>");
+}
+function processComment(){
+return null;
+}
+function processDocument(node,context,chain){
+for(var n = node.firstChild;n!=null;n = n.nextSibling){
+context.parse(n);
+}
+}
+
+
+
+
+
+
+
+
+
+
+function processDocumentType(node,context,chain){
+if(node.xml){
+context.appendText(node.xml);
+}else{
+var pubid = node.publicId;
+var nodeName = node.nodeName;
+var sysid = node.systemId;
+if(sysid == '.'){sysid = null}
+if(pubid){
+if(pubid == "org.xidea.lite.OUTPUT_DTD"){
+if(sysid){
+context.appendText(decodeURIComponent(sysid));
+}
+return;
+}
+context.appendText('<!DOCTYPE ');
+context.appendText(nodeName);
+context.appendText(' PUBLIC "');
+context.appendText(pubid);
+if (sysid == null) {
+context.appendText( '" "');
+context.appendText(sysid);
+}
+context.appendText('">');
+}else if(sysid){
+context.appendText('<!DOCTYPE ');
+context.appendText(nodeName);
+context.appendText(' SYSTEM "');
+context.appendText(sysid);
+context.appendText('">');
+}else{
+context.appendText("<!DOCTYPE ");
+context.appendText(nodeName);
+var sub = node.internalSubset;
+if(sub){
+context.appendText(" [");
+context.appendText(sub);
+context.appendText("]");
+}
+context.appendText(">");
+}
+}
+}
+
+function processNotation(node,context,chain){
+return null;
+}
+
+}
 ,
-function(E,P){var e=0,T=1,_=2,Y=3,i=4,n=5,t=6,f=7,o=8,I=9,a="org.xidea.lite.DefinePlugin";"function"==typeof P&&(E.PLUGIN_DEFINE=a,E.VAR_TYPE=o,E.XA_TYPE=Y,E.ELSE_TYPE=t,E.PLUGIN_TYPE=f,E.CAPTURE_TYPE=I,E.IF_TYPE=T,E.EL_TYPE=e,E.BREAK_TYPE=_,E.XT_TYPE=i,E.FOR_TYPE=n)}
+function(exports,require){
+var XA_TYPE=require(14).XA_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+exports.parseText=parseText;
+
+function parseText(text,context,textParsers){
+switch(context.textType){
+case XA_TYPE :
+var qute = '"';
+case XT_TYPE :
+var encode = true; 
+case EL_TYPE:
+break;
+default:
+console.error("未知编码模式："+context.textType+text)
+return;
+}
+var len = text.length;
+var start = 0;
+do {
+var nip = null;
+var p$ = len + 1;
+{
+var pri = 0;
+var ti = textParsers.length;
+while (ti--) {
+var ip = textParsers[ti];
+var p$2 = ip.findStart(text, start, p$);
+var pri2 = ip.priority || 1;
+if (p$2 >= start ){
+if(p$2 < p$ || p$2 == p$ && pri2>pri){
+p$ = p$2;
+nip = ip;
+pri = pri2;
+}
+}
+}
+}
+if (nip != null) {
+var escapeCount = countEescape(text, p$);
+appendText(context,
+text.substring(start, p$ - ((escapeCount + 1) >>1)),
+encode,	qute);
+if ((escapeCount & 1) == 1) {
+start = nextPosition(context, text, p$);
+} else {
+start = p$;
+var mark = context.mark();
+try {
+start = nip.parseText(text, start, context);
+} catch (e) {
+console.warn("尝试表达式解析失败:[source:"+text+",fileName:"+context.currentURI+"]",e);
+}
+if (start <= p$) {
+context.reset(mark);
+start = nextPosition(context, text, p$);
+}
+}
+} else {
+break;
+}
+} while (start < len);
+if (start < len) {
+appendText(context,text.substring(start), encode, qute);
+}
+}
+
+function appendText(context,text, encode, escapeQute){
+if(encode){
+if(escapeQute == '"'){
+var replaceExp = /[<&"]/g;
+}else if(escapeQute == '\''){
+var replaceExp = /[<&']/g;
+}else{
+var replaceExp = /[<&]/g;
+}
+text = text.replace(replaceExp,xmlReplacer);
+}
+context.appendText(text);
+}
+function xmlReplacer(c){
+switch(c){
+case '<':
+return '&lt;';
+case '>':
+return '&gt;';
+case '&':
+return '&amp;';
+case "'":
+return '&#39;';
+case '"':
+return '&#34;';
+}
+}
+function nextPosition(context, text, p$) {
+context.appendText(text.substring(p$, p$ + 1));
+return p$ + 1;
+}
+function countEescape(text, p$) {
+if (p$ > 0 && text.charAt(p$ - 1) == '\\') {
+var pre = p$ - 1;
+while (pre-- > 0 && text.charAt(pre) == '\\')
+;
+return p$ - pre - 1;
+}
+return 0;
+}
+}
 ,
-function(e,n){function t(e,n){this.root=new u(e&&e.replace(/[\\\/]*$/,"/")||"lite:///");var t=n&&s(n);if(t){for(var r=[],c=t.length;c--;){var f={};i(t[c],f),f.includes=new RegExp(f.includes||"^$"),f.excludes=new RegExp(f.excludes||"^$"),r[c]=f}this._groups=r}else this._groups=o}function i(e,n){for(var t in e)n[t]=e[t]}function r(e,n,t){for(var i=0,r=e.length;r>i;i++){var o=e[i];if(o.includes.test(n)&&!o.excludes.test(n))return o}return t&&e[e.length-1]}t.prototype={getConfig:function(e){var n={},t=r(this._groups,e,null);return t&&i(t.config,n),n},getExtensionMap:function(e){var n=r(this._groups,e,null);return n?n.extensionMap:{}}};var o={includes:/./,excludes:/^$/,config:{encoding:"utf-8",contentType:"text/html;charset=UTF-8"},extensionMap:{}};if("function"==typeof n){e.ParseConfig=t;var s=n(26).parseConfig,u=n(6).URI}}
+function(exports,require){
+var EL_TYPE = 0;
+var IF_TYPE = 1;
+var BREAK_TYPE = 2;
+var XA_TYPE = 3;
+var XT_TYPE = 4;
+var FOR_TYPE = 5;
+var ELSE_TYPE = 6;
+var PLUGIN_TYPE =7;
+var VAR_TYPE = 8;
+var CAPTURE_TYPE = 9;
+var IF_KEY = "if";
+var FOR_KEY = "for";
+var PLUGIN_DEFINE = "org.xidea.lite.DefinePlugin";
+exports.PLUGIN_DEFINE=PLUGIN_DEFINE;
+exports.VAR_TYPE=VAR_TYPE;
+exports.XA_TYPE=XA_TYPE;
+exports.ELSE_TYPE=ELSE_TYPE;
+exports.PLUGIN_TYPE=PLUGIN_TYPE;
+exports.CAPTURE_TYPE=CAPTURE_TYPE;
+exports.IF_TYPE=IF_TYPE;
+exports.EL_TYPE=EL_TYPE;
+exports.BREAK_TYPE=BREAK_TYPE;
+exports.XT_TYPE=XT_TYPE;
+exports.FOR_TYPE=FOR_TYPE;
+}
 ,
-function(t,e){function s(t,e,s){this.name=e,this.params=s,this.scope=new a(t,s),this.allocateIdMap={},this.outputIndent=0}var i="$_";if(s.prototype={findForStatus:function(t){for(var e=this.scope.fors,s=e.length;s--;){var i=e[s];if(i.code==t)return i}},allocateId:function(t){if(t&&/^([\w\$_]+|[\d\.]+)$/.test(t))return t;for(var e=0;;){if(!this.allocateIdMap[e])return this.allocateIdMap[e]=!0,i+e.toString(36);e++}},freeId:function(t){var e=i.length;t.substring(0,e)==i&&delete this.allocateIdMap[t.substring(e)]},appendCode:function(t){for(var e=0;e<t.length;e++){var s=t[e];if("string"==typeof s)this.appendStatic(s);else{var i=s&&s[0];switch(i){case h:this.visitEL(s[1],i),this.appendEL(s);break;case l:this.visitEL(s[1],i),this.appendXT(s);break;case r:this.visitEL(s[1],i),this.appendXA(s);break;case n:this.visitEL(s[1],i),this.appendVar(s);break;case u:this.visitEL(null,i),this.processCapture(s);break;case c:this.visitEL(s[2],i),this.processPlugin(s[1],s[2]);break;case p:this.visitEL(s[2],i),e=this.processIf(t,e);break;case f:this.visitEL(s[2],i),e=this.processFor(t,e);break;case o:this.visitEL(s[2],i),e=this.processElse(t,e);break;default:throw Error("无效指令："+e+JSON.stringify(t))}}}},visitEL:function(){},processPlugin:function(t,e){var s=e["class"];switch(s.replace(/^org\.xidea\.lite\.(?:parse\.)?/,"")){case"EncodePlugin":this.appendEncodePlugin(t[0]);break;case"DatePlugin":this.appendDatePlugin(t[0],t[1]);break;case"NativePlugin":this.appendNativePlugin(t,e);break;case"ModulePlugin":this.appendModulePlugin(t,e);break;case"DefinePlugin":break;case"ClientPlugin":default:console.error("程序bug(插件需要预处理):"+s,e)}},processElse:function(t,e){throw Error("问题指令(无主else,else 指令必须紧跟if或者for)："+t,e)},append:function(){var t=this.outputIndent;for(this.out.push("\n");t--;)this.out.push("	");for(var e=0;e<arguments.length;e++)this.out.push(arguments[e])},reset:function(){var t=this.out.concat();return this.out.length=0,t}},"function"==typeof e){t.TranslateContext=s;var a=e(27).OptimizeScope,n=e(13).VAR_TYPE,r=e(13).XA_TYPE,o=e(13).ELSE_TYPE,c=e(13).PLUGIN_TYPE,u=e(13).CAPTURE_TYPE,p=e(13).IF_TYPE,h=e(13).EL_TYPE,l=e(13).XT_TYPE,f=e(13).FOR_TYPE}}
+function(exports,require){
+
+
+function ParseConfig(root,dom){
+this.root = new URI(root && root.replace(/[\\\/]*$/,'/') || 'lite:///');
+var json = dom && parseConfig(dom);
+if(json){
+var result = [];
+var i = json.length
+while(i--){
+var item = {};
+copy(json[i],item);
+item.includes = new RegExp(item.includes||"^$");
+item.excludes = new RegExp(item.excludes||"^$");
+result[i] = item;
+}
+this._groups = result;
+}else{
+this._groups = defaultConfig;
+}
+}
+function copy(source,dest){
+for(var n in source){
+dest[n] = source[n];
+}
+}
+function findGroup(groups,path,require){
+for(var i=0,len = groups.length;i<len;i++){
+var g = groups[i];
+if(g.includes.test(path)){
+if(!g.excludes.test(path)){
+return g;
+}
+}
+}
+return require && groups[groups.length-1];
+}
+ParseConfig.prototype = {
+
+
+
+
+getConfig:function(path){
+var result = {}
+var g = findGroup(this._groups,path,null);
+if(g){
+copy(g.config,result);
+}
+return result;
+},
+getExtensionMap:function(path){
+var g = findGroup(this._groups,path,null);
+if(g){
+return g.extensionMap;
+}
+return {};
+}
+}
+var defaultConfig = {
+"includes":/./,
+"excludes":/^$/,
+"config":{
+
+"encoding":"utf-8",
+
+"contentType":"text/html;charset=UTF-8"
+},
+"extensionMap":{
+
+
+
+
+
+}
+}
+if(typeof require == 'function'){
+exports.ParseConfig=ParseConfig;
+var parseConfig = require(29).parseConfig;
+var URI=require(7).URI;
+}
+}
 ,
-function(e,r){function n(e){if("string"==typeof e)e=new l(e).getResult();else if(e instanceof n)return e;this.token=e}function t(e){null==e.callMap&&(e.callMap={},e.varMap={},a(e.token,e))}function a(e,r){var n=e[0];if(0>=n)return void(n==B&&i(r.varMap,e[1],""));var t=e[1];if(n==N)if(t[0]==B)i(r.callMap,t[1],"");else if(t[0]==M){var u=s(t,r,[]).reverse(),c=u.slice(1).join(".");""!=u[0]&&("*"!=u[0]&&i(r.varMap,u[0],c),i(r.callMap,u[0],c))}else a(t,r),i(r.callMap,"*","");else if(n==M){var u=s(e,r,[]).reverse(),c=u.slice(1).join(".");""!=u[0]&&"*"!=u[0]&&i(r.varMap,u[0],c)}else t&&a(t,r);var o=_(e[0]);o>2&&a(e[2],r)}function s(e,r,n){var t=e[1],i=e[2];return i[0]==m?n.push(i[1]):(a(i,r),n.push("*")),t[0]==B?n.push(t[1]):t[0]==m?n.push(""):t[0]==M?s(t,r,n):(a(t,r),n.push("*")),n}function i(e,r,n){var t=r in e?e[r]:e[r]=[];return t.indexOf(n)<0&&t.push(n),t}function u(e,r){var n=c(r,e);return p(n)}function c(e,r){var n=e[0];switch(n){case J:return[];case z:return{};case B:return t=e[1],(t in r?r:this)[t];case m:return t=e[1],t&&"RegExp"==t["class"]?window.eval(t.literal):t;case v:return p(c(e[1],r))&&c(e[2],r);case d:return p(c(e[1],r))||c(e[2],r);case D:return p(c(e[1],r))?c(e[2],r):o;case G:return t=p(c(e[1],r)),t==o?c(e[2],r):t}var t=c(e[1],r);if(3==_(n))var a=p(c(e[2],r));if(n==N){if("function"==typeof t)return t.apply(r,a);if(t instanceof o){var s=t[0],i=t[1],u=s[i];if(u==String.prototype.replace||u==String.prototype.match){a=a.slice(0);var f=a[0];f&&"RegExp"==f["class"]&&(a[0]=window.eval(f.source))}return u.apply(s,a)}throw new Error("not a fn!!"+t)}switch(t=p(t),n){case M:return new o(t,a);case R:return!t;case Q:return+t;case k:return-t;case P:return t+a;case j:return t-a;case U:return t*a;case E:return t/a;case A:return t%a;case S:return t>a;case g:return t>=a;case V:return t!=a;case x:return t!==a;case h:return t==a;case T:return t===a;case w:return a>t;case L:return a>=t;case y:return t in a;case I:return t.push(a),t;case C:return t[O(e)]=a,t}}function o(e,r){this[0]=e,this[1]=r}function p(e){return e instanceof o?e[0][e[1]]:e}if(n.prototype.evaluate=function(e){return u(e,this.token)},n.prototype.getVarMap=function(){return t(this),this.varMap},n.prototype.getCallMap=function(){return t(this),this.callMap},n.prototype.toString=function(e){return f(this.token,e)},n.evaluate=u,"function"==typeof r){e.Expression=n;var f=r(28).stringifyJSEL,l=r(29).ExpressionTokenizer,O=r(31).getTokenParam,_=r(31).getTokenParamIndex,P=r(31).OP_ADD,v=r(31).OP_AND,E=r(31).OP_DIV,h=r(31).OP_EQ,T=r(31).OP_EQ_STRICT,M=r(31).OP_GET,S=r(31).OP_GT,g=r(31).OP_GTEQ,y=r(31).OP_IN,N=r(31).OP_INVOKE,I=r(31).OP_JOIN,w=r(31).OP_LT,L=r(31).OP_LTEQ,A=r(31).OP_MOD,U=r(31).OP_MUL,V=r(31).OP_NE,k=r(31).OP_NEG,x=r(31).OP_NE_STRICT,R=r(31).OP_NOT,d=r(31).OP_OR,Q=r(31).OP_POS,C=r(31).OP_PUT,D=r(31).OP_QUESTION,G=r(31).OP_QUESTION_SELECT,j=r(31).OP_SUB,m=r(31).VALUE_CONSTANTS,J=r(31).VALUE_LIST,z=r(31).VALUE_MAP,B=r(31).VALUE_VAR}}
+function(exports,require){
+var ID_PREFIX = "$_";
+var XML_ENCODE_XA = 1;
+var XML_ENCODE_XT = 2;
+
+function TranslateContext(code,name,params){
+
+this.name = name;
+
+this.params = params;
+
+this.scope = new OptimizeScope(code,params);
+this.allocateIdMap = {};
+this.outputIndent = 0;
+}
+TranslateContext.prototype = {
+findForStatus:function(code){
+var fis = this.scope.fors;
+var i = fis.length;
+while(i--){
+var fi = fis[i];
+if(fi.code == code){
+return fi;
+}
+}
+
+},
+allocateId:function(id){
+if(id && /^([\w\$_]+|[\d\.]+)$/.test(id)){
+return id;
+}
+var i = 0;
+while(true){
+if(!this.allocateIdMap[i]){
+this.allocateIdMap[i] = true;
+return ID_PREFIX+i.toString(36);
+}
+i++;
+}
+},
+freeId:function(id){
+var len = ID_PREFIX.length;
+if(id.substring(0,len) == ID_PREFIX){
+delete this.allocateIdMap[id.substring(len)];
+}
+},
+
+appendCode:function(code){
+for(var i=0;i<code.length;i++){
+var item = code[i];
+if(typeof item == 'string'){
+this.appendStatic(item)
+}else{
+var type = item && item[0];
+switch(type){
+case EL_TYPE:
+this.visitEL(item[1],type)
+this.appendEL(item);
+break;
+case XT_TYPE:
+this.visitEL(item[1],type)
+this.appendXT(item);
+break;
+case XA_TYPE:
+this.visitEL(item[1],type)
+this.appendXA(item);
+break;
+case VAR_TYPE:
+this.visitEL(item[1],type)
+this.appendVar(item);
+break;
+case CAPTURE_TYPE:
+this.visitEL(null,type)
+this.processCapture(item);
+break;
+case PLUGIN_TYPE:
+this.visitEL(item[2],type)
+this.processPlugin(item[1],item[2]);
+break;
+case IF_TYPE:
+this.visitEL(item[2],type)
+i = this.processIf(code,i);
+break;
+case FOR_TYPE:
+this.visitEL(item[2],type)
+i = this.processFor(code,i);
+break;
+case ELSE_TYPE:
+this.visitEL(item[2],type)
+i = this.processElse(code,i);
+break;
+default:
+throw Error('无效指令：'+i+JSON.stringify(code))
+}
+}
+}
+},
+visitEL:function(){},
+
+processPlugin:function(child,config){
+var pn = config['class'];
+switch(pn.replace(/^org\.xidea\.lite\.(?:parse\.)?/,'')){
+case 'EncodePlugin':
+this.appendEncodePlugin(child[0]);
+break;
+case 'DatePlugin':
+this.appendDatePlugin(child[0],child[1]);
+break;
+case 'NativePlugin':
+this.appendNativePlugin(child,config);
+break;
+case 'ModulePlugin':
+this.appendModulePlugin(child,config);
+break;
+case 'DefinePlugin':
+
+break;
+case 'ClientPlugin':
+
+default:
+console.error("程序bug(插件需要预处理):"+pn,config);
+}
+},
+processElse:function(code,i){
+throw Error('问题指令(无主else,else 指令必须紧跟if或者for)：'+code,i);
+},
+append:function(){
+var outputIndent = this.outputIndent;
+this.out.push("\n");
+while(outputIndent--){
+this.out.push("\t")
+}
+for(var i=0;i<arguments.length;i++){
+this.out.push(arguments[i]);
+}
+},
+reset:function(){
+var out = this.out.concat();
+this.out.length=0;
+return out;
+}
+}
+if(typeof require == 'function'){
+exports.TranslateContext=TranslateContext;
+var OptimizeScope=require(30).OptimizeScope;
+var VAR_TYPE=require(14).VAR_TYPE;
+var XA_TYPE=require(14).XA_TYPE;
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var CAPTURE_TYPE=require(14).CAPTURE_TYPE;
+var IF_TYPE=require(14).IF_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+var FOR_TYPE=require(14).FOR_TYPE;
+}
+}
 ,
-function(e,r){function n(e,r){W[e]=r,Z[r]=e}function t(e){return Z[e]}function a(e){return W[e]}function c(e){switch(e){case N:case I:case z:return!0;default:return!1}}function s(e){return e[_(e[0])]}function u(e){var r=_(e);return c(e)?r+1:r}function _(e){if(0>e)return 1;var r=(e&E)>>6;return r+2}function P(e){var r=e&re||e&ne||e&te,n=e&ae||e&ce||e&se;return n?r?null:!1:!0}function O(e,r){var n=i(e),t=i(r),a=P(n),c=P(t);return a===!1||c===!1?ae:a===!0&&c===!0?te:te|ae}function i(e){var r=e[0];if(r>0){var n=e[1],t=e[2];switch(r){case q:return ce;case z:return se;case h:return O(n,t);case U:case L:case Y:case B:case g:case p:case H:case J:case j:case v:return te;case l:case Q:case V:case m:case C:case G:case w:case x:case b:return ne;case K:case F:return i(n)|i(t);case S:if(t[0]==I)if(n[0]==N&&"for"==n[1]){if("index"==t[1]||"lastIndex"==t[1])return te}else if("length"==t[1]){var a=i(n);return a&se?ue:a&ce||a&ae?a&ae||a&ne||a&te?re|te:te:re}return ue;case d:if(n[0]==N)switch(n[1]){case"encodeURI":case"encodeURIComponent":case"decodeURI":case"decodeURIComponent":return ae;case"parseInt":case"parseInt":return te;case"isFinite":case"isNaN":return ne}else if(n[0]==S&&(t=n[2],n=n[1],t[0]==I)){var c=t[1];if(n[0]==N){var s=n[1];if("JSON"==s){if("stringify"==c)return ae}else if("Math"==s)return te}}return ue;default:return ue}}else switch(r){case I:var u=e[1];if(null==u)return re;switch(typeof u){case"boolean":return ne;case"number":return te;case"string":return ae;case"object":return u instanceof Array?ce:se}return ue;case N:return ue;case R:return ce;case A:return se;default:return ue}}function T(e,r,n,t){var a=_e(e[0]),c=_e(r[0]);return n?(a>c&&(n="("+n+")"),n):(t&&a>=c&&(t="("+t+")"),t)}var f=60,o=3840,E=192,I=-1,N=-2,R=-3,A=-4,S=96,d=97,l=28,v=29,U=30,L=31,Y=88,B=89,g=90,h=84,p=85,k=80,y=81,M=82,Q=332,V=333,m=334,C=335,D=4428,G=76,w=77,x=78,b=79,H=1096,J=840,j=584,K=328,F=72,X=68,$=69,q=64,z=65,W={},Z={};n(I,"value"),n(N,"var"),n(R,"[]"),n(A,"{}"),n(S,"."),n(d,"()"),n(l,"!"),n(v,"~"),n(U,"+"),n(L,"-"),n(Y,"*"),n(B,"/"),n(g,"%"),n(h,"+"),n(p,"-"),n(k,"<<"),n(y,">>"),n(M,">>>"),n(Q,"<"),n(V,">"),n(m,"<="),n(C,">="),n(D," in "),n(G,"=="),n(w,"!="),n(x,"==="),n(b,"!=="),n(H,"&"),n(J,"^"),n(j,"|"),n(K,"&&"),n(F,"||"),n(X,"?"),n($,":"),n(q,","),n(z,":");var ee=0,re=1<<ee++,ne=1<<ee++,te=1<<ee++,ae=1<<ee++,ce=1<<ee++,se=1<<ee++,ue=(1<<ee++)-1;if("function"==typeof r){e.getTokenParam=s,e.hasTokenParam=c,e.getTokenParamIndex=_,e.getTokenLength=u,e.findTokenType=t,e.findTokenText=a,e.getELType=i,e.addELQute=T,e.BIT_ARGS=E,e.BIT_PRIORITY=f,e.BIT_PRIORITY_SUB=o,e.OP_ADD=h,e.OP_AND=K,e.OP_BIT_AND=H,e.OP_BIT_NOT=v,e.OP_BIT_OR=j,e.OP_BIT_XOR=J,e.OP_DIV=B,e.OP_EQ=G,e.OP_EQ_STRICT=x,e.OP_GET=S,e.OP_GT=V,e.OP_GTEQ=C,e.OP_IN=D,e.OP_INVOKE=d,e.OP_JOIN=q,e.OP_LSH=k,e.OP_LT=Q,e.OP_LTEQ=m,e.OP_MOD=g,e.OP_MUL=Y,e.OP_NE=w,e.OP_NEG=L,e.OP_NE_STRICT=b,e.OP_NOT=l,e.OP_OR=F,e.OP_POS=U,e.OP_PUT=z,e.OP_QUESTION=X,e.OP_QUESTION_SELECT=$,e.OP_RSH=y,e.OP_SUB=p,e.OP_URSH=M,e.TYPE_ANY=ue,e.TYPE_ARRAY=ce,e.TYPE_BOOLEAN=ne,e.TYPE_MAP=se,e.TYPE_NULL=re,e.TYPE_NUMBER=te,e.TYPE_STRING=ae,e.TYPE_TOKEN_MAP=W,e.VALUE_CONSTANTS=I,e.VALUE_LIST=R,e.VALUE_MAP=A,e.VALUE_VAR=N;var _e=(r(30).evaluate,r(29).getPriority)}}
+function(exports,require){
+
+function Expression(value){
+if(typeof value == 'string'){
+value = new ExpressionTokenizer(value).getResult();
+}else if(value instanceof Expression){
+return value;
+}
+this.token = value;
+}
+Expression.prototype.evaluate = function(context){
+return evaluate(context,this.token);
+}
+
+Expression.prototype.getVarMap = function(){
+init(this);
+return this.varMap;
+}
+
+Expression.prototype.getCallMap = function(){
+init(this);
+return this.callMap;
+}
+function init(thiz){
+if(thiz.callMap == null){
+thiz.callMap = {};
+thiz.varMap = {};
+walkEL(thiz.token,thiz);
+}
+}
+function walkEL(token,context){
+var op = token[0];
+if(op<=0){
+if(op == VALUE_VAR){
+_addKeyList(context.varMap,token[1],'');
+}
+return;
+}else{
+var arg1 = token[1];
+if(op == OP_INVOKE){
+if(arg1[0] == VALUE_VAR){
+_addKeyList(context.callMap,arg1[1],'');
+}else if(arg1[0] == OP_GET){
+var list = walkMembers(arg1,context,[]).reverse();
+var ps = list.slice(1).join('.');
+if(list[0] != ''){
+if(list[0] != '*' ){
+_addKeyList(context.varMap,list[0],ps);
+}
+_addKeyList(context.callMap,list[0],ps);
+}
+}else{
+walkEL(arg1,context);
+_addKeyList(context.callMap,"*",'');
+}
+}else{
+if(op == OP_GET){
+var list = walkMembers(token,context,[]).reverse();
+var ps = list.slice(1).join('.');
+if(list[0] != ''){
+if(list[0] != '*' ){
+_addKeyList(context.varMap,list[0],ps);
+}
+}
+}else{
+arg1 && walkEL(arg1,context);
+}
+}
+var pos = getTokenParamIndex(token[0]);
+if(pos>2){
+walkEL(token[2],context);
+}
+}
+}
+function walkMembers(token,context,buf){
+var owner = token[1];
+var key = token[2];
+if(key[0] == VALUE_CONSTANTS){
+buf.push(key[1]);
+}else{
+walkEL(key,context);
+buf.push('*');
+}
+if(owner[0] == VALUE_VAR){
+buf.push(owner[1]);
+}else if(owner[0] == VALUE_CONSTANTS){
+buf.push('');
+}else if(owner[0] == OP_GET){
+walkMembers(owner,context,buf);
+}else{
+walkEL(owner,context);
+buf.push('*');
+}
+return buf;
+}
+function _addKeyList(map,key,value){
+var list = key in map? map[key]: (map[key] = []);
+if(list.indexOf(value) <0){
+list.push(value);
+}
+return list;
+}
+Expression.prototype.toString = function(context){
+return stringifyJSEL(this.token,context);
+
+}
+Expression.evaluate = evaluate;
+
+function evaluate(context,el){
+var result = _evaluate(el,context)
+return realValue(result);
+}
+function _evaluate(item,context){
+var type = item[0];
+switch(type){
+case VALUE_LIST:
+return [];
+case VALUE_MAP:
+return {};
+case VALUE_VAR:
+arg1 = item[1]
+return (arg1 in context?context:this)[arg1];
+case VALUE_CONSTANTS:
+arg1 = item[1];
+return arg1&&arg1['class'] == 'RegExp'?window.eval(arg1.literal):arg1;
+
+case OP_AND:
+return realValue(_evaluate(item[1],context)) && (_evaluate(item[2],context));
+case OP_OR:
+return realValue(_evaluate(item[1],context)) || (_evaluate(item[2],context));
+case OP_QUESTION:
+if(realValue(_evaluate(item[1],context))){
+return _evaluate(item[2],context);
+}else{
+return PropertyValue;
+}
+case OP_QUESTION_SELECT:
+arg1 = realValue(_evaluate(item[1],context));
+if(arg1 == PropertyValue){
+return _evaluate(item[2],context);
+}else{
+return arg1;
+}
+}
+var arg1=_evaluate(item[1],context);
+if(getTokenParamIndex(type) ==3){
+var arg2=realValue(_evaluate(item[2],context));
+}
+if(type == OP_INVOKE){
+if(typeof arg1 == 'function'){
+return arg1.apply(context,arg2);
+}else if(arg1 instanceof PropertyValue){
+var thiz = arg1[0];
+var key = arg1[1];
+var fn = thiz[key];
+
+if(fn == String.prototype.replace || fn == String.prototype.match){
+arg2 = arg2.slice(0);
+var exp = arg2[0];
+if(exp && exp['class'] == 'RegExp'){
+arg2[0] = window.eval(exp.source)
+}
+}
+return fn.apply(thiz,arg2);
+}else{
+throw new Error("not a fn!!"+arg1)
+}
+}
+arg1 = realValue(arg1);
+switch(type){
+
+
+
+case OP_GET:
+return new PropertyValue(arg1,arg2);
+case OP_NOT:
+return !arg1;
+case OP_POS:
+return +arg1;
+case OP_NEG:
+return -arg1;
+
+case OP_ADD:
+return arg1+arg2;
+case OP_SUB:
+return arg1-arg2;
+case OP_MUL:
+return arg1*arg2;
+case OP_DIV:
+return arg1/arg2;
+case OP_MOD:
+return arg1%arg2;
+
+case OP_GT:
+return arg1 > arg2;
+case OP_GTEQ:
+return arg1 >= arg2;
+case OP_NE:
+return arg1 != arg2;
+case OP_NE_STRICT:
+return arg1 !== arg2;
+case OP_EQ:
+return arg1 == arg2;
+case OP_EQ_STRICT:
+return arg1 === arg2;
+case OP_LT:
+return arg1 < arg2;
+case OP_LTEQ:
+return arg1 <= arg2;
+case OP_IN:
+return arg1 in arg2;
+case OP_JOIN:
+arg1.push(arg2)
+return arg1;
+case OP_PUT:
+arg1[getTokenParam(item)]= arg2;
+return arg1;
+}
+}
+function PropertyValue(base,name){
+this[0] = base;
+this[1] = name;
+}
+function realValue(arg1){
+if(arg1 instanceof PropertyValue){
+return arg1[0][arg1[1]];
+}
+return arg1;
+}
+if(typeof require == 'function'){
+exports.Expression=Expression;
+var stringifyJSEL = require(31).stringifyJSEL
+var ExpressionTokenizer=require(32).ExpressionTokenizer;
+var getTokenParam=require(33).getTokenParam;
+var getTokenParamIndex=require(33).getTokenParamIndex;
+var OP_ADD=require(33).OP_ADD;
+var OP_AND=require(33).OP_AND;
+var OP_DIV=require(33).OP_DIV;
+var OP_EQ=require(33).OP_EQ;
+var OP_EQ_STRICT=require(33).OP_EQ_STRICT;
+var OP_GET=require(33).OP_GET;
+var OP_GT=require(33).OP_GT;
+var OP_GTEQ=require(33).OP_GTEQ;
+var OP_IN=require(33).OP_IN;
+var OP_INVOKE=require(33).OP_INVOKE;
+var OP_JOIN=require(33).OP_JOIN;
+var OP_LT=require(33).OP_LT;
+var OP_LTEQ=require(33).OP_LTEQ;
+var OP_MOD=require(33).OP_MOD;
+var OP_MUL=require(33).OP_MUL;
+var OP_NE=require(33).OP_NE;
+var OP_NEG=require(33).OP_NEG;
+var OP_NE_STRICT=require(33).OP_NE_STRICT;
+var OP_NOT=require(33).OP_NOT;
+var OP_OR=require(33).OP_OR;
+var OP_POS=require(33).OP_POS;
+var OP_PUT=require(33).OP_PUT;
+var OP_QUESTION=require(33).OP_QUESTION;
+var OP_QUESTION_SELECT=require(33).OP_QUESTION_SELECT;
+var OP_SUB=require(33).OP_SUB;
+var VALUE_CONSTANTS=require(33).VALUE_CONSTANTS;
+var VALUE_LIST=require(33).VALUE_LIST;
+var VALUE_MAP=require(33).VALUE_MAP;
+var VALUE_VAR=require(33).VALUE_VAR;
+}
+}
 ,
-function(r,e){function n(r,e){var n=r[0];return 0>=n?a(r,e):3==d(n)?l(r,e):p(r,e)}function a(r,e){var n=r[1];switch(r[0]){case G:return _(n);case D:return"for"==n?g:"$"+n;case J:case B:return"array()"}}function t(r,e){for(var n=arguments.length,a=0;--n>1;)a|=arguments[n];var t=r|e;return(t&a)==t}function i(r,e){var a=N(r),i=n(r[1],e),u=n(r[2],e);if(a==V)return i+"+"+u;if(a==b){/[\d]$/.test(i)&&(i+=" "),/^[\d]/.test(u)&&(u=" "+u);var s=N(r[1]),f=N(r[2]);if(t(s,f,b,V))return i+"."+u}return"lite_op__add("+i+","+u+")"}function u(r,e,a){var i=N(r[1]),u=N(r[2]),s=n(r[1],e),f=n(r[2],e);return a=a||"==",i==b||u==b?"strcmp("+s+","+f+") "+a+"0":i===Q||u===Q?s+a+"="+f:t(i,u,V,x)||t(i,u,k,j,b)||1==i.toString(2).replace(/0/g,"").length&&i==u?s+a+f:("!="==a?"!":"")+"lite_op__eq("+s+","+f+")"}function s(r,e){var a=r[1],t=r[2],i=n(r[1],e),u=n(r[2],e);if(t[0]==G){var s=t[1];if("length"!=s){if(a[0]==D){var f=a[1];if("Math"==f&&!(f in e.scope.defMap&&f in e.scope.varMap&&f in e.scope.paramMap)&&"number"==typeof O[s])return"("+O[s]+")"}if(!/^[^(][\s\S]*\)$/.test(i)&&!/^(true|false|null|[\d\.]+)$/.test(i))return i+"["+u+"]"}}return"lite_op__get("+i+","+u+")"}function f(r){var e=r[1];if(e[0]==S){var n=e[1],a=e[2];if(n[0]==D)var t=n[1];if(a[0]==G)var i=a[1];return[t||n,i||a,r[2]]}if(e[0]==D)var t=e[1];return[t||e,null,r[2]]}function o(r,e,a){return"string"!=typeof r?n(r,e):a?"$"+r:"'"+r+"'"}function c(r,e){var a=f(r),t=a[0],i=a[1],u=n(a[2],e);if(i){if("string"==typeof i)if("Math"===t){var s=/^(?:sin|sqrt|tan|cos|acos|asin|atan|atan2|max|min||floor|round|abs|ceil|exp|log|pow)$/;if("random"==i)return"(rand(0, 0xFFFF)/0xFFFF)";if(s.test(i))return u.replace("array",i);console.warn("Math 不支持方法:"+i+";Math 支持的方法有:random|"+s.source.replace(/[^\w\|]/g,""))}else if("JSON"===t){if("parse"==i)return u.replace("array","json_decode").slice(0,-1)+",true)";if("stringify"==i)return u.replace("array","json_encode");console.warn("JSON 不支持方法:"+i+";JSON 只支持:stringify和parse方法")}else if("reverse"==i&&"array()"==u&&t[0]==M){var c=f(t);if("concat"==c[1])return t=c[0],t=o(t,e,!0),u=n(c[2],e),"lite_op__invoke("+t+",'concat_reverse',"+u+")"}return t=o(t,e,!0),i=o(i,e),"lite_op__invoke("+t+","+i+","+u+")"}if("string"==typeof t){if((t in H||t in e.scope.defMap)&&!(t in e.scope.varMap||t in e.scope.paramMap))return u.replace("array","lite__"+t);if(t in e.scope.varMap||t in e.scope.paramMap)var l="$"+t;else var l="isset($"+t+")?$"+t+":'"+t+"'";return"lite_op__invoke("+l+",null,"+u+")"}return t=o(t,e,!0),"lite_op__invoke("+t+",null,"+u+")"}function l(r,e){var a=r[0];if(a==h)return i(r,e);if(a==A)return u(r,e,"==");if(a==I)return u(r,e,"!=");if(a==S)return s(r,e);if(a==M)return c(r,e);var t=T(r[0]),f=n(r[1],e),o=n(r[2],e);switch(a){case $:return"array()"==f?"array("+o+")":f.slice(0,-1)+","+o+")";case F:return o=_(y(r))+"=>"+o+")","array()"==f?"array("+o:f.slice(0,-1)+","+o;case U:return null;case Y:var l=r[1],p=n(l[1],e),f=n(l[2],e);return"("+v(l[1],p)+"?"+f+":"+o+")";case m:return P(f)?"("+v(r[1],f)+"?"+o+":"+f+")":"(("+v(r[1],f,E)+")?"+o+":"+E+")";case w:return P(f)?"("+v(r[1],f)+"?"+f+":"+o+")":"(("+v(r[1],f,E)+")?"+E+":"+o+")"}return f=L(r,r[1],f),o=L(r,r[2],null,o),f+t+o}function _(r){switch(typeof r){case"string":return"'"+r.replace(/[\\']/g,"\\$&")+"'";case"number":return isNaN(r)&&(r="null"),""+r;case"undefined":return"null";case"object":if(!r)return"null";var e=[];if(r instanceof Array){for(var n=r.length;n--;)e[n]=_(r[n])||"null";return"array("+e.join(",")+")"}if(r instanceof RegExp)return"array('class'=>'RegExp','source'=>'"+r.replace(/[\\']/g,"\\$&")+"')";for(var a in r){var t=_(r[a]);t&&e.push(_(a)+"=>"+t)}return"array("+e.join(",")+")";default:return String(r)}}function p(r,e){var a=r[0],t=r[1],i=n(t,e);y(r,e);if(a==R){var u=v(t,i);return P(u)||(u="("+u+")"),"!"+u}i=L(r,r[1],null,i);var s=T(a);return s+i}function v(r,e,a,t){e||(e=n(r,t));var i=r[0];if(0>=i)switch(i){case G:return a?r[1]?"(("+a+"="+e+")||true)":"(("+a+"="+e+")&&false)":!!r[1]+"";case D:break;case J:case B:default:return a?"(("+a+"="+e+")||true)":"true"}var u=N(r);if(!(u&b||u&k||u&j))return a?"("+a+"="+e+")":e;if(P(e)&&!a){var s=e;a=e}else{a=a||E;var s="("+a+"="+e+")"}return(u&k||u&j)&&(s+=" || 0 < "+a),u&b&&(s+=" || '0' ==="+a),"("+s+")"}function P(r){return r.match(/^([\w_\$]+|[\d\.]+)$/)}var E="$__el_tmp",g="$__for",O={E:2.718281828459045,PI:3.141592653589793,LN2:.6931471805599453,LN10:2.302585092994046,LOG2E:1.4426950408889634,LOG10E:.4342944819032518,SQRT1_2:.7071067811865476,SQRT2:1.4142135623730951};if("function"==typeof e){r.stringifyPHPEL=n,r.stringifyPHP=_,r.php2jsBoolean=v,r.isSimplePHPEL=P;var y=e(17).getTokenParam,d=e(17).getTokenParamIndex,T=e(17).findTokenText,N=e(17).getELType,L=e(17).addELQute,h=e(17).OP_ADD,m=e(17).OP_AND,A=e(17).OP_EQ,S=e(17).OP_GET,M=(e(17).OP_IN,e(17).OP_INVOKE),$=e(17).OP_JOIN,I=e(17).OP_NE,R=e(17).OP_NOT,w=e(17).OP_OR,F=e(17).OP_PUT,U=e(17).OP_QUESTION,Y=e(17).OP_QUESTION_SELECT,k=(e(17).TYPE_ANY,e(17).TYPE_ARRAY),x=e(17).TYPE_BOOLEAN,j=e(17).TYPE_MAP,Q=e(17).TYPE_NULL,V=e(17).TYPE_NUMBER,b=e(17).TYPE_STRING,G=e(17).VALUE_CONSTANTS,J=e(17).VALUE_LIST,B=e(17).VALUE_MAP,D=e(17).VALUE_VAR,H=(e(32).getPriority,e(1).GLOBAL_DEF_MAP)}}
+function(exports,require){
+var BIT_PRIORITY= 60;
+var BIT_PRIORITY_SUB= 3840;
+var BIT_ARGS= 192;
+var POS_INC= 12;
+var VALUE_CONSTANTS= -1;
+var VALUE_VAR= -2;
+var VALUE_LIST= -3;
+var VALUE_MAP= -4;
+var OP_GET= 96;
+var OP_INVOKE= 97;
+var OP_NOT= 28;
+var OP_BIT_NOT= 29;
+var OP_POS= 30;
+var OP_NEG= 31;
+var OP_MUL= 88;
+var OP_DIV= 89;
+var OP_MOD= 90;
+var OP_ADD= 84;
+var OP_SUB= 85;
+var OP_LSH= 80;
+var OP_RSH= 81;
+var OP_URSH= 82;
+var OP_LT= 332;
+var OP_GT= 333;
+var OP_LTEQ= 334;
+var OP_GTEQ= 335;
+var OP_IN= 4428;
+var OP_EQ= 76;
+var OP_NE= 77;
+var OP_EQ_STRICT= 78;
+var OP_NE_STRICT= 79;
+var OP_BIT_AND= 1096;
+var OP_BIT_XOR= 840;
+var OP_BIT_OR= 584;
+var OP_AND= 328;
+var OP_OR= 72;
+var OP_QUESTION= 68;
+var OP_QUESTION_SELECT= 69;
+var OP_JOIN= 64;
+var OP_PUT= 65;
+var TYPE_TOKEN_MAP = {}
+var TOKEN_TYPE_MAP = {}
+function addToken(type,token){
+TYPE_TOKEN_MAP[type] = token;
+TOKEN_TYPE_MAP[token] = type;
+}
+addToken(VALUE_CONSTANTS ,"value");
+addToken(VALUE_VAR ,"var");
+addToken(VALUE_LIST ,"[]");
+addToken(VALUE_MAP ,"{}");
+
+addToken(OP_GET ,".");
+addToken(OP_INVOKE ,"()");
+
+addToken(OP_NOT ,"!");
+addToken(OP_BIT_NOT ,"~");
+addToken(OP_POS ,"+");
+addToken(OP_NEG ,"-");
+
+addToken(OP_MUL ,"*");
+addToken(OP_DIV ,"/");
+addToken(OP_MOD ,"%");
+
+
+addToken(OP_ADD ,"+");
+addToken(OP_SUB ,"-");
+
+addToken(OP_LSH ,"<<");
+addToken(OP_RSH ,">>");
+addToken(OP_URSH ,">>>");
+
+addToken(OP_LT ,"<");
+addToken(OP_GT ,">");
+addToken(OP_LTEQ ,"<=");
+addToken(OP_GTEQ ,">=");
+addToken(OP_IN ," in ");
+
+addToken(OP_EQ ,"==");
+addToken(OP_NE ,"!=");
+addToken(OP_EQ_STRICT ,"===");
+addToken(OP_NE_STRICT ,"!==");
+
+addToken(OP_BIT_AND ,"&");
+addToken(OP_BIT_XOR ,"^");
+addToken(OP_BIT_OR ,"|");
+
+addToken(OP_AND ,"&&");
+addToken(OP_OR ,"||");
+
+
+addToken(OP_QUESTION ,"?");
+
+addToken(OP_QUESTION_SELECT ,":");
+
+
+addToken(OP_JOIN ,",");
+
+addToken(OP_PUT ,":");
+function findTokenType(token) {
+return TOKEN_TYPE_MAP[token];
+}
+function findTokenText(type) {
+return TYPE_TOKEN_MAP[type];
+}
+function hasTokenParam(type) {
+switch (type) {
+case VALUE_VAR:
+case VALUE_CONSTANTS:
+
+
+
+case OP_PUT:
+return true;
+default:
+return false;
+}
+}
+function getTokenParam(el) {
+return el[getTokenParamIndex(el[0])]
+}
+function getTokenLength(type) {
+var size = getTokenParamIndex(type);
+return hasTokenParam(type)?size+1:size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getTokenParamIndex(type) {
+if(type<0){
+return 1;
+}
+var c = (type & BIT_ARGS) >> 6;
+return c + 2;
+}
+var offset = 0
+var TYPE_NULL = 1<<offset++;
+var TYPE_BOOLEAN = 1<<offset++;
+var TYPE_NUMBER = 1<<offset++;
+var TYPE_STRING = 1<<offset++;
+var TYPE_ARRAY = 1<<offset++;
+var TYPE_MAP = 1<<offset++;
+var TYPE_ANY = (1<<offset++) -1;
+
+
+
+
+
+
+
+function isNTSFAN(type){
+var isN = (type & TYPE_NULL) ||(type & TYPE_BOOLEAN) ||(type & TYPE_NUMBER);
+var isS = (type & TYPE_STRING) ||(type & TYPE_ARRAY) ||(type & TYPE_MAP);
+if(!isS ){
+return true;
+}
+if(!isN ){
+return false;
+}
+return null;
+}
+function getAddType(arg1,arg2){
+var t1 = getELType(arg1);
+var t2 = getELType(arg2);
+var ns1 = isNTSFAN(t1);
+var ns2 = isNTSFAN(t2);
+
+if(ns1 === false || ns2 === false){
+return TYPE_STRING;
+}
+if(ns1 === true && ns2 === true){
+return TYPE_NUMBER;
+}
+return TYPE_NUMBER|TYPE_STRING;
+}
+function getELType(el){
+var op = el[0];
+var type;
+if(op>0){
+var arg1 = el[1];
+var arg2 = el[2];
+switch(op){
+case OP_JOIN:
+return TYPE_ARRAY;
+case OP_PUT:
+return TYPE_MAP;
+case OP_ADD:
+
+
+
+return getAddType(arg1,arg2)
+
+case OP_POS:
+case OP_NEG:
+case OP_MUL:
+case OP_DIV:
+case OP_MOD:
+case OP_SUB:
+case OP_BIT_AND:
+case OP_BIT_XOR:
+case OP_BIT_OR:
+case OP_BIT_NOT:
+return TYPE_NUMBER;
+case OP_NOT:
+case OP_LT:
+case OP_GT:
+case OP_LTEQ:
+case OP_GTEQ:
+case OP_EQ:
+case OP_NE:
+case OP_EQ_STRICT:
+case OP_NE_STRICT:
+return TYPE_BOOLEAN;
+case OP_AND:
+case OP_OR:
+return getELType(arg1) | getELType(arg2);
+case OP_GET:
+if(arg2[0] == VALUE_CONSTANTS){
+if(arg1[0] == VALUE_VAR && arg1[1] == 'for'){
+if(arg2[1] == 'index' || arg2[1] == 'lastIndex'){
+return TYPE_NUMBER;
+}
+}else if( arg2[1] == 'length'){
+var t1 = getELType(arg1);
+
+
+
+
+
+
+if(t1 & TYPE_MAP){
+return TYPE_ANY;
+}else if((t1 & TYPE_ARRAY) || (t1 & TYPE_STRING)){
+if((t1 & TYPE_STRING) || (t1 & TYPE_BOOLEAN)||(t1 & TYPE_NUMBER)){
+return TYPE_NULL|TYPE_NUMBER;
+}else{
+return TYPE_NUMBER;
+}
+}else{
+return TYPE_NULL;
+}
+}
+}
+return TYPE_ANY;
+case OP_INVOKE:
+if(arg1[0] == VALUE_VAR){
+switch(arg1[1]){
+case "encodeURI":
+case "encodeURIComponent":
+case "decodeURI":
+case "decodeURIComponent":
+return TYPE_STRING;
+case "parseInt":
+case "parseInt":
+return TYPE_NUMBER;
+case "isFinite":
+case "isNaN":
+return TYPE_BOOLEAN;
+}
+}else if(arg1[0] == OP_GET){
+
+arg2 = arg1[2];
+arg1 = arg1[1];
+if(arg2[0] == VALUE_CONSTANTS){
+var method = arg2[1];
+if(arg1[0] == VALUE_VAR){
+var owner = arg1[1];
+if(owner == 'JSON'){
+if(method == 'stringify'){
+return TYPE_STRING;
+}
+}else if(owner == 'Math'){
+return TYPE_NUMBER;
+}
+}
+}
+}
+return TYPE_ANY;
+default:
+return TYPE_ANY;
+}
+}else{
+switch(op){
+case VALUE_CONSTANTS:
+var v= el[1];
+if(v == null){
+return TYPE_NULL;
+}
+switch(typeof v){
+case 'boolean':
+return TYPE_BOOLEAN;
+case 'number':
+return TYPE_NUMBER;
+case 'string':
+return TYPE_STRING;
+case 'object':
+if(v instanceof Array){
+return TYPE_ARRAY;
+}
+return TYPE_MAP;
+}
+return TYPE_ANY;
+case VALUE_VAR:
+return TYPE_ANY;
+case VALUE_LIST:
+return TYPE_ARRAY;
+case VALUE_MAP:
+return TYPE_MAP;
+default:
+return TYPE_ANY;
+}
+}
+}
+
+function addELQute(parentEl,childEL,value1,value2){
+var pp = getPriority(parentEl[0]);
+var cp = getPriority(childEL[0]);
+if(value1){
+if(cp<pp){
+value1 = '('+value1+')';
+}
+return value1;
+}else if(value2 && pp>=cp){
+value2 = '('+value2+')';
+}
+return value2;
+}
+if(typeof require == 'function'){
+exports.getTokenParam=getTokenParam;
+exports.hasTokenParam=hasTokenParam;
+exports.getTokenParamIndex=getTokenParamIndex;
+exports.getTokenLength=getTokenLength;
+exports.findTokenType=findTokenType;
+exports.findTokenText=findTokenText;
+exports.getELType=getELType;
+exports.addELQute=addELQute;
+exports.BIT_ARGS=BIT_ARGS;
+exports.BIT_PRIORITY=BIT_PRIORITY;
+exports.BIT_PRIORITY_SUB=BIT_PRIORITY_SUB;
+exports.OP_ADD=OP_ADD;
+exports.OP_AND=OP_AND;
+exports.OP_BIT_AND=OP_BIT_AND;
+exports.OP_BIT_NOT=OP_BIT_NOT;
+exports.OP_BIT_OR=OP_BIT_OR;
+exports.OP_BIT_XOR=OP_BIT_XOR;
+exports.OP_DIV=OP_DIV;
+exports.OP_EQ=OP_EQ;
+exports.OP_EQ_STRICT=OP_EQ_STRICT;
+exports.OP_GET=OP_GET;
+exports.OP_GT=OP_GT;
+exports.OP_GTEQ=OP_GTEQ;
+exports.OP_IN=OP_IN;
+exports.OP_INVOKE=OP_INVOKE;
+exports.OP_JOIN=OP_JOIN;
+exports.OP_LSH=OP_LSH;
+exports.OP_LT=OP_LT;
+exports.OP_LTEQ=OP_LTEQ;
+exports.OP_MOD=OP_MOD;
+exports.OP_MUL=OP_MUL;
+exports.OP_NE=OP_NE;
+exports.OP_NEG=OP_NEG;
+exports.OP_NE_STRICT=OP_NE_STRICT;
+exports.OP_NOT=OP_NOT;
+exports.OP_OR=OP_OR;
+exports.OP_POS=OP_POS;
+exports.OP_PUT=OP_PUT;
+exports.OP_QUESTION=OP_QUESTION;
+exports.OP_QUESTION_SELECT=OP_QUESTION_SELECT;
+exports.OP_RSH=OP_RSH;
+exports.OP_SUB=OP_SUB;
+exports.OP_URSH=OP_URSH;
+exports.TYPE_ANY=TYPE_ANY;
+exports.TYPE_ARRAY=TYPE_ARRAY;
+exports.TYPE_BOOLEAN=TYPE_BOOLEAN;
+exports.TYPE_MAP=TYPE_MAP;
+exports.TYPE_NULL=TYPE_NULL;
+exports.TYPE_NUMBER=TYPE_NUMBER;
+exports.TYPE_STRING=TYPE_STRING;
+exports.TYPE_TOKEN_MAP=TYPE_TOKEN_MAP;
+exports.VALUE_CONSTANTS=VALUE_CONSTANTS;
+exports.VALUE_LIST=VALUE_LIST;
+exports.VALUE_MAP=VALUE_MAP;
+exports.VALUE_VAR=VALUE_VAR;
+var evaluate=require(34).evaluate;
+var getPriority=require(32).getPriority;
+}
+}
 ,
-function(e,n){function r(e){if(2==e.nodeType){var n=e.ownerElement;n.removeAttribute(e.name),this.next(n)}else 1==e.nodeType&&this.parse(e.childNodes)}function t(e,n,r){return e=e.replace(/[^\w]|_/g,function(e){return"_"+i(100+e.charCodeAt(),62).slice(-2)}),n||(n=0,r=r.replace(/[^\s]/,function(e){n=n+(2&n)+e.charCodeAt()}),n=i(n,62)),e+"__"+n}function i(e,n){for(var r=[];e>0;){var t=e%n;r.push(o[t]),e=(e-t)/n}return r.reverse().join("")}var o=(n(7).findXMLAttribute,"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".split(""));e.setup=function(e){e.beforeI18n=r,e.parseI18n=r},e.i18nHash=t}
+function(exports,require){
+var VAR_LITE_EL_TEMP = "$__el_tmp"
+var FOR_STATUS_KEY = '$__for';
+
+function stringifyPHPEL(el,context){
+var type = el[0];
+if(type<=0){
+return stringifyValue(el,context)
+}else if(getTokenParamIndex(type) ==3){
+return stringifyInfix(el,context);
+}else{
+return stringifyPrefix(el,context);
+}
+}
+function stringifyValue(el,context){
+var param = el[1];
+switch(el[0]){
+case VALUE_CONSTANTS:
+return stringifyPHP(param);
+case VALUE_VAR:
+if(param == 'for'){
+return FOR_STATUS_KEY;
+}else{
+return '$'+param;
+}
+case VALUE_LIST:
+case VALUE_MAP:
+return "array()";
+}
+}
+function typesOnly(t1,t2){
+var i = arguments.length;
+var a = 0;
+while(--i>1){
+a |= arguments[i];
+}
+var t = t1 | t2;
+return (t & a) == t;
+}
+function stringifyADD(el,context){
+var t = getELType(el);
+var value1 = stringifyPHPEL(el[1],context);
+var value2 = stringifyPHPEL(el[2],context);
+if(t == TYPE_NUMBER){
+return value1+'+'+value2;
+}else if(t == TYPE_STRING){
+if(/[\d]$/.test(value1)){
+value1+=' ';
+}
+if(/^[\d]/.test(value2)){
+value2=' '+value2;
+}
+
+var t1 = getELType(el[1]);
+var t2 = getELType(el[2]);
+
+if(typesOnly(t1,t2,TYPE_STRING,TYPE_NUMBER)){
+return value1+'.'+value2;
+}
+}
+
+
+
+
+
+
+
+return "lite_op__add("+value1+','+value2+")"
+}
+
+
+
+
+
+
+function stringifyEQ(el,context,opc){
+var t1 = getELType(el[1]);
+var t2 = getELType(el[2]);
+var value1 = stringifyPHPEL(el[1],context);
+var value2 = stringifyPHPEL(el[2],context);
+opc = opc || '==';
+if(t1 == TYPE_STRING || t2 == TYPE_STRING){
+return "strcmp("+value1+","+value2+") "+opc+"0";
+}
+if(t1 === TYPE_NULL || t2 === TYPE_NULL){
+return value1+opc+'='+value2;
+}
+if(typesOnly(t1,t2,TYPE_NUMBER,TYPE_BOOLEAN)
+
+
+
+||typesOnly(t1,t2,TYPE_ARRAY,TYPE_MAP,TYPE_STRING)
+||t1.toString(2).replace(/0/g,'').length==1 && t1 == t2){
+return value1+opc+value2;
+}
+return (opc=='!='?'!':'')+"lite_op__eq("+value1+','+value2+")"
+}
+var math = {
+"E":2.718281828459045,
+"PI":3.141592653589793,
+"LN2":0.6931471805599453,
+"LN10":2.302585092994046,
+"LOG2E":1.4426950408889634,
+"LOG10E":0.4342944819032518,
+"SQRT1_2":0.7071067811865476,
+"SQRT2":1.4142135623730951
+}
+function stringifyGET(el,context){
+var arg1 = el[1];
+var arg2 = el[2];
+var value1 = stringifyPHPEL(el[1],context);
+var value2 = stringifyPHPEL(el[2],context);
+if(arg2[0] == VALUE_CONSTANTS){
+var prop = arg2[1];
+if( prop != 'length'){
+
+if(arg1[0] == VALUE_VAR){
+var owner = arg1[1];
+if(owner == 'Math' && !(owner in context.scope.defMap && owner in context.scope.varMap && owner in context.scope.paramMap)){
+if(typeof math[prop] == 'number'){
+return '('+math[prop]+')';
+}
+}
+}
+if(!/^[^(][\s\S]*\)$/.test(value1) && !/^(true|false|null|[\d\.]+)$/.test(value1)){
+return value1+'['+value2+']';
+}
+}
+}
+return "lite_op__get("+value1+','+value2+")"
+}
+
+function parseInvoke(el){
+var method = el[1];
+if(method[0] == OP_GET){
+var ownerEL = method[1];
+var propEL = method[2];
+if(ownerEL[0] == VALUE_VAR){
+var varName = ownerEL[1];
+}
+if(propEL[0] == VALUE_CONSTANTS){
+var prop = propEL[1];
+}
+return [varName||ownerEL,prop||propEL,el[2]];
+}else{
+if(method[0] == VALUE_VAR){
+var varName = method[1];
+}
+return [varName||method,null,el[2]]
+}
+}
+function stringifyPHPEL2ID(el,context,id){
+if(typeof el != 'string'){
+return stringifyPHPEL(el,context)
+}else if(id){
+return '$'+el;
+}
+return "'"+el+"'";
+}
+function stringifyINVOKE(el,context){
+var info = parseInvoke(el);
+var owner = info[0];
+var prop = info[1];
+var args = stringifyPHPEL(info[2],context);
+if(prop){
+if(typeof prop == 'string'){
+
+
+
+if(owner === 'Math'){
+var mp = /^(?:sin|sqrt|tan|cos|acos|asin|atan|atan2|max|min||floor|round|abs|ceil|exp|log|pow)$/;
+if(prop == 'random'){
+return '(rand(0, 0xFFFF)/0xFFFF)';
+}else if(mp.test(prop)){
+return args.replace('array',prop);
+}else{
+console.warn("Math 不支持方法:"+prop+";Math 支持的方法有:random|"+mp.source.replace(/[^\w\|]/g,''))
+}
+}else if(owner === 'JSON'){
+if(prop == "parse"){
+return args.replace('array','json_decode').slice(0,-1)+',true)';
+}else if(prop =='stringify'){
+return args.replace('array','json_encode');
+}else{
+console.warn("JSON 不支持方法:"+prop+";JSON 只支持:stringify和parse方法")
+}
+}else if(prop == 'reverse' && args == 'array()' && owner[0] == OP_INVOKE){
+var info2 = parseInvoke(owner);
+
+if(info2[1] == 'concat'){
+owner = info2[0];
+owner = stringifyPHPEL2ID(owner,context,true)
+args = stringifyPHPEL(info2[2],context);
+return "lite_op__invoke("+owner+",'concat_reverse',"+args+")"
+}
+}
+}
+owner = stringifyPHPEL2ID(owner,context,true)
+prop = stringifyPHPEL2ID(prop,context)
+return "lite_op__invoke("+owner+","+prop+","+args+")"
+
+}else if(typeof owner == 'string'){
+if((owner in GLOBAL_DEF_MAP || owner in context.scope.defMap)
+&& !(owner in context.scope.varMap || owner in context.scope.paramMap)){
+
+return args.replace('array',"lite__"+owner)
+}else{
+
+
+if(owner in context.scope.varMap || owner in context.scope.paramMap){
+var fn = '$'+owner;
+}else{
+var fn = "isset($"+owner+")?$"+owner+":'"+owner+"'";
+}
+return 'lite_op__invoke('+fn+',null,'+args+')';
+}
+}else{
+
+owner = stringifyPHPEL2ID(owner,context,true)
+
+return 'lite_op__invoke('+owner+',null,'+args+')';
+
+}
+}
+
+function stringifyInfix(el,context){
+var type = el[0];
+if(type == OP_ADD){
+return stringifyADD(el,context)
+}else if(type == OP_EQ){
+return stringifyEQ(el,context,'==')
+}else if(type == OP_NE){
+return stringifyEQ(el,context,'!=');
+}else if(type == OP_GET){
+return stringifyGET(el,context);
+}else if(type == OP_INVOKE){
+return stringifyINVOKE(el,context);
+}
+var opc = findTokenText(el[0]);
+var value1 = stringifyPHPEL(el[1],context);
+var value2 = stringifyPHPEL(el[2],context);
+switch(type){
+case OP_JOIN:
+if("array()"==value1){
+return "array("+value2+")"
+}else{
+return value1.slice(0,-1)+','+value2+")"
+}
+case OP_PUT:
+value2 = stringifyPHP(getTokenParam(el))+"=>"+value2+")";
+if("array()"==value1){
+return "array("+value2
+}else{
+return value1.slice(0,-1)+','+value2
+}
+case OP_QUESTION:
+
+
+
+
+
+return null;
+case OP_QUESTION_SELECT:
+
+var arg1 = el[1];
+var test = stringifyPHPEL(arg1[1],context);
+var value1 = stringifyPHPEL(arg1[2],context);
+
+return '('+php2jsBoolean(arg1[1],test)+'?'+value1+':'+value2+')'
+case OP_AND:
+if(isSimplePHPEL(value1)){
+return '('+php2jsBoolean(el[1],value1)+'?'+value2+':'+value1+')'
+}
+return '(('+php2jsBoolean(el[1],value1,VAR_LITE_EL_TEMP)+')?'+value2+':'+VAR_LITE_EL_TEMP+')'
+case OP_OR:
+if(isSimplePHPEL(value1)){
+return '('+php2jsBoolean(el[1],value1)+'?'+value1+':'+value2+')'
+}
+return '(('+php2jsBoolean(el[1],value1,VAR_LITE_EL_TEMP)+')?'+VAR_LITE_EL_TEMP+':'+value2 +')'
+}
+value1 = addELQute(el,el[1],value1)
+value2 = addELQute(el,el[2],null,value2)
+return value1 + opc + value2;
+}
+function stringifyPHP(value) {
+switch (typeof value) {
+case 'string':
+return '\'' + value.replace(/[\\']/g,"\\$&")+ '\'';
+case 'number':
+if(isNaN(value)){
+value = 'null';
+}
+return ''+value;
+case 'undefined':
+return 'null';
+case 'object':
+if (!value) {
+return 'null';
+}
+var buf = [];
+if (value instanceof Array) {
+var i = value.length;
+while (i--) {
+buf[i] = stringifyPHP(value[i]) || 'null';
+}
+return 'array(' + buf.join(',') + ')';
+}else if(value instanceof RegExp){
+return "array('class'=>'RegExp','source'=>'"+value.replace(/[\\']/g,"\\$&")+"')";
+}
+for (var k in value) {
+var v = stringifyPHP(value[k]);
+if (v) {
+buf.push(stringifyPHP(k) + '=>' + v);
+}
+}
+return 'array(' + buf.join(',') + ')';
+default:
+return String(value);
+}
+}
+
+function stringifyPrefix(el,context){
+var type = el[0];
+var el1 = el[1];
+var value2 = stringifyPHPEL(el1,context);
+var param = getTokenParam(el,context);
+if(type == OP_NOT){
+
+var rtv = php2jsBoolean(el1,value2);
+if(!isSimplePHPEL(rtv)){
+rtv = '('+rtv+')';
+}
+return '!'+rtv;
+}
+value2 = addELQute(el,el[1],null,value2)
+var opc = findTokenText(type);
+return opc+value2;
+}
+
+function php2jsBoolean(el,value,keepValue,context){
+if(!value){
+value = stringifyPHPEL(el,context);
+}
+var op = el[0];
+if(op<=0){
+switch(op){
+case VALUE_CONSTANTS:
+if(keepValue){
+if(el[1]){
+return '(('+keepValue+'='+value+')||true)';
+}else{
+return '(('+keepValue+'='+value+')&&false)';
+}
+
+
+
+
+
+
+}else{
+return !!el[1]+'';
+}
+case VALUE_VAR:
+break;
+case VALUE_LIST:
+case VALUE_MAP:
+default:
+if(keepValue){
+return '(('+keepValue+'='+value+')||true)'
+}else{
+return 'true';
+}
+}
+}
+
+
+
+
+
+
+
+var type = getELType(el);
+if(!((type & TYPE_STRING)||(type & TYPE_ARRAY)||(type & TYPE_MAP))){
+if(!keepValue){
+return value;
+}else{
+return '('+keepValue +'='+value+')';
+}
+}
+if(isSimplePHPEL(value) && !keepValue){
+var rtv = value;
+keepValue = value;
+}else{
+keepValue = keepValue || VAR_LITE_EL_TEMP;
+var rtv = "("+keepValue +"="+ value+")"
+}
+if((type & TYPE_ARRAY)||(type & TYPE_MAP)){
+rtv+=' || 0 < '+keepValue;
+}
+if((type & TYPE_STRING)){
+rtv+=" || '0' ==="+keepValue;
+}
+return '('+rtv+')'
+}
+function isSimplePHPEL(value){
+return value.match(/^([\w_\$]+|[\d\.]+)$/)
+}
+
+function getELPriority(el) {
+return getPriority(el[0]);
+}
+if(typeof require == 'function'){
+exports.stringifyPHPEL=stringifyPHPEL;
+exports.stringifyPHP=stringifyPHP;
+exports.php2jsBoolean=php2jsBoolean;
+exports.isSimplePHPEL=isSimplePHPEL;
+var getTokenParam=require(18).getTokenParam;
+var getTokenParamIndex=require(18).getTokenParamIndex;
+var findTokenText=require(18).findTokenText;
+var getELType=require(18).getELType;
+var addELQute=require(18).addELQute;
+var OP_ADD=require(18).OP_ADD;
+var OP_AND=require(18).OP_AND;
+var OP_EQ=require(18).OP_EQ;
+var OP_GET=require(18).OP_GET;
+var OP_IN=require(18).OP_IN;
+var OP_INVOKE=require(18).OP_INVOKE;
+var OP_JOIN=require(18).OP_JOIN;
+var OP_NE=require(18).OP_NE;
+var OP_NOT=require(18).OP_NOT;
+var OP_OR=require(18).OP_OR;
+var OP_PUT=require(18).OP_PUT;
+var OP_QUESTION=require(18).OP_QUESTION;
+var OP_QUESTION_SELECT=require(18).OP_QUESTION_SELECT;
+var TYPE_ANY=require(18).TYPE_ANY;
+var TYPE_ARRAY=require(18).TYPE_ARRAY;
+var TYPE_BOOLEAN=require(18).TYPE_BOOLEAN;
+var TYPE_MAP=require(18).TYPE_MAP;
+var TYPE_NULL=require(18).TYPE_NULL;
+var TYPE_NUMBER=require(18).TYPE_NUMBER;
+var TYPE_STRING=require(18).TYPE_STRING;
+var VALUE_CONSTANTS=require(18).VALUE_CONSTANTS;
+var VALUE_LIST=require(18).VALUE_LIST;
+var VALUE_MAP=require(18).VALUE_MAP;
+var VALUE_VAR=require(18).VALUE_VAR;
+var getPriority=require(35).getPriority;
+var GLOBAL_DEF_MAP=require(1).GLOBAL_DEF_MAP;
+}
+}
 ,
-function(o,e,r){console.log("read module err!!!fs\nError: ENOENT: no such file or directory, open 'fs'")}
+function(exports,require){var findXMLAttribute=require(8).findXMLAttribute;
+exports.interceptI18n =processI18N;
+exports.parseI18n =processI18N;
+exports.i18nHash = i18nHash;
+function processI18N(node){
+if (node.nodeType == 2) {
+var el = node.ownerElement;
+el.removeAttribute(node.name);
+this.next(el);
+}else if (node.nodeType == 1){
+this.parse(node.childNodes);
+}
+}
+function processI18N2(node){
+var i18nKey = findXMLAttribute(node,'i18n');
+var uri = this.currentURI;
+var path = uri.scheme == 'lite'? uri.path: String(uri);
+if(node.nodeType == 1){
+var begin = this.mark();
+_parseChild(this,node);
+var content = this.reset(begin);
+i18nKey = i18nHash(path,i18nKey,node.textContent);
+
+this.parse("${I18N."+i18nKey+"}");
+}else{
+var el = node.ownerElement;
+var node2 = el.cloneNode(true)||el;
+var begin = this.mark();
+this.parse(el.textContent);
+var content = this.reset(begin);
+i18nKey = i18nHash(path,i18nKey,el.textContent);
+node2.textContent = "${I18N."+i18nKey+"}";
+node2.removeAttribute(node.name);
+node2.setAttribute('data-i18n-key',i18nKey)
+this.next(node2);
+}
+addI18NData(this,i18nKey,content);
+}
+function seekI18N(text){
+}
+
+function parsePHP(node){
+var value = node.textContent || node.text;
+this.appendPlugin(PLUGIN_NATIVE,'{"type":"php"}');
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function parseJS(node){
+var value = node.textContent || node.text;
+this.appendPlugin(PLUGIN_NATIVE,'{"type":"js"}');
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function addI18NData(context,i18nKey,content){
+if(typeof content != 'string' && content.length == 1){
+content = content[0];
+}
+var i18nSource = context.getAttribute("#i18n-source");
+var i18nObject = context.getAttribute("#i18n-object");
+if(!i18nObject){
+i18nObject = {};
+context.setAttribute("#i18n-object",i18nObject);
+}
+if(i18nKey in i18nObject){
+i18nObject[i18nKey] = content;
+i18nSource = JSON.stringify(i18nObject)
+}else{
+if(i18nSource){
+i18nSource = i18nSource.slice(0,-1)+',';
+}else{
+i18nSource = '{';
+}
+i18nSource = i18nSource + '"'+i18nKey+'":' +JSON.stringify(content)+'}';
+}
+context.setAttribute("#i18n-data",i18nSource);
+}
+function i18nHash(path,i18nKey,text){
+path = path.replace(/[^\w]|_/g,function(c){
+return '_'+numberToString(100+c.charCodeAt(),62).slice(-2)
+});
+if(!i18nKey){
+i18nKey = 0;
+text = text.replace(/[^\s]/,function(c){
+i18nKey = i18nKey + (i18nKey & 2) + c.charCodeAt();
+})
+i18nKey = numberToString(i18nKey,62)
+}
+return path +'__'+ i18nKey;
+}
+var b64codes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.split('');
+function numberToString(value,radix){
+var buf = [];
+while(value>0){
+var m = value%radix;
+buf.push(b64codes[m]);
+value = (value-m)/radix;
+}
+return buf.reverse().join('')
+}
+}
 ,
-function(r,n){function e(r,n){var e=[],i=[n,r,e];if(c(n,function(r,n){var t=r[n],a=t[2],o=a["class"];try{var s=t[1],l=new d[o](a,s,i);e.push([l,t])}catch(f){console.warn("ParsePlugin initialize failed:"+a,f)}return n}),e.length){for(var t=0,a=e.length;a>t;t++)e[t][0].before();c(n,function(r,n){for(var i=r[n],t=0,a=e.length;a>t;t++)if(e[t][1]==i){var o=e[t][0];break}return null!=o&&o.optimize(),n},null),c(n,function(r,n){var e=r[n],i=e[2],t=i["class"];if(t in d){var a=e[1],o=[n,1].concat(a);r.splice.apply(r,o),n--,n+=a.length}return n})}var o=[];for(var s in r)o.push(r[s]);return o.concat(n)}function i(r,n){for(var e in n)e in r||delete n[e];for(var i=n;;){var t={};for(var a in i){var o=r[a];for(var s in o)!(s in r)||s in n||s in t||(t[s]=1)}var l=!1;for(var a in t)l=!0,n[a]=1;if(!l)return;i=t}}function t(r,n,e){this.name=r.name,this.params=r.params,this.defaults=r.defaults,this.children=n,this.context=e,this.inc=v++}function a(r){var n=r[-1];return n||(n=new g(r[1],r[2].params),r[-1]=n),n}function o(r,n){for(var e in r)n[e]=r[e]}function s(r,n){for(var e in r)delete n[e]}function l(r){var n=a(r),e={};return o(n.callMap,e),o(n.externalRefMap,e),s(n.varMap,e),s(n.paramMap,e),delete e["*"],e}function f(r,n,e){var a=[],o=[],s={},f=[];c(r,function(r,n,i){for(var u=r[n],c=e.length;c--;){var p=e[c];if(p[1]==u&&p[0]instanceof t){var h=e[c][0];a.push(i),f.push(h),o.push(u),h.name&&(s[h.name]=l(e[c][1]));break}}return n},[]);var u={};for(var p in s)u[p]=s[p];for(var p in n)p in u||(u[p]=l(n[p]));for(var h=0,v=a.length;v>h;h++){var d=f[h],g=a[h],m=l(o[h]);i(u,m);for(var p in m)p in s&&delete m[p];for(var P=!0,E=0;h>E;E++)if(0==g.indexOf(a[E])){var y=f[E].optimizedCall;P=!1;for(var p in y)delete m[p]}d.first=P,d.optimizedCall=m}}function u(r,n,e){this.id=r.id,this.context=e,this.children=n}function c(r,n,e){for(var i=0;i<r.length;i++){var t=r[i];if(t instanceof Array){var a=t,o=a[0];switch(o){case m:var s=a[2],l=s["class"];if(d[l]){var f=n(r,i,e&&String.fromCharCode.apply(null,e));if(-1==f)return!0;i=f}case P:case T:case y:case _:try{if(e&&e.push(o,i+32),c(a[1],n,e))return!0}finally{e&&(e.pop(),e.pop())}}}}return!1}function p(r){for(var n,e=[],i=0,t=0;i<r.length;i++){var a=r[i];"string"==typeof a?null==n?n=a:n+=a:(n&&(e[t++]=n),n=null,e[t++]=a)}return n&&(e[t]=n),e}function h(r,n){var e=[],i=[];e.push(i);try{for(var t=0;t<r.length;t++){var a=r[t];if("string"==typeof a)i.push(a);else if(0==a.length){var o=e.pop();i=e[e.length-1];var s=i.pop();if(s[1]=o,s[0]==m){var l=s[2];if("org.xidea.lite.DefinePlugin"==l["class"]){var f=l.name;f in n&&JSON.stringify(s)!=JSON.stringify(n[f])&&console.warn("def "+f+" is found before"),n[f]=s}else i.push(s)}else i.push(s)}else{var u=a[0],c=[];switch(c.push(a[0]),i.push(c),u){case P:case T:case y:case m:case _:c.push(null),e.push(i=[])}for(var p=1;p<a.length;p++)c.push(a[p])}}}catch(h){console.error("中间代码异常：",r)}return i}var v=1;t.prototype={before:function(){},optimize:function(){null==this.optimizedCall&&f.apply(this,this.context);var r=this.context[1],n=[];for(var e in this.optimizedCall)r[e]?n.push(r[e]):console.error("Defined function not found:"+e);var i=new E,n=i.translate(n.concat(this.children),{name:this.name,params:this.params,defaults:this.defaults});this.children.length=0,this.children.push(n)}},u.prototype={before:function(){var r=[],n=this.id;for(c(this.context[0],function(e,i,t){var a=e[i],o=a[2];return n==o.targetId&&r.push(e,i),i});r.length;){var e=r.pop(),i=r.pop(),t=i.splice(e,1);this.children.push(t[0])}},optimize:function(){}};var d={"org.xidea.lite.parse.ClientPlugin":t,"org.xidea.lite.parse.ResourcePlugin":u};if("function"==typeof n){r.doOptimize=e,r.optimizeResult=p,r.buildTreeResult=h,r.PLUGIN_TYPE_MAP=d;var g=n(27).OptimizeScope,m=(n(13).PLUGIN_DEFINE,n(13).PLUGIN_TYPE),P=n(13).CAPTURE_TYPE,E=(n(13).VAR_TYPE,n(1).JSTranslator),y=(n(13).PLUGIN_DEFINE,n(13).VAR_TYPE,n(13).ELSE_TYPE),m=n(13).PLUGIN_TYPE,P=n(13).CAPTURE_TYPE,T=n(13).IF_TYPE,_=n(13).FOR_TYPE}}
+function(exports,require){
+function doOptimize(defMap,templateList){
+var pluginObjectList = [];
+var optimizeContext = [templateList,defMap,pluginObjectList];
+optimizePluginWalk(templateList, function(parentNode, index) {
+var cmd = parentNode[index];
+var config = cmd[2];
+var className = config["class"];
+try {
+var children =cmd[1];
+var plugin = new PLUGIN_TYPE_MAP[className](config, children, optimizeContext);
+pluginObjectList.push([plugin,cmd]);
+
+
+} catch (e) {
+console.warn("ParsePlugin initialize failed:" + config, e);
+}
+return index;
+});
+if(pluginObjectList.length){
+for (var i=0,l=pluginObjectList.length;i<l;i++) {
+pluginObjectList[i][0].before();
+}
+
+optimizePluginWalk(templateList, function( parentNode, index) {
+var cmd = parentNode[index];
+for (var i=0,l=pluginObjectList.length;i<l;i++) {
+if(pluginObjectList[i][1] == cmd){
+var p = pluginObjectList[i][0];
+break;
+}
+}
+if (p != null) {
+p.optimize();
+}
+return index;
+},null);
+optimizePluginWalk(templateList, function( parentNode, index) {
+var cmd = parentNode[index];
+var config = cmd[2];
+var className = config["class"];
+if(className in PLUGIN_TYPE_MAP){
+var children = cmd[1];
+var args = [index,1].concat(children);
+parentNode.splice.apply(parentNode,args);
+index--;
+index += children.length;
+}
+return index;
+});
+}
+var result = [];
+for(var n in defMap){
+result.push(defMap[n]);
+}
+return result.concat(templateList);
+}
+
+function optimizeCallClosure(callMap,
+closure) {
+for(var n in closure){
+if(!(n in callMap)){
+delete closure[n]
+}
+}
+var waitMap = closure;
+while (true) {
+var newClosure = {};
+for (var fn in waitMap) {
+var called = callMap[fn];
+for (var fn2 in called) {
+if ((fn2 in callMap)
+&& !(fn2 in closure) && !(fn2 in newClosure)) {
+newClosure[fn2]=1;
+}
+}
+}
+var hit = false;
+for(var fn in newClosure){
+hit = true;
+closure[fn] = 1;
+}
+if (hit) {
+waitMap = newClosure;
+} else {
+return;
+}
+}
+}
+var inc = 1;
+function ClientPlugin(config, children, optimizeContext){
+this.name = config.name;
+this.params = config.params;
+this.defaults = config.defaults;
+this.children = children;
+this.context = optimizeContext;
+this.inc = inc++;
+}
+ClientPlugin.prototype = {
+before:function(){
+},
+optimize:function(){
+
+if(this.optimizedCall == null){
+optimizeAllClient.apply(this,this.context);
+}
+var defMap = this.context[1]
+var result = [];
+for(var n in this.optimizedCall){
+if(defMap[n]){
+result.push(defMap[n]);
+}else{
+console.error("Defined function not found:"+n)
+}
+}
+
+
+
+
+var jst = new JSTranslator();
+var result = jst.translate(result.concat(this.children),{name:this.name,params:this.params,defaults:this.defaults});
+this.children.length = 0;
+this.children.push(result);
+}
+}
+function getDefScope(data){
+var scope = data[-1];
+if(!scope){
+scope = new OptimizeScope(data[1],data[2].params);
+data[-1] = scope;
+}
+return scope;
+}
+function copy(source,target){
+for(var n in source){
+target[n] = source[n];
+}
+}
+function remove(source,target){
+for(var n in source){
+delete target[n];
+}
+}
+function getDefCall(data){
+var scope = getDefScope(data);
+var callMap = {}
+copy(scope.callMap,callMap);
+
+
+
+
+copy(scope.externalRefMap,callMap);
+remove(scope.varMap,callMap);
+remove(scope.paramMap,callMap);
+delete callMap['*'];
+return callMap
+}
+function optimizeAllClient(templateList,defMap,pluginObjectList){
+var positionList = [];
+var cmdList = [];
+var namedClientCallMap = {};
+var pluginList = [];
+var dataList = [];
+optimizePluginWalk(templateList, function( parentNode, index, post32) {
+var cmd = parentNode[index];
+for(var i = pluginObjectList.length;i--;){
+var po = pluginObjectList[i];
+if(po[1] == cmd && po[0] instanceof ClientPlugin){
+var p = pluginObjectList[i][0];
+positionList.push(post32);
+pluginList.push(p);
+cmdList.push(cmd);
+if(p.name){
+namedClientCallMap[p.name] = getDefCall(pluginObjectList[i][1]);
+}
+break;
+}
+}
+return index;
+},[]);
+var callMap = {};
+for(var n in namedClientCallMap){
+callMap[n] = namedClientCallMap[n];
+}
+for(var n in defMap){
+if(!(n in callMap)){
+callMap[n] = getDefCall(defMap[n]);
+}
+}
+for (var i = 0, end = positionList.length; i < end; i++) {
+var plugin = pluginList[i];
+var position = positionList[i];
+var optimizedCall = getDefCall(cmdList[i]);
+optimizeCallClosure(callMap, optimizedCall);
+for(var n in optimizedCall){
+if(n in namedClientCallMap){
+delete optimizedCall[n];
+}
+}
+var isFirst = true;
+for (var j = 0; j < i; j++) {
+if (position.indexOf(positionList[j]) ==0) {
+var removeMap = pluginList[j].optimizedCall;
+isFirst = false;
+for(var n in removeMap){
+delete optimizedCall[n];
+}
+}
+}
+plugin.first = isFirst;
+plugin.optimizedCall = optimizedCall;
+}
+}
+function ResourcePlugin(config, children, optimizeContext){
+this.id = config.id;
+this.context = optimizeContext;
+this.children = children;
+}
+ResourcePlugin.prototype = {
+before:function(){
+var remove = [];
+var id = this.id;
+optimizePluginWalk(this.context[0],function(parentNode, index, position) {
+var cmd = parentNode[index];
+var config = cmd[2];
+if (id == config.targetId) {
+remove.push(parentNode,index)
+}
+return index;
+});
+while(remove.length){
+var index = remove.pop();
+var parentNode = remove.pop();
+var cmds = parentNode.splice(index,1);
+this.children.push(cmds[0]);
+}
+},
+optimize:function(){
+}
+}
+var PLUGIN_TYPE_MAP = {
+
+"org.xidea.lite.parse.ClientPlugin":ClientPlugin,
+"org.xidea.lite.parse.ResourcePlugin":ResourcePlugin
+}
+
+function optimizePluginWalk(source,callback,position){
+for (var i = 0; i < source.length; i++) {
+var item = source[i];
+if (item instanceof Array) {
+var cmd = item;
+var type = cmd[0];
+switch (type) {
+case PLUGIN_TYPE:
+var config = cmd[2];
+var className = config["class"];
+if (PLUGIN_TYPE_MAP[className]) {
+var j = callback(source, i, position && String.fromCharCode.apply(null,position));
+if (j == -1) {
+return true;
+} else {
+i = j;
+}
+}
+case CAPTURE_TYPE:
+case IF_TYPE:
+case ELSE_TYPE:
+case FOR_TYPE:
+try{
+if (position) {
+position.push(type,i+32);
+}
+if(optimizePluginWalk(cmd[1], callback, position)){
+return true;
+}
+}finally{
+if (position) {
+position.pop();position.pop();
+}
+}
+}
+}
+}
+return false;
+}
+
+function optimizeResult(source){
+var result = [];
+var previousText;
+for(var i=0,j=0;i<source.length;i++){
+var item = source[i];
+if ('string' == typeof item) {
+if(previousText==null){
+previousText = item;
+}else{
+previousText += item;
+}
+}else{
+if(previousText){
+result[j++] = previousText;
+}
+previousText = null;
+result[j++] = item;
+}
+}
+if(previousText){
+result[j] = previousText;
+}
+return result;
+}
+
+function buildTreeResult(result,defMap){
+var stack = [];
+var current = [];
+stack.push(current);
+try{
+for (var i = 0;i<result.length;i++) {
+var item = result[i];
+if ('string' == typeof item) {
+current.push(item);
+} else {
+if (item.length == 0) {
+var children = stack.pop();
+current = stack[stack.length-1];
+var parentNode = current.pop();
+parentNode[1]=children;
+if(parentNode[0] == PLUGIN_TYPE){
+var config = parentNode[2];
+if(config['class']== 'org.xidea.lite.DefinePlugin'){
+var name_ = config.name;
+if(name_ in defMap){
+if(JSON.stringify(parentNode) != JSON.stringify(defMap[name_])){
+console.warn("def "+name_+" is found before");
+}
+}
+defMap[name_]=parentNode;
+}else{
+current.push(parentNode);
+}
+}else{
+current.push(parentNode);
+}
+} else {
+var type = item[0];
+var cmd2 =[];
+cmd2.push(item[0]);
+current.push(cmd2);
+switch (type) {
+case CAPTURE_TYPE:
+case IF_TYPE:
+case ELSE_TYPE:
+case PLUGIN_TYPE:
+case FOR_TYPE:
+cmd2.push(null);
+stack.push(current = []);
+}
+for (var j = 1; j < item.length; j++) {
+cmd2.push(item[j]);
+}
+}
+}
+}
+}catch(e){
+console.error("中间代码异常：",result);
+}
+return current;
+
+}
+if(typeof require == 'function'){
+
+exports.doOptimize=doOptimize;
+exports.optimizeResult=optimizeResult;
+exports.buildTreeResult=buildTreeResult;
+exports.PLUGIN_TYPE_MAP=PLUGIN_TYPE_MAP;
+var OptimizeScope=require(30).OptimizeScope;
+var PLUGIN_DEFINE=require(14).PLUGIN_DEFINE;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var CAPTURE_TYPE=require(14).CAPTURE_TYPE;
+var VAR_TYPE=require(14).VAR_TYPE;
+var JSTranslator=require(1).JSTranslator;
+var PLUGIN_DEFINE=require(14).PLUGIN_DEFINE;
+var VAR_TYPE=require(14).VAR_TYPE;
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var CAPTURE_TYPE=require(14).CAPTURE_TYPE;
+var IF_TYPE=require(14).IF_TYPE;
+var FOR_TYPE=require(14).FOR_TYPE;
+}
+}
 ,
-function(e,t,r){function n(e){var t=G(e,"*test","value");this.appendIf(t),C(this,e),this.appendEnd()}function i(e){var t=V(e,0);return t>0?(this.appendIf(e.substring(1,t)),t):void 0}function s(e){var t=G(e,"test","value");this.appendElse(t||null),C(this,e),this.appendEnd()}function a(e){if("$"==e.charAt())return this.appendEnd(),this.appendElse(null),0;var t=V(e);return t>0?(this.appendEnd(),this.appendElse(e.substring(1,t)||null),t):void 0}function l(e){var t=G(e,"*test","value");this.appendElse(t||null),C(this,e),this.appendEnd()}function u(e){var t=V(e);return t>0?(this.appendEnd(),this.appendElse(e.substring(1,t)||null),t):void 0}function o(e){var t=G(e,"value","test"),r=this.getAttribute(J);this.setAttribute(J,{value:t,first:!0}),C(this,e,!0),this.setAttribute(J,r)}function p(e){var t=this.getAttribute(J),r=G(e,"*test","if","value");t.value&&(r="("+t.value+")==("+r+")"),t.first?(t.first=!1,this.appendIf(r)):this.appendElse(r),C(this,e),this.appendEnd()}function c(e){this.appendElse(null),C(this,e),this.appendEnd()}function h(e){if(1==e.nodeType)var t=G(e,"*list","values","items","value"),r=q(e,"*var","name","id","item"),n=q(e,"status");else{var t=q(e),i=t.replace(/^\$\{(.+)\}$/,"$1").match(Y);if(!i)throw console.error("非法 for 循环信息",t);var r=i[1],n=i[2],t=i[3]}v(this,r,t,n||null),C(this,e),this.appendEnd()}function d(e){var t=V(e);if(t>0){var r=e.substring(1,t),n=r.match(Y);if(!n)throw console.error("非法 for 循环信息",r);var i=n[1],s=n[2],r=n[3];return v(this,i,r,s||null),t}}function f(e){try{return new Function("return "+e.replace(/\.\./g,".%%.")),[e]}catch(t){for(var r=0;;){if(r=e.indexOf("..",r+1),!(r>0))return[];try{var n=e.substring(0,r),i=e.substring(r+2);new Function("return "+n+"-"+i);var s=n.replace(/^\s*\[/,"");if(s!=n)try{new Function("return "+n),s=n}catch(t){}return s!=n?(i=i.replace(/\]\s*$/,""),console.debug("[start,last] 语法 不是通用表达式，只能在for循环中使用。",e),[s,i]):(console.warn("range for 表达式(非通用表达式)推荐模式为：[start,last]，您提供的表达式为"+e),[n,i])}catch(t){}}}}function v(e,t,r,n){var i=f(r);if(2==i.length){var s=i[0],a=i[1];r="Math.abs("+s+"-"+a+")+1",e.appendFor(t,r,n||null),e.appendVar(t,t+"+"+s+"-1")}else 1==i.length?e.appendFor(t,r,n):console.error("for表达式无效："+r)}function g(e){var t=q(e,"*name","id");if(1==e.nodeType){var r=q(e,"value");if(r){var n=this.parseText(r,0);1==n.length?(n=n[0],n instanceof Array?this.appendVar(t,n[1]):(console.warn("标签:"+e.tagName+"的value属性"+r+"建议设置为表达式，您的输入没有表达式，系统自动按静态文本处理"),this.appendVar(t,JSON.stringify(n)))):(this.appendCapture(t),this.appendAll(n),this.appendEnd())}else this.appendCapture(t),C(this,e),this.appendEnd()}else{var i=z(t);if(i){for(var s in i)this.appendVar(s,i[s]);C(this,e)}else this.appendCapture(t),C(this,e),this.appendEnd()}}function m(e){var t=V(e);if(t>0){var r=e.substring(1,t);if(/^\s*(?:\w+|['"][^"]+['"])\s*$/.test(r))this.appendCapture(r.replace(/['"]/g,""));else{var n=z(r);for(var i in n)this.appendVar(i,n[i])}return t}}function b(e){var t=q(e,"value","#text");t=this.parseText(t,K),this.appendAll(t)}function E(e){var t=V(e);if(t>0){var r=e.substring(1,t);return this.appendEL(r),t}}function w(e){var t=e,r=t.indexOf("("),n=[],i=[];if(r>0){var s=t.substring(r+1);for(s=s.replace(/^\s+|\)\s*$/g,""),t=y(t.substring(0,r)),r=0;s;){if(r=s.indexOf(",",r),r>0){var a=s.substring(0,r);try{new Function(a),s=s.substring(r+1).replace(/^\s+|\s+$/g,""),r=0}catch(l){r++;continue}}else{a=s,s=null;try{new Function(a)}catch(l){throw console.error("函数定义中参数表语法错误:"+a+e,l),l}}var u=a.indexOf("=",r);if(u>0)i.push(y(a.substring(0,u))),n.push(JSON.parse(a.substring(u+1)));else{if(n.length){var o="函数定义中参数表语法错误:默认参数值能出现在参数表最后:"+e;throw console.error(o),new Error(o)}i.push(y(a))}}return{name:t,params:i,defaults:n}}return{name:t}}function y(e){e=e.replace(/^\s+|\s+$/g,"");try{new Function("return "+e)}catch(t){throw console.error("无效id:"+e,t),t}return e}function I(e){var t=q(e,"*name"),r=w(t);this.appendPlugin(j,JSON.stringify(r)),C(this,e),this.appendEnd()}function x(e){var t=V(e);if(t>0){var r=e.substring(1,t),n=w(r);return this.appendPlugin(j,JSON.stringify(n)),t}}function R(e){var t=V(e);if(t>0){var r=e.substring(1,t),n=w(r);return this.appendPlugin("org.xidea.lite.parse.ClientPlugin",JSON.stringify(n)),t}}function U(e){var t=q(e,"*name","id"),r=w(t);this.append("<script>//<![CDATA[\n"),this.appendPlugin("org.xidea.lite.parse.ClientPlugin",JSON.stringify(r)),C(this,e),this.appendEnd(),this.append("//]]></script>")}function A(e){var t=G(e,"value","date","time","#text").replace(/^\s+|\s+$/g,"")||"null",r=q(e,"pattern");if(r){var n=r.replace(/^\s*\$\{([\s\S]+)\}\s*$/,"$1");n==r&&(n=JSON.stringify(r))}else n='"YYYY-MM-DD"';this.appendPlugin("org.xidea.lite.DatePlugin","{}"),this.appendEL(n),this.appendEL(t),this.appendEnd()}function N(e){var t=e.value.match(/^([^#]*)(?:#(.*))?$/),r=t[1],n=t[2];if(r){var i=r.replace(/^[\$#]([\w\$_]+)$/,"$$$1");if("$"==i.charAt())a=this.getAttribute(i);else var s=this.createURI(r),a=this.loadXML(s)}else var a=e.ownerDocument;if(null==a)this.append("<strong style='color:red'>没找到包含节点："+this.currentURI+e.value+"</strong>");else{for(var l=Q(a,n),u=e.ownerElement||e.selectSingleNode(".."),o=l.length;o--;){var p=l.item(o);$(u,p)}this.process(u)}}function $(e,t){if(2==t.nodeType){var r=e.getAttributeNS(t.namespaceURI,t.name);e.setAttributeNS(t.namespaceURI,t.name,r+t.value)}else if(1==t.nodeType)for(var n=t.attributes,i=0;i<n.length;i++)$(e,n.item(i))}function S(e,t){t.nodeType||t.length&&(t=t.item(0));var r=9==t.nodeType?t:t.ownerDocument;if(r){var n=r.documentURI;if(/^lite:\//.test(n))e.setCurrentURI(e.createURI(n));else if(n){var i=B(r.documentElement),s=i&&i.indexOf("|@");s>0&&(n=i.substring(s+2)),e.setCurrentURI(e.createURI(n))}}}function T(e){var r=q(e,"path"),n=q(e,"xpath"),i=q(e,"selector"),s=this.currentURI;try{if(null!=r)if("#"==r.charAt()&&(console.warn("装饰器命名节点改用${pageName}模式了:(,您实用的模式还是:"+r),r="$"+r.substring(1)),"$"==r.charAt())l=this.getAttribute(r),S(this,e);else{var a=this.createURI(r),l=this.loadXML(a);this.setCurrentURI(a)}else var l=this.loadXML(this.currentURI),l=e.ownerDocument;if(null==l)this.append("<strong style='color:red'>没找到包含节点："+this.currentURI+e.value+"</strong>");else{if(null!=i){try{var u=t(33),o=u({document:l});o.configure({USE_QSAPI:!1,VERBOSITY:!0})}catch(p){console.warn("module nwmatcher is required  for css selector!\n  npm install nwmatcher",p);var u=t(35),o=u({document:l});o.configure({USE_QSAPI:!1,VERBOSITY:!0})}if(u){var c=o.select(i,l);if(c&&c.length)for(var h=0;h<c.length;h++)this.parse(c[h]);else console.warn("empty selection:"+i);return}}else if(null!=n){l=Q(l,n)}this.parse(l)}}finally{this.setCurrentURI(s)}}function L(e){var t=this.getAttribute("#extends"),r=1==e.nodeType?e:e.ownerElement||e.selectSingleNode(".."),n=r==r.ownerDocument.documentElement,i={blockMap:{},parse:!1,root:n};if(t){if(!t.parse)return;n?(i.root,i=t,i.parse=!1):i.root=!1}this.setAttribute("#extends",i);var s=q(e,"*path","value","parent"),a=this.createURI(s),l=this.loadXML(a);n||(l=l.documentElement);var u=this.mark();C(this,e),this.reset(u);var s=this.currentURI;try{this.setCurrentURI(a),i.parse=!0,this.parse(l)}finally{this.setCurrentURI(s)}this.setAttribute("#extends",t)}function P(e){var t=this.getAttribute("#extends"),r=q(e,"name","id");if(t){var n=t.blockMap,i=r&&r in n&&n[r];if(t.parse)if(i){var s=this.currentURI;try{S(this,i),t.parse=!0,_(this,i)}finally{this.setCurrentURI(s)}}else _(this,e);else i||(n[r]=e)}else _(this,e)}function _(e,t){var r=M(e),n={},i=t.attributes,s="div",a=t.nodeName;i||(i=t.ownerElement.attributes,s=t.ownerElement.nodeName);for(var l=0,u=i.length;u>l;l++){var o=i.item(l),p=o.name;p.match(/\:|^id$/i)||(n[p]=o.value)}if(a.match(/lazy/i)){e.append("<",s,' id="__lazy_module_',r,'__"');for(var p in n)e.append(" ",p,'="',n[p],'"');e.append(">"),n.id=r,e.appendPlugin(O,JSON.stringify(n)),C(e,t),e.appendEnd(),e.append("</",s,">")}else C(e,t)}function C(e,t,r){if(1==t.nodeType){var n=t.firstChild;if(r)for(;n;)(3!=n.nodeType||String(n.data).replace(/\s+/g,""))&&e.parse(n),n=n.nextSibling;else for(;n;)e.parse(n),n=n.nextSibling}else if(2==t.nodeType){var i=t.ownerElement||t.selectSingleNode("..");i.removeAttributeNode(t),e.parse(i)}else e.parse(t)}function M(e){var t=e.__increaceID||0;return e.__increaceID=++t}function X(e,t){for(var r in e)D[r+t]=e[r]}function k(e,t){for(var r=arguments.length;--r>1;){var n={parse:e,before:e};t&&(n.seek=t),X(n,arguments[r])}}var O="org.xidea.lite.ModulePlugin",D={xmlns:function(){},seek:function(e){var t=V(e,0);if(!(t>0))return console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",text:"+e+"]"),-1;try{var r=e.substring(1,t),n=this.parseEL(r);switch(this.textType){case W:this.appendXT(n);break;case H:this.appendXA(null,n);break;default:this.appendEL(n)}return t}catch(i){return console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]",i),-1}},"seek!":function(e){var t=V(e,0);if(!(t>0))return console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]"),-1;try{var r=e.substring(1,t);return this.appendEL(r),t}catch(n){return console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]",n),-1}},"seek#":function(e){var t=V(e,0);if(!(t>0))return console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]"),-1;try{var r=e.substring(1,t);return this.appendPlugin("org.xidea.lite.EncodePlugin","{}"),this.appendEL(r),this.appendEnd(),t}catch(n){return console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]",n),-1}},seekxa:function(e){var t=V(e,0);if(!(t>0))return console.warn("XML属性表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]"),-1;try{var r=e.substring(1,t);if(/^\s*([\w\-]+|"[^"]+"|'[^']+')\s*\:/.test(r)){var n=z(r);for(var i in n)this.appendXA(i,n[i])}else this.appendXA(null,r);return t}catch(s){return console.error("XML属性表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]",s),-1}},seekxt:function(e){var t=V(e,0);if(!(t>0))return console.warn("XML文本表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]"),-1;try{var r=e.substring(1,t);return this.appendXT(r),t}catch(n){return console.error("XML文本表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+r+"]",n),-1}},seekEnd:function(e){return this.appendEnd(),0},parseExtension:function(e){var t=q(e,"*namespace","ns"),r=q(e,"file"),n=q(e,"package");if(n)i=n;else if(r)var i=this.loadText(this.createURI(r))+"\n";else var i=q(e,"#text")+"\n";this.addExtension(t,i)},parse9:function(e,t){var r=this.getAttribute(F);if(!r){this.setAttribute(F,!0);var n=e.documentElement,i=n.localName||n.nodeName.replace(/^w+\:/,"");if(("extends"==i||"extend"==i)&&n.namespaceURI==t)return void L.call(this,n);try{var s=n.getAttributeNodeNS(t,"extends")||n.getAttributeNodeNS(t,"extend")}catch(a){for(var l=n.attributes,u=l.length-1;u-- >0;){var o=l.item(u);if(o.namespaceURI==t&&/^(?:w+\:)?extends?$/.test(o.nodeName)){s=o;break}}}if(null!=s)return void L.call(this,s);var p=this.configMap.layout;if(p){this.setAttribute("$page",e);var c=this.createURI(p);return void this.parse(c)}}this.next(e)},parseComment:function(){}},F="http://www.xidea.org/lite/core/c:layout-processed",J="http://www.xidea.org/lite/core/c:choose@value",Y=/\s*([\$\w_]+)\s*(?:,\s*([\w\$_]+))?\s*(?:\:|in)([\s\S]*)/;if(D.parseDateFormat=A,D.parseDate=A,D.parseTime=A,k(n,i,"if"),k(s,a,"else"),k(l,u,"elseif","elif"),k(h,d,"for","foreach"),k(g,m,"var","set"),k(b,E,"out"),k(I,x,"def","macro"),k(U,R,"client"),k(o,null,"choose"),k(p,null,"when"),k(c,null,"otherwise"),k(L,null,"extends","extend"),k(P,null,"module","lazy-module","lazy-block","block","group"),X({parse:T,before:N},"include"),t(19).setup(D),"function"==typeof t){e.Core=D,e.parseChildRemoveAttr=C;var V=t(34).findELEnd,z=t(34).findLiteParamMap,B=t(7).getLiteTagInfo,Q=t(7).selectByXPath,q=t(7).findXMLAttribute,G=t(7).findXMLAttributeAsEL,j=(t(6).URI,t(13).PLUGIN_DEFINE),H=t(13).XA_TYPE,K=t(13).EL_TYPE,W=t(13).XT_TYPE}}
+function(exports,require){function DOMParser(options){
+this.options = options ||{locator:{}};
+}
+DOMParser.prototype.parseFromString = function(source,mimeType){
+var options = this.options;
+var sax = new XMLReader();
+var domBuilder = options.domBuilder || new DOMHandler();
+var errorHandler = options.errorHandler;
+var locator = options.locator;
+var defaultNSMap = options.xmlns||{};
+var entityMap = {'lt':'<','gt':'>','amp':'&','quot':'"','apos':"'"}
+if(locator){
+domBuilder.setDocumentLocator(locator)
+}
+sax.errorHandler = buildErrorHandler(errorHandler,domBuilder,locator);
+sax.domBuilder = options.domBuilder || domBuilder;
+if(/\/x?html?$/.test(mimeType)){
+entityMap.nbsp = '\xa0';
+entityMap.copy = '\xa9';
+defaultNSMap['']= 'http://www.w3.org/1999/xhtml';
+}
+defaultNSMap.xml = defaultNSMap.xml || 'http://www.w3.org/XML/1998/namespace';
+if(source){
+sax.parse(source,defaultNSMap,entityMap);
+}else{
+sax.errorHandler.error("invalid doc source");
+}
+return domBuilder.doc;
+}
+function buildErrorHandler(errorImpl,domBuilder,locator){
+if(!errorImpl){
+if(domBuilder instanceof DOMHandler){
+return domBuilder;
+}
+errorImpl = domBuilder ;
+}
+var errorHandler = {}
+var isCallback = errorImpl instanceof Function;
+locator = locator||{}
+function build(key){
+var fn = errorImpl[key];
+if(!fn && isCallback){
+fn = errorImpl.length == 2?function(msg){errorImpl(key,msg)}:errorImpl;
+}
+errorHandler[key] = fn && function(msg){
+fn('[xmldom '+key+']\t'+msg+_locator(locator));
+}||function(){};
+}
+build('warning');
+build('error');
+build('fatalError');
+return errorHandler;
+}
+
+
+function DOMHandler() {
+this.cdata = false;
+}
+function position(locator,node){
+node.lineNumber = locator.lineNumber;
+node.columnNumber = locator.columnNumber;
+}
+ 
+DOMHandler.prototype = {
+startDocument : function() {
+this.doc = new DOMImplementation().createDocument(null, null, null);
+if (this.locator) {
+this.doc.documentURI = this.locator.systemId;
+}
+},
+startElement:function(namespaceURI, localName, qName, attrs) {
+var doc = this.doc;
+var el = doc.createElementNS(namespaceURI, qName||localName);
+var len = attrs.length;
+appendElement(this, el);
+this.currentElement = el;
+this.locator && position(this.locator,el)
+for (var i = 0 ; i < len; i++) {
+var namespaceURI = attrs.getURI(i);
+var value = attrs.getValue(i);
+var qName = attrs.getQName(i);
+var attr = doc.createAttributeNS(namespaceURI, qName);
+this.locator &&position(attrs.getLocator(i),attr);
+attr.value = attr.nodeValue = value;
+el.setAttributeNode(attr)
+}
+},
+endElement:function(namespaceURI, localName, qName) {
+var current = this.currentElement
+var tagName = current.tagName;
+this.currentElement = current.parentNode;
+},
+startPrefixMapping:function(prefix, uri) {
+},
+endPrefixMapping:function(prefix) {
+},
+processingInstruction:function(target, data) {
+var ins = this.doc.createProcessingInstruction(target, data);
+this.locator && position(this.locator,ins)
+appendElement(this, ins);
+},
+ignorableWhitespace:function(ch, start, length) {
+},
+characters:function(chars, start, length) {
+chars = _toString.apply(this,arguments)
+
+if(chars){
+if (this.cdata) {
+var charNode = this.doc.createCDATASection(chars);
+} else {
+var charNode = this.doc.createTextNode(chars);
+}
+if(this.currentElement){
+this.currentElement.appendChild(charNode);
+}else if(/^\s*$/.test(chars)){
+this.doc.appendChild(charNode);
+
+}
+this.locator && position(this.locator,charNode)
+}
+},
+skippedEntity:function(name) {
+},
+endDocument:function() {
+this.doc.normalize();
+},
+setDocumentLocator:function (locator) {
+if(this.locator = locator){
+locator.lineNumber = 0;
+}
+},
+
+comment:function(chars, start, length) {
+chars = _toString.apply(this,arguments)
+var comm = this.doc.createComment(chars);
+this.locator && position(this.locator,comm)
+appendElement(this, comm);
+},
+startCDATA:function() {
+
+this.cdata = true;
+},
+endCDATA:function() {
+this.cdata = false;
+},
+startDTD:function(name, publicId, systemId) {
+var impl = this.doc.implementation;
+if (impl && impl.createDocumentType) {
+var dt = impl.createDocumentType(name, publicId, systemId);
+this.locator && position(this.locator,dt)
+appendElement(this, dt);
+}
+},
+
+warning:function(error) {
+console.warn('[xmldom warning]\t'+error,_locator(this.locator));
+},
+error:function(error) {
+console.error('[xmldom error]\t'+error,_locator(this.locator));
+},
+fatalError:function(error) {
+console.error('[xmldom fatalError]\t'+error,_locator(this.locator));
+throw error;
+}
+}
+function _locator(l){
+if(l){
+return '\n@'+(l.systemId ||'')+'#[line:'+l.lineNumber+',col:'+l.columnNumber+']'
+}
+}
+function _toString(chars,start,length){
+if(typeof chars == 'string'){
+return chars.substr(start,length)
+}else{
+if(chars.length >= start+length || start){
+return new java.lang.String(chars,start,length)+'';
+}
+return chars;
+}
+}
+
+"endDTD,startEntity,endEntity,attributeDecl,elementDecl,externalEntityDecl,internalEntityDecl,resolveEntity,getExternalSubset,notationDecl,unparsedEntityDecl".replace(/\w+/g,function(key){
+DOMHandler.prototype[key] = function(){return null}
+})
+
+function appendElement (hander,node) {
+if (!hander.currentElement) {
+hander.doc.appendChild(node);
+} else {
+hander.currentElement.appendChild(node);
+}
+}
+
+var XMLReader = require(36).XMLReader;
+var DOMImplementation = exports.DOMImplementation = require(37).DOMImplementation;
+exports.XMLSerializer = require(37).XMLSerializer ;
+exports.DOMParser = DOMParser;
+
+}
 ,
-function(t,e){function n(t){this.options=t||{locator:{}}}function r(t,e,n){function r(e){var r=t[e];!r&&a&&(r=2==t.length?function(n){t(e,n)}:t),i[e]=r&&function(t){r("[xmldom "+e+"]	"+t+c(n))}||function(){}}if(!t){if(e instanceof o)return e;t=e}var i={},a=t instanceof Function;return n=n||{},r("warning"),r("error"),r("fatalError"),i}function o(){this.cdata=!1}function i(t,e){e.lineNumber=t.lineNumber,e.columnNumber=t.columnNumber}function c(t){return t?"\n@"+(t.systemId||"")+"#[line:"+t.lineNumber+",col:"+t.columnNumber+"]":void 0}function a(t,e,n){return"string"==typeof t?t.substr(e,n):t.length>=e+n||e?new java.lang.String(t,e,n)+"":t}function l(t,e){t.currentElement?t.currentElement.appendChild(e):t.doc.appendChild(e)}n.prototype.parseFromString=function(t,e){var n=this.options,i=new s,c=n.domBuilder||new o,a=n.errorHandler,l=n.locator,u=n.xmlns||{},m={lt:"<",gt:">",amp:"&",quot:'"',apos:"'"};return l&&c.setDocumentLocator(l),i.errorHandler=r(a,c,l),i.domBuilder=n.domBuilder||c,/\/x?html?$/.test(e)&&(m.nbsp=" ",m.copy="©",u[""]="http://www.w3.org/1999/xhtml"),u.xml=u.xml||"http://www.w3.org/XML/1998/namespace",t?i.parse(t,u,m):i.errorHandler.error("invalid doc source"),c.doc},o.prototype={startDocument:function(){this.doc=(new u).createDocument(null,null,null),this.locator&&(this.doc.documentURI=this.locator.systemId)},startElement:function(t,e,n,r){var o=this.doc,c=o.createElementNS(t,n||e),a=r.length;l(this,c),this.currentElement=c,this.locator&&i(this.locator,c);for(var s=0;a>s;s++){var t=r.getURI(s),u=r.getValue(s),n=r.getQName(s),m=o.createAttributeNS(t,n);this.locator&&i(r.getLocator(s),m),m.value=m.nodeValue=u,c.setAttributeNode(m)}},endElement:function(t,e,n){var r=this.currentElement;r.tagName;this.currentElement=r.parentNode},startPrefixMapping:function(t,e){},endPrefixMapping:function(t){},processingInstruction:function(t,e){var n=this.doc.createProcessingInstruction(t,e);this.locator&&i(this.locator,n),l(this,n)},ignorableWhitespace:function(t,e,n){},characters:function(t,e,n){if(t=a.apply(this,arguments)){if(this.cdata)var r=this.doc.createCDATASection(t);else var r=this.doc.createTextNode(t);this.currentElement?this.currentElement.appendChild(r):/^\s*$/.test(t)&&this.doc.appendChild(r),this.locator&&i(this.locator,r)}},skippedEntity:function(t){},endDocument:function(){this.doc.normalize()},setDocumentLocator:function(t){(this.locator=t)&&(t.lineNumber=0)},comment:function(t,e,n){t=a.apply(this,arguments);var r=this.doc.createComment(t);this.locator&&i(this.locator,r),l(this,r)},startCDATA:function(){this.cdata=!0},endCDATA:function(){this.cdata=!1},startDTD:function(t,e,n){var r=this.doc.implementation;if(r&&r.createDocumentType){var o=r.createDocumentType(t,e,n);this.locator&&i(this.locator,o),l(this,o)}},warning:function(t){console.warn("[xmldom warning]	"+t,c(this.locator))},error:function(t){console.error("[xmldom error]	"+t,c(this.locator))},fatalError:function(t){throw console.error("[xmldom fatalError]	"+t,c(this.locator)),t}},"endDTD,startEntity,endEntity,attributeDecl,elementDecl,externalEntityDecl,internalEntityDecl,resolveEntity,getExternalSubset,notationDecl,unparsedEntityDecl".replace(/\w+/g,function(t){o.prototype[t]=function(){return null}});var s=e(36).XMLReader,u=t.DOMImplementation=e(37).DOMImplementation;t.XMLSerializer=e(37).XMLSerializer,t.DOMParser=n}
+function(exports,require,module){
+(function(global, factory) {
+if (typeof module == 'object' && typeof exports == 'object') {
+
+
+module.exports = function (browserGlobal) {
+
+
+browserGlobal.console = console;
+browserGlobal.parseInt = parseInt;
+browserGlobal.Function = Function;
+browserGlobal.Boolean = Boolean;
+browserGlobal.Number = Number;
+browserGlobal.RegExp = RegExp;
+browserGlobal.String = String;
+browserGlobal.Object = Object;
+browserGlobal.Array = Array;
+browserGlobal.Error = Error;
+browserGlobal.Date = Date;
+browserGlobal.Math = Math;
+var exports = browserGlobal.Object();
+factory(browserGlobal, exports);
+return exports;
+};
+module.factory = factory;
+} else {
+
+
+factory(global,
+(global.NW || (global.NW = global.Object())) &&
+(global.NW.Dom || (global.NW.Dom = global.Object())));
+global.NW.Dom.factory = factory;
+}
+})(this, function(global, exports) {
+var version = 'nwmatcher-1.3.6',
+Dom = exports,
+
+doc = global.document,
+root = doc.documentElement,
+
+slice = global.Array.prototype.slice,
+string = global.Object.prototype.toString,
+
+isSingleMatch,
+isSingleSelect,
+lastSlice,
+lastContext,
+lastPosition,
+lastMatcher,
+lastSelector,
+lastPartsMatch,
+lastPartsSelect,
+
+
+prefixes = '[#.:]?',
+
+operators = '([~*^$|!]?={1})',
+
+whitespace = '[\\x20\\t\\n\\r\\f]*',
+
+combinators = '[\\x20]|[>+~][^>+~]',
+
+pseudoparms = '(?:[-+]?\\d*n)?[-+]?\\d*',
+
+quotedvalue = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"' + "|'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'",
+
+skipround = '\\([^()]+\\)|\\(.*\\)',
+
+skipcurly = '\\{[^{}]+\\}|\\{.*\\}',
+
+skipsquare = '\\[[^[\\]]*\\]|\\[.*\\]',
+
+skipgroup = '\\[.*\\]|\\(.*\\)|\\{.*\\}',
+
+
+
+
+
+encoding = '(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)',
+
+identifier = '(?:-?[_a-zA-Z]{1}[-\\w]*|[^\\x00-\\xa0]+|\\\\.+)+',
+
+attrcheck = '(' + quotedvalue + '|' + identifier + ')',
+attributes = whitespace + '(' + encoding + '*:?' + encoding + '+)' +
+whitespace + '(?:' + operators + whitespace + attrcheck + ')?' + whitespace,
+attrmatcher = attributes.replace(attrcheck, '([\\x22\\x27]*)((?:\\\\?.)*?)\\3'),
+
+pseudoclass = '((?:' +
+
+pseudoparms + '|' + quotedvalue + '|' +
+
+prefixes + '|' + encoding + '+|' +
+
+'\\[' + attributes + '\\]|' +
+
+'\\(.+\\)|' + whitespace + '|' +
+
+',)+)',
+
+extensions = '.+',
+
+
+
+standardValidator =
+
+'(?=[\\x20\\t\\n\\r\\f]*[^>+~(){}<>])' +
+
+'(' +
+
+'\\*' +
+
+'|(?:' + prefixes + identifier + ')' +
+
+'|' + combinators +
+
+'|\\[' + attributes + '\\]' +
+
+'|\\(' + pseudoclass + '\\)' +
+
+'|\\{' + extensions + '\\}' +
+
+'|(?:,|' + whitespace + ')' +
+
+')+',
+
+extendedValidator = standardValidator.replace(pseudoclass, '.*'),
+
+reValidator = new global.RegExp(standardValidator, 'g'),
+
+
+reTrimSpaces = new global.RegExp('^' +
+whitespace + '|' + whitespace + '$', 'g'),
+
+reSimpleNot = new global.RegExp('^(' +
+'(?!:not)' +
+'(' + prefixes +
+'|' + identifier +
+'|\\([^()]*\\))+' +
+'|\\[' + attributes + '\\]' +
+')$'),
+
+
+reSplitGroup = new global.RegExp('(' +
+'[^,\\\\()[\\]]+' +
+'|' + skipsquare +
+'|' + skipround +
+'|' + skipcurly +
+'|\\\\.' +
+')+', 'g'),
+
+reSplitToken = new global.RegExp('(' +
+'\\[' + attributes + '\\]|' +
+'\\(' + pseudoclass + '\\)|' +
+'\\\\.|[^\\x20\\t\\r\\n\\f>+~])+', 'g'),
+
+reWhiteSpace = /[\x20\t\n\r\f]+/g,
+reOptimizeSelector = new global.RegExp(identifier + '|^$'),
+
+
+isNative = (function() {
+var re = / \w+\(/,
+isnative = String(Object.prototype.toString).replace(re, ' (');
+return function(method) {
+return method && typeof method != 'string' &&
+isnative == String(method).replace(re, ' (');
+};
+})(),
+
+
+NATIVE_FOCUS = isNative(doc.hasFocus),
+NATIVE_QSAPI = isNative(doc.querySelector),
+NATIVE_GEBID = isNative(doc.getElementById),
+NATIVE_GEBTN = isNative(root.getElementsByTagName),
+NATIVE_GEBCN = isNative(root.getElementsByClassName),
+
+
+
+
+NATIVE_GET_ATTRIBUTE = isNative(root.getAttribute),
+NATIVE_HAS_ATTRIBUTE = isNative(root.hasAttribute),
+
+
+NATIVE_SLICE_PROTO =
+(function() {
+var isBuggy = false;
+try {
+isBuggy = !!slice.call(doc.childNodes, 0)[0];
+} catch(e) { }
+return isBuggy;
+})(),
+
+NATIVE_TRAVERSAL_API =
+'nextElementSibling' in root && 'previousElementSibling' in root,
+
+
+BUGGY_GEBID = NATIVE_GEBID ?
+(function() {
+var isBuggy = true, x = 'x' + global.String(+new global.Date),
+a = doc.createElementNS ? 'a' : '<a name="' + x + '">';
+(a = doc.createElement(a)).name = x;
+root.insertBefore(a, root.firstChild);
+isBuggy = !!doc.getElementById(x);
+root.removeChild(a);
+return isBuggy;
+})() :
+true,
+
+BUGGY_GEBTN = NATIVE_GEBTN ?
+(function() {
+var div = doc.createElement('div');
+div.appendChild(doc.createComment(''));
+return !!div.getElementsByTagName('*')[0];
+})() :
+true,
+
+
+
+BUGGY_GEBCN = NATIVE_GEBCN ?
+(function() {
+var isBuggy, div = doc.createElement('div'), test = '\u53f0\u5317';
+
+div.appendChild(doc.createElement('span')).
+setAttribute('class', test + 'abc ' + test);
+div.appendChild(doc.createElement('span')).
+setAttribute('class', 'x');
+isBuggy = !div.getElementsByClassName(test)[0];
+
+div.lastChild.className = test;
+return isBuggy || div.getElementsByClassName(test).length != 2;
+})() :
+true,
+
+BUGGY_GET_ATTRIBUTE = NATIVE_GET_ATTRIBUTE ?
+(function() {
+var input = doc.createElement('input');
+input.setAttribute('value', 5);
+return input.defaultValue != 5;
+})() :
+true,
+
+BUGGY_HAS_ATTRIBUTE = NATIVE_HAS_ATTRIBUTE ?
+(function() {
+var option = doc.createElement('option');
+option.setAttribute('selected', 'selected');
+return !option.hasAttribute('selected');
+})() :
+true,
+
+BUGGY_SELECTED =
+(function() {
+var select = doc.createElement('select');
+select.appendChild(doc.createElement('option'));
+return !select.firstChild.selected;
+})(),
+
+
+BUGGY_QUIRKS_GEBCN,
+BUGGY_QUIRKS_QSAPI,
+QUIRKS_MODE,
+XML_DOCUMENT,
+
+OPERA = /opera/i.test(string.call(global.opera)),
+
+OPERA_QSAPI = OPERA && global.parseFloat(global.opera.version()) >= 11,
+
+RE_BUGGY_QSAPI = NATIVE_QSAPI ?
+(function() {
+var pattern = new global.Array(), context, element,
+expect = function(selector, element, n) {
+var result = false;
+context.appendChild(element);
+try { result = context.querySelectorAll(selector).length == n; } catch(e) { }
+while (context.firstChild) { context.removeChild(context.firstChild); }
+return result;
+};
+
+
+if (doc.implementation && doc.implementation.createDocument) {
+
+context = doc.implementation.createDocument('', '', null).
+appendChild(doc.createElement('html')).
+appendChild(doc.createElement('head')).parentNode.
+appendChild(doc.createElement('body'));
+} else {
+
+context = doc.createElement('div');
+}
+
+
+element = doc.createElement('div');
+element.innerHTML = '<p id="a"></p><br>';
+expect('p#a+*', element, 0) &&
+pattern.push('\\w+#\\w+.*[+~]');
+
+element = doc.createElement('p');
+element.setAttribute('class', '');
+expect('[class^=""]', element, 1) &&
+pattern.push('[*^$]=[\\x20\\t\\n\\r\\f]*(?:""|' + "'')");
+
+
+
+element = doc.createElement('option');
+element.setAttribute('selected', 'selected');
+expect(':checked', element, 0) &&
+pattern.push(':checked');
+
+
+
+
+element = doc.createElement('input');
+element.setAttribute('type', 'hidden');
+expect(':enabled', element, 0) &&
+pattern.push(':enabled', ':disabled');
+
+element = doc.createElement('link');
+element.setAttribute('href', 'x');
+expect(':link', element, 1) ||
+pattern.push(':link');
+
+if (BUGGY_HAS_ATTRIBUTE) {
+
+
+
+pattern.push('\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)');
+}
+return pattern.length ?
+new global.RegExp(pattern.join('|')) :
+{ 'test': function() { return false; } };
+})() :
+true,
+
+RE_CLASS = new global.RegExp('(?:\\[[\\x20\\t\\n\\r\\f]*class\\b|\\.' + identifier + ')'),
+
+RE_SIMPLE_SELECTOR = new global.RegExp(
+BUGGY_GEBTN && BUGGY_GEBCN || OPERA ?
+'^#?-?[_a-zA-Z]{1}' + encoding + '*$' : BUGGY_GEBTN ?
+'^[.#]?-?[_a-zA-Z]{1}' + encoding + '*$' : BUGGY_GEBCN ?
+'^(?:\\*|#-?[_a-zA-Z]{1}' + encoding + '*)$' :
+'^(?:\\*|[.#]?-?[_a-zA-Z]{1}' + encoding + '*)$'),
+
+LINK_NODES = new global.Object({ 'a': 1, 'A': 1, 'area': 1, 'AREA': 1, 'link': 1, 'LINK': 1 }),
+
+ATTR_BOOLEAN = new global.Object({
+'checked': 1, 'disabled': 1, 'ismap': 1,
+'multiple': 1, 'readonly': 1, 'selected': 1
+}),
+
+ATTR_DEFAULT = new global.Object({
+'value': 'defaultValue',
+'checked': 'defaultChecked',
+'selected': 'defaultSelected'
+}),
+
+ATTR_URIDATA = new global.Object({
+'action': 2, 'cite': 2, 'codebase': 2, 'data': 2, 'href': 2,
+'longdesc': 2, 'lowsrc': 2, 'src': 2, 'usemap': 2
+}),
+
+
+HTML_TABLE = new global.Object({
+
+
+
+'class': 0,
+'accept': 1, 'accept-charset': 1, 'align': 1, 'alink': 1, 'axis': 1,
+'bgcolor': 1, 'charset': 1, 'checked': 1, 'clear': 1, 'codetype': 1, 'color': 1,
+'compact': 1, 'declare': 1, 'defer': 1, 'dir': 1, 'direction': 1, 'disabled': 1,
+'enctype': 1, 'face': 1, 'frame': 1, 'hreflang': 1, 'http-equiv': 1, 'lang': 1,
+'language': 1, 'link': 1, 'media': 1, 'method': 1, 'multiple': 1, 'nohref': 1,
+'noresize': 1, 'noshade': 1, 'nowrap': 1, 'readonly': 1, 'rel': 1, 'rev': 1,
+'rules': 1, 'scope': 1, 'scrolling': 1, 'selected': 1, 'shape': 1, 'target': 1,
+'text': 1, 'type': 1, 'valign': 1, 'valuetype': 1, 'vlink': 1
+}),
+
+
+XHTML_TABLE = new global.Object({
+'accept': 1, 'accept-charset': 1, 'alink': 1, 'axis': 1,
+'bgcolor': 1, 'charset': 1, 'codetype': 1, 'color': 1,
+'enctype': 1, 'face': 1, 'hreflang': 1, 'http-equiv': 1,
+'lang': 1, 'language': 1, 'link': 1, 'media': 1, 'rel': 1,
+'rev': 1, 'target': 1, 'text': 1, 'type': 1, 'vlink': 1
+}),
+
+
+Selectors = new global.Object({
+
+
+
+
+
+
+
+
+
+
+
+}),
+
+Operators = new global.Object({
+'=': "n=='%m'",
+'^=': "n.indexOf('%m')==0",
+'*=': "n.indexOf('%m')>-1",
+'|=': "(n+'-').indexOf('%m-')==0",
+'~=': "(' '+n+' ').indexOf(' %m ')>-1",
+'$=': "n.substr(n.length-'%m'.length)=='%m'"
+}),
+
+Optimize = new global.Object({
+ID: new global.RegExp('^\\*?#(' + encoding + '+)|' + skipgroup),
+TAG: new global.RegExp('^(' + encoding + '+)|' + skipgroup),
+CLASS: new global.RegExp('^\\*?\\.(' + encoding + '+$)|' + skipgroup)
+}),
+
+Patterns = new global.Object({
+
+spseudos: /^\:(root|empty|(?:first|last|only)(?:-child|-of-type)|nth(?:-last)?(?:-child|-of-type)\(\s*(even|odd|(?:[-+]{0,1}\d*n\s*)?[-+]{0,1}\s*\d*)\s*\))?(.*)/i,
+
+dpseudos: /^\:(link|visited|target|active|focus|hover|checked|disabled|enabled|selected|lang\(([-\w]{2,})\)|not\(([^()]*|.*)\))?(.*)/i,
+
+attribute: new global.RegExp('^\\[' + attrmatcher + '\\](.*)'),
+
+children: /^[\x20\t\n\r\f]*\>[\x20\t\n\r\f]*(.*)/,
+
+adjacent: /^[\x20\t\n\r\f]*\+[\x20\t\n\r\f]*(.*)/,
+
+relative: /^[\x20\t\n\r\f]*\~[\x20\t\n\r\f]*(.*)/,
+
+ancestor: /^[\x20\t\n\r\f]+(.*)/,
+
+universal: /^\*(.*)/,
+
+id: new global.RegExp('^#(' + encoding + '+)(.*)'),
+
+tagName: new global.RegExp('^(' + encoding + '+)(.*)'),
+
+className: new global.RegExp('^\\.(' + encoding + '+)(.*)')
+}),
+
+
+concatList =
+function(data, elements) {
+var i = -1, element;
+if (!data.length && global.Array.slice)
+return global.Array.slice(elements);
+while ((element = elements[++i]))
+data[data.length] = element;
+return data;
+},
+
+concatCall =
+function(data, elements, callback) {
+var i = -1, element;
+while ((element = elements[++i])) {
+if (false === callback(data[data.length] = element)) { break; }
+}
+return data;
+},
+
+switchContext =
+function(from, force) {
+var div, oldDoc = doc;
+
+lastContext = from;
+
+doc = from.ownerDocument || from;
+if (force || oldDoc !== doc) {
+
+root = doc.documentElement;
+
+XML_DOCUMENT = doc.createElement('DiV').nodeName == 'DiV';
+
+
+
+
+QUIRKS_MODE = !XML_DOCUMENT &&
+typeof doc.compatMode == 'string' ?
+doc.compatMode.indexOf('CSS') < 0 :
+(function() {
+var style = doc.createElement('div').style;
+return style && (style.width = 1) && style.width == '1px';
+})();
+div = doc.createElement('div');
+div.appendChild(doc.createElement('p')).setAttribute('class', 'xXx');
+div.appendChild(doc.createElement('p')).setAttribute('class', 'xxx');
+
+
+
+BUGGY_QUIRKS_GEBCN =
+!XML_DOCUMENT && NATIVE_GEBCN && QUIRKS_MODE &&
+(div.getElementsByClassName('xxx').length != 2 ||
+div.getElementsByClassName('xXx').length != 2);
+
+
+
+
+
+
+BUGGY_QUIRKS_QSAPI =
+!XML_DOCUMENT && NATIVE_QSAPI && QUIRKS_MODE &&
+(div.querySelectorAll('[class~=xxx]').length != 2 ||
+div.querySelectorAll('.xXx').length != 2);
+Config.CACHING && Dom.setCache(true, doc);
+}
+},
+
+
+convertEscapes =
+function(str) {
+return str.replace(/\\([0-9a-fA-F]{1,6}\x20?|.)|([\x22\x27])/g, function(substring, p1, p2) {
+var codePoint, highHex, highSurrogate, lowHex, lowSurrogate;
+if (p2) {
+
+return '\\' + p2;
+}
+if (/^[0-9a-fA-F]/.test(p1)) {
+
+codePoint = parseInt(p1, 16);
+if (codePoint < 0 || codePoint > 0x10ffff) {
+
+return '\\ufffd';
+}
+
+if (codePoint <= 0xffff) {
+
+lowHex = '000' + codePoint.toString(16);
+return '\\u' + lowHex.substr(lowHex.length - 4);
+}
+
+codePoint -= 0x10000;
+highSurrogate = (codePoint >> 10) + 0xd800;
+lowSurrogate = (codePoint % 0x400) + 0xdc00;
+highHex = '000' + highSurrogate.toString(16);
+lowHex = '000' + lowSurrogate.toString(16);
+return '\\u' + highHex.substr(highHex.length - 4) +
+'\\u' + lowHex.substr(lowHex.length - 4);
+}
+if (/^[\\\x22\x27]/.test(p1)) {
+
+return substring;
+}
+
+return p1;
+});
+},
+
+
+
+byIdRaw =
+function(id, elements) {
+var i = -1, element = null;
+while ((element = elements[++i])) {
+if (element.getAttribute('id') == id) {
+break;
+}
+}
+return element;
+},
+
+
+_byId = !BUGGY_GEBID ?
+function(id, from) {
+id = id.replace(/\\([^\\]{1})/g, '$1');
+return from.getElementById && from.getElementById(id) ||
+byIdRaw(id, from.getElementsByTagName('*'));
+} :
+function(id, from) {
+var element = null;
+id = id.replace(/\\([^\\]{1})/g, '$1');
+if (XML_DOCUMENT || from.nodeType != 9) {
+return byIdRaw(id, from.getElementsByTagName('*'));
+}
+if ((element = from.getElementById(id)) &&
+element.name == id && from.getElementsByName) {
+return byIdRaw(id, from.getElementsByName(id));
+}
+return element;
+},
+
+
+byId =
+function(id, from) {
+from || (from = doc);
+if (lastContext !== from) { switchContext(from); }
+return _byId(id, from);
+},
+
+
+byTagRaw =
+function(tag, from) {
+var any = tag == '*', element = from, elements = new global.Array(), next = element.firstChild;
+any || (tag = tag.toUpperCase());
+while ((element = next)) {
+if (element.tagName > '@' && (any || element.tagName.toUpperCase() == tag)) {
+elements[elements.length] = element;
+}
+if ((next = element.firstChild || element.nextSibling)) continue;
+while (!next && (element = element.parentNode) && element !== from) {
+next = element.nextSibling;
+}
+}
+return elements;
+},
+
+
+_byTag = !BUGGY_GEBTN && NATIVE_SLICE_PROTO ?
+function(tag, from) {
+return XML_DOCUMENT || from.nodeType == 11 ? byTagRaw(tag, from) :
+slice.call(from.getElementsByTagName(tag), 0);
+} :
+function(tag, from) {
+var i = -1, j = i, data = new global.Array(),
+element, elements = from.getElementsByTagName(tag);
+if (tag == '*') {
+while ((element = elements[++i])) {
+if (element.nodeName > '@')
+data[++j] = element;
+}
+} else {
+while ((element = elements[++i])) {
+data[i] = element;
+}
+}
+return data;
+},
+
+
+byTag =
+function(tag, from) {
+from || (from = doc);
+if (lastContext !== from) { switchContext(from); }
+return _byTag(tag, from);
+},
+
+
+byName =
+function(name, from) {
+return select('[name="' + name.replace(/\\([^\\]{1})/g, '$1') + '"]', from);
+},
+
+
+byClassRaw =
+function(name, from) {
+var i = -1, j = i, data = new global.Array(), element, elements = _byTag('*', from), n;
+name = ' ' + (QUIRKS_MODE ? name.toLowerCase() : name).replace(/\\([^\\]{1})/g, '$1') + ' ';
+while ((element = elements[++i])) {
+n = XML_DOCUMENT ? element.getAttribute('class') : element.className;
+if (n && n.length && (' ' + (QUIRKS_MODE ? n.toLowerCase() : n).
+replace(reWhiteSpace, ' ') + ' ').indexOf(name) > -1) {
+data[++j] = element;
+}
+}
+return data;
+},
+
+
+_byClass =
+function(name, from) {
+return (BUGGY_GEBCN || BUGGY_QUIRKS_GEBCN || XML_DOCUMENT || !from.getElementsByClassName) ?
+byClassRaw(name, from) : slice.call(from.getElementsByClassName(name.replace(/\\([^\\]{1})/g, '$1')), 0);
+},
+
+
+byClass =
+function(name, from) {
+from || (from = doc);
+if (lastContext !== from) { switchContext(from); }
+return _byClass(name, from);
+},
+
+
+contains = 'compareDocumentPosition' in root ?
+function(container, element) {
+return (container.compareDocumentPosition(element) & 16) == 16;
+} : 'contains' in root ?
+function(container, element) {
+return container !== element && container.contains(element);
+} :
+function(container, element) {
+while ((element = element.parentNode)) {
+if (element === container) return true;
+}
+return false;
+},
+
+
+getAttribute = !BUGGY_GET_ATTRIBUTE ?
+function(node, attribute) {
+return node.getAttribute(attribute);
+} :
+function(node, attribute) {
+attribute = attribute.toLowerCase();
+if (typeof node[attribute] == 'object') {
+return node.attributes[attribute] &&
+node.attributes[attribute].value;
+}
+return (
+
+attribute == 'type' ? node.getAttribute(attribute) :
+
+ATTR_URIDATA[attribute] ? node.getAttribute(attribute, 2) :
+
+ATTR_BOOLEAN[attribute] ? node.getAttribute(attribute) ? attribute : 'false' :
+(node = node.getAttributeNode(attribute)) && node.value);
+},
+
+
+hasAttribute = !BUGGY_HAS_ATTRIBUTE ?
+function(node, attribute) {
+return XML_DOCUMENT ?
+!!node.getAttribute(attribute) :
+node.hasAttribute(attribute);
+} :
+function(node, attribute) {
+
+var obj = node.getAttributeNode(attribute = attribute.toLowerCase());
+return ATTR_DEFAULT[attribute] && attribute != 'value' ?
+node[ATTR_DEFAULT[attribute]] : obj && obj.specified;
+},
+
+
+isEmpty =
+function(node) {
+node = node.firstChild;
+while (node) {
+if (node.nodeType == 3 || node.nodeName > '@') return false;
+node = node.nextSibling;
+}
+return true;
+},
+
+
+isLink =
+function(element) {
+return hasAttribute(element,'href') && LINK_NODES[element.nodeName];
+},
+
+
+nthElement =
+function(element, last) {
+var count = 1, succ = last ? 'nextSibling' : 'previousSibling';
+while ((element = element[succ])) {
+if (element.nodeName > '@') ++count;
+}
+return count;
+},
+
+
+nthOfType =
+function(element, last) {
+var count = 1, succ = last ? 'nextSibling' : 'previousSibling', type = element.nodeName;
+while ((element = element[succ])) {
+if (element.nodeName == type) ++count;
+}
+return count;
+},
+
+
+configure =
+function(option) {
+if (typeof option == 'string') { return Config[option] || Config; }
+if (typeof option != 'object') { return false; }
+for (var i in option) {
+Config[i] = !!option[i];
+if (i == 'SIMPLENOT') {
+matchContexts = new global.Object();
+matchResolvers = new global.Object();
+selectContexts = new global.Object();
+selectResolvers = new global.Object();
+if (!Config[i]) { Config['USE_QSAPI'] = false; }
+} else if (i == 'USE_QSAPI') {
+Config[i] = !!option[i] && NATIVE_QSAPI;
+}
+}
+reValidator = new global.RegExp(Config.SIMPLENOT ?
+standardValidator : extendedValidator, 'g');
+return true;
+},
+
+emit =
+function(message) {
+if (Config.VERBOSITY) { throw new global.Error(message); }
+if (global.console && global.console.log) {
+global.console.log(message);
+}
+},
+Config = new global.Object({
+
+CACHING: false,
+
+
+
+SHORTCUTS: false,
+
+
+SIMPLENOT: true,
+
+
+UNIQUE_ID: true,
+
+USE_HTML5: true,
+
+USE_QSAPI: NATIVE_QSAPI,
+
+VERBOSITY: true
+}),
+
+
+ACCEPT_NODE = 'r[r.length]=c[k];if(f&&false===f(c[k]))break main;else continue main;',
+
+
+
+compile =
+function(selector, source, mode) {
+var parts = typeof selector == 'string' ? selector.match(reSplitGroup) : selector;
+
+typeof source == 'string' || (source = '');
+if (parts.length == 1) {
+source += compileSelector(parts[0], mode ? ACCEPT_NODE : 'f&&f(k);return true;', mode);
+} else {
+
+var i = -1, seen = new global.Object(), token;
+while ((token = parts[++i])) {
+token = token.replace(reTrimSpaces, '');
+
+
+if (!seen[token] && (seen[token] = true)) {
+source += compileSelector(token, mode ? ACCEPT_NODE : 'f&&f(k);return true;', mode);
+}
+}
+}
+if (mode) {
+
+return new global.Function('c,s,r,d,h,g,f,v',
+'var N,n,x=0,k=-1,e;main:while((e=c[++k])){' + source + '}return r;');
+} else {
+
+return new global.Function('e,s,r,d,h,g,f,v',
+'var N,n,x=0,k=e;' + source + 'return false;');
+}
+},
+
+FILTER =
+'var z=v[@]||(v[@]=[]),l=z.length-1;' +
+'while(l>=0&&z[l]!==e)--l;' +
+'if(l!==-1){break;}' +
+'z[z.length]=e;',
+
+
+compileSelector =
+function(selector, source, mode) {
+var a, b, n, k = 0, expr, match, result, status, test, type;
+while (selector) {
+k++;
+
+
+if ((match = selector.match(Patterns.universal))) {
+
+
+expr = '';
+}
+
+
+else if ((match = selector.match(Patterns.id))) {
+
+
+source = 'if(' + (XML_DOCUMENT ?
+'s.getAttribute(e,"id")' :
+'(e.submit?s.getAttribute(e,"id"):e.id)') +
+'=="' + match[1] + '"' +
+'){' + source + '}';
+}
+
+
+else if ((match = selector.match(Patterns.tagName))) {
+
+
+source = 'if(e.nodeName' + (XML_DOCUMENT ?
+'=="' + match[1] + '"' : '.toUpperCase()' +
+'=="' + match[1].toUpperCase() + '"') +
+'){' + source + '}';
+}
+
+
+else if ((match = selector.match(Patterns.className))) {
+
+
+
+source = 'if((n=' + (XML_DOCUMENT ?
+'s.getAttribute(e,"class")' : 'e.className') +
+')&&n.length&&(" "+' + (QUIRKS_MODE ? 'n.toLowerCase()' : 'n') +
+'.replace(' + reWhiteSpace + '," ")+" ").indexOf(" ' +
+(QUIRKS_MODE ? match[1].toLowerCase() : match[1]) + ' ")>-1' +
+'){' + source + '}';
+}
+
+
+
+else if ((match = selector.match(Patterns.attribute))) {
+
+expr = match[1].split(':');
+expr = expr.length == 2 ? expr[1] : expr[0] + '';
+if (match[2] && !Operators[match[2]]) {
+emit('Unsupported operator in attribute selectors "' + selector + '"');
+return '';
+}
+test = 'false';
+
+if (match[2] && match[4] && (test = Operators[match[2]])) {
+match[4] = convertEscapes(match[4]);
+
+HTML_TABLE['class'] = QUIRKS_MODE ? 1 : 0;
+type = (XML_DOCUMENT ? XHTML_TABLE : HTML_TABLE)[expr.toLowerCase()];
+test = test.replace(/\%m/g, type ? match[4].toLowerCase() : match[4]);
+} else if (match[2] == '!=' || match[2] == '=') {
+test = 'n' + match[2] + '=""';
+}
+source = 'if(n=s.hasAttribute(e,"' + match[1] + '")){' +
+(match[2] ? 'n=s.getAttribute(e,"' + match[1] + '")' : '') +
+(type && match[2] ? '.toLowerCase();' : ';') +
+'if(' + (match[2] ? test : 'n') + '){' + source + '}}';
+}
+
+
+else if ((match = selector.match(Patterns.adjacent))) {
+source = (mode ? '' : FILTER.replace(/@/g, k)) + source;
+source = NATIVE_TRAVERSAL_API ?
+'var N' + k + '=e;while(e&&(e=e.previousElementSibling)){' + source + 'break;}e=N' + k + ';' :
+'var N' + k + '=e;while(e&&(e=e.previousSibling)){if(e.nodeName>"@"){' + source + 'break;}}e=N' + k + ';';
+}
+
+
+else if ((match = selector.match(Patterns.relative))) {
+source = (mode ? '' : FILTER.replace(/@/g, k)) + source;
+source = NATIVE_TRAVERSAL_API ?
+('var N' + k + '=e;e=e.parentNode.firstElementChild;' +
+'while(e&&e!==N' + k + '){' + source + 'e=e.nextElementSibling;}e=N' + k + ';') :
+('var N' + k + '=e;e=e.parentNode.firstChild;' +
+'while(e&&e!==N' + k + '){if(e.nodeName>"@"){' + source + '}e=e.nextSibling;}e=N' + k + ';');
+}
+
+
+else if ((match = selector.match(Patterns.children))) {
+source = (mode ? '' : FILTER.replace(/@/g, k)) + source;
+source = 'var N' + k + '=e;while(e&&e!==h&&e!==g&&(e=e.parentNode)){' + source + 'break;}e=N' + k + ';';
+}
+
+
+else if ((match = selector.match(Patterns.ancestor))) {
+source = (mode ? '' : FILTER.replace(/@/g, k)) + source;
+source = 'var N' + k + '=e;while(e&&e!==h&&e!==g&&(e=e.parentNode)){' + source + '}e=N' + k + ';';
+}
+
+
+
+
+
+else if ((match = selector.match(Patterns.spseudos)) && match[1]) {
+switch (match[1]) {
+case 'root':
+
+if (match[3]) {
+source = 'if(e===h||s.contains(h,e)){' + source + '}';
+} else {
+source = 'if(e===h){' + source + '}';
+}
+break;
+case 'empty':
+
+source = 'if(s.isEmpty(e)){' + source + '}';
+break;
+default:
+if (match[1] && match[2]) {
+if (match[2] == 'n') {
+source = 'if(e!==h){' + source + '}';
+break;
+} else if (match[2] == 'even') {
+a = 2;
+b = 0;
+} else if (match[2] == 'odd') {
+a = 2;
+b = 1;
+} else {
+
+b = ((n = match[2].match(/(-?\d+)$/)) ? global.parseInt(n[1], 10) : 0);
+a = ((n = match[2].match(/(-?\d*)n/i)) ? global.parseInt(n[1], 10) : 0);
+if (n && n[1] == '-') a = -1;
+}
+
+
+test = a > 1 ?
+(/last/i.test(match[1])) ? '(n-(' + b + '))%' + a + '==0' :
+'n>=' + b + '&&(n-(' + b + '))%' + a + '==0' : a < -1 ?
+(/last/i.test(match[1])) ? '(n-(' + b + '))%' + a + '==0' :
+'n<=' + b + '&&(n-(' + b + '))%' + a + '==0' : a === 0 ?
+'n==' + b : a == -1 ? 'n<=' + b : 'n>=' + b;
+
+source =
+'if(e!==h){' +
+'n=s[' + (/-of-type/i.test(match[1]) ? '"nthOfType"' : '"nthElement"') + ']' +
+'(e,' + (/last/i.test(match[1]) ? 'true' : 'false') + ');' +
+'if(' + test + '){' + source + '}' +
+'}';
+} else {
+
+a = /first/i.test(match[1]) ? 'previous' : 'next';
+n = /only/i.test(match[1]) ? 'previous' : 'next';
+b = /first|last/i.test(match[1]);
+type = /-of-type/i.test(match[1]) ? '&&n.nodeName!=e.nodeName' : '&&n.nodeName<"@"';
+source = 'if(e!==h){' +
+( 'n=e;while((n=n.' + a + 'Sibling)' + type + ');if(!n){' + (b ? source :
+'n=e;while((n=n.' + n + 'Sibling)' + type + ');if(!n){' + source + '}') + '}' ) + '}';
+}
+break;
+}
+}
+
+
+
+
+
+else if ((match = selector.match(Patterns.dpseudos)) && match[1]) {
+switch (match[1].match(/^\w+/)[0]) {
+
+case 'not':
+
+
+
+expr = match[3].replace(reTrimSpaces, '');
+if (Config.SIMPLENOT && !reSimpleNot.test(expr)) {
+
+emit('Negation pseudo-class only accepts simple selectors "' + selector + '"');
+return '';
+} else {
+if ('compatMode' in doc) {
+source = 'if(!' + compile(expr, '', false) + '(e,s,r,d,h,g)){' + source + '}';
+} else {
+source = 'if(!s.match(e, "' + expr.replace(/\x22/g, '\\"') + '",g)){' + source +'}';
+}
+}
+break;
+
+case 'checked':
+
+source = 'if((typeof e.form!=="undefined"&&(/^(?:radio|checkbox)$/i).test(e.type)&&e.checked)' +
+(Config.USE_HTML5 ? '||(/^option$/i.test(e.nodeName)&&(e.selected||e.checked))' : '') +
+'){' + source + '}';
+break;
+case 'disabled':
+
+source = 'if(((typeof e.form!=="undefined"' +
+(Config.USE_HTML5 ? '' : '&&!(/^hidden$/i).test(e.type)') +
+')||s.isLink(e))&&e.disabled===true){' + source + '}';
+break;
+case 'enabled':
+
+source = 'if(((typeof e.form!=="undefined"' +
+(Config.USE_HTML5 ? '' : '&&!(/^hidden$/i).test(e.type)') +
+')||s.isLink(e))&&e.disabled===false){' + source + '}';
+break;
+
+case 'lang':
+test = '';
+if (match[2]) test = match[2].substr(0, 2) + '-';
+source = 'do{(n=e.lang||"").toLowerCase();' +
+'if((n==""&&h.lang=="' + match[2].toLowerCase() + '")||' +
+'(n&&(n=="' + match[2].toLowerCase() +
+'"||n.substr(0,3)=="' + test.toLowerCase() + '")))' +
+'{' + source + 'break;}}while((e=e.parentNode)&&e!==g);';
+break;
+
+case 'target':
+source = 'if(e.id==d.location.hash.slice(1)){' + source + '}';
+break;
+
+case 'link':
+source = 'if(s.isLink(e)&&!e.visited){' + source + '}';
+break;
+case 'visited':
+source = 'if(s.isLink(e)&&e.visited){' + source + '}';
+break;
+
+
+case 'active':
+if (XML_DOCUMENT) break;
+source = 'if(e===d.activeElement){' + source + '}';
+break;
+case 'hover':
+if (XML_DOCUMENT) break;
+source = 'if(e===d.hoverElement){' + source + '}';
+break;
+case 'focus':
+if (XML_DOCUMENT) break;
+source = NATIVE_FOCUS ?
+'if(e===d.activeElement&&d.hasFocus()&&(e.type||e.href||typeof e.tabIndex=="number")){' + source + '}' :
+'if(e===d.activeElement&&(e.type||e.href)){' + source + '}';
+break;
+
+
+case 'selected':
+
+expr = BUGGY_SELECTED ? '||(n=e.parentNode)&&n.options[n.selectedIndex]===e' : '';
+source = 'if(/^option$/i.test(e.nodeName)&&(e.selected||e.checked' + expr + ')){' + source + '}';
+break;
+default:
+break;
+}
+}
+else {
+
+
+expr = false;
+status = false;
+for (expr in Selectors) {
+if ((match = selector.match(Selectors[expr].Expression)) && match[1]) {
+result = Selectors[expr].Callback(match, source);
+source = result.source;
+status = result.status;
+if (status) { break; }
+}
+}
+
+
+if (!status) {
+
+
+emit('Unknown pseudo-class selector "' + selector + '"');
+return '';
+}
+if (!expr) {
+
+emit('Unknown token in selector "' + selector + '"');
+return '';
+}
+}
+
+if (!match) {
+emit('Invalid syntax in selector "' + selector + '"');
+return '';
+}
+
+
+selector = match && match[match.length - 1];
+}
+return source;
+},
+
+
+
+match =
+function(element, selector, from, callback) {
+var parts;
+if (!(element && element.nodeType == 1)) {
+emit('Invalid element argument');
+return false;
+} else if (typeof selector != 'string') {
+emit('Invalid selector argument');
+return false;
+} else if (from && from.nodeType == 1 && !contains(from, element)) {
+return false;
+} else if (lastContext !== from) {
+
+
+switchContext(from || (from = element.ownerDocument));
+}
+selector = selector.replace(reTrimSpaces, '');
+Config.SHORTCUTS && (selector = Dom.shortcuts(selector, element, from));
+if (lastMatcher != selector) {
+
+if ((parts = selector.match(reValidator)) && parts[0] == selector) {
+isSingleMatch = (parts = selector.match(reSplitGroup)).length < 2;
+
+lastMatcher = selector;
+lastPartsMatch = parts;
+} else {
+emit('The string "' + selector + '", is not a valid CSS selector');
+return false;
+}
+} else parts = lastPartsMatch;
+
+if (!matchResolvers[selector] || matchContexts[selector] !== from) {
+matchResolvers[selector] = compile(isSingleMatch ? [selector] : parts, '', false);
+matchContexts[selector] = from;
+}
+return matchResolvers[selector](element, Snapshot, [ ], doc, root, from, callback, new global.Object());
+},
+
+
+first =
+function(selector, from) {
+return select(selector, from, function() { return false; })[0] || null;
+},
+
+
+
+
+select =
+function(selector, from, callback) {
+var i, changed, element, elements, parts, token, original = selector;
+if (arguments.length === 0) {
+emit('Not enough arguments');
+return [ ];
+} else if (typeof selector != 'string') {
+return [ ];
+} else if (from && !(/1|9|11/).test(from.nodeType)) {
+emit('Invalid or illegal context element');
+return [ ];
+} else if (lastContext !== from) {
+
+
+switchContext(from || (from = doc));
+}
+if (Config.CACHING && (elements = Dom.loadResults(original, from, doc, root))) {
+return callback ? concatCall([ ], elements, callback) : elements;
+}
+if (!OPERA_QSAPI && RE_SIMPLE_SELECTOR.test(selector)) {
+switch (selector.charAt(0)) {
+case '#':
+if (Config.UNIQUE_ID) {
+elements = (element = _byId(selector.slice(1), from)) ? [ element ] : [ ];
+}
+break;
+case '.':
+elements = _byClass(selector.slice(1), from);
+break;
+default:
+elements = _byTag(selector, from);
+break;
+}
+}
+else if (!XML_DOCUMENT && Config.USE_QSAPI &&
+!(BUGGY_QUIRKS_QSAPI && RE_CLASS.test(selector)) &&
+!RE_BUGGY_QSAPI.test(selector)) {
+try {
+elements = from.querySelectorAll(selector);
+} catch(e) { }
+}
+if (elements) {
+elements = callback ? concatCall([ ], elements, callback) :
+NATIVE_SLICE_PROTO ? slice.call(elements) : concatList([ ], elements);
+Config.CACHING && Dom.saveResults(original, from, doc, elements);
+return elements;
+}
+selector = selector.replace(reTrimSpaces, '');
+Config.SHORTCUTS && (selector = Dom.shortcuts(selector, from));
+if ((changed = lastSelector != selector)) {
+
+if ((parts = selector.match(reValidator)) && parts[0] == selector) {
+isSingleSelect = (parts = selector.match(reSplitGroup)).length < 2;
+
+lastSelector = selector;
+lastPartsSelect = parts;
+} else {
+emit('The string "' + selector + '", is not a valid CSS selector');
+return [ ];
+}
+} else parts = lastPartsSelect;
+
+if (from.nodeType == 11) {
+elements = byTagRaw('*', from);
+} else if (!XML_DOCUMENT && isSingleSelect) {
+if (changed) {
+
+parts = selector.match(reSplitToken);
+token = parts[parts.length - 1];
+
+lastSlice = token.split(':not')[0];
+
+lastPosition = selector.length - token.length;
+}
+
+if (Config.UNIQUE_ID && (parts = lastSlice.match(Optimize.ID)) && (token = parts[1])) {
+if ((element = _byId(token, from))) {
+if (match(element, selector)) {
+callback && callback(element);
+elements = new global.Array(element);
+} else elements = new global.Array();
+}
+}
+
+else if (Config.UNIQUE_ID && (parts = selector.match(Optimize.ID)) && (token = parts[1])) {
+if ((element = _byId(token, doc))) {
+if ('#' + token == selector) {
+callback && callback(element);
+elements = new global.Array(element);
+} else if (/[>+~]/.test(selector)) {
+from = element.parentNode;
+} else {
+from = element;
+}
+} else elements = new global.Array();
+}
+if (elements) {
+Config.CACHING && Dom.saveResults(original, from, doc, elements);
+return elements;
+}
+if (!NATIVE_GEBCN && (parts = lastSlice.match(Optimize.TAG)) && (token = parts[1])) {
+if ((elements = _byTag(token, from)).length === 0) { return [ ]; }
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace(token, '*');
+}
+else if ((parts = lastSlice.match(Optimize.CLASS)) && (token = parts[1])) {
+if ((elements = _byClass(token, from)).length === 0) { return [ ]; }
+if (reOptimizeSelector.test(selector.charAt(selector.indexOf(token) - 1))) {
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace('.' + token, '');
+} else {
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace('.' + token, '*');
+}
+}
+else if ((parts = selector.match(Optimize.CLASS)) && (token = parts[1])) {
+if ((elements = _byClass(token, from)).length === 0) { return [ ]; }
+for (i = 0, els = new global.Array(); elements.length > i; ++i) {
+els = concatList(els, elements[i].getElementsByTagName('*'));
+}
+elements = els;
+if (reOptimizeSelector.test(selector.charAt(selector.indexOf(token) - 1))) {
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace('.' + token, '');
+} else {
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace('.' + token, '*');
+}
+}
+else if (NATIVE_GEBCN && (parts = lastSlice.match(Optimize.TAG)) && (token = parts[1])) {
+if ((elements = _byTag(token, from)).length === 0) { return [ ]; }
+selector = selector.slice(0, lastPosition) + selector.slice(lastPosition).replace(token, '*');
+}
+}
+if (!elements) {
+elements = /^(?:applet|object)$/i.test(from.nodeName) ? from.childNodes : _byTag('*', from);
+}
+
+
+if (!selectResolvers[selector] || selectContexts[selector] !== from) {
+selectResolvers[selector] = compile(isSingleSelect ? [selector] : parts, '', true);
+selectContexts[selector] = from;
+}
+elements = selectResolvers[selector](elements, Snapshot, [ ], doc, root, from, callback, new global.Object());
+Config.CACHING && Dom.saveResults(original, from, doc, elements);
+return elements;
+},
+
+
+FN = function(x) { return x; },
+
+matchContexts = new global.Object(),
+matchResolvers = new global.Object(),
+
+selectContexts = new global.Object(),
+selectResolvers = new global.Object(),
+
+Snapshot = new global.Object({
+
+nthElement: nthElement,
+nthOfType: nthOfType,
+
+getAttribute: getAttribute,
+hasAttribute: hasAttribute,
+
+byClass: _byClass,
+byName: byName,
+byTag: _byTag,
+byId: _byId,
+
+contains: contains,
+isEmpty: isEmpty,
+isLink: isLink,
+
+select: select,
+match: match
+}),
+Tokens = new global.Object({
+prefixes: prefixes,
+encoding: encoding,
+operators: operators,
+whitespace: whitespace,
+identifier: identifier,
+attributes: attributes,
+combinators: combinators,
+pseudoclass: pseudoclass,
+pseudoparms: pseudoparms,
+quotedvalue: quotedvalue
+});
+
+
+Dom.ACCEPT_NODE = ACCEPT_NODE;
+
+Dom.byId = byId;
+
+Dom.byTag = byTag;
+
+Dom.byName = byName;
+
+Dom.byClass = byClass;
+
+
+Dom.getAttribute = getAttribute;
+
+
+Dom.hasAttribute = hasAttribute;
+
+Dom.match = match;
+
+Dom.first = first;
+
+Dom.select = select;
+
+Dom.compile = compile;
+
+Dom.contains = contains;
+
+Dom.configure = configure;
+
+Dom.setCache = FN;
+
+Dom.loadResults = FN;
+
+Dom.saveResults = FN;
+
+Dom.shortcuts = FN;
+
+Dom.emit = emit;
+
+Dom.Config = Config;
+
+Dom.Snapshot = Snapshot;
+
+
+Dom.Operators = Operators;
+
+
+Dom.Selectors = Selectors;
+
+Dom.Tokens = Tokens;
+
+Dom.Version = version;
+
+Dom.registerOperator =
+function(symbol, resolver) {
+Operators[symbol] || (Operators[symbol] = resolver);
+};
+
+Dom.registerSelector =
+function(name, rexp, func) {
+Selectors[name] || (Selectors[name] = new global.Object({
+Expression: rexp,
+Callback: func
+}));
+};
+
+
+switchContext(doc, true);
+});
+}
 ,
-function(t,r,e){function n(){this.init()}function s(t){this.expression=t}function o(){}function i(t){arguments.length>0&&this.init(t)}function u(t){arguments.length>0&&this.init(t)}function a(t,r){arguments.length>0&&this.init(t,r)}function c(t,r){arguments.length>0&&this.init(t,r)}function h(t,r){arguments.length>0&&this.init(t,r)}function l(t,r){arguments.length>0&&this.init(t,r)}function p(t,r){arguments.length>0&&this.init(t,r)}function f(t,r){arguments.length>0&&this.init(t,r)}function g(t,r){arguments.length>0&&this.init(t,r)}function d(t,r){arguments.length>0&&this.init(t,r)}function E(t,r){arguments.length>0&&this.init(t,r)}function m(t,r){arguments.length>0&&this.init(t,r)}function N(t,r){arguments.length>0&&this.init(t,r)}function A(t,r){arguments.length>0&&this.init(t,r)}function y(t,r){arguments.length>0&&this.init(t,r)}function v(t,r){arguments.length>0&&this.init(t,r)}function b(t,r){arguments.length>0&&this.init(t,r)}function T(t,r,e){arguments.length>0&&this.init(t,r,e)}function S(t,r){arguments.length>0&&this.init(t,r)}function w(t,r,e){arguments.length>0&&this.init(t,r,e)}function R(t,r){arguments.length>0&&this.init(t,r)}function O(t){arguments.length>0&&this.init(t)}function x(t,r){arguments.length>0&&this.init(t,r)}function I(t){arguments.length>0&&this.init(t)}function U(t){arguments.length>0&&this.init(t)}function D(t){arguments.length>0&&this.init(t)}function C(t){this.init(t)}function _(){this.init()}function L(t,r,e){this.isXPathNamespace=!0,this.ownerDocument=e.ownerDocument,this.nodeName="#namespace",this.prefix=t,this.localName=t,this.namespaceURI=r,this.nodeValue=r,this.ownerElement=e,this.nodeType=L.XPATH_NAMESPACE_NODE}function F(t,r,e){this.variableResolver=null!=t?t:new P,this.namespaceResolver=null!=r?r:new B,this.functionResolver=null!=e?e:new M}function P(){}function M(t){this.thisArg=null!=t?t:Functions,this.functions=new Object,this.addStandardFunctions()}function B(){}function V(t,r){this.code=t,this.exception=r}function W(t,r,e){this.xpath=e.parse(t),this.context=new F,this.context.namespaceResolver=new H(r)}function H(t){this.xpathNSResolver=t}function q(t){this.node=t,this.namespaceResolver=new B}function G(t,r){switch(r==G.ANY_TYPE&&(t.constructor===I?r=G.STRING_TYPE:t.constructor===U?r=G.NUMBER_TYPE:t.constructor===D?r=G.BOOLEAN_TYPE:t.constructor===_&&(r=G.UNORDERED_NODE_ITERATOR_TYPE)),this.resultType=r,r){case G.NUMBER_TYPE:return void(this.numberValue=t.numberValue());case G.STRING_TYPE:return void(this.stringValue=t.stringValue());case G.BOOLEAN_TYPE:return void(this.booleanValue=t.booleanValue());case G.ANY_UNORDERED_NODE_TYPE:case G.FIRST_ORDERED_NODE_TYPE:if(t.constructor===_)return void(this.singleNodeValue=t.first());break;case G.UNORDERED_NODE_ITERATOR_TYPE:case G.ORDERED_NODE_ITERATOR_TYPE:if(t.constructor===_)return this.invalidIteratorState=!1,this.nodes=t.toArray(),void(this.iteratorIndex=0);break;case G.UNORDERED_NODE_SNAPSHOT_TYPE:case G.ORDERED_NODE_SNAPSHOT_TYPE:if(t.constructor===_)return this.nodes=t.toArray(),void(this.snapshotLength=this.nodes.length)}throw new V(V.TYPE_ERR)}function Y(t,r){t.createExpression=function(t,e){try{return new W(t,e,r)}catch(t){throw new V(V.INVALID_EXPRESSION_ERR,t)}},t.createNSResolver=function(t){return new q(t)},t.evaluate=function(e,n,s,o,i){if(0>o||o>9)throw{code:0,toString:function(){return"Request type not supported"}};return t.createExpression(e,s,r).evaluate(n,o,i)}}function Q(t,r){var e=new n,r=e.parse(r),s=new F;t.documentElement?s.expressionContextNode=t.documentElement:s.expressionContextNode=t;var o=r.evaluate(s);return o.toArray()}n.prototype=new Object,n.prototype.constructor=n,n.superclass=Object.prototype,n.prototype.init=function(){this.reduceActions=[],this.reduceActions[3]=function(t){return new c(t[0],t[2])},this.reduceActions[5]=function(t){return new h(t[0],t[2])},this.reduceActions[7]=function(t){return new l(t[0],t[2])},this.reduceActions[8]=function(t){return new p(t[0],t[2])},this.reduceActions[10]=function(t){return new f(t[0],t[2])},this.reduceActions[11]=function(t){return new g(t[0],t[2])},this.reduceActions[12]=function(t){return new d(t[0],t[2])},this.reduceActions[13]=function(t){return new E(t[0],t[2])},this.reduceActions[15]=function(t){return new m(t[0],t[2])},this.reduceActions[16]=function(t){return new N(t[0],t[2])},this.reduceActions[18]=function(t){return new A(t[0],t[2])},this.reduceActions[19]=function(t){return new y(t[0],t[2])},this.reduceActions[20]=function(t){return new v(t[0],t[2])},this.reduceActions[22]=function(t){return new u(t[1])},this.reduceActions[24]=function(t){return new b(t[0],t[2])},this.reduceActions[25]=function(t){return new T(void 0,void 0,t[0])},this.reduceActions[27]=function(t){return t[0].locationPath=t[2],t[0]},this.reduceActions[28]=function(t){return t[0].locationPath=t[2],t[0].locationPath.steps.unshift(new w(w.DESCENDANTORSELF,new R(R.NODE,void 0),[])),t[0]},this.reduceActions[29]=function(t){return new T(t[0],[],void 0)},this.reduceActions[30]=function(t){return Utilities.instance_of(t[0],T)?(void 0==t[0].filterPredicates&&(t[0].filterPredicates=[]),t[0].filterPredicates.push(t[1]),t[0]):new T(t[0],[t[1]],void 0)},this.reduceActions[32]=function(t){return t[1]},this.reduceActions[33]=function(t){return new I(t[0])},this.reduceActions[34]=function(t){return new U(t[0])},this.reduceActions[36]=function(t){return new x(t[0],[])},this.reduceActions[37]=function(t){return new x(t[0],t[2])},this.reduceActions[38]=function(t){return[t[0]]},this.reduceActions[39]=function(t){return t[2].unshift(t[0]),t[2]},this.reduceActions[43]=function(t){return new S(!0,[])},this.reduceActions[44]=function(t){return t[1].absolute=!0,t[1]},this.reduceActions[46]=function(t){return new S(!1,[t[0]])},this.reduceActions[47]=function(t){return t[0].steps.push(t[2]),t[0]},this.reduceActions[49]=function(t){return new w(t[0],t[1],[])},this.reduceActions[50]=function(t){return new w(w.CHILD,t[0],[])},this.reduceActions[51]=function(t){return new w(t[0],t[1],t[2])},this.reduceActions[52]=function(t){return new w(w.CHILD,t[0],t[1])},this.reduceActions[54]=function(t){return[t[0]]},this.reduceActions[55]=function(t){return t[1].unshift(t[0]),t[1]},this.reduceActions[56]=function(t){return"ancestor"==t[0]?w.ANCESTOR:"ancestor-or-self"==t[0]?w.ANCESTORORSELF:"attribute"==t[0]?w.ATTRIBUTE:"child"==t[0]?w.CHILD:"descendant"==t[0]?w.DESCENDANT:"descendant-or-self"==t[0]?w.DESCENDANTORSELF:"following"==t[0]?w.FOLLOWING:"following-sibling"==t[0]?w.FOLLOWINGSIBLING:"namespace"==t[0]?w.NAMESPACE:"parent"==t[0]?w.PARENT:"preceding"==t[0]?w.PRECEDING:"preceding-sibling"==t[0]?w.PRECEDINGSIBLING:"self"==t[0]?w.SELF:-1},this.reduceActions[57]=function(t){return w.ATTRIBUTE},this.reduceActions[59]=function(t){return"comment"==t[0]?new R(R.COMMENT,void 0):"text"==t[0]?new R(R.TEXT,void 0):"processing-instruction"==t[0]?new R(R.PI,void 0):"node"==t[0]?new R(R.NODE,void 0):new R(-1,void 0)},this.reduceActions[60]=function(t){return new R(R.PI,t[2])},this.reduceActions[61]=function(t){return t[1]},this.reduceActions[63]=function(t){return t[1].absolute=!0,t[1].steps.unshift(new w(w.DESCENDANTORSELF,new R(R.NODE,void 0),[])),t[1]},this.reduceActions[64]=function(t){return t[0].steps.push(new w(w.DESCENDANTORSELF,new R(R.NODE,void 0),[])),t[0].steps.push(t[2]),t[0]},this.reduceActions[65]=function(t){return new w(w.SELF,new R(R.NODE,void 0),[])},this.reduceActions[66]=function(t){return new w(w.PARENT,new R(R.NODE,void 0),[])},this.reduceActions[67]=function(t){return new O(t[1])},this.reduceActions[68]=function(t){return new R(R.NAMETESTANY,void 0)},this.reduceActions[69]=function(t){var r=t[0].substring(0,t[0].indexOf(":"));return new R(R.NAMETESTPREFIXANY,r)},this.reduceActions[70]=function(t){return new R(R.NAMETESTQNAME,t[0])}},n.actionTable=[" s s        sssssssss    s ss  s  ss","                 s                  ","r  rrrrrrrrr         rrrrrrr rr  r  ","                rrrrr               "," s s        sssssssss    s ss  s  ss","rs  rrrrrrrr s  sssssrrrrrr  rrs rs "," s s        sssssssss    s ss  s  ss","                            s       ","                            s       ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","  s                                 ","                            s       "," s           s  sssss          s  s ","r  rrrrrrrrr         rrrrrrr rr  r  ","a                                   ","r       s                    rr  r  ","r      sr                    rr  r  ","r   s  rr            s       rr  r  ","r   rssrr            rss     rr  r  ","r   rrrrr            rrrss   rr  r  ","r   rrrrrsss         rrrrr   rr  r  ","r   rrrrrrrr         rrrrr   rr  r  ","r   rrrrrrrr         rrrrrs  rr  r  ","r   rrrrrrrr         rrrrrr  rr  r  ","r   rrrrrrrr         rrrrrr  rr  r  ","r  srrrrrrrr         rrrrrrs rr sr  ","r  srrrrrrrr         rrrrrrs rr  r  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r   rrrrrrrr         rrrrrr  rr  r  ","r   rrrrrrrr         rrrrrr  rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","                sssss               ","r  rrrrrrrrr         rrrrrrr rr sr  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","                             s      ","r  srrrrrrrr         rrrrrrs rr  r  ","r   rrrrrrrr         rrrrr   rr  r  ","              s                     ","                             s      ","                rrrrr               "," s s        sssssssss    s sss s  ss","r  srrrrrrrr         rrrrrrs rr  r  "," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss    s ss  s  ss"," s s        sssssssss      ss  s  ss"," s s        sssssssss    s ss  s  ss"," s           s  sssss          s  s "," s           s  sssss          s  s ","r  rrrrrrrrr         rrrrrrr rr rr  "," s           s  sssss          s  s "," s           s  sssss          s  s ","r  rrrrrrrrr         rrrrrrr rr sr  ","r  rrrrrrrrr         rrrrrrr rr sr  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr rr  ","                             s      ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  ","                             rr     ","                             s      ","                             rs     ","r      sr                    rr  r  ","r   s  rr            s       rr  r  ","r   rssrr            rss     rr  r  ","r   rssrr            rss     rr  r  ","r   rrrrr            rrrss   rr  r  ","r   rrrrr            rrrss   rr  r  ","r   rrrrr            rrrss   rr  r  ","r   rrrrr            rrrss   rr  r  ","r   rrrrrsss         rrrrr   rr  r  ","r   rrrrrsss         rrrrr   rr  r  ","r   rrrrrrrr         rrrrr   rr  r  ","r   rrrrrrrr         rrrrr   rr  r  ","r   rrrrrrrr         rrrrr   rr  r  ","r   rrrrrrrr         rrrrrr  rr  r  ","                                 r  ","                                 s  ","r  srrrrrrrr         rrrrrrs rr  r  ","r  srrrrrrrr         rrrrrrs rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr  r  ","r  rrrrrrrrr         rrrrrrr rr rr  ","r  rrrrrrrrr         rrrrrrr rr rr  "," s s        sssssssss    s ss  s  ss","r  rrrrrrrrr         rrrrrrr rr rr  ","                             r      "],n.actionTableNumber=[" 1 0        /.-,+*)('    & %$  #  \"!","                 J                  ","a  aaaaaaaaa         aaaaaaa aa  a  ","                YYYYY               "," 1 0        /.-,+*)('    & %$  #  \"!","K1  KKKKKKKK .  +*)('KKKKKK  KK# K\" "," 1 0        /.-,+*)('    & %$  #  \"!","                            N       ","                            O       ","e  eeeeeeeee         eeeeeee ee ee  ","f  fffffffff         fffffff ff ff  ","d  ddddddddd         ddddddd dd dd  ","B  BBBBBBBBB         BBBBBBB BB BB  ","A  AAAAAAAAA         AAAAAAA AA AA  ","  P                                 ","                            Q       "," 1           .  +*)('          #  \" ","b  bbbbbbbbb         bbbbbbb bb  b  ","                                    ","!       S                    !!  !  ",'"      T"                    ""  "  ',"$   V  $$            U       $$  $  ","&   &ZY&&            &XW     &&  &  ",")   )))))            )))\\[   ))  )  ",".   ....._^]         .....   ..  .  ","1   11111111         11111   11  1  ","5   55555555         55555`  55  5  ","7   77777777         777777  77  7  ","9   99999999         999999  99  9  ",":  c::::::::         ::::::b :: a:  ","I  fIIIIIIII         IIIIIIe II  I  ","=  =========         ======= == ==  ","?  ?????????         ??????? ?? ??  ","C  CCCCCCCCC         CCCCCCC CC CC  ","J   JJJJJJJJ         JJJJJJ  JJ  J  ","M   MMMMMMMM         MMMMMM  MM  M  ","N  NNNNNNNNN         NNNNNNN NN  N  ","P  PPPPPPPPP         PPPPPPP PP  P  ","                +*)('               ","R  RRRRRRRRR         RRRRRRR RR aR  ","U  UUUUUUUUU         UUUUUUU UU  U  ","Z  ZZZZZZZZZ         ZZZZZZZ ZZ ZZ  ","c  ccccccccc         ccccccc cc cc  ","                             j      ","L  fLLLLLLLL         LLLLLLe LL  L  ","6   66666666         66666   66  6  ","              k                     ","                             l      ","                XXXXX               "," 1 0        /.-,+*)('    & %$m #  \"!","_  f________         ______e __  _  "," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1 0        /.-,+*)('      %$  #  \"!"," 1 0        /.-,+*)('    & %$  #  \"!"," 1           .  +*)('          #  \" "," 1           .  +*)('          #  \" ",">  >>>>>>>>>         >>>>>>> >> >>  "," 1           .  +*)('          #  \" "," 1           .  +*)('          #  \" ","Q  QQQQQQQQQ         QQQQQQQ QQ aQ  ","V  VVVVVVVVV         VVVVVVV VV aV  ","T  TTTTTTTTT         TTTTTTT TT  T  ","@  @@@@@@@@@         @@@@@@@ @@ @@  ","                                   ","[  [[[[[[[[[         [[[[[[[ [[ [[  ","D  DDDDDDDDD         DDDDDDD DD DD  ","                             HH     ","                                   ","                             F     ","#      T#                    ##  #  ","%   V  %%            U       %%  %  ","'   'ZY''            'XW     ''  '  ","(   (ZY((            (XW     ((  (  ","+   +++++            +++\\[   ++  +  ","*   *****            ***\\[   **  *  ","-   -----            ---\\[   --  -  ",",   ,,,,,            ,,,\\[   ,,  ,  ","0   00000_^]         00000   00  0  ","/   /////_^]         /////   //  /  ","2   22222222         22222   22  2  ","3   33333333         33333   33  3  ","4   44444444         44444   44  4  ","8   88888888         888888  88  8  ","                                 ^  ","                                   ",";  f;;;;;;;;         ;;;;;;e ;;  ;  ","<  f<<<<<<<<         <<<<<<e <<  <  ","O  OOOOOOOOO         OOOOOOO OO  O  ","`  `````````         ``````` ``  `  ","S  SSSSSSSSS         SSSSSSS SS  S  ","W  WWWWWWWWW         WWWWWWW WW  W  ","\\  \\\\\\\\\\\\\\\\\\         \\\\\\\\\\\\\\ \\\\ \\\\  ","E  EEEEEEEEE         EEEEEEE EE EE  "," 1 0        /.-,+*)('    & %$  #  \"!","]  ]]]]]]]]]         ]]]]]]] ]] ]]  ","                             G      "],n.gotoTable=["3456789:;<=>?@ AB  CDEFGH IJ ","                             ","                             ","                             ","L456789:;<=>?@ AB  CDEFGH IJ ","            M        EFGH IJ ","       N;<=>?@ AB  CDEFGH IJ ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","            S        EFGH IJ ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","              e              ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                        h  J ","              i          j   ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","o456789:;<=>?@ ABpqCDEFGH IJ ","                             ","  r6789:;<=>?@ AB  CDEFGH IJ ","   s789:;<=>?@ AB  CDEFGH IJ ","    t89:;<=>?@ AB  CDEFGH IJ ","    u89:;<=>?@ AB  CDEFGH IJ ","     v9:;<=>?@ AB  CDEFGH IJ ","     w9:;<=>?@ AB  CDEFGH IJ ","     x9:;<=>?@ AB  CDEFGH IJ ","     y9:;<=>?@ AB  CDEFGH IJ ","      z:;<=>?@ AB  CDEFGH IJ ","      {:;<=>?@ AB  CDEFGH IJ ","       |;<=>?@ AB  CDEFGH IJ ","       };<=>?@ AB  CDEFGH IJ ","       ~;<=>?@ AB  CDEFGH IJ ","         =>?@ AB  CDEFGH IJ ","456789:;<=>?@ AB  CDEFGH IJ","                    EFGH IJ ","                    EFGH IJ ","                             ","                      GH IJ ","                      GH IJ ","              i             ","              i             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","                             ","o456789:;<=>?@ ABqCDEFGH IJ ","                             ","                             "],n.productions=[[1,1,2],[2,1,3],[3,1,4],[3,3,3,-9,4],[4,1,5],[4,3,4,-8,5],[5,1,6],[5,3,5,-22,6],[5,3,5,-5,6],[6,1,7],[6,3,6,-23,7],[6,3,6,-24,7],[6,3,6,-6,7],[6,3,6,-7,7],[7,1,8],[7,3,7,-25,8],[7,3,7,-26,8],[8,1,9],[8,3,8,-12,9],[8,3,8,-11,9],[8,3,8,-10,9],[9,1,10],[9,2,-26,9],[10,1,11],[10,3,10,-27,11],[11,1,12],[11,1,13],[11,3,13,-28,14],[11,3,13,-4,14],[13,1,15],[13,2,13,16],[15,1,17],[15,3,-29,2,-30],[15,1,-15],[15,1,-16],[15,1,18],[18,3,-13,-29,-30],[18,4,-13,-29,19,-30],[19,1,20],[19,3,20,-31,19],[20,1,2],[12,1,14],[12,1,21],[21,1,-28],[21,2,-28,14],[21,1,22],[14,1,23],[14,3,14,-28,23],[14,1,24],[23,2,25,26],[23,1,26],[23,3,25,26,27],[23,2,26,27],[23,1,28],[27,1,16],[27,2,16,27],[25,2,-14,-3],[25,1,-32],[26,1,29],[26,3,-20,-29,-30],[26,4,-21,-29,-15,-30],[16,3,-33,30,-34],[30,1,2],[22,2,-4,14],[24,3,14,-4,23],[28,1,-35],[28,1,-2],[17,2,-36,-18],[29,1,-17],[29,1,-19],[29,1,-18]],n.DOUBLEDOT=2,n.DOUBLECOLON=3,n.DOUBLESLASH=4,n.NOTEQUAL=5,n.LESSTHANOREQUAL=6,n.GREATERTHANOREQUAL=7,n.AND=8,n.OR=9,n.MOD=10,n.DIV=11,n.MULTIPLYOPERATOR=12,n.FUNCTIONNAME=13,n.AXISNAME=14,n.LITERAL=15,n.NUMBER=16,n.ASTERISKNAMETEST=17,n.QNAME=18,n.NCNAMECOLONASTERISK=19,n.NODETYPE=20,n.PROCESSINGINSTRUCTIONWITHLITERAL=21,n.EQUALS=22,n.LESSTHAN=23,n.GREATERTHAN=24,n.PLUS=25,n.MINUS=26,n.BAR=27,n.SLASH=28,n.LEFTPARENTHESIS=29,n.RIGHTPARENTHESIS=30,n.COMMA=31,n.AT=32,n.LEFTBRACKET=33,n.RIGHTBRACKET=34,n.DOT=35,n.DOLLAR=36,n.prototype.tokenize=function(t){for(var r=[],e=[],s=t+"\x00",o=0,i=s.charAt(o++);;){for(;" "==i||"	"==i||"\r"==i||"\n"==i;)i=s.charAt(o++);if("\x00"==i||o>=s.length)break;if("("!=i)if(")"!=i)if("["!=i)if("]"!=i)if("@"!=i)if(","!=i)if("|"!=i)if("+"!=i)if("-"!=i)if("="!=i)if("$"!=i)if("."!=i)if("'"!=i&&'"'!=i)if(i>="0"&&"9">=i){var u=i;for(i=s.charAt(o++);i>="0"&&"9">=i;)u+=i,i=s.charAt(o++);if("."==i&&s.charAt(o)>="0"&&s.charAt(o)<="9")for(u+=i,u+=s.charAt(o++),i=s.charAt(o++);i>="0"&&"9">=i;)u+=i,i=s.charAt(o++);r.push(n.NUMBER),e.push(u)}else if("*"!=i)if(":"!=i||":"!=s.charAt(o))if("/"!=i)if("!"!=i||"="!=s.charAt(o))if("<"!=i)if(">"!=i){if("_"!=i&&!Utilities.isLetter(i.charCodeAt(0)))throw new Error("Unexpected character "+i);var a=i;for(i=s.charAt(o++);Utilities.isNCNameChar(i.charCodeAt(0));)a+=i,i=s.charAt(o++);if(r.length>0){var c=r[r.length-1];if(c!=n.AT&&c!=n.DOUBLECOLON&&c!=n.LEFTPARENTHESIS&&c!=n.LEFTBRACKET&&c!=n.AND&&c!=n.OR&&c!=n.MOD&&c!=n.DIV&&c!=n.MULTIPLYOPERATOR&&c!=n.SLASH&&c!=n.DOUBLESLASH&&c!=n.BAR&&c!=n.PLUS&&c!=n.MINUS&&c!=n.EQUALS&&c!=n.NOTEQUAL&&c!=n.LESSTHAN&&c!=n.LESSTHANOREQUAL&&c!=n.GREATERTHAN&&c!=n.GREATERTHANOREQUAL){if("and"==a){r.push(n.AND),e.push(a);continue}if("or"==a){r.push(n.OR),e.push(a);continue}if("mod"==a){r.push(n.MOD),e.push(a);continue}if("div"==a){r.push(n.DIV),e.push(a);continue}}}if(":"==i){if("*"==s.charAt(o)){r.push(n.NCNAMECOLONASTERISK),e.push(a+":*"),o++,i=s.charAt(o++);continue}if("_"==s.charAt(o)||Utilities.isLetter(s.charCodeAt(o))){for(a+=":",i=s.charAt(o++);Utilities.isNCNameChar(i.charCodeAt(0));)a+=i,i=s.charAt(o++);if("("==i){r.push(n.FUNCTIONNAME),e.push(a);continue}r.push(n.QNAME),e.push(a);continue}if(":"==s.charAt(o)){r.push(n.AXISNAME),e.push(a);continue}}if("("==i){if("comment"==a||"text"==a||"node"==a){r.push(n.NODETYPE),e.push(a);continue}if("processing-instruction"==a){")"==s.charAt(o)?r.push(n.NODETYPE):r.push(n.PROCESSINGINSTRUCTIONWITHLITERAL),e.push(a);continue}r.push(n.FUNCTIONNAME),e.push(a);continue}r.push(n.QNAME),e.push(a)}else{if("="==s.charAt(o)){r.push(n.GREATERTHANOREQUAL),e.push(">="),o++,i=s.charAt(o++);continue}r.push(n.GREATERTHAN),e.push(">"),i=s.charAt(o++)}else{if("="==s.charAt(o)){r.push(n.LESSTHANOREQUAL),e.push("<="),o++,i=s.charAt(o++);continue}r.push(n.LESSTHAN),e.push("<"),i=s.charAt(o++)}else r.push(n.NOTEQUAL),e.push("!="),o++,i=s.charAt(o++);else{if(i=s.charAt(o++),"/"==i){r.push(n.DOUBLESLASH),e.push("//"),i=s.charAt(o++);continue}r.push(n.SLASH),e.push("/")}else r.push(n.DOUBLECOLON),e.push("::"),o++,i=s.charAt(o++);else{if(r.length>0){var c=r[r.length-1];if(c!=n.AT&&c!=n.DOUBLECOLON&&c!=n.LEFTPARENTHESIS&&c!=n.LEFTBRACKET&&c!=n.AND&&c!=n.OR&&c!=n.MOD&&c!=n.DIV&&c!=n.MULTIPLYOPERATOR&&c!=n.SLASH&&c!=n.DOUBLESLASH&&c!=n.BAR&&c!=n.PLUS&&c!=n.MINUS&&c!=n.EQUALS&&c!=n.NOTEQUAL&&c!=n.LESSTHAN&&c!=n.LESSTHANOREQUAL&&c!=n.GREATERTHAN&&c!=n.GREATERTHANOREQUAL){r.push(n.MULTIPLYOPERATOR),e.push(i),i=s.charAt(o++);continue}}r.push(n.ASTERISKNAMETEST),e.push(i),i=s.charAt(o++)}else{for(var h=i,l="";(i=s.charAt(o++))!=h;)l+=i;r.push(n.LITERAL),e.push(l),i=s.charAt(o++)}else{if(i=s.charAt(o++),"."==i){r.push(n.DOUBLEDOT),e.push(".."),i=s.charAt(o++);continue}if(i>="0"&&"9">=i){var u="."+i;for(i=s.charAt(o++);i>="0"&&"9">=i;)u+=i,i=s.charAt(o++);r.push(n.NUMBER),e.push(u);continue}r.push(n.DOT),e.push(".")}else r.push(n.DOLLAR),e.push(i),i=s.charAt(o++);else r.push(n.EQUALS),e.push(i),i=s.charAt(o++);else r.push(n.MINUS),e.push(i),i=s.charAt(o++);else r.push(n.PLUS),e.push(i),i=s.charAt(o++);else r.push(n.BAR),e.push(i),i=s.charAt(o++);else r.push(n.COMMA),e.push(i),i=s.charAt(o++);else r.push(n.AT),e.push(i),i=s.charAt(o++);else r.push(n.RIGHTBRACKET),e.push(i),i=s.charAt(o++);else r.push(n.LEFTBRACKET),e.push(i),i=s.charAt(o++);else r.push(n.RIGHTPARENTHESIS),e.push(i),i=s.charAt(o++);else r.push(n.LEFTPARENTHESIS),e.push(i),i=s.charAt(o++)}return r.push(1),e.push("[EOF]"),[r,e]},n.SHIFT="s",n.REDUCE="r",n.ACCEPT="a",n.prototype.parse=function(t){var r,e,o=this.tokenize(t);if(void 0!=o){r=o[0],e=o[1];var t,i,u,a=0,c=[],h=[],l=[];for(c.push(0),h.push(1),l.push("_S"),i=r[a],u=e[a++];;)switch(t=c[c.length-1],n.actionTable[t].charAt(i-1)){case n.SHIFT:h.push(-i),l.push(u),c.push(n.actionTableNumber[t].charCodeAt(i-1)-32),i=r[a],u=e[a++];break;case n.REDUCE:for(var p=n.productions[n.actionTableNumber[t].charCodeAt(i-1)-32][1],f=[],g=0;p>g;g++)h.pop(),f.unshift(l.pop()),c.pop();var d=c[c.length-1];h.push(n.productions[n.actionTableNumber[t].charCodeAt(i-1)-32][0]),void 0==this.reduceActions[n.actionTableNumber[t].charCodeAt(i-1)-32]?l.push(f[0]):l.push(this.reduceActions[n.actionTableNumber[t].charCodeAt(i-1)-32](f)),c.push(n.gotoTable[d].charCodeAt(n.productions[n.actionTableNumber[t].charCodeAt(i-1)-32][0]-2)-33);break;case n.ACCEPT:return new s(l.pop());default:throw new Error("XPath parse error")}}},s.prototype=new Object,s.prototype.constructor=s,s.superclass=Object.prototype,s.prototype.toString=function(){return this.expression.toString()},s.prototype.evaluate=function(t){if(t.contextNode=t.expressionContextNode,t.contextSize=1,t.contextPosition=1,t.caseInsensitive=!1,null!=t.contextNode){var r=t.contextNode;9!=r.nodeType&&(r=r.ownerDocument);try{t.caseInsensitive=r.implementation.hasFeature("HTML","2.0")}catch(e){t.caseInsensitive=!0}}return this.expression.evaluate(t)},s.XML_NAMESPACE_URI="http://www.w3.org/XML/1998/namespace",s.XMLNS_NAMESPACE_URI="http://www.w3.org/2000/xmlns/",o.prototype=new Object,o.prototype.constructor=o,o.superclass=Object.prototype,o.prototype.init=function(){},o.prototype.toString=function(){return"<Expression>"},o.prototype.evaluate=function(t){throw new Error("Could not evaluate expression.")},i.prototype=new o,i.prototype.constructor=i,i.superclass=o.prototype,i.prototype.init=function(t){this.rhs=t},u.prototype=new i,u.prototype.constructor=u,u.superclass=i.prototype,u.prototype.init=function(t){u.superclass.init.call(this,t)},u.prototype.evaluate=function(t){return this.rhs.evaluate(t).number().negate()},u.prototype.toString=function(){return"-"+this.rhs.toString()},a.prototype=new o,a.prototype.constructor=a,a.superclass=o.prototype,a.prototype.init=function(t,r){this.lhs=t,this.rhs=r},c.prototype=new a,c.prototype.constructor=c,c.superclass=a.prototype,c.prototype.init=function(t,r){c.superclass.init.call(this,t,r)},c.prototype.toString=function(){return"("+this.lhs.toString()+" or "+this.rhs.toString()+")"},c.prototype.evaluate=function(t){var r=this.lhs.evaluate(t).bool();return r.booleanValue()?r:this.rhs.evaluate(t).bool()},h.prototype=new a,h.prototype.constructor=h,h.superclass=a.prototype,h.prototype.init=function(t,r){h.superclass.init.call(this,t,r)},h.prototype.toString=function(){return"("+this.lhs.toString()+" and "+this.rhs.toString()+")"},h.prototype.evaluate=function(t){var r=this.lhs.evaluate(t).bool();return r.booleanValue()?this.rhs.evaluate(t).bool():r},l.prototype=new a,l.prototype.constructor=l,l.superclass=a.prototype,l.prototype.init=function(t,r){l.superclass.init.call(this,t,r)},l.prototype.toString=function(){return"("+this.lhs.toString()+" = "+this.rhs.toString()+")"},l.prototype.evaluate=function(t){return this.lhs.evaluate(t).equals(this.rhs.evaluate(t))},p.prototype=new a,p.prototype.constructor=p,p.superclass=a.prototype,p.prototype.init=function(t,r){p.superclass.init.call(this,t,r)},p.prototype.toString=function(){return"("+this.lhs.toString()+" != "+this.rhs.toString()+")"},p.prototype.evaluate=function(t){return this.lhs.evaluate(t).notequal(this.rhs.evaluate(t))},f.prototype=new a,f.prototype.constructor=f,f.superclass=a.prototype,f.prototype.init=function(t,r){f.superclass.init.call(this,t,r)},f.prototype.evaluate=function(t){return this.lhs.evaluate(t).lessthan(this.rhs.evaluate(t))},f.prototype.toString=function(){return"("+this.lhs.toString()+" < "+this.rhs.toString()+")"},g.prototype=new a,g.prototype.constructor=g,g.superclass=a.prototype,g.prototype.init=function(t,r){g.superclass.init.call(this,t,r)},g.prototype.evaluate=function(t){return this.lhs.evaluate(t).greaterthan(this.rhs.evaluate(t))},g.prototype.toString=function(){return"("+this.lhs.toString()+" > "+this.rhs.toString()+")"},d.prototype=new a,d.prototype.constructor=d,d.superclass=a.prototype,d.prototype.init=function(t,r){d.superclass.init.call(this,t,r)},d.prototype.evaluate=function(t){return this.lhs.evaluate(t).lessthanorequal(this.rhs.evaluate(t))},d.prototype.toString=function(){return"("+this.lhs.toString()+" <= "+this.rhs.toString()+")"},E.prototype=new a,E.prototype.constructor=E,E.superclass=a.prototype,E.prototype.init=function(t,r){E.superclass.init.call(this,t,r)},E.prototype.evaluate=function(t){return this.lhs.evaluate(t).greaterthanorequal(this.rhs.evaluate(t))},E.prototype.toString=function(){return"("+this.lhs.toString()+" >= "+this.rhs.toString()+")"},m.prototype=new a,m.prototype.constructor=m,m.superclass=a.prototype,m.prototype.init=function(t,r){m.superclass.init.call(this,t,r)},m.prototype.evaluate=function(t){return this.lhs.evaluate(t).number().plus(this.rhs.evaluate(t).number())},m.prototype.toString=function(){return"("+this.lhs.toString()+" + "+this.rhs.toString()+")"},N.prototype=new a,N.prototype.constructor=N,N.superclass=a.prototype,N.prototype.init=function(t,r){N.superclass.init.call(this,t,r)},N.prototype.evaluate=function(t){return this.lhs.evaluate(t).number().minus(this.rhs.evaluate(t).number())},N.prototype.toString=function(){return"("+this.lhs.toString()+" - "+this.rhs.toString()+")"},A.prototype=new a,A.prototype.constructor=A,A.superclass=a.prototype,A.prototype.init=function(t,r){A.superclass.init.call(this,t,r)},A.prototype.evaluate=function(t){return this.lhs.evaluate(t).number().multiply(this.rhs.evaluate(t).number())},A.prototype.toString=function(){return"("+this.lhs.toString()+" * "+this.rhs.toString()+")"},y.prototype=new a,y.prototype.constructor=y,y.superclass=a.prototype,y.prototype.init=function(t,r){y.superclass.init.call(this,t,r)},y.prototype.evaluate=function(t){return this.lhs.evaluate(t).number().div(this.rhs.evaluate(t).number())},y.prototype.toString=function(){return"("+this.lhs.toString()+" div "+this.rhs.toString()+")"},v.prototype=new a,v.prototype.constructor=v,v.superclass=a.prototype,v.prototype.init=function(t,r){v.superclass.init.call(this,t,r)},v.prototype.evaluate=function(t){return this.lhs.evaluate(t).number().mod(this.rhs.evaluate(t).number())},v.prototype.toString=function(){return"("+this.lhs.toString()+" mod "+this.rhs.toString()+")"},b.prototype=new a,b.prototype.constructor=b,b.superclass=a.prototype,b.prototype.init=function(t,r){b.superclass.init.call(this,t,r)},b.prototype.evaluate=function(t){return this.lhs.evaluate(t).nodeset().union(this.rhs.evaluate(t).nodeset());
-},b.prototype.toString=function(){return this.lhs.toString()+" | "+this.rhs.toString()},T.prototype=new o,T.prototype.constructor=T,T.superclass=o.prototype,T.prototype.init=function(t,r,e){T.superclass.init.call(this),this.filter=t,this.filterPredicates=r,this.locationPath=e},T.prototype.evaluate=function(t){var r,e=new F;if(e.variableResolver=t.variableResolver,e.functionResolver=t.functionResolver,e.namespaceResolver=t.namespaceResolver,e.expressionContextNode=t.expressionContextNode,e.virtualRoot=t.virtualRoot,e.caseInsensitive=t.caseInsensitive,null==this.filter)r=[t.contextNode];else{var n=this.filter.evaluate(t);if(!Utilities.instance_of(n,_)){if(null!=this.filterPredicates&&this.filterPredicates.length>0||null!=this.locationPath)throw new Error("Path expression filter must evaluate to a nodset if predicates or location path are used");return n}if(r=n.toArray(),null!=this.filterPredicates)for(var o=0;o<this.filterPredicates.length;o++){var i=this.filterPredicates[o],u=[];for(e.contextSize=r.length,e.contextPosition=1;e.contextPosition<=e.contextSize;e.contextPosition++)e.contextNode=r[e.contextPosition-1],this.predicateMatches(i,e)&&u.push(e.contextNode);r=u}}if(null!=this.locationPath){if(this.locationPath.absolute)if(9!=r[0].nodeType)if(null!=e.virtualRoot)r=[e.virtualRoot];else if(null==r[0].ownerDocument){for(var a=r[0];null!=a.parentNode;)a=a.parentNode;r=[a]}else r=[r[0].ownerDocument];else r=[r[0]];for(var c=0;c<this.locationPath.steps.length;c++){for(var h=this.locationPath.steps[c],u=[],o=0;o<r.length;o++)switch(e.contextNode=r[o],h.axis){case w.ANCESTOR:if(e.contextNode===e.virtualRoot)break;var l;for(l=2==e.contextNode.nodeType?this.getOwnerElement(e.contextNode):e.contextNode.parentNode;null!=l&&(h.nodeTest.matches(l,e)&&u.push(l),l!==e.virtualRoot);)l=l.parentNode;break;case w.ANCESTORORSELF:for(var l=e.contextNode;null!=l&&(h.nodeTest.matches(l,e)&&u.push(l),l!==e.virtualRoot);l=2==l.nodeType?this.getOwnerElement(l):l.parentNode);break;case w.ATTRIBUTE:var p=e.contextNode.attributes;if(null!=p)for(var f=0;f<p.length;f++){var l=p.item(f);h.nodeTest.matches(l,e)&&u.push(l)}break;case w.CHILD:for(var l=e.contextNode.firstChild;null!=l;l=l.nextSibling)h.nodeTest.matches(l,e)&&u.push(l);break;case w.DESCENDANT:for(var g=[e.contextNode.firstChild];g.length>0;)for(var l=g.pop();null!=l;)h.nodeTest.matches(l,e)&&u.push(l),null!=l.firstChild?(g.push(l.nextSibling),l=l.firstChild):l=l.nextSibling;break;case w.DESCENDANTORSELF:h.nodeTest.matches(e.contextNode,e)&&u.push(e.contextNode);for(var g=[e.contextNode.firstChild];g.length>0;)for(var l=g.pop();null!=l;)h.nodeTest.matches(l,e)&&u.push(l),null!=l.firstChild?(g.push(l.nextSibling),l=l.firstChild):l=l.nextSibling;break;case w.FOLLOWING:if(e.contextNode===e.virtualRoot)break;var g=[];null!=e.contextNode.firstChild?g.unshift(e.contextNode.firstChild):g.unshift(e.contextNode.nextSibling);for(var l=e.contextNode.parentNode;null!=l&&9!=l.nodeType&&l!==e.virtualRoot;l=l.parentNode)g.unshift(l.nextSibling);do for(var l=g.pop();null!=l;)h.nodeTest.matches(l,e)&&u.push(l),null!=l.firstChild?(g.push(l.nextSibling),l=l.firstChild):l=l.nextSibling;while(g.length>0);break;case w.FOLLOWINGSIBLING:if(e.contextNode===e.virtualRoot)break;for(var l=e.contextNode.nextSibling;null!=l;l=l.nextSibling)h.nodeTest.matches(l,e)&&u.push(l);break;case w.NAMESPACE:var a={};if(1==e.contextNode.nodeType){a.xml=s.XML_NAMESPACE_URI,a.xmlns=s.XMLNS_NAMESPACE_URI;for(var l=e.contextNode;null!=l&&1==l.nodeType;l=l.parentNode)for(var f=0;f<l.attributes.length;f++){var d=l.attributes.item(f),E=String(d.name);if("xmlns"==E)void 0==a[""]&&(a[""]=d.value);else if(E.length>6&&"xmlns:"==E.substring(0,6)){var m=E.substring(6,E.length);void 0==a[m]&&(a[m]=d.value)}}for(var m in a){var N=new NamespaceNode(m,a[m],e.contextNode);h.nodeTest.matches(N,e)&&u.push(N)}}break;case w.PARENT:l=null,e.contextNode!==e.virtualRoot&&(l=2==e.contextNode.nodeType?this.getOwnerElement(e.contextNode):e.contextNode.parentNode),null!=l&&h.nodeTest.matches(l,e)&&u.push(l);break;case w.PRECEDING:var g;g=null!=e.virtualRoot?[e.virtualRoot]:9==e.contextNode.nodeType?[e.contextNode]:[e.contextNode.ownerDocument];t:for(;g.length>0;)for(var l=g.pop();null!=l;){if(l==e.contextNode)break t;h.nodeTest.matches(l,e)&&u.unshift(l),null!=l.firstChild?(g.push(l.nextSibling),l=l.firstChild):l=l.nextSibling}break;case w.PRECEDINGSIBLING:if(e.contextNode===e.virtualRoot)break;for(var l=e.contextNode.previousSibling;null!=l;l=l.previousSibling)h.nodeTest.matches(l,e)&&u.push(l);break;case w.SELF:h.nodeTest.matches(e.contextNode,e)&&u.push(e.contextNode)}r=u;for(var o=0;o<h.predicates.length;o++){var i=h.predicates[o],u=[];for(e.contextSize=r.length,e.contextPosition=1;e.contextPosition<=e.contextSize;e.contextPosition++)e.contextNode=r[e.contextPosition-1],this.predicateMatches(i,e)&&u.push(e.contextNode);r=u}}}var n=new _;return n.addArray(r),n},T.prototype.predicateMatches=function(t,r){var e=t.evaluate(r);return Utilities.instance_of(e,U)?r.contextPosition==e.numberValue():e.booleanValue()},T.prototype.toString=function(){if(void 0!=this.filter){var t=this.filter.toString();if(Utilities.instance_of(this.filter,I)&&(t="'"+t+"'"),void 0!=this.filterPredicates)for(var r=0;r<this.filterPredicates.length;r++)t=t+"["+this.filterPredicates[r].toString()+"]";return void 0!=this.locationPath&&(this.locationPath.absolute||(t+="/"),t+=this.locationPath.toString()),t}return this.locationPath.toString()},T.prototype.getOwnerElement=function(t){if(t.ownerElement)return t.ownerElement;try{if(t.selectSingleNode)return t.selectSingleNode("..")}catch(r){}for(var e=9==t.nodeType?t:t.ownerDocument,n=e.getElementsByTagName("*"),s=0;s<n.length;s++)for(var o=n.item(s),i=o.attributes,u=0;u<i.length;u++){var a=i.item(u);if(a===t)return o}return null},S.prototype=new Object,S.prototype.constructor=S,S.superclass=Object.prototype,S.prototype.init=function(t,r){this.absolute=t,this.steps=r},S.prototype.toString=function(){var t;t=this.absolute?"/":"";for(var r=0;r<this.steps.length;r++)0!=r&&(t+="/"),t+=this.steps[r].toString();return t},w.prototype=new Object,w.prototype.constructor=w,w.superclass=Object.prototype,w.prototype.init=function(t,r,e){this.axis=t,this.nodeTest=r,this.predicates=e},w.prototype.toString=function(){var t;switch(this.axis){case w.ANCESTOR:t="ancestor";break;case w.ANCESTORORSELF:t="ancestor-or-self";break;case w.ATTRIBUTE:t="attribute";break;case w.CHILD:t="child";break;case w.DESCENDANT:t="descendant";break;case w.DESCENDANTORSELF:t="descendant-or-self";break;case w.FOLLOWING:t="following";break;case w.FOLLOWINGSIBLING:t="following-sibling";break;case w.NAMESPACE:t="namespace";break;case w.PARENT:t="parent";break;case w.PRECEDING:t="preceding";break;case w.PRECEDINGSIBLING:t="preceding-sibling";break;case w.SELF:t="self"}t+="::",t+=this.nodeTest.toString();for(var r=0;r<this.predicates.length;r++)t+="["+this.predicates[r].toString()+"]";return t},w.ANCESTOR=0,w.ANCESTORORSELF=1,w.ATTRIBUTE=2,w.CHILD=3,w.DESCENDANT=4,w.DESCENDANTORSELF=5,w.FOLLOWING=6,w.FOLLOWINGSIBLING=7,w.NAMESPACE=8,w.PARENT=9,w.PRECEDING=10,w.PRECEDINGSIBLING=11,w.SELF=12,R.prototype=new Object,R.prototype.constructor=R,R.superclass=Object.prototype,R.prototype.init=function(t,r){this.type=t,this.value=r},R.prototype.toString=function(){switch(this.type){case R.NAMETESTANY:return"*";case R.NAMETESTPREFIXANY:return this.value+":*";case R.NAMETESTRESOLVEDANY:return"{"+this.value+"}*";case R.NAMETESTQNAME:return this.value;case R.NAMETESTRESOLVEDNAME:return"{"+this.namespaceURI+"}"+this.value;case R.COMMENT:return"comment()";case R.TEXT:return"text()";case R.PI:return void 0!=this.value?'processing-instruction("'+this.value+'")':"processing-instruction()";case R.NODE:return"node()"}return"<unknown nodetest type>"},R.prototype.matches=function(t,r){switch(this.type){case R.NAMETESTANY:return 2==t.nodeType||1==t.nodeType||t.nodeType==L.XPATH_NAMESPACE_NODE?!0:!1;case R.NAMETESTPREFIXANY:if(2==t.nodeType||1==t.nodeType){var e=r.namespaceResolver.getNamespace(this.value,r.expressionContextNode);if(null==e)throw new Error("Cannot resolve QName "+this.value);return!0}return!1;case R.NAMETESTQNAME:if(2==t.nodeType||1==t.nodeType||t.nodeType==L.XPATH_NAMESPACE_NODE){var n=Utilities.resolveQName(this.value,r.namespaceResolver,r.expressionContextNode,!1);if(null==n[0])throw new Error("Cannot resolve QName "+this.value);n[0]=String(n[0]),n[1]=String(n[1]),""==n[0]&&(n[0]=null);var s=Utilities.resolveQName(t.nodeName,r.namespaceResolver,t,1==t.nodeType);return s[0]=String(s[0]),s[1]=String(s[1]),""==s[0]&&(s[0]=null),r.caseInsensitive?n[0]==s[0]&&String(n[1]).toLowerCase()==String(s[1]).toLowerCase():n[0]==s[0]&&n[1]==s[1]}return!1;case R.COMMENT:return 8==t.nodeType;case R.TEXT:return 3==t.nodeType||4==t.nodeType;case R.PI:return 7==t.nodeType&&(null==this.value||t.nodeName==this.value);case R.NODE:return 9==t.nodeType||1==t.nodeType||2==t.nodeType||3==t.nodeType||4==t.nodeType||8==t.nodeType||7==t.nodeType}return!1},R.NAMETESTANY=0,R.NAMETESTPREFIXANY=1,R.NAMETESTQNAME=2,R.COMMENT=3,R.TEXT=4,R.PI=5,R.NODE=6,O.prototype=new o,O.prototype.constructor=O,O.superclass=o.prototype,O.prototype.init=function(t){this.variable=t},O.prototype.toString=function(){return"$"+this.variable},O.prototype.evaluate=function(t){return t.variableResolver.getVariable(this.variable,t)},x.prototype=new o,x.prototype.constructor=x,x.superclass=o.prototype,x.prototype.init=function(t,r){this.functionName=t,this.arguments=r},x.prototype.toString=function(){for(var t=this.functionName+"(",r=0;r<this.arguments.length;r++)r>0&&(t+=", "),t+=this.arguments[r].toString();return t+")"},x.prototype.evaluate=function(t){var r=t.functionResolver.getFunction(this.functionName,t);if(void 0==r)throw new Error("Unknown function "+this.functionName);var e=[t].concat(this.arguments);return r.apply(t.functionResolver.thisArg,e)},I.prototype=new o,I.prototype.constructor=I,I.superclass=o.prototype,I.prototype.init=function(t){this.str=t},I.prototype.toString=function(){return this.str},I.prototype.evaluate=function(t){return this},I.prototype.string=function(){return this},I.prototype.number=function(){return new U(this.str)},I.prototype.bool=function(){return new D(this.str)},I.prototype.nodeset=function(){throw new Error("Cannot convert string to nodeset")},I.prototype.stringValue=function(){return this.str},I.prototype.numberValue=function(){return this.number().numberValue()},I.prototype.booleanValue=function(){return this.bool().booleanValue()},I.prototype.equals=function(t){return Utilities.instance_of(t,D)?this.bool().equals(t):Utilities.instance_of(t,U)?this.number().equals(t):Utilities.instance_of(t,_)?t.compareWithString(this,J.equals):new D(this.str==t.str)},I.prototype.notequal=function(t){return Utilities.instance_of(t,D)?this.bool().notequal(t):Utilities.instance_of(t,U)?this.number().notequal(t):Utilities.instance_of(t,_)?t.compareWithString(this,J.notequal):new D(this.str!=t.str)},I.prototype.lessthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.greaterthanorequal):this.number().lessthan(t.number())},I.prototype.greaterthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.lessthanorequal):this.number().greaterthan(t.number())},I.prototype.lessthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.greaterthan):this.number().lessthanorequal(t.number())},I.prototype.greaterthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.lessthan):this.number().greaterthanorequal(t.number())},U.prototype=new o,U.prototype.constructor=U,U.superclass=o.prototype,U.prototype.init=function(t){this.num=Number(t)},U.prototype.toString=function(){return this.num},U.prototype.evaluate=function(t){return this},U.prototype.string=function(){return new I(this.num)},U.prototype.number=function(){return this},U.prototype.bool=function(){return new D(this.num)},U.prototype.nodeset=function(){throw new Error("Cannot convert number to nodeset")},U.prototype.stringValue=function(){return this.string().stringValue()},U.prototype.numberValue=function(){return this.num},U.prototype.booleanValue=function(){return this.bool().booleanValue()},U.prototype.negate=function(){return new U(-this.num)},U.prototype.equals=function(t){return Utilities.instance_of(t,D)?this.bool().equals(t):Utilities.instance_of(t,I)?this.equals(t.number()):Utilities.instance_of(t,_)?t.compareWithNumber(this,J.equals):new D(this.num==t.num)},U.prototype.notequal=function(t){return Utilities.instance_of(t,D)?this.bool().notequal(t):Utilities.instance_of(t,I)?this.notequal(t.number()):Utilities.instance_of(t,_)?t.compareWithNumber(this,J.notequal):new D(this.num!=t.num)},U.prototype.lessthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this,J.greaterthanorequal):Utilities.instance_of(t,D)||Utilities.instance_of(t,I)?this.lessthan(t.number()):new D(this.num<t.num)},U.prototype.greaterthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this,J.lessthanorequal):Utilities.instance_of(t,D)||Utilities.instance_of(t,I)?this.greaterthan(t.number()):new D(this.num>t.num)},U.prototype.lessthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this,J.greaterthan):Utilities.instance_of(t,D)||Utilities.instance_of(t,I)?this.lessthanorequal(t.number()):new D(this.num<=t.num)},U.prototype.greaterthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this,J.lessthan):Utilities.instance_of(t,D)||Utilities.instance_of(t,I)?this.greaterthanorequal(t.number()):new D(this.num>=t.num)},U.prototype.plus=function(t){return new U(this.num+t.num)},U.prototype.minus=function(t){return new U(this.num-t.num)},U.prototype.multiply=function(t){return new U(this.num*t.num)},U.prototype.div=function(t){return new U(this.num/t.num)},U.prototype.mod=function(t){return new U(this.num%t.num)},D.prototype=new o,D.prototype.constructor=D,D.superclass=o.prototype,D.prototype.init=function(t){this.b=Boolean(t)},D.prototype.toString=function(){return this.b.toString()},D.prototype.evaluate=function(t){return this},D.prototype.string=function(){return new I(this.b)},D.prototype.number=function(){return new U(this.b)},D.prototype.bool=function(){return this},D.prototype.nodeset=function(){throw new Error("Cannot convert boolean to nodeset")},D.prototype.stringValue=function(){return this.string().stringValue()},D.prototype.numberValue=function(){return this.num().numberValue()},D.prototype.booleanValue=function(){return this.b},D.prototype.not=function(){return new D(!this.b)},D.prototype.equals=function(t){return Utilities.instance_of(t,I)||Utilities.instance_of(t,U)?this.equals(t.bool()):Utilities.instance_of(t,_)?t.compareWithBoolean(this,J.equals):new D(this.b==t.b)},D.prototype.notequal=function(t){return Utilities.instance_of(t,I)||Utilities.instance_of(t,U)?this.notequal(t.bool()):Utilities.instance_of(t,_)?t.compareWithBoolean(this,J.notequal):new D(this.b!=t.b)},D.prototype.lessthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.greaterthanorequal):this.number().lessthan(t.number())},D.prototype.greaterthan=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.lessthanorequal):this.number().greaterthan(t.number())},D.prototype.lessthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.greaterthan):this.number().lessthanorequal(t.number())},D.prototype.greaterthanorequal=function(t){return Utilities.instance_of(t,_)?t.compareWithNumber(this.number(),J.lessthan):this.number().greaterthanorequal(t.number())},C.prototype=new Object,C.prototype.constructor=C,C.superclass=Object.prototype,C.prototype.init=function(t){this.left=null,this.right=null,this.node=t,this.depth=1},C.prototype.balance=function(){var t=null==this.left?0:this.left.depth,r=null==this.right?0:this.right.depth;if(t>r+1){var e=null==this.left.left?0:this.left.left.depth,n=null==this.left.right?0:this.left.right.depth;n>e&&this.left.rotateRR(),this.rotateLL()}else if(r>t+1){var s=null==this.right.right?0:this.right.right.depth,o=null==this.right.left?0:this.right.left.depth;o>s&&this.right.rotateLL(),this.rotateRR()}},C.prototype.rotateLL=function(){var t=this.node,r=this.right;this.node=this.left.node,this.right=this.left,this.left=this.left.left,this.right.left=this.right.right,this.right.right=r,this.right.node=t,this.right.updateInNewLocation(),this.updateInNewLocation()},C.prototype.rotateRR=function(){var t=this.node,r=this.left;this.node=this.right.node,this.left=this.right,this.right=this.right.right,this.left.right=this.left.left,this.left.left=r,this.left.node=t,this.left.updateInNewLocation(),this.updateInNewLocation()},C.prototype.updateInNewLocation=function(){this.getDepthFromChildren()},C.prototype.getDepthFromChildren=function(){this.depth=null==this.node?0:1,null!=this.left&&(this.depth=this.left.depth+1),null!=this.right&&this.depth<=this.right.depth&&(this.depth=this.right.depth+1)},C.prototype.order=function(t,r){if(t===r)return 0;for(var e=0,n=0,s=t;null!=s;s=s.parentNode)e++;for(var o=r;null!=o;o=o.parentNode)n++;if(e>n){for(;e>n;)t=t.parentNode,e--;if(t==r)return 1}else if(n>e){for(;n>e;)r=r.parentNode,n--;if(t==r)return-1}for(;t.parentNode!=r.parentNode;)t=t.parentNode,r=r.parentNode;for(;null!=t.previousSibling&&null!=r.previousSibling;)t=t.previousSibling,r=r.previousSibling;return null==t.previousSibling?-1:1},C.prototype.add=function(t){if(t===this.node)return!1;var r=this.order(t,this.node),e=!1;return-1==r?null==this.left?(this.left=new C(t),e=!0):(e=this.left.add(t),e&&this.balance()):1==r&&(null==this.right?(this.right=new C(t),e=!0):(e=this.right.add(t),e&&this.balance())),e&&this.getDepthFromChildren(),e},_.prototype=new o,_.prototype.constructor=_,_.superclass=o.prototype,_.prototype.init=function(){this.tree=null,this.size=0},_.prototype.toString=function(){var t=this.first();return null==t?"":this.stringForNode(t)},_.prototype.evaluate=function(t){return this},_.prototype.string=function(){return new I(this.toString())},_.prototype.stringValue=function(){return this.toString()},_.prototype.number=function(){return new U(this.string())},_.prototype.numberValue=function(){return Number(this.string())},_.prototype.bool=function(){return new D(null!=this.tree)},_.prototype.booleanValue=function(){return null!=this.tree},_.prototype.nodeset=function(){return this},_.prototype.stringForNode=function(t){return 9==t.nodeType&&(t=t.documentElement),1==t.nodeType?this.stringForNodeRec(t):t.isNamespaceNode?t.namespace:t.nodeValue},_.prototype.stringForNodeRec=function(t){for(var r="",e=t.firstChild;null!=e;e=e.nextSibling)3==e.nodeType?r+=e.nodeValue:1==e.nodeType&&(r+=this.stringForNodeRec(e));return r},_.prototype.first=function(){var t=this.tree;if(null==t)return null;for(;null!=t.left;)t=t.left;return t.node},_.prototype.add=function(t){var r;null==this.tree?(this.tree=new C(t),r=!0):r=this.tree.add(t),r&&this.size++},_.prototype.addArray=function(t){for(var r=0;r<t.length;r++)this.add(t[r])},_.prototype.toArray=function(){var t=[];return this.toArrayRec(this.tree,t),t},_.prototype.toArrayRec=function(t,r){null!=t&&(this.toArrayRec(t.left,r),r.push(t.node),this.toArrayRec(t.right,r))},_.prototype.compareWithString=function(t,r){for(var e=this.toArray(),n=0;n<e.length;n++){var s=e[n],o=new I(this.stringForNode(s)),i=r(o,t);if(i.booleanValue())return i}return new D(!1)},_.prototype.compareWithNumber=function(t,r){for(var e=this.toArray(),n=0;n<e.length;n++){var s=e[n],o=new U(this.stringForNode(s)),i=r(o,t);if(i.booleanValue())return i}return new D(!1)},_.prototype.compareWithBoolean=function(t,r){return r(this.bool(),t)},_.prototype.compareWithNodeSet=function(t,r){for(var e=this.toArray(),n=0;n<e.length;n++)for(var s=e[n],o=new I(this.stringForNode(s)),i=t.toArray(),u=0;u<i.length;u++){var a=i[u],t=new I(this.stringForNode(a)),c=r(o,t);if(c.booleanValue())return c}return new D(!1)},_.prototype.equals=function(t){return Utilities.instance_of(t,I)?this.compareWithString(t,J.equals):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.equals):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.equals):this.compareWithNodeSet(t,J.equals)},_.prototype.notequal=function(t){return Utilities.instance_of(t,I)?this.compareWithString(t,J.notequal):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.notequal):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.notequal):this.compareWithNodeSet(t,J.notequal)},_.prototype.lessthan=function(t){return Utilities.instance_of(t,I)?this.compareWithNumber(t.number(),J.lessthan):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.lessthan):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.lessthan):this.compareWithNodeSet(t,J.lessthan)},_.prototype.greaterthan=function(t){return Utilities.instance_of(t,I)?this.compareWithNumber(t.number(),J.greaterthan):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.greaterthan):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.greaterthan):this.compareWithNodeSet(t,J.greaterthan)},_.prototype.lessthanorequal=function(t){return Utilities.instance_of(t,I)?this.compareWithNumber(t.number(),J.lessthanorequal):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.lessthanorequal):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.lessthanorequal):this.compareWithNodeSet(t,J.lessthanorequal)},_.prototype.greaterthanorequal=function(t){return Utilities.instance_of(t,I)?this.compareWithNumber(t.number(),J.greaterthanorequal):Utilities.instance_of(t,U)?this.compareWithNumber(t,J.greaterthanorequal):Utilities.instance_of(t,D)?this.compareWithBoolean(t,J.greaterthanorequal):this.compareWithNodeSet(t,J.greaterthanorequal)},_.prototype.union=function(t){var r=new _;return r.tree=this.tree,r.size=this.size,r.addArray(t.toArray()),r},L.prototype=new Object,L.prototype.constructor=L,L.superclass=Object.prototype,L.prototype.toString=function(){return'{ "'+this.prefix+'", "'+this.namespaceURI+'" }'};var J=new Object;J.equals=function(t,r){return t.equals(r)},J.notequal=function(t,r){return t.notequal(r)},J.lessthan=function(t,r){return t.lessthan(r)},J.greaterthan=function(t,r){return t.greaterthan(r)},J.lessthanorequal=function(t,r){return t.lessthanorequal(r)},J.greaterthanorequal=function(t,r){return t.greaterthanorequal(r)},F.prototype=new Object,F.prototype.constructor=F,F.superclass=Object.prototype,P.prototype=new Object,P.prototype.constructor=P,P.superclass=Object.prototype,P.prototype.getVariable=function(t,r){var e=Utilities.splitQName(t);if(null!=e[0]&&(e[0]=r.namespaceResolver.getNamespace(e[0],r.expressionContextNode),null==e[0]))throw new Error("Cannot resolve QName "+fn);return this.getVariableWithName(e[0],e[1],r.expressionContextNode)},P.prototype.getVariableWithName=function(t,r,e){return null},M.prototype=new Object,M.prototype.constructor=M,M.superclass=Object.prototype,M.prototype.addStandardFunctions=function(){this.functions["{}last"]=Functions.last,this.functions["{}position"]=Functions.position,this.functions["{}count"]=Functions.count,this.functions["{}id"]=Functions.id,this.functions["{}local-name"]=Functions.localName,this.functions["{}namespace-uri"]=Functions.namespaceURI,this.functions["{}name"]=Functions.name,this.functions["{}string"]=Functions.string,this.functions["{}concat"]=Functions.concat,this.functions["{}starts-with"]=Functions.startsWith,this.functions["{}contains"]=Functions.contains,this.functions["{}substring-before"]=Functions.substringBefore,this.functions["{}substring-after"]=Functions.substringAfter,this.functions["{}substring"]=Functions.substring,this.functions["{}string-length"]=Functions.stringLength,this.functions["{}normalize-space"]=Functions.normalizeSpace,this.functions["{}translate"]=Functions.translate,this.functions["{}boolean"]=Functions.boolean_,this.functions["{}not"]=Functions.not,this.functions["{}true"]=Functions.true_,this.functions["{}false"]=Functions.false_,this.functions["{}lang"]=Functions.lang,this.functions["{}number"]=Functions.number,this.functions["{}sum"]=Functions.sum,this.functions["{}floor"]=Functions.floor,this.functions["{}ceiling"]=Functions.ceiling,this.functions["{}round"]=Functions.round},M.prototype.addFunction=function(t,r,e){this.functions["{"+t+"}"+r]=e},M.prototype.getFunction=function(t,r){var e=Utilities.resolveQName(t,r.namespaceResolver,r.contextNode,!1);if(null==e[0])throw new Error("Cannot resolve QName "+t);return this.getFunctionWithName(e[0],e[1],r.contextNode)},M.prototype.getFunctionWithName=function(t,r,e){return this.functions["{"+t+"}"+r]},B.prototype=new Object,B.prototype.constructor=B,B.superclass=Object.prototype,B.prototype.getNamespace=function(t,r){if("xml"==t)return s.XML_NAMESPACE_URI;if("xmlns"==t)return s.XMLNS_NAMESPACE_URI;for(9==r.nodeType?r=r.documentElement:2==r.nodeType?r=T.prototype.getOwnerElement(r):1!=r.nodeType&&(r=r.parentNode);null!=r&&1==r.nodeType;){for(var e=r.attributes,n=0;n<e.length;n++){var o=e.item(n),i=o.nodeName;if("xmlns"==i&&""==t||i=="xmlns:"+t)return String(o.nodeValue)}r=r.parentNode}return null},Functions=new Object,Functions.last=function(){var t=arguments[0];if(1!=arguments.length)throw new Error("Function last expects ()");return new U(t.contextSize)},Functions.position=function(){var t=arguments[0];if(1!=arguments.length)throw new Error("Function position expects ()");return new U(t.contextPosition)},Functions.count=function(){var t,r=arguments[0];if(2!=arguments.length||!Utilities.instance_of(t=arguments[1].evaluate(r),_))throw new Error("Function count expects (node-set)");return new U(t.size)},Functions.id=function(){var t,r=arguments[0];if(2!=arguments.length)throw new Error("Function id expects (object)");t=arguments[1].evaluate(r),t=Utilities.instance_of(t,_)?t.toArray().join(" "):t.stringValue();for(var e=t.split(/[\x0d\x0a\x09\x20]+/),n=0,s=new _,o=9==r.contextNode.nodeType?r.contextNode:r.contextNode.ownerDocument,i=0;i<e.length;i++){var u;u=o.getElementById?o.getElementById(e[i]):Utilities.getElementById(o,e[i]),null!=u&&(s.add(u),n++)}return s},Functions.localName=function(){var t,r=arguments[0];if(1==arguments.length)t=r.contextNode;else{if(2!=arguments.length)throw new Error("Function local-name expects (node-set?)");t=arguments[1].evaluate(r).first()}return new I(null==t?"":t.localName?t.localName:t.baseName)},Functions.namespaceURI=function(){var t,r=arguments[0];if(1==arguments.length)t=r.contextNode;else{if(2!=arguments.length)throw new Error("Function namespace-uri expects (node-set?)");t=arguments[1].evaluate(r).first()}return new I(null==t?"":t.namespaceURI)},Functions.name=function(){var t,r=arguments[0];if(1==arguments.length)t=r.contextNode;else{if(2!=arguments.length)throw new Error("Function name expects (node-set?)");t=arguments[1].evaluate(r).first()}return new I(null==t?"":1==t.nodeType||2==t.nodeType?t.nodeName:null==t.localName?"":t.localName)},Functions.string=function(){var t=arguments[0];if(1==arguments.length)return _.prototype.stringForNode(t.contextNode);if(2==arguments.length)return arguments[1].evaluate(t).string();throw new Error("Function string expects (object?)")},Functions.concat=function(){var t=arguments[0];if(arguments.length<3)throw new Error("Function concat expects (string, string, string*)");for(var r="",e=1;e<arguments.length;e++)r+=arguments[e].evaluate(t).stringValue();return new I(r)},Functions.startsWith=function(){var t=arguments[0];if(3!=arguments.length)throw new Error("Function startsWith expects (string, string)");var r=arguments[1].evaluate(t).stringValue(),e=arguments[2].evaluate(t).stringValue();return new D(r.substring(0,e.length)==e)},Functions.contains=function(){var t=arguments[0];if(3!=arguments.length)throw new Error("Function contains expects (string, string)");var r=arguments[1].evaluate(t).stringValue(),e=arguments[2].evaluate(t).stringValue();return new D(-1!=r.indexOf(e))},Functions.substringBefore=function(){var t=arguments[0];if(3!=arguments.length)throw new Error("Function substring-before expects (string, string)");var r=arguments[1].evaluate(t).stringValue(),e=arguments[2].evaluate(t).stringValue();return new I(r.substring(0,r.indexOf(e)))},Functions.substringAfter=function(){var t=arguments[0];if(3!=arguments.length)throw new Error("Function substring-after expects (string, string)");var r=arguments[1].evaluate(t).stringValue(),e=arguments[2].evaluate(t).stringValue();if(0==e.length)return new I(r);var n=r.indexOf(e);return new I(-1==n?"":r.substring(r.indexOf(e)+1))},Functions.substring=function(){var t=arguments[0];if(3!=arguments.length&&4!=arguments.length)throw new Error("Function substring expects (string, number, number?)");var r=arguments[1].evaluate(t).stringValue(),e=Math.round(arguments[2].evaluate(t).numberValue())-1,n=4==arguments.length?e+Math.round(arguments[3].evaluate(t).numberValue()):void 0;return new I(r.substring(e,n))},Functions.stringLength=function(){var t,r=arguments[0];if(1==arguments.length)t=_.prototype.stringForNode(r.contextNode);else{if(2!=arguments.length)throw new Error("Function string-length expects (string?)");t=arguments[1].evaluate(r).stringValue()}return new U(t.length)},Functions.normalizeSpace=function(){var t,r=arguments[0];if(1==arguments.length)t=_.prototype.stringForNode(r.contextNode);else{if(2!=arguments.length)throw new Error("Function normalize-space expects (string?)");t=arguments[1].evaluate(r).stringValue()}for(var e=0,n=t.length-1;Utilities.isSpace(t.charCodeAt(n));)n--;for(var s="";n>=e&&Utilities.isSpace(t.charCodeAt(e));)e++;for(;n>=e;)if(Utilities.isSpace(t.charCodeAt(e)))for(s+=" ";n>=e&&Utilities.isSpace(t.charCodeAt(e));)e++;else s+=t.charAt(e),e++;return new I(s)},Functions.translate=function(){var t=arguments[0];if(4!=arguments.length)throw new Error("Function translate expects (string, string, string)");for(var r=arguments[1].evaluate(t).stringValue(),e=arguments[2].evaluate(t).stringValue(),n=arguments[3].evaluate(t).stringValue(),s=[],o=0;o<e.length;o++){var i=e.charCodeAt(o);if(void 0==s[i]){var u=o>n.length?"":n.charAt(o);s[i]=u}}for(var a="",o=0;o<r.length;o++){var t=r.charCodeAt(o),c=s[t];a+=void 0==c?r.charAt(o):c}return new I(a)},Functions.boolean_=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function boolean expects (object)");return arguments[1].evaluate(t).bool()},Functions.not=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function not expects (object)");return arguments[1].evaluate(t).bool().not()},Functions.true_=function(){if(1!=arguments.length)throw new Error("Function true expects ()");return new D(!0)},Functions.false_=function(){if(1!=arguments.length)throw new Error("Function false expects ()");return new D(!1)},Functions.lang=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function lang expects (string)");for(var r,e=t.contextNode;null!=e&&9!=e.nodeType;e=e.parentNode){var n=e.getAttributeNS(s.XML_NAMESPACE_URI,"lang");if(null!=n){r=String(n);break}}if(null==r)return new D(!1);var o=arguments[1].evaluate(t).stringValue();return new D(r.substring(0,o.length)==o&&(r.length==o.length||"-"==r.charAt(o.length)))},Functions.number=function(){var t=arguments[0];if(1!=arguments.length&&2!=arguments.length)throw new Error("Function number expects (object?)");return 1==arguments.length?new U(_.prototype.stringForNode(t.contextNode)):arguments[1].evaluate(t).number()},Functions.sum=function(){var t,r=arguments[0];if(2!=arguments.length||!Utilities.instance_of(t=arguments[1].evaluate(r),_))throw new Error("Function sum expects (node-set)");t=t.toArray();for(var e=0,n=0;n<t.length;n++)e+=new U(_.prototype.stringForNode(t[n])).numberValue();return new U(e)},Functions.floor=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function floor expects (number)");return new U(Math.floor(arguments[1].evaluate(t).numberValue()));
-},Functions.ceiling=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function ceiling expects (number)");return new U(Math.ceil(arguments[1].evaluate(t).numberValue()))},Functions.round=function(){var t=arguments[0];if(2!=arguments.length)throw new Error("Function round expects (number)");return new U(Math.round(arguments[1].evaluate(t).numberValue()))},Utilities=new Object,Utilities.splitQName=function(t){var r=t.indexOf(":");return-1==r?[null,t]:[t.substring(0,r),t.substring(r+1)]},Utilities.resolveQName=function(t,r,e,n){var s=Utilities.splitQName(t);return null!=s[0]?s[0]=r.getNamespace(s[0],e):n?(s[0]=r.getNamespace("",e),null==s[0]&&(s[0]="")):s[0]="",s},Utilities.isSpace=function(t){return 9==t||13==t||10==t||32==t},Utilities.isLetter=function(t){return t>=65&&90>=t||t>=97&&122>=t||t>=192&&214>=t||t>=216&&246>=t||t>=248&&255>=t||t>=256&&305>=t||t>=308&&318>=t||t>=321&&328>=t||t>=330&&382>=t||t>=384&&451>=t||t>=461&&496>=t||t>=500&&501>=t||t>=506&&535>=t||t>=592&&680>=t||t>=699&&705>=t||902==t||t>=904&&906>=t||908==t||t>=910&&929>=t||t>=931&&974>=t||t>=976&&982>=t||986==t||988==t||990==t||992==t||t>=994&&1011>=t||t>=1025&&1036>=t||t>=1038&&1103>=t||t>=1105&&1116>=t||t>=1118&&1153>=t||t>=1168&&1220>=t||t>=1223&&1224>=t||t>=1227&&1228>=t||t>=1232&&1259>=t||t>=1262&&1269>=t||t>=1272&&1273>=t||t>=1329&&1366>=t||1369==t||t>=1377&&1414>=t||t>=1488&&1514>=t||t>=1520&&1522>=t||t>=1569&&1594>=t||t>=1601&&1610>=t||t>=1649&&1719>=t||t>=1722&&1726>=t||t>=1728&&1742>=t||t>=1744&&1747>=t||1749==t||t>=1765&&1766>=t||t>=2309&&2361>=t||2365==t||t>=2392&&2401>=t||t>=2437&&2444>=t||t>=2447&&2448>=t||t>=2451&&2472>=t||t>=2474&&2480>=t||2482==t||t>=2486&&2489>=t||t>=2524&&2525>=t||t>=2527&&2529>=t||t>=2544&&2545>=t||t>=2565&&2570>=t||t>=2575&&2576>=t||t>=2579&&2600>=t||t>=2602&&2608>=t||t>=2610&&2611>=t||t>=2613&&2614>=t||t>=2616&&2617>=t||t>=2649&&2652>=t||2654==t||t>=2674&&2676>=t||t>=2693&&2699>=t||2701==t||t>=2703&&2705>=t||t>=2707&&2728>=t||t>=2730&&2736>=t||t>=2738&&2739>=t||t>=2741&&2745>=t||2749==t||2784==t||t>=2821&&2828>=t||t>=2831&&2832>=t||t>=2835&&2856>=t||t>=2858&&2864>=t||t>=2866&&2867>=t||t>=2870&&2873>=t||2877==t||t>=2908&&2909>=t||t>=2911&&2913>=t||t>=2949&&2954>=t||t>=2958&&2960>=t||t>=2962&&2965>=t||t>=2969&&2970>=t||2972==t||t>=2974&&2975>=t||t>=2979&&2980>=t||t>=2984&&2986>=t||t>=2990&&2997>=t||t>=2999&&3001>=t||t>=3077&&3084>=t||t>=3086&&3088>=t||t>=3090&&3112>=t||t>=3114&&3123>=t||t>=3125&&3129>=t||t>=3168&&3169>=t||t>=3205&&3212>=t||t>=3214&&3216>=t||t>=3218&&3240>=t||t>=3242&&3251>=t||t>=3253&&3257>=t||3294==t||t>=3296&&3297>=t||t>=3333&&3340>=t||t>=3342&&3344>=t||t>=3346&&3368>=t||t>=3370&&3385>=t||t>=3424&&3425>=t||t>=3585&&3630>=t||3632==t||t>=3634&&3635>=t||t>=3648&&3653>=t||t>=3713&&3714>=t||3716==t||t>=3719&&3720>=t||3722==t||3725==t||t>=3732&&3735>=t||t>=3737&&3743>=t||t>=3745&&3747>=t||3749==t||3751==t||t>=3754&&3755>=t||t>=3757&&3758>=t||3760==t||t>=3762&&3763>=t||3773==t||t>=3776&&3780>=t||t>=3904&&3911>=t||t>=3913&&3945>=t||t>=4256&&4293>=t||t>=4304&&4342>=t||4352==t||t>=4354&&4355>=t||t>=4357&&4359>=t||4361==t||t>=4363&&4364>=t||t>=4366&&4370>=t||4412==t||4414==t||4416==t||4428==t||4430==t||4432==t||t>=4436&&4437>=t||4441==t||t>=4447&&4449>=t||4451==t||4453==t||4455==t||4457==t||t>=4461&&4462>=t||t>=4466&&4467>=t||4469==t||4510==t||4520==t||4523==t||t>=4526&&4527>=t||t>=4535&&4536>=t||4538==t||t>=4540&&4546>=t||4587==t||4592==t||4601==t||t>=7680&&7835>=t||t>=7840&&7929>=t||t>=7936&&7957>=t||t>=7960&&7965>=t||t>=7968&&8005>=t||t>=8008&&8013>=t||t>=8016&&8023>=t||8025==t||8027==t||8029==t||t>=8031&&8061>=t||t>=8064&&8116>=t||t>=8118&&8124>=t||8126==t||t>=8130&&8132>=t||t>=8134&&8140>=t||t>=8144&&8147>=t||t>=8150&&8155>=t||t>=8160&&8172>=t||t>=8178&&8180>=t||t>=8182&&8188>=t||8486==t||t>=8490&&8491>=t||8494==t||t>=8576&&8578>=t||t>=12353&&12436>=t||t>=12449&&12538>=t||t>=12549&&12588>=t||t>=44032&&55203>=t||t>=19968&&40869>=t||12295==t||t>=12321&&12329>=t},Utilities.isNCNameChar=function(t){return t>=48&&57>=t||t>=1632&&1641>=t||t>=1776&&1785>=t||t>=2406&&2415>=t||t>=2534&&2543>=t||t>=2662&&2671>=t||t>=2790&&2799>=t||t>=2918&&2927>=t||t>=3047&&3055>=t||t>=3174&&3183>=t||t>=3302&&3311>=t||t>=3430&&3439>=t||t>=3664&&3673>=t||t>=3792&&3801>=t||t>=3872&&3881>=t||46==t||45==t||95==t||Utilities.isLetter(t)||t>=768&&837>=t||t>=864&&865>=t||t>=1155&&1158>=t||t>=1425&&1441>=t||t>=1443&&1465>=t||t>=1467&&1469>=t||1471==t||t>=1473&&1474>=t||1476==t||t>=1611&&1618>=t||1648==t||t>=1750&&1756>=t||t>=1757&&1759>=t||t>=1760&&1764>=t||t>=1767&&1768>=t||t>=1770&&1773>=t||t>=2305&&2307>=t||2364==t||t>=2366&&2380>=t||2381==t||t>=2385&&2388>=t||t>=2402&&2403>=t||t>=2433&&2435>=t||2492==t||2494==t||2495==t||t>=2496&&2500>=t||t>=2503&&2504>=t||t>=2507&&2509>=t||2519==t||t>=2530&&2531>=t||2562==t||2620==t||2622==t||2623==t||t>=2624&&2626>=t||t>=2631&&2632>=t||t>=2635&&2637>=t||t>=2672&&2673>=t||t>=2689&&2691>=t||2748==t||t>=2750&&2757>=t||t>=2759&&2761>=t||t>=2763&&2765>=t||t>=2817&&2819>=t||2876==t||t>=2878&&2883>=t||t>=2887&&2888>=t||t>=2891&&2893>=t||t>=2902&&2903>=t||t>=2946&&2947>=t||t>=3006&&3010>=t||t>=3014&&3016>=t||t>=3018&&3021>=t||3031==t||t>=3073&&3075>=t||t>=3134&&3140>=t||t>=3142&&3144>=t||t>=3146&&3149>=t||t>=3157&&3158>=t||t>=3202&&3203>=t||t>=3262&&3268>=t||t>=3270&&3272>=t||t>=3274&&3277>=t||t>=3285&&3286>=t||t>=3330&&3331>=t||t>=3390&&3395>=t||t>=3398&&3400>=t||t>=3402&&3405>=t||3415==t||3633==t||t>=3636&&3642>=t||t>=3655&&3662>=t||3761==t||t>=3764&&3769>=t||t>=3771&&3772>=t||t>=3784&&3789>=t||t>=3864&&3865>=t||3893==t||3895==t||3897==t||3902==t||3903==t||t>=3953&&3972>=t||t>=3974&&3979>=t||t>=3984&&3989>=t||3991==t||t>=3993&&4013>=t||t>=4017&&4023>=t||4025==t||t>=8400&&8412>=t||8417==t||t>=12330&&12335>=t||12441==t||12442==t||183==t||720==t||721==t||903==t||1600==t||3654==t||3782==t||12293==t||t>=12337&&12341>=t||t>=12445&&12446>=t||t>=12540&&12542>=t},Utilities.coalesceText=function(t){for(var r=t.firstChild;null!=r;r=r.nextSibling)if(3==r.nodeType||4==r.nodeType){var e=r.nodeValue,n=r;for(r=r.nextSibling;null!=r&&(3==r.nodeType||4==r.nodeType);){e+=r.nodeValue;var s=r;r=r.nextSibling,s.parentNode.removeChild(s)}if(4==n.nodeType){var o=n.parentNode;if(null==n.nextSibling)o.removeChild(n),o.appendChild(o.ownerDocument.createTextNode(e));else{var i=n.nextSibling;o.removeChild(n),o.insertBefore(o.ownerDocument.createTextNode(e),i)}}else n.nodeValue=e;if(null==r)break}else 1==r.nodeType&&Utilities.coalesceText(r)},Utilities.instance_of=function(t,r){for(;null!=t;){if(t.constructor===r)return!0;if(t===Object)return!1;t=t.constructor.superclass}return!1},Utilities.getElementById=function(t,r){if(1==t.nodeType&&(t.getAttribute("id")==r||t.getAttributeNS(null,"id")==r))return t;for(var e=t.firstChild;null!=e;e=e.nextSibling){var n=Utilities.getElementById(e,r);if(null!=n)return n}return null},V.prototype={},V.prototype.constructor=V,V.superclass=Object.prototype,V.prototype.toString=function(){var t=this.exception?": "+this.exception.toString():"";switch(this.code){case V.INVALID_EXPRESSION_ERR:return"Invalid expression"+t;case V.TYPE_ERR:return"Type error"+t}},V.INVALID_EXPRESSION_ERR=51,V.TYPE_ERR=52,W.prototype={},W.prototype.constructor=W,W.superclass=Object.prototype,W.prototype.evaluate=function(t,r,e){this.context.expressionContextNode=t;var n=this.xpath.evaluate(this.context);return new G(n,r)},H.prototype={},H.prototype.constructor=H,H.superclass=Object.prototype,H.prototype.getNamespace=function(t,r){return null==this.xpathNSResolver?null:this.xpathNSResolver.lookupNamespaceURI(t)},q.prototype={},q.prototype.constructor=q,q.superclass=Object.prototype,q.prototype.lookupNamespaceURI=function(t){return this.namespaceResolver.getNamespace(t,this.node)},G.prototype={},G.prototype.constructor=G,G.superclass=Object.prototype,G.prototype.iterateNext=function(){if(this.resultType!=G.UNORDERED_NODE_ITERATOR_TYPE&&this.resultType!=G.ORDERED_NODE_ITERATOR_TYPE)throw new V(V.TYPE_ERR);return this.nodes[this.iteratorIndex++]},G.prototype.snapshotItem=function(t){if(this.resultType!=G.UNORDERED_NODE_SNAPSHOT_TYPE&&this.resultType!=G.ORDERED_NODE_SNAPSHOT_TYPE)throw new V(V.TYPE_ERR);return this.nodes[t]},G.ANY_TYPE=0,G.NUMBER_TYPE=1,G.STRING_TYPE=2,G.BOOLEAN_TYPE=3,G.UNORDERED_NODE_ITERATOR_TYPE=4,G.ORDERED_NODE_ITERATOR_TYPE=5,G.UNORDERED_NODE_SNAPSHOT_TYPE=6,G.ORDERED_NODE_SNAPSHOT_TYPE=7,G.ANY_UNORDERED_NODE_TYPE=8,G.FIRST_ORDERED_NODE_TYPE=9;try{var j=!0;try{document.implementation&&document.implementation.hasFeature&&document.implementation.hasFeature("XPath",null)&&(j=!1)}catch(k){}j&&Y(document,new n)}catch(k){}e.exports=Q}
+function(exports,require){
+
+var findELEnd=require(38).findELEnd;
+var parseChildRemoveAttr=require(39).parseChildRemoveAttr;
+var compressJS=require(40).compressJS;
+var findXMLAttribute=require(8).findXMLAttribute;
+var XML_SPACE_TRIM=require(12).XML_SPACE_TRIM;
+
+var AUTO_FORM_PREFIX = "http://www.xidea.org/lite/attribute/h:autofrom" 
+var AUTO_FORM_SELETED = "http://www.xidea.org/lite/attribute/h:autofrom#selected"
+var WRAP_SCRIPT_USE = "http://www.xidea.org/lite/attribute/h:wrap_script_use"
+var HTML = {
+xmlns : function(){},
+
+parse$8:parseConditionComment,
+
+parseSelect:parseSelect,
+parseOption:parseOption,
+parseInput:parseInput,
+parseTextArea:parseTextArea,
+
+parseScript : parseHtmlScript,
+parseHead:parseHtmlHead,
+parseHtml:parseHtml,
+parseLink:parseLink,
+
+parsePre : preservedParse,
+
+
+"onon*":parseHtmlEventAttr,
+
+
+
+onhref:autoURIEncoder,
+
+onaction:autoURIEncoder,
+
+
+onsrc:autoURIEncoder,
+}
+var HTML_EXT = {
+xmlns : function(){},
+interceptAutoform:interceptAutoform,
+interceptTrim:interceptTrim,
+parseAutoform:interceptAutoform,
+parseTrim:interceptTrim,
+}
+exports.HTML=HTML;
+exports.HTML_EXT=HTML_EXT;
+exports.wrapScript = wrapScript;
+
+function parseHtmlHead(head){
+this.setAttribute(parseHtmlHead,true);
+var doc = head.ownerDocument;
+head.appendChild(doc.createTextNode('$!{__head_styles__}'));
+this.next(head);
+this.setAttribute(parseHtmlHead,undefined);
+}
+function parseHtml(html){
+var mark = this.mark();
+var links = [];
+this.setAttribute(parseHtml,links)
+this.next(html);
+var result = this.reset(mark);
+this.appendCapture('__head_styles__');
+this.setAttribute(parseHtmlHead,true)
+for(var i = 0;i<links.length;i++){
+this.parse(links[i]);
+}
+this.setAttribute(parseHtmlHead,undefined)
+this.appendEnd();
+this.appendAll(result);
+
+}
+function parseLink(link){
+var list = this.getAttribute(parseHtml)
+if(list && !this.getAttribute(parseHtmlHead)){
+list.push(link)
+}else{
+this.next(link);
+}
+
+}
+function parseInput(el){
+var autoform = this.getAttribute(AUTO_FORM_PREFIX);
+if(autoform!=null){
+var name_ = el.getAttribute('name');
+
+if(name_){
+var type = el.getAttribute('type');
+if(!/^(?:reset|button|submit)$/i.test(type)){
+if(/^(?:checkbox|radio)$/i.test(type)){
+if(!el.hasAttribute('checked')){
+buildCheck2select(this,el,name_,'checked',/checkbox/i.test(type));
+return ;
+}
+}else if(!el.hasAttribute('value')){
+el.setAttribute('value', "${"+name_+"}");
+}
+}
+}
+}
+this.next(el);
+}
+function parseTextArea(el){
+var oldSpace = this.getAttribute(XML_SPACE_TRIM);
+this.setAttribute(XML_SPACE_TRIM,false);
+var autoform = this.getAttribute(AUTO_FORM_PREFIX);
+var hasValue = el.hasAttribute('value');
+if(hasValue){
+el.textContent = el.getAttribute('value');
+}else if(autoform!=null && !el.hasChildNodes()){
+var name_ = el.getAttribute('name');
+el.textContent = "${"+ name_ + "}";
+}
+this.next(el);
+this.setAttribute(XML_SPACE_TRIM,oldSpace);
+}
+function parseSelect(el){
+var multiple = el.hasAttribute('multiple');
+this.setAttribute(AUTO_FORM_SELETED,[el.getAttribute('name'),multiple]);
+this.next(el);
+}
+function parseOption(el){
+var autoform = this.getAttribute(AUTO_FORM_PREFIX);
+if(autoform!=null){
+var name_multiple = this.getAttribute(AUTO_FORM_SELETED);
+if(name_multiple){
+buildCheck2select(this,el,name_multiple[0],'selected',name_multiple[1]);
+return;
+}
+}
+this.next(el);
+}
+function interceptAutoform(node){
+var oldAutoform = this.getAttribute(AUTO_FORM_PREFIX);
+try{
+var prefix = findXMLAttribute(node,'*value');
+
+if(prefix == 'true'){
+prefix = '';
+}
+this.setAttribute(AUTO_FORM_PREFIX,prefix);
+parseChildRemoveAttr(this,node);
+}finally{
+this.setAttribute(AUTO_FORM_PREFIX,oldAutoform);
+}
+}
+
+function parseConditionComment(comm){
+var text = comm.textContent || comm.data;
+var match = text.match(/^\[if\s[^\]]+\]>|<!\[endif\]$/ig);
+if(match){
+if(match.length == 1){
+this.appendText('<!--'+text+'-->')
+}else{
+var len1 = match[0].length;
+var len2 = match[1].length
+var content = text.substring(len1,text.length - len2);
+try{
+if(/^\s*</.test(content)){
+content = this.loadXML(content);
+}
+
+}catch(e){
+}
+this.appendText('<!--'+match[0]);
+this.parse(content);
+this.appendText(match[1]+'-->');
+}
+}
+}
+
+function interceptTrim(node){
+var oldSpace = this.getAttribute(XML_SPACE_TRIM);
+try{
+var value = findXMLAttribute(node,'*value');
+this.setAttribute(XML_SPACE_TRIM,value == 'true'?true:value == 'false'?false:null);
+
+parseChildRemoveAttr(this,node);
+}finally{
+this.setAttribute(XML_SPACE_TRIM,oldSpace);
+}
+}
+function toelv(value){
+if(value){
+var elv = value.replace(/^\$\{([\s\S]+)\}$/,'$1');
+try{
+if(elv != value){
+new Function("return "+elv);
+}
+}catch(e){
+elv = value;
+}
+if(elv == value){
+elv = JSON.stringify(value);
+}
+}
+return elv;
+}
+function buildCheck2select(context,el,name_,checkName,multiple){
+var value = el.getAttribute('value');
+if(!value && checkName == 'selected'){
+value = el.textContent;
+}
+var elv = toelv(value);
+if(!elv){
+context.next(el);
+return;
+}
+var forId = context.allocateId();
+var flag = context.allocateId();
+if(multiple){
+context.appendVar(flag,'true');
+context.appendFor(forId,"[].concat("+name_+')',null);
+context.appendIf(flag +'&&'+ forId+'+""===""+'+elv);
+el.setAttribute(checkName,checkName);
+context.appendVar(flag,'false');
+context.next(el)
+context.appendEnd();
+context.appendEnd();
+context.appendIf(flag);
+el.removeAttribute(checkName);
+context.next(el)
+context.appendEnd();
+}else{
+context.appendIf(name_+'+""===""+'+elv);
+el.setAttribute(checkName,checkName);
+context.next(el);
+context.appendEnd();
+context.appendElse(null);
+el.removeAttribute(checkName);
+context.next(el);
+context.appendEnd();
+}
+}
+
+function preservedParse(node){
+var oldSpace = this.getAttribute(XML_SPACE_TRIM);
+this.setAttribute(XML_SPACE_TRIM,false);
+try{
+this.next(node);
+}finally{
+this.setAttribute(XML_SPACE_TRIM,oldSpace);
+}
+}
+function parseHtmlScript(el){
+var oldSpace = this.getAttribute(XML_SPACE_TRIM);
+this.setAttribute(XML_SPACE_TRIM,false);
+try{
+if(!el.hasAttribute('src')){
+var doc = el.ownerDocument;
+var wrap_script = this.getAttribute(WRAP_SCRIPT_USE);
+var child;
+var buf = [];
+while(child = el.firstChild){
+if(child.nodeType==3 || child.nodeType == 4){
+buf.push(child.data);
+}else{
+console.warn('script 中不能用嵌入html标签，建议将脚本放在 <![CDATA[...]]>中。');
+}
+el.removeChild(child);
+}
+var source = processJS(this,buf.join(''));
+if(wrap_script){
+wrapScript(source,wrap_script)
+}
+if(source.search(/[<&]/)>=0){
+el.appendChild(doc.createTextNode('/*'));
+el.appendChild(doc.createCDATASection('*/'+source+'//'));
+}else{
+el.appendChild(doc.createTextNode(source));
+}
+}
+this.next(el);
+}finally{
+this.setAttribute(XML_SPACE_TRIM,oldSpace);
+}
+}
+function wrapScript(source,wrap_script_method){
+var callMatch = source.match(/^\s*([\w\.]+)\(([\s\S]*)\)\s*;?\s*$/);
+var callMethod = callMatch && callMatch[1];
+if(!/^(?:__define_run__|(?:\w+\.)?use)$/.test(callMethod)){
+var rexp = /\brequire\((['"][\.\-\w@\/]+["'])\)|^\s*\/(?:\/.*|\*[\s\S]*?\*\/)|'(?:[^'\\\r\n]|\\.)*'|"(?:[^"\\\r\n]|\\.)*"/g;
+var deps = [];
+var m;
+while(m = rexp.exec(source)){
+m[1] && deps.push(m[1]);
+}
+
+source = wrap_script_method + '(['+deps.join(',')+'],function(){'+source+'\n})'
+
+}
+return source;
+}
+function parseHtmlEventAttr(attr){
+attr.value = processJS(this,attr.value);
+this.next(attr);
+}
+function processJS(ctx,value){
+var value2 = value.replace(/^\s*\$\{([\s\S]+)\}\s*$/,'return $1');
+if(value2 != value){
+try{
+new Function(value2);
+
+return value;
+}catch(e){
+}
+}
+value = compressJS(value);
+return autoEncode(value,/^\s*JSON\s*\.\s*stringify\s*\(/,replaceJSON);
+}
+function replaceJSON(v){
+return "JSON.stringify("+v+")";
+}
+function replaceURI(v){
+return "encodeURI("+v+")";
+}
+function autoURIEncoder(attr){
+var value = attr.value;
+attr.value = autoEncode(value,/^\s*encodeURI\s*\(/,replaceURI,encodeURI);
+this.next(attr);
+}
+
+function autoEncode(value,pattern,elReplacer,staticReplacer){
+var p = -1;
+var result = [];
+while(true){
+p = value.indexOf("${",++p);
+if(p>=0){
+if(!(countEescape(value,p) % 2)){
+var p2 = findELEnd(value,p+1);
+if(p2>0){
+var el = value.substring(p+2,p2);
+if(!pattern.test(el)){
+el = elReplacer(el);
+}
+var prefix = value.substring(0,p);
+if(staticReplacer){
+prefix = staticReplacer(prefix);
+}
+result.push(prefix,'${',el,'}');
+value = value.substring(p2+1)
+p=-1;
+}else{
+p++;
+}
+}
+}else{
+break;
+}
+}
+if(staticReplacer){
+value = staticReplacer(value);
+}
+if(result.length){
+result.push(value);
+return result.join('');
+}else{
+return value;
+}
+}
+function countEescape(text, p$) {
+if (p$ > 0 && text.charAt(p$ - 1) == '\\') {
+var pre = p$ - 1;
+while (pre-- > 0 && text.charAt(pre) == '\\')
+;
+return p$ - pre - 1;
+}
+return 0;
+}
+
+}
 ,
-function(t,e){function r(t){if(t){var e=t.replace(/^\$\{([\s\S]+)\}$/,"$1");try{e!=t&&new Function("return "+e)}catch(r){e=t}e==t&&(e=JSON.stringify(t))}return e}function i(t,e,i,n,a){var s=e.getAttribute("value");s||"selected"!=n||(s=e.textContent);var u=r(s);if(!u)return void t.next(e);var o=t.allocateId(),f=t.allocateId();a?(t.appendVar(f,"true"),t.appendFor(o,"[].concat("+i+")",null),t.appendIf(f+"&&"+o+'+""===""+'+u),e.setAttribute(n,n),t.appendVar(f,"false"),t.next(e),t.appendEnd(),t.appendEnd(),t.appendIf(f),e.removeAttribute(n),t.next(e),t.appendEnd()):(t.appendIf(i+'+""===""+'+u),e.setAttribute(n,n),t.next(e),t.appendEnd(),t.appendElse(null),e.removeAttribute(n),t.next(e),t.appendEnd())}function n(t){var e=this.getAttribute(A);this.setAttribute(A,!1);try{this.next(t)}finally{this.setAttribute(A,e)}}function a(t){var e=t.replace(/^\s*\$\{([\s\S]+)\}\s*$/,"return $1");if(e!=t)try{return new Function(e),t}catch(r){}return t=m(t),p(t,/^\s*JSON\s*\.*/,s)}function s(t){return"JSON.stringify("+t+")"}function u(t){return"encodeURI("+t+")"}function o(t){var e=t.value;t.value=p(e,/^\s*encodeURI*/,u,encodeURI),this.next(t)}function f(t){var e=this.getAttribute(A);this.setAttribute(A,!1);try{if(!t.hasAttribute("src")){for(var r,i=[];r=t.firstChild;)3==r.nodeType||4==r.nodeType?i.push(r.data):console.warn("script 中不能用嵌入html标签，建议将脚本放在 <![CDATA[...]]>中。"),t.removeChild(r);i=a(i.join(""));var n=t.ownerDocument;i.search(/[<&]/)>=0?(t.appendChild(n.createTextNode("/*")),t.appendChild(n.createCDATASection("*/"+i+"//"))):t.appendChild(n.createTextNode(i))}this.next(t)}finally{this.setAttribute(A,e)}}function h(t){t.value=a(t.value),this.next(t)}function p(t,e,r,i){for(var n=-1,a=[];;){if(n=t.indexOf("${",++n),!(n>=0))break;if(!(l(t,n)%2)){var s=g(t,n+1);if(s>0){var u=t.substring(n+2,s);e.test(u)||(u=r(u));var o=t.substring(0,n);i&&(o=i(o)),a.push(o,"${",u,"}"),t=t.substring(s+1),n=-1}else n++}}return i&&(t=i(t)),a.length?(a.push(t),a.join("")):t}function l(t,e){if(e>0&&"\\"==t.charAt(e-1)){for(var r=e-1;r-- >0&&"\\"==t.charAt(r););return e-r-1}return 0}if("function"==typeof e){e(22).Core}var c="http://www.xidea.org/lite/attribute/h:autofrom",d="http://www.xidea.org/lite/attribute/h:autofrom#selected",b={xmlns:function(){},parse8:function(t){var e=t.textContent||t.data,r=e.match(/^\[if\s[^\]]+\]>|<!\[endif\]$/gi);if(r)if(1==r.length)this.append("<!--"+e+"-->");else{var i=r[0].length,n=r[1].length,a=e.substring(i,e.length-n);try{/^\s*</.test(a)&&(a=this.loadXML(a))}catch(s){}this.append("<!--"+r[0]),this.parse(a),this.append(r[1]+"-->")}},parseInput:function(t){var e=this.getAttribute(c);if(null!=e){var r=t.getAttribute("name");if(r){var n=t.getAttribute("type");if(!/^(?:reset|button|submit)$/i.test(n))if(/^(?:checkbox|radio)$/i.test(n)){if(!t.hasAttribute("checked"))return void i(this,t,r,"checked",/checkbox/i.test(n))}else t.hasAttribute("value")||t.setAttribute("value","${"+r+"}")}}this.next(t)},parseTextArea:function(t){var e=this.getAttribute(c),r=t.hasAttribute("value");if(r)t.textContent=t.getAttribute("value");else if(null!=e&&!t.hasChildNodes()){var i=t.getAttribute("name");t.textContent="${"+i+"}"}this.next(t)},parseSelect:function(t){var e=t.hasAttribute("multiple");this.setAttribute(d,[t.getAttribute("name"),e]),this.next(t)},parseOption:function(t){var e=this.getAttribute(c);if(null!=e){var r=this.getAttribute(d);if(r)return void i(this,t,r[0],"selected",r[1])}this.next(t)}},v={xmlns:function(){},beforeAutoform:function(t){var e=this.getAttribute(c);try{var r=y(t,"*value");"true"==r&&(r=""),this.setAttribute(c,r),x(this,t)}finally{this.setAttribute(c,e)}},beforeTrim:function(t){var e=this.getAttribute(A);try{var r=y(t,"*value");this.setAttribute(A,"true"==r?!0:"false"==r?!1:null),x(this,t)}finally{this.setAttribute(A,e)}}};if(v.parseAutoform=v.beforeAutoform,v.parseTrim=v.beforeTrim,b.parseScript=f,b["parse2on*"]=h,b.parse2href=o,b.parse2action=o,b.parse2src=o,b.parsePre=n,b.parseTextArea=n,"function"==typeof e){t.HTML=b,t.HTML_EXT=v;var A=e(11).XML_SPACE_TRIM,g=e(34).findELEnd,x=e(22).parseChildRemoveAttr,m=e(38).compressJS,y=e(7).findXMLAttribute;e(6).URI}}
+function(exports,require){
+var appendForStart = require(39).appendForStart;
+var parseChildRemoveAttr=require(39).parseChildRemoveAttr;
+var findLiteParamMap=require(39).findLiteParamMap;
+var parseDefName = require(39).parseDefName;
+var setNodeURI = require(39).setNodeURI;
+var findELEnd=require(38).findELEnd;
+var querySelectorAll = require(8).querySelectorAll;
+var selectByXPath=require(8).selectByXPath;
+var findXMLAttribute=require(8).findXMLAttribute;
+var findXMLAttributeAsEL=require(8).findXMLAttributeAsEL;
+var URI=require(7).URI;
+var PLUGIN_DEFINE=require(14).PLUGIN_DEFINE;
+var EL_TYPE=require(14).EL_TYPE;
+var XT_TYPE = require(14).XT_TYPE;
+var XA_TYPE = require(14).XA_TYPE;
+var CHOOSE_KEY = "http://www.xidea.org/lite/core/c:choose@value";
+var Core = {
+xmlns : function(){},
+parseExtension:function(node){
+var ns = findXMLAttribute(node,'*namespace','ns');
+var file = findXMLAttribute(node,'file');
+var pkg = findXMLAttribute(node,'package');
+if(pkg){
+source = pkg;
+}else if(file){
+var source = this.loadText(this.createURI(file))+'\n';
+}else{
+var source = findXMLAttribute(node,'#text')+'\n';
+}
+this.addExtension(ns,source);
+},
+parseComment:function(){},
+seek:function(text){
+var end = findELEnd(text,0);
+if(end>0){
+try{
+var els = text.substring(1,end);
+var el = this.parseEL(els);
+switch(this.textType){
+case XT_TYPE:
+this.appendXT(el);
+break;
+case XA_TYPE:
+this.appendXA(null,el);
+break;
+default:
+this.appendEL(el);
+}
+return end;
+}catch(e){
+console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+els+"]",e)
+return -1;
+}
+}else{
+console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",text:"+text+"]")
+return -1;
+}
+},
+"seek!":function(text){
+var end = findELEnd(text,0);
+if(end>0){
+try{
+var el = text.substring(1,end);
+this.appendEL(el);
+return end;
+}catch(e){
+console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]",e)
+return -1;
+}
+}else{
+console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]")
+return -1;
+}
+},
+"seek#":function(text){
+var end = findELEnd(text,0);
+if(end>0){
+try{
+var el = text.substring(1,end);
+this.appendPlugin("org.xidea.lite.EncodePlugin","{}");
+this.appendEL(el);
+this.appendEnd()
+return end;
+}catch(e){
+console.error("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]",e)
+return -1;
+}
+}else{
+console.warn("表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]")
+return -1;
+}
+},
+
+parseDateFormat:function(node){
+var value = findXMLAttributeAsEL(node,'value','date','time','#text').replace(/^\s+|\s+$/g,'') || 'null';
+var pattern = findXMLAttribute(node,'pattern');
+if(pattern){
+var pattern2 = pattern.replace(/^\s*\$\{([\s\S]+)\}\s*$/,'$1')
+if(pattern2 == pattern){
+pattern2 = JSON.stringify(pattern);
+}
+}else{
+pattern2 = '"YYYY-MM-DD"';
+}
+this.appendPlugin("org.xidea.lite.DatePlugin","{}");
+this.appendEL(pattern2);
+this.appendEL(value);
+this.appendEnd();
+}
+}
+exports.Core=Core;
+Core.parseTime = Core.parseDate = Core.parseDateFormat;
+addParserAndAttrInterceptor(processIf,'if')
+addParserAndAttrInterceptor(processElse,'else');
+addParserAndAttrInterceptor(processElif,"elseif","elif");
+addParserAndAttrInterceptor(processFor,"for","foreach");
+addParserAndAttrInterceptor(processVar,"var","set");
+addParserAndAttrInterceptor(processOut,"out");
+addParserAndAttrInterceptor(processDef,"def",'macro');
+addParserAndAttrInterceptor(processClient,"client");
+addParserAndAttrInterceptor(processChoose,"choose");
+addParserAndAttrInterceptor(processWhen,"when");
+addParserAndAttrInterceptor(processOtherwise,"otherwise");
+addParserAndAttrInterceptor(processInclude,"include");
+function addParserAndAttrInterceptor(processor){
+var i = arguments.length;
+while(--i>0){
+var n = arguments[i];
+Core['parse'+n]=Core['intercept'+n]=processor;
+}
+}
+
+function processIf(node){
+var test = findXMLAttributeAsEL(node,'*test','value');
+this.appendIf(test);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processElse(node){
+var test = findXMLAttributeAsEL(node,'test','value');
+this.appendElse(test || null);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processElif(node){
+var test = findXMLAttributeAsEL(node,'*test','value');
+this.appendElse(test || null);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processChoose(node){
+var value = findXMLAttributeAsEL(node,"value","test");
+var oldStatus = this.getAttribute(CHOOSE_KEY);
+this.setAttribute(CHOOSE_KEY,{value:value,first:true});
+parseChildRemoveAttr(this,node,true);
+this.setAttribute(CHOOSE_KEY,oldStatus);
+}
+function processWhen(node){
+var stat = this.getAttribute(CHOOSE_KEY);
+var value = findXMLAttributeAsEL(node,"*test","if","value");
+if(stat.value){
+value = '('+stat.value + ')==('+value+')';
+}
+if(stat.first){
+stat.first = false;
+this.appendIf(value);
+}else{
+this.appendElse(value);
+}
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processOtherwise(node){
+this.appendElse(null);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processFor(node){
+if(node.nodeType == 1){
+var list = findXMLAttributeAsEL(node,'*list','values','items','value');
+var var_ = findXMLAttribute(node,'*var','name','id','item');
+var status_ = findXMLAttribute(node,'status');
+}else{
+var var_ = findXMLAttribute(node).replace(/\s*\$\{([\s\S]*)\}\s*$/,'$1');
+}
+appendForStart(this,var_,list,status_ || null);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processVar(node){
+var name_ = findXMLAttribute(node,'*name','id');
+if(node.nodeType == 1){
+var value = findXMLAttribute(node,'value');
+if(value){
+var code = this.parseText(value,0);
+if(code.length == 1){
+code = code[0];
+if(code instanceof Array){
+this.appendVar(name_,code[1]);
+}else{
+console.warn("标签:"+node.tagName+"的value属性"+value+"建议设置为表达式，您的输入没有表达式，系统自动按静态文本处理");
+this.appendVar(name_,JSON.stringify(code));
+}
+}else{
+this.appendCapture(name_);
+this.appendAll(code)
+this.appendEnd();
+}
+}else{
+this.appendCapture(name_);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+}else{
+var map = findLiteParamMap(name_);
+if(map){
+for(var n in map){
+this.appendVar(n,map[n]);
+}
+parseChildRemoveAttr(this,node);
+}else{
+this.appendCapture(name_);
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+}
+}
+function processOut(node){
+var value = findXMLAttribute(node,"value","#text");
+value = this.parseText(value,EL_TYPE);
+this.appendAll(value);
+if(node.nodeType == 2){
+console.error(' c:out attribute is unsafe!!');
+}
+}
+function processDef(node){
+var ns = findXMLAttribute(node,'*name');
+var config = parseDefName(ns);
+this.appendPlugin(PLUGIN_DEFINE,JSON.stringify(config));
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+}
+function processClient(node){
+var name_ = findXMLAttribute(node,'*name','id');
+var config = parseDefName(name_);
+this.appendText("<script>//<![CDATA[\n");
+this.appendPlugin("org.xidea.lite.parse.ClientPlugin",JSON.stringify(config));
+parseChildRemoveAttr(this,node);
+this.appendEnd();
+this.appendText("//]]></script>")
+}
+function processInclude(node){
+if(node.nodeType == 1){
+_parseInclude.apply(this,arguments);
+}else if(node.nodeType == 2){
+_interceptInclude.apply(this,arguments);
+}
+}
+function _parseInclude(node){
+var path = findXMLAttribute(node,'path');
+var xpath = findXMLAttribute(node,'xpath');
+var selector = findXMLAttribute(node,'selector');
+var parentURI = this.currentURI;
+try{
+if(path!=null){
+if(path.charAt() == '#'){
+console.warn("装饰器命名节点改用${pageName}模式了:(,您实用的模式还是:"+path);
+path = '$'+path.substring(1);
+}
+if(path.charAt() == '$'){
+doc = this.getAttribute(path);
+setNodeURI(this,node);
+}else{
+var uri = this.createURI(path);
+var doc = this.loadXML(uri);
+this.setCurrentURI(uri);
+}
+}else{
+var doc = this.loadXML(this.currentURI);
+var doc = node.ownerDocument
+}
+if(doc==null){
+this.appendText("<strong style='color:red'>没找到包含节点："+this.currentURI+ node.value+"</strong>");
+}else{
+if(selector != null){
+var list = querySelectorAll.apply(doc,selector);;
+if(list && list.length){
+for(var i=0;i<list.length;i++){
+this.parse(list[i])
+}
+}else{
+console.warn("empty selection:"+selector)
+}
+}else if(xpath!=null){
+var d = doc;
+doc = selectByXPath(doc,xpath);
+
+}
+this.parse(doc)
+}
+}finally{
+this.setCurrentURI(parentURI);
+}
+}
+function _interceptInclude(attr){
+var match = attr.value.match(/^([^#]*)(?:#(.*))?$/);
+var path = match[1];
+var xpath = match[2];
+if(path){
+var path2 = path.replace(/^[\$#]([\w\$_]+)$/,'$$$1');
+if(path2.charAt() == '$') {
+doc = this.getAttribute(path2);
+}else{
+var uri = this.createURI(path);
+var doc = this.loadXML(uri)
+
+}
+}else{
+var doc = attr.ownerDocument;
+}
+if(doc==null){
+this.appendText("<strong style='color:red'>没找到包含节点："+this.currentURI+ attr.value+"</strong>");
+}else{
+var attrs = selectByXPath(doc, xpath);
+var element = attr.ownerElement || attr.selectSingleNode('..');
+
+for(var i = attrs.length;i--;){
+var a = attrs.item(i);
+_mergeAttribute(element,a);
+}
+}
+parseChildRemoveAttr(this,attr);
+
+}
+function _mergeAttribute(element,node){
+if(node.nodeType == 2){
+var attr = element.getAttributeNS(node.namespaceURI,node.name);
+element.setAttributeNS(node.namespaceURI,node.name,attr+node.value);
+}else if(node.nodeType == 1){
+var attributes = node.attributes;
+for (var i = 0; i < attributes.length; i++) {
+_mergeAttribute(element,attributes.item(i));
+}
+}
+}
+}
 ,
-function(e,t){function n(e){"string"==typeof e&&(e=h(e));var t=e.getElementsByTagName("lite"),n=t.length;if(n>=1){var o=new i(t.item(0));if(n>1){console.error("配置文件只允许一个lite节点","您的文档中包含"+n+"个节点，后续节点将作为第一个节点子节点解析。");for(var s=1;n>s;s++)o.children.push(new i(t[s],this))}var a=o.toJSON();return a}return null}function i(e,t){this.parentConfig=t||null,this.config={},this.encoding=u(e,"encoding","charset"),this.type=u(e,"type","mime-type","mimeType"),this.contentType=u(e,"contentType","contextType"),this.layout=u(e,"layout"),this.extensionMap={},this.children=[],this.includes=[],this.excludes=[];for(var n=e.firstChild;n;){if(1==n.nodeType)switch(n.nodeName){case"feature":case"attribute":case"config":this.config[u(n,"name","key","uri","url")]=u(n,"value","#text");break;case"extension":var o=u(n,"namespace","name","key","uri","url"),s=u(n,"package","impl","value","#text"),a=this.extensionMap[o];a&&a instanceof Array?r(a,s):this.extensionMap[o]=[s];break;case"include":this.includes.push(u(n,"value","#text","pattern"));break;case"exclude":this.excludes.push(u(n,"value","#text","pattern"));break;case"group":this.children.push(new i(n,this));break;default:console.warn("unknow nodeName:"+n.nodeName)}n=n.nextSibling}}function o(e,t){var n=e.type,i=e.encoding,o=e.contentType;if(null!=o){console.info("contentType 用于同时指定 type 和charset 属性，如此需求更推荐您采用type和encoding代替");var s=o.indexOf("charset=");if(s>0){var a=o.substring(s+8);i?a.toUpperCase()!=i.toUpperCase()&&console.info("encoding 与 contentType 不一致"+i+","+o+"; "):i=a}var r=o.replace(/\s*;.*$/,"");n&&n.toUpperCase()!=r.toUpperCase()&&console.error("type 与 contentType 不一致"+n+","+r+";type 设置将被忽略"),n=r}if(null==i&&(i=t&&t.encoding||"UTF-8"),null==n&&(n=t&&t.type),null==o)n&&(o=n+";charset="+i);else{var s=o.indexOf("charset=");0>s&&(o+=";charset="+i)}e.type=n,e.encoding=i,e.contentType=o}function s(e,t){for(var n in e)t[n]=e[n]}function a(e,t){var n={};for(var i in t)n[i]=[].concat(t[i]);for(var i in e){var o=[].concat(e[i]),s=n[i];if(s)for(var a=s.length;a--;)r(o,s[a]);n[i]=o}return n}function r(e,t){for(var n=e.length;n--;)e[n]==t&&e.splice(n,1);e.push(t)}function c(e){for(var t=e.length;t--;)e[t]=l(e[t]);return e.join("|")||null}if(i.prototype.toJSON=function(){var e=[],t=this.children.length,n={};this.initialize();for(var i=0;t>i;i++)e.push.apply(e,this.children[i].toJSON());return n.includes=this.includes,n.excludes=this.excludes,n.config=this.config,n.extensionMap=this.extensionMap,e.push(n),e},i.prototype.initialize=function(){this.initialize=Function.prototype;var e=this.parentConfig;if(e){var t={};s(e.config,t),s(this.config,t),this.config=t,this.extensionMap=a(e.extensionMap,this.extensionMap)}this.includes=c(this.includes),this.excludes=c(this.excludes),o(this,e),this.config.encoding=this.encoding,this.config.contentType=this.contentType,null!=this.layout&&(this.layout&&"/"!=this.layout.charAt()?console.error("layout 必须为绝对地址('/'开始),你的设置为："+this.layout):this.config.layout=this.layout)},"function"==typeof t){e.parseConfig=n;var l=t(6).buildURIMatcher,h=t(7).loadLiteXML,u=t(7).findXMLAttribute}}
+function(exports,require,module){
+
+XPathParser.prototype = new Object();
+XPathParser.prototype.constructor = XPathParser;
+XPathParser.superclass = Object.prototype;
+function XPathParser() {
+this.init();
+}
+XPathParser.prototype.init = function() {
+this.reduceActions = [];
+this.reduceActions[3] = function(rhs) {
+return new OrOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[5] = function(rhs) {
+return new AndOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[7] = function(rhs) {
+return new EqualsOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[8] = function(rhs) {
+return new NotEqualOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[10] = function(rhs) {
+return new LessThanOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[11] = function(rhs) {
+return new GreaterThanOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[12] = function(rhs) {
+return new LessThanOrEqualOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[13] = function(rhs) {
+return new GreaterThanOrEqualOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[15] = function(rhs) {
+return new PlusOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[16] = function(rhs) {
+return new MinusOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[18] = function(rhs) {
+return new MultiplyOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[19] = function(rhs) {
+return new DivOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[20] = function(rhs) {
+return new ModOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[22] = function(rhs) {
+return new UnaryMinusOperation(rhs[1]);
+};
+this.reduceActions[24] = function(rhs) {
+return new BarOperation(rhs[0], rhs[2]);
+};
+this.reduceActions[25] = function(rhs) {
+return new PathExpr(undefined, undefined, rhs[0]);
+};
+this.reduceActions[27] = function(rhs) {
+rhs[0].locationPath = rhs[2];
+return rhs[0];
+};
+this.reduceActions[28] = function(rhs) {
+rhs[0].locationPath = rhs[2];
+rhs[0].locationPath.steps.unshift(new Step(Step.DESCENDANTORSELF, new NodeTest(NodeTest.NODE, undefined), []));
+return rhs[0];
+};
+this.reduceActions[29] = function(rhs) {
+return new PathExpr(rhs[0], [], undefined);
+};
+this.reduceActions[30] = function(rhs) {
+if (Utilities.instance_of(rhs[0], PathExpr)) {
+if (rhs[0].filterPredicates == undefined) {
+rhs[0].filterPredicates = [];
+}
+rhs[0].filterPredicates.push(rhs[1]);
+return rhs[0];
+} else {
+return new PathExpr(rhs[0], [rhs[1]], undefined);
+}
+};
+this.reduceActions[32] = function(rhs) {
+return rhs[1];
+};
+this.reduceActions[33] = function(rhs) {
+return new XString(rhs[0]);
+};
+this.reduceActions[34] = function(rhs) {
+return new XNumber(rhs[0]);
+};
+this.reduceActions[36] = function(rhs) {
+return new FunctionCall(rhs[0], []);
+};
+this.reduceActions[37] = function(rhs) {
+return new FunctionCall(rhs[0], rhs[2]);
+};
+this.reduceActions[38] = function(rhs) {
+return [ rhs[0] ];
+};
+this.reduceActions[39] = function(rhs) {
+rhs[2].unshift(rhs[0]);
+return rhs[2];
+};
+this.reduceActions[43] = function(rhs) {
+return new LocationPath(true, []);
+};
+this.reduceActions[44] = function(rhs) {
+rhs[1].absolute = true;
+return rhs[1];
+};
+this.reduceActions[46] = function(rhs) {
+return new LocationPath(false, [ rhs[0] ]);
+};
+this.reduceActions[47] = function(rhs) {
+rhs[0].steps.push(rhs[2]);
+return rhs[0];
+};
+this.reduceActions[49] = function(rhs) {
+return new Step(rhs[0], rhs[1], []);
+};
+this.reduceActions[50] = function(rhs) {
+return new Step(Step.CHILD, rhs[0], []);
+};
+this.reduceActions[51] = function(rhs) {
+return new Step(rhs[0], rhs[1], rhs[2]);
+};
+this.reduceActions[52] = function(rhs) {
+return new Step(Step.CHILD, rhs[0], rhs[1]);
+};
+this.reduceActions[54] = function(rhs) {
+return [ rhs[0] ];
+};
+this.reduceActions[55] = function(rhs) {
+rhs[1].unshift(rhs[0]);
+return rhs[1];
+};
+this.reduceActions[56] = function(rhs) {
+if (rhs[0] == "ancestor") {
+return Step.ANCESTOR;
+} else if (rhs[0] == "ancestor-or-self") {
+return Step.ANCESTORORSELF;
+} else if (rhs[0] == "attribute") {
+return Step.ATTRIBUTE;
+} else if (rhs[0] == "child") {
+return Step.CHILD;
+} else if (rhs[0] == "descendant") {
+return Step.DESCENDANT;
+} else if (rhs[0] == "descendant-or-self") {
+return Step.DESCENDANTORSELF;
+} else if (rhs[0] == "following") {
+return Step.FOLLOWING;
+} else if (rhs[0] == "following-sibling") {
+return Step.FOLLOWINGSIBLING;
+} else if (rhs[0] == "namespace") {
+return Step.NAMESPACE;
+} else if (rhs[0] == "parent") {
+return Step.PARENT;
+} else if (rhs[0] == "preceding") {
+return Step.PRECEDING;
+} else if (rhs[0] == "preceding-sibling") {
+return Step.PRECEDINGSIBLING;
+} else if (rhs[0] == "self") {
+return Step.SELF;
+}
+return -1;
+};
+this.reduceActions[57] = function(rhs) {
+return Step.ATTRIBUTE;
+};
+this.reduceActions[59] = function(rhs) {
+if (rhs[0] == "comment") {
+return new NodeTest(NodeTest.COMMENT, undefined);
+} else if (rhs[0] == "text") {
+return new NodeTest(NodeTest.TEXT, undefined);
+} else if (rhs[0] == "processing-instruction") {
+return new NodeTest(NodeTest.PI, undefined);
+} else if (rhs[0] == "node") {
+return new NodeTest(NodeTest.NODE, undefined);
+}
+return new NodeTest(-1, undefined);
+};
+this.reduceActions[60] = function(rhs) {
+return new NodeTest(NodeTest.PI, rhs[2]);
+};
+this.reduceActions[61] = function(rhs) {
+return rhs[1];
+};
+this.reduceActions[63] = function(rhs) {
+rhs[1].absolute = true;
+rhs[1].steps.unshift(new Step(Step.DESCENDANTORSELF, new NodeTest(NodeTest.NODE, undefined), []));
+return rhs[1];
+};
+this.reduceActions[64] = function(rhs) {
+rhs[0].steps.push(new Step(Step.DESCENDANTORSELF, new NodeTest(NodeTest.NODE, undefined), []));
+rhs[0].steps.push(rhs[2]);
+return rhs[0];
+};
+this.reduceActions[65] = function(rhs) {
+return new Step(Step.SELF, new NodeTest(NodeTest.NODE, undefined), []);
+};
+this.reduceActions[66] = function(rhs) {
+return new Step(Step.PARENT, new NodeTest(NodeTest.NODE, undefined), []);
+};
+this.reduceActions[67] = function(rhs) {
+return new VariableReference(rhs[1]);
+};
+this.reduceActions[68] = function(rhs) {
+return new NodeTest(NodeTest.NAMETESTANY, undefined);
+};
+this.reduceActions[69] = function(rhs) {
+var prefix = rhs[0].substring(0, rhs[0].indexOf(":"));
+return new NodeTest(NodeTest.NAMETESTPREFIXANY, prefix);
+};
+this.reduceActions[70] = function(rhs) {
+return new NodeTest(NodeTest.NAMETESTQNAME, rhs[0]);
+};
+};
+XPathParser.actionTable = [
+" s s        sssssssss    s ss  s  ss",
+"                 s                  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"                rrrrr               ",
+" s s        sssssssss    s ss  s  ss",
+"rs  rrrrrrrr s  sssssrrrrrr  rrs rs ",
+" s s        sssssssss    s ss  s  ss",
+"                            s       ",
+"                            s       ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"  s                                 ",
+"                            s       ",
+" s           s  sssss          s  s ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"a                                   ",
+"r       s                    rr  r  ",
+"r      sr                    rr  r  ",
+"r   s  rr            s       rr  r  ",
+"r   rssrr            rss     rr  r  ",
+"r   rrrrr            rrrss   rr  r  ",
+"r   rrrrrsss         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrrs  rr  r  ",
+"r   rrrrrrrr         rrrrrr  rr  r  ",
+"r   rrrrrrrr         rrrrrr  rr  r  ",
+"r  srrrrrrrr         rrrrrrs rr sr  ",
+"r  srrrrrrrr         rrrrrrs rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r   rrrrrrrr         rrrrrr  rr  r  ",
+"r   rrrrrrrr         rrrrrr  rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"                sssss               ",
+"r  rrrrrrrrr         rrrrrrr rr sr  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"                             s      ",
+"r  srrrrrrrr         rrrrrrs rr  r  ",
+"r   rrrrrrrr         rrrrr   rr  r  ",
+"              s                     ",
+"                             s      ",
+"                rrrrr               ",
+" s s        sssssssss    s sss s  ss",
+"r  srrrrrrrr         rrrrrrs rr  r  ",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s s        sssssssss      ss  s  ss",
+" s s        sssssssss    s ss  s  ss",
+" s           s  sssss          s  s ",
+" s           s  sssss          s  s ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+" s           s  sssss          s  s ",
+" s           s  sssss          s  s ",
+"r  rrrrrrrrr         rrrrrrr rr sr  ",
+"r  rrrrrrrrr         rrrrrrr rr sr  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"                             s      ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"                             rr     ",
+"                             s      ",
+"                             rs     ",
+"r      sr                    rr  r  ",
+"r   s  rr            s       rr  r  ",
+"r   rssrr            rss     rr  r  ",
+"r   rssrr            rss     rr  r  ",
+"r   rrrrr            rrrss   rr  r  ",
+"r   rrrrr            rrrss   rr  r  ",
+"r   rrrrr            rrrss   rr  r  ",
+"r   rrrrr            rrrss   rr  r  ",
+"r   rrrrrsss         rrrrr   rr  r  ",
+"r   rrrrrsss         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrr   rr  r  ",
+"r   rrrrrrrr         rrrrrr  rr  r  ",
+"                                 r  ",
+"                                 s  ",
+"r  srrrrrrrr         rrrrrrs rr  r  ",
+"r  srrrrrrrr         rrrrrrs rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr  r  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+" s s        sssssssss    s ss  s  ss",
+"r  rrrrrrrrr         rrrrrrr rr rr  ",
+"                             r      "
+];
+XPathParser.actionTableNumber = [
+" 1 0        /.-,+*)('    & %$  #  \"!",
+"                 J                  ",
+"a  aaaaaaaaa         aaaaaaa aa  a  ",
+"                YYYYY               ",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+"K1  KKKKKKKK .  +*)('KKKKKK  KK# K\" ",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+"                            N       ",
+"                            O       ",
+"e  eeeeeeeee         eeeeeee ee ee  ",
+"f  fffffffff         fffffff ff ff  ",
+"d  ddddddddd         ddddddd dd dd  ",
+"B  BBBBBBBBB         BBBBBBB BB BB  ",
+"A  AAAAAAAAA         AAAAAAA AA AA  ",
+"  P                                 ",
+"                            Q       ",
+" 1           .  +*)('          #  \" ",
+"b  bbbbbbbbb         bbbbbbb bb  b  ",
+"                                    ",
+"!       S                    !!  !  ",
+"\"      T\"                    \"\"  \"  ",
+"$   V  $$            U       $$  $  ",
+"&   &ZY&&            &XW     &&  &  ",
+")   )))))            )))\\[   ))  )  ",
+".   ....._^]         .....   ..  .  ",
+"1   11111111         11111   11  1  ",
+"5   55555555         55555`  55  5  ",
+"7   77777777         777777  77  7  ",
+"9   99999999         999999  99  9  ",
+":  c::::::::         ::::::b :: a:  ",
+"I  fIIIIIIII         IIIIIIe II  I  ",
+"=  =========         ======= == ==  ",
+"?  ?????????         ??????? ?? ??  ",
+"C  CCCCCCCCC         CCCCCCC CC CC  ",
+"J   JJJJJJJJ         JJJJJJ  JJ  J  ",
+"M   MMMMMMMM         MMMMMM  MM  M  ",
+"N  NNNNNNNNN         NNNNNNN NN  N  ",
+"P  PPPPPPPPP         PPPPPPP PP  P  ",
+"                +*)('               ",
+"R  RRRRRRRRR         RRRRRRR RR aR  ",
+"U  UUUUUUUUU         UUUUUUU UU  U  ",
+"Z  ZZZZZZZZZ         ZZZZZZZ ZZ ZZ  ",
+"c  ccccccccc         ccccccc cc cc  ",
+"                             j      ",
+"L  fLLLLLLLL         LLLLLLe LL  L  ",
+"6   66666666         66666   66  6  ",
+"              k                     ",
+"                             l      ",
+"                XXXXX               ",
+" 1 0        /.-,+*)('    & %$m #  \"!",
+"_  f________         ______e __  _  ",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1 0        /.-,+*)('      %$  #  \"!",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+" 1           .  +*)('          #  \" ",
+" 1           .  +*)('          #  \" ",
+">  >>>>>>>>>         >>>>>>> >> >>  ",
+" 1           .  +*)('          #  \" ",
+" 1           .  +*)('          #  \" ",
+"Q  QQQQQQQQQ         QQQQQQQ QQ aQ  ",
+"V  VVVVVVVVV         VVVVVVV VV aV  ",
+"T  TTTTTTTTT         TTTTTTT TT  T  ",
+"@  @@@@@@@@@         @@@@@@@ @@ @@  ",
+"                             \x87      ",
+"[  [[[[[[[[[         [[[[[[[ [[ [[  ",
+"D  DDDDDDDDD         DDDDDDD DD DD  ",
+"                             HH     ",
+"                             \x88      ",
+"                             F\x89     ",
+"#      T#                    ##  #  ",
+"%   V  %%            U       %%  %  ",
+"'   'ZY''            'XW     ''  '  ",
+"(   (ZY((            (XW     ((  (  ",
+"+   +++++            +++\\[   ++  +  ",
+"*   *****            ***\\[   **  *  ",
+"-   -----            ---\\[   --  -  ",
+",   ,,,,,            ,,,\\[   ,,  ,  ",
+"0   00000_^]         00000   00  0  ",
+"/   /////_^]         /////   //  /  ",
+"2   22222222         22222   22  2  ",
+"3   33333333         33333   33  3  ",
+"4   44444444         44444   44  4  ",
+"8   88888888         888888  88  8  ",
+"                                 ^  ",
+"                                 \x8a  ",
+";  f;;;;;;;;         ;;;;;;e ;;  ;  ",
+"<  f<<<<<<<<         <<<<<<e <<  <  ",
+"O  OOOOOOOOO         OOOOOOO OO  O  ",
+"`  `````````         ``````` ``  `  ",
+"S  SSSSSSSSS         SSSSSSS SS  S  ",
+"W  WWWWWWWWW         WWWWWWW WW  W  ",
+"\\  \\\\\\\\\\\\\\\\\\         \\\\\\\\\\\\\\ \\\\ \\\\  ",
+"E  EEEEEEEEE         EEEEEEE EE EE  ",
+" 1 0        /.-,+*)('    & %$  #  \"!",
+"]  ]]]]]]]]]         ]]]]]]] ]] ]]  ",
+"                             G      "
+];
+XPathParser.gotoTable = [
+"3456789:;<=>?@ AB  CDEFGH IJ ",
+"                             ",
+"                             ",
+"                             ",
+"L456789:;<=>?@ AB  CDEFGH IJ ",
+"            M        EFGH IJ ",
+"       N;<=>?@ AB  CDEFGH IJ ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"            S        EFGH IJ ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"              e              ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                        h  J ",
+"              i          j   ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"o456789:;<=>?@ ABpqCDEFGH IJ ",
+"                             ",
+"  r6789:;<=>?@ AB  CDEFGH IJ ",
+"   s789:;<=>?@ AB  CDEFGH IJ ",
+"    t89:;<=>?@ AB  CDEFGH IJ ",
+"    u89:;<=>?@ AB  CDEFGH IJ ",
+"     v9:;<=>?@ AB  CDEFGH IJ ",
+"     w9:;<=>?@ AB  CDEFGH IJ ",
+"     x9:;<=>?@ AB  CDEFGH IJ ",
+"     y9:;<=>?@ AB  CDEFGH IJ ",
+"      z:;<=>?@ AB  CDEFGH IJ ",
+"      {:;<=>?@ AB  CDEFGH IJ ",
+"       |;<=>?@ AB  CDEFGH IJ ",
+"       };<=>?@ AB  CDEFGH IJ ",
+"       ~;<=>?@ AB  CDEFGH IJ ",
+"         \x7f=>?@ AB  CDEFGH IJ ",
+"\x80456789:;<=>?@ AB  CDEFGH IJ\x81",
+"            \x82        EFGH IJ ",
+"            \x83        EFGH IJ ",
+"                             ",
+"                     \x84 GH IJ ",
+"                     \x85 GH IJ ",
+"              i          \x86   ",
+"              i          \x87   ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"                             ",
+"o456789:;<=>?@ AB\x8cqCDEFGH IJ ",
+"                             ",
+"                             "
+];
+XPathParser.productions = [
+[1, 1, 2],
+[2, 1, 3],
+[3, 1, 4],
+[3, 3, 3, -9, 4],
+[4, 1, 5],
+[4, 3, 4, -8, 5],
+[5, 1, 6],
+[5, 3, 5, -22, 6],
+[5, 3, 5, -5, 6],
+[6, 1, 7],
+[6, 3, 6, -23, 7],
+[6, 3, 6, -24, 7],
+[6, 3, 6, -6, 7],
+[6, 3, 6, -7, 7],
+[7, 1, 8],
+[7, 3, 7, -25, 8],
+[7, 3, 7, -26, 8],
+[8, 1, 9],
+[8, 3, 8, -12, 9],
+[8, 3, 8, -11, 9],
+[8, 3, 8, -10, 9],
+[9, 1, 10],
+[9, 2, -26, 9],
+[10, 1, 11],
+[10, 3, 10, -27, 11],
+[11, 1, 12],
+[11, 1, 13],
+[11, 3, 13, -28, 14],
+[11, 3, 13, -4, 14],
+[13, 1, 15],
+[13, 2, 13, 16],
+[15, 1, 17],
+[15, 3, -29, 2, -30],
+[15, 1, -15],
+[15, 1, -16],
+[15, 1, 18],
+[18, 3, -13, -29, -30],
+[18, 4, -13, -29, 19, -30],
+[19, 1, 20],
+[19, 3, 20, -31, 19],
+[20, 1, 2],
+[12, 1, 14],
+[12, 1, 21],
+[21, 1, -28],
+[21, 2, -28, 14],
+[21, 1, 22],
+[14, 1, 23],
+[14, 3, 14, -28, 23],
+[14, 1, 24],
+[23, 2, 25, 26],
+[23, 1, 26],
+[23, 3, 25, 26, 27],
+[23, 2, 26, 27],
+[23, 1, 28],
+[27, 1, 16],
+[27, 2, 16, 27],
+[25, 2, -14, -3],
+[25, 1, -32],
+[26, 1, 29],
+[26, 3, -20, -29, -30],
+[26, 4, -21, -29, -15, -30],
+[16, 3, -33, 30, -34],
+[30, 1, 2],
+[22, 2, -4, 14],
+[24, 3, 14, -4, 23],
+[28, 1, -35],
+[28, 1, -2],
+[17, 2, -36, -18],
+[29, 1, -17],
+[29, 1, -19],
+[29, 1, -18]
+];
+XPathParser.DOUBLEDOT = 2;
+XPathParser.DOUBLECOLON = 3;
+XPathParser.DOUBLESLASH = 4;
+XPathParser.NOTEQUAL = 5;
+XPathParser.LESSTHANOREQUAL = 6;
+XPathParser.GREATERTHANOREQUAL = 7;
+XPathParser.AND = 8;
+XPathParser.OR = 9;
+XPathParser.MOD = 10;
+XPathParser.DIV = 11;
+XPathParser.MULTIPLYOPERATOR = 12;
+XPathParser.FUNCTIONNAME = 13;
+XPathParser.AXISNAME = 14;
+XPathParser.LITERAL = 15;
+XPathParser.NUMBER = 16;
+XPathParser.ASTERISKNAMETEST = 17;
+XPathParser.QNAME = 18;
+XPathParser.NCNAMECOLONASTERISK = 19;
+XPathParser.NODETYPE = 20;
+XPathParser.PROCESSINGINSTRUCTIONWITHLITERAL = 21;
+XPathParser.EQUALS = 22;
+XPathParser.LESSTHAN = 23;
+XPathParser.GREATERTHAN = 24;
+XPathParser.PLUS = 25;
+XPathParser.MINUS = 26;
+XPathParser.BAR = 27;
+XPathParser.SLASH = 28;
+XPathParser.LEFTPARENTHESIS = 29;
+XPathParser.RIGHTPARENTHESIS = 30;
+XPathParser.COMMA = 31;
+XPathParser.AT = 32;
+XPathParser.LEFTBRACKET = 33;
+XPathParser.RIGHTBRACKET = 34;
+XPathParser.DOT = 35;
+XPathParser.DOLLAR = 36;
+XPathParser.prototype.tokenize = function(s1) {
+var types = [];
+var values = [];
+var s = s1 + '\0';
+var pos = 0;
+var c = s.charAt(pos++);
+while (1) {
+while (c == ' ' || c == '\t' || c == '\r' || c == '\n') {
+c = s.charAt(pos++);
+}
+if (c == '\0' || pos >= s.length) {
+break;
+}
+if (c == '(') {
+types.push(XPathParser.LEFTPARENTHESIS);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == ')') {
+types.push(XPathParser.RIGHTPARENTHESIS);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '[') {
+types.push(XPathParser.LEFTBRACKET);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == ']') {
+types.push(XPathParser.RIGHTBRACKET);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '@') {
+types.push(XPathParser.AT);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == ',') {
+types.push(XPathParser.COMMA);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '|') {
+types.push(XPathParser.BAR);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '+') {
+types.push(XPathParser.PLUS);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '-') {
+types.push(XPathParser.MINUS);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '=') {
+types.push(XPathParser.EQUALS);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '$') {
+types.push(XPathParser.DOLLAR);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == '.') {
+c = s.charAt(pos++);
+if (c == '.') {
+types.push(XPathParser.DOUBLEDOT);
+values.push("..");
+c = s.charAt(pos++);
+continue;
+}
+if (c >= '0' && c <= '9') {
+var number = "." + c;
+c = s.charAt(pos++);
+while (c >= '0' && c <= '9') {
+number += c;
+c = s.charAt(pos++);
+}
+types.push(XPathParser.NUMBER);
+values.push(number);
+continue;
+}
+types.push(XPathParser.DOT);
+values.push('.');
+continue;
+}
+if (c == '\'' || c == '"') {
+var delimiter = c;
+var literal = "";
+while ((c = s.charAt(pos++)) != delimiter) {
+literal += c;
+}
+types.push(XPathParser.LITERAL);
+values.push(literal);
+c = s.charAt(pos++);
+continue;
+}
+if (c >= '0' && c <= '9') {
+var number = c;
+c = s.charAt(pos++);
+while (c >= '0' && c <= '9') {
+number += c;
+c = s.charAt(pos++);
+}
+if (c == '.') {
+if (s.charAt(pos) >= '0' && s.charAt(pos) <= '9') {
+number += c;
+number += s.charAt(pos++);
+c = s.charAt(pos++);
+while (c >= '0' && c <= '9') {
+number += c;
+c = s.charAt(pos++);
+}
+}
+}
+types.push(XPathParser.NUMBER);
+values.push(number);
+continue;
+}
+if (c == '*') {
+if (types.length > 0) {
+var last = types[types.length - 1];
+if (last != XPathParser.AT
+&& last != XPathParser.DOUBLECOLON
+&& last != XPathParser.LEFTPARENTHESIS
+&& last != XPathParser.LEFTBRACKET
+&& last != XPathParser.AND
+&& last != XPathParser.OR
+&& last != XPathParser.MOD
+&& last != XPathParser.DIV
+&& last != XPathParser.MULTIPLYOPERATOR
+&& last != XPathParser.SLASH
+&& last != XPathParser.DOUBLESLASH
+&& last != XPathParser.BAR
+&& last != XPathParser.PLUS
+&& last != XPathParser.MINUS
+&& last != XPathParser.EQUALS
+&& last != XPathParser.NOTEQUAL
+&& last != XPathParser.LESSTHAN
+&& last != XPathParser.LESSTHANOREQUAL
+&& last != XPathParser.GREATERTHAN
+&& last != XPathParser.GREATERTHANOREQUAL) {
+types.push(XPathParser.MULTIPLYOPERATOR);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+}
+types.push(XPathParser.ASTERISKNAMETEST);
+values.push(c);
+c = s.charAt(pos++);
+continue;
+}
+if (c == ':') {
+if (s.charAt(pos) == ':') {
+types.push(XPathParser.DOUBLECOLON);
+values.push("::");
+pos++;
+c = s.charAt(pos++);
+continue;
+}
+}
+if (c == '/') {
+c = s.charAt(pos++);
+if (c == '/') {
+types.push(XPathParser.DOUBLESLASH);
+values.push("//");
+c = s.charAt(pos++);
+continue;
+}
+types.push(XPathParser.SLASH);
+values.push('/');
+continue;
+}
+if (c == '!') {
+if (s.charAt(pos) == '=') {
+types.push(XPathParser.NOTEQUAL);
+values.push("!=");
+pos++;
+c = s.charAt(pos++);
+continue;
+}
+}
+if (c == '<') {
+if (s.charAt(pos) == '=') {
+types.push(XPathParser.LESSTHANOREQUAL);
+values.push("<=");
+pos++;
+c = s.charAt(pos++);
+continue;
+}
+types.push(XPathParser.LESSTHAN);
+values.push('<');
+c = s.charAt(pos++);
+continue;
+}
+if (c == '>') {
+if (s.charAt(pos) == '=') {
+types.push(XPathParser.GREATERTHANOREQUAL);
+values.push(">=");
+pos++;
+c = s.charAt(pos++);
+continue;
+}
+types.push(XPathParser.GREATERTHAN);
+values.push('>');
+c = s.charAt(pos++);
+continue;
+}
+if (c == '_' || Utilities.isLetter(c.charCodeAt(0))) {
+var name = c;
+c = s.charAt(pos++);
+while (Utilities.isNCNameChar(c.charCodeAt(0))) {
+name += c;
+c = s.charAt(pos++);
+}
+if (types.length > 0) {
+var last = types[types.length - 1];
+if (last != XPathParser.AT
+&& last != XPathParser.DOUBLECOLON
+&& last != XPathParser.LEFTPARENTHESIS
+&& last != XPathParser.LEFTBRACKET
+&& last != XPathParser.AND
+&& last != XPathParser.OR
+&& last != XPathParser.MOD
+&& last != XPathParser.DIV
+&& last != XPathParser.MULTIPLYOPERATOR
+&& last != XPathParser.SLASH
+&& last != XPathParser.DOUBLESLASH
+&& last != XPathParser.BAR
+&& last != XPathParser.PLUS
+&& last != XPathParser.MINUS
+&& last != XPathParser.EQUALS
+&& last != XPathParser.NOTEQUAL
+&& last != XPathParser.LESSTHAN
+&& last != XPathParser.LESSTHANOREQUAL
+&& last != XPathParser.GREATERTHAN
+&& last != XPathParser.GREATERTHANOREQUAL) {
+if (name == "and") {
+types.push(XPathParser.AND);
+values.push(name);
+continue;
+}
+if (name == "or") {
+types.push(XPathParser.OR);
+values.push(name);
+continue;
+}
+if (name == "mod") {
+types.push(XPathParser.MOD);
+values.push(name);
+continue;
+}
+if (name == "div") {
+types.push(XPathParser.DIV);
+values.push(name);
+continue;
+}
+}
+}
+if (c == ':') {
+if (s.charAt(pos) == '*') {
+types.push(XPathParser.NCNAMECOLONASTERISK);
+values.push(name + ":*");
+pos++;
+c = s.charAt(pos++);
+continue;
+}
+if (s.charAt(pos) == '_' || Utilities.isLetter(s.charCodeAt(pos))) {
+name += ':';
+c = s.charAt(pos++);
+while (Utilities.isNCNameChar(c.charCodeAt(0))) {
+name += c;
+c = s.charAt(pos++);
+}
+if (c == '(') {
+types.push(XPathParser.FUNCTIONNAME);
+values.push(name);
+continue;
+}
+types.push(XPathParser.QNAME);
+values.push(name);
+continue;
+}
+if (s.charAt(pos) == ':') {
+types.push(XPathParser.AXISNAME);
+values.push(name);
+continue;
+}
+}
+if (c == '(') {
+if (name == "comment" || name == "text" || name == "node") {
+types.push(XPathParser.NODETYPE);
+values.push(name);
+continue;
+}
+if (name == "processing-instruction") {
+if (s.charAt(pos) == ')') {
+types.push(XPathParser.NODETYPE);
+} else {
+types.push(XPathParser.PROCESSINGINSTRUCTIONWITHLITERAL);
+}
+values.push(name);
+continue;
+}
+types.push(XPathParser.FUNCTIONNAME);
+values.push(name);
+continue;
+}
+types.push(XPathParser.QNAME);
+values.push(name);
+continue;
+}
+throw new Error("Unexpected character " + c);
+}
+types.push(1);
+values.push("[EOF]");
+return [types, values];
+};
+XPathParser.SHIFT = 's';
+XPathParser.REDUCE = 'r';
+XPathParser.ACCEPT = 'a';
+XPathParser.prototype.parse = function(s) {
+var types;
+var values;
+var res = this.tokenize(s);
+if (res == undefined) {
+return undefined;
+}
+types = res[0];
+values = res[1];
+var tokenPos = 0;
+var state = [];
+var tokenType = [];
+var tokenValue = [];
+var s;
+var a;
+var t;
+state.push(0);
+tokenType.push(1);
+tokenValue.push("_S");
+a = types[tokenPos];
+t = values[tokenPos++];
+while (1) {
+s = state[state.length - 1];
+switch (XPathParser.actionTable[s].charAt(a - 1)) {
+case XPathParser.SHIFT:
+tokenType.push(-a);
+tokenValue.push(t);
+state.push(XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32);
+a = types[tokenPos];
+t = values[tokenPos++];
+break;
+case XPathParser.REDUCE:
+var num = XPathParser.productions[XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32][1];
+var rhs = [];
+for (var i = 0; i < num; i++) {
+tokenType.pop();
+rhs.unshift(tokenValue.pop());
+state.pop();
+}
+var s_ = state[state.length - 1];
+tokenType.push(XPathParser.productions[XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32][0]);
+if (this.reduceActions[XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32] == undefined) {
+tokenValue.push(rhs[0]);
+} else {
+tokenValue.push(this.reduceActions[XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32](rhs));
+}
+state.push(XPathParser.gotoTable[s_].charCodeAt(XPathParser.productions[XPathParser.actionTableNumber[s].charCodeAt(a - 1) - 32][0] - 2) - 33);
+break;
+case XPathParser.ACCEPT:
+return new XPath(tokenValue.pop());
+default:
+throw new Error("XPath parse error");
+}
+}
+};
+
+XPath.prototype = new Object();
+XPath.prototype.constructor = XPath;
+XPath.superclass = Object.prototype;
+function XPath(e) {
+this.expression = e;
+}
+XPath.prototype.toString = function() {
+return this.expression.toString();
+};
+XPath.prototype.evaluate = function(c) {
+c.contextNode = c.expressionContextNode;
+c.contextSize = 1;
+c.contextPosition = 1;
+c.caseInsensitive = false;
+if (c.contextNode != null) {
+var doc = c.contextNode;
+if (doc.nodeType != 9 ) {
+doc = doc.ownerDocument;
+}
+try {
+c.caseInsensitive = doc.implementation.hasFeature("HTML", "2.0");
+} catch (e) {
+c.caseInsensitive = true;
+}
+}
+return this.expression.evaluate(c);
+};
+XPath.XML_NAMESPACE_URI = "http://www.w3.org/XML/1998/namespace";
+XPath.XMLNS_NAMESPACE_URI = "http://www.w3.org/2000/xmlns/";
+
+Expression.prototype = new Object();
+Expression.prototype.constructor = Expression;
+Expression.superclass = Object.prototype;
+function Expression() {
+}
+Expression.prototype.init = function() {
+};
+Expression.prototype.toString = function() {
+return "<Expression>";
+};
+Expression.prototype.evaluate = function(c) {
+throw new Error("Could not evaluate expression.");
+};
+
+UnaryOperation.prototype = new Expression();
+UnaryOperation.prototype.constructor = UnaryOperation;
+UnaryOperation.superclass = Expression.prototype;
+function UnaryOperation(rhs) {
+if (arguments.length > 0) {
+this.init(rhs);
+}
+}
+UnaryOperation.prototype.init = function(rhs) {
+this.rhs = rhs;
+};
+
+UnaryMinusOperation.prototype = new UnaryOperation();
+UnaryMinusOperation.prototype.constructor = UnaryMinusOperation;
+UnaryMinusOperation.superclass = UnaryOperation.prototype;
+function UnaryMinusOperation(rhs) {
+if (arguments.length > 0) {
+this.init(rhs);
+}
+}
+UnaryMinusOperation.prototype.init = function(rhs) {
+UnaryMinusOperation.superclass.init.call(this, rhs);
+};
+UnaryMinusOperation.prototype.evaluate = function(c) {
+return this.rhs.evaluate(c).number().negate();
+};
+UnaryMinusOperation.prototype.toString = function() {
+return "-" + this.rhs.toString();
+};
+
+BinaryOperation.prototype = new Expression();
+BinaryOperation.prototype.constructor = BinaryOperation;
+BinaryOperation.superclass = Expression.prototype;
+function BinaryOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+BinaryOperation.prototype.init = function(lhs, rhs) {
+this.lhs = lhs;
+this.rhs = rhs;
+};
+
+OrOperation.prototype = new BinaryOperation();
+OrOperation.prototype.constructor = OrOperation;
+OrOperation.superclass = BinaryOperation.prototype;
+function OrOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+OrOperation.prototype.init = function(lhs, rhs) {
+OrOperation.superclass.init.call(this, lhs, rhs);
+};
+OrOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " or " + this.rhs.toString() + ")";
+};
+OrOperation.prototype.evaluate = function(c) {
+var b = this.lhs.evaluate(c).bool();
+if (b.booleanValue()) {
+return b;
+}
+return this.rhs.evaluate(c).bool();
+};
+
+AndOperation.prototype = new BinaryOperation();
+AndOperation.prototype.constructor = AndOperation;
+AndOperation.superclass = BinaryOperation.prototype;
+function AndOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+AndOperation.prototype.init = function(lhs, rhs) {
+AndOperation.superclass.init.call(this, lhs, rhs);
+};
+AndOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " and " + this.rhs.toString() + ")";
+};
+AndOperation.prototype.evaluate = function(c) {
+var b = this.lhs.evaluate(c).bool();
+if (!b.booleanValue()) {
+return b;
+}
+return this.rhs.evaluate(c).bool();
+};
+
+EqualsOperation.prototype = new BinaryOperation();
+EqualsOperation.prototype.constructor = EqualsOperation;
+EqualsOperation.superclass = BinaryOperation.prototype;
+function EqualsOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+EqualsOperation.prototype.init = function(lhs, rhs) {
+EqualsOperation.superclass.init.call(this, lhs, rhs);
+};
+EqualsOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " = " + this.rhs.toString() + ")";
+};
+EqualsOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).equals(this.rhs.evaluate(c));
+};
+
+NotEqualOperation.prototype = new BinaryOperation();
+NotEqualOperation.prototype.constructor = NotEqualOperation;
+NotEqualOperation.superclass = BinaryOperation.prototype;
+function NotEqualOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+NotEqualOperation.prototype.init = function(lhs, rhs) {
+NotEqualOperation.superclass.init.call(this, lhs, rhs);
+};
+NotEqualOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " != " + this.rhs.toString() + ")";
+};
+NotEqualOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).notequal(this.rhs.evaluate(c));
+};
+
+LessThanOperation.prototype = new BinaryOperation();
+LessThanOperation.prototype.constructor = LessThanOperation;
+LessThanOperation.superclass = BinaryOperation.prototype;
+function LessThanOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+LessThanOperation.prototype.init = function(lhs, rhs) {
+LessThanOperation.superclass.init.call(this, lhs, rhs);
+};
+LessThanOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).lessthan(this.rhs.evaluate(c));
+};
+LessThanOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " < " + this.rhs.toString() + ")";
+};
+
+GreaterThanOperation.prototype = new BinaryOperation();
+GreaterThanOperation.prototype.constructor = GreaterThanOperation;
+GreaterThanOperation.superclass = BinaryOperation.prototype;
+function GreaterThanOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+GreaterThanOperation.prototype.init = function(lhs, rhs) {
+GreaterThanOperation.superclass.init.call(this, lhs, rhs);
+};
+GreaterThanOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).greaterthan(this.rhs.evaluate(c));
+};
+GreaterThanOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " > " + this.rhs.toString() + ")";
+};
+
+LessThanOrEqualOperation.prototype = new BinaryOperation();
+LessThanOrEqualOperation.prototype.constructor = LessThanOrEqualOperation;
+LessThanOrEqualOperation.superclass = BinaryOperation.prototype;
+function LessThanOrEqualOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+LessThanOrEqualOperation.prototype.init = function(lhs, rhs) {
+LessThanOrEqualOperation.superclass.init.call(this, lhs, rhs);
+};
+LessThanOrEqualOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).lessthanorequal(this.rhs.evaluate(c));
+};
+LessThanOrEqualOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " <= " + this.rhs.toString() + ")";
+};
+
+GreaterThanOrEqualOperation.prototype = new BinaryOperation();
+GreaterThanOrEqualOperation.prototype.constructor = GreaterThanOrEqualOperation;
+GreaterThanOrEqualOperation.superclass = BinaryOperation.prototype;
+function GreaterThanOrEqualOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+GreaterThanOrEqualOperation.prototype.init = function(lhs, rhs) {
+GreaterThanOrEqualOperation.superclass.init.call(this, lhs, rhs);
+};
+GreaterThanOrEqualOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).greaterthanorequal(this.rhs.evaluate(c));
+};
+GreaterThanOrEqualOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " >= " + this.rhs.toString() + ")";
+};
+
+PlusOperation.prototype = new BinaryOperation();
+PlusOperation.prototype.constructor = PlusOperation;
+PlusOperation.superclass = BinaryOperation.prototype;
+function PlusOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+PlusOperation.prototype.init = function(lhs, rhs) {
+PlusOperation.superclass.init.call(this, lhs, rhs);
+};
+PlusOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).number().plus(this.rhs.evaluate(c).number());
+};
+PlusOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " + " + this.rhs.toString() + ")";
+};
+
+MinusOperation.prototype = new BinaryOperation();
+MinusOperation.prototype.constructor = MinusOperation;
+MinusOperation.superclass = BinaryOperation.prototype;
+function MinusOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+MinusOperation.prototype.init = function(lhs, rhs) {
+MinusOperation.superclass.init.call(this, lhs, rhs);
+};
+MinusOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).number().minus(this.rhs.evaluate(c).number());
+};
+MinusOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " - " + this.rhs.toString() + ")";
+};
+
+MultiplyOperation.prototype = new BinaryOperation();
+MultiplyOperation.prototype.constructor = MultiplyOperation;
+MultiplyOperation.superclass = BinaryOperation.prototype;
+function MultiplyOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+MultiplyOperation.prototype.init = function(lhs, rhs) {
+MultiplyOperation.superclass.init.call(this, lhs, rhs);
+};
+MultiplyOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).number().multiply(this.rhs.evaluate(c).number());
+};
+MultiplyOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " * " + this.rhs.toString() + ")";
+};
+
+DivOperation.prototype = new BinaryOperation();
+DivOperation.prototype.constructor = DivOperation;
+DivOperation.superclass = BinaryOperation.prototype;
+function DivOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+DivOperation.prototype.init = function(lhs, rhs) {
+DivOperation.superclass.init.call(this, lhs, rhs);
+};
+DivOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).number().div(this.rhs.evaluate(c).number());
+};
+DivOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " div " + this.rhs.toString() + ")";
+};
+
+ModOperation.prototype = new BinaryOperation();
+ModOperation.prototype.constructor = ModOperation;
+ModOperation.superclass = BinaryOperation.prototype;
+function ModOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+ModOperation.prototype.init = function(lhs, rhs) {
+ModOperation.superclass.init.call(this, lhs, rhs);
+};
+ModOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).number().mod(this.rhs.evaluate(c).number());
+};
+ModOperation.prototype.toString = function() {
+return "(" + this.lhs.toString() + " mod " + this.rhs.toString() + ")";
+};
+
+BarOperation.prototype = new BinaryOperation();
+BarOperation.prototype.constructor = BarOperation;
+BarOperation.superclass = BinaryOperation.prototype;
+function BarOperation(lhs, rhs) {
+if (arguments.length > 0) {
+this.init(lhs, rhs);
+}
+}
+BarOperation.prototype.init = function(lhs, rhs) {
+BarOperation.superclass.init.call(this, lhs, rhs);
+};
+BarOperation.prototype.evaluate = function(c) {
+return this.lhs.evaluate(c).nodeset().union(this.rhs.evaluate(c).nodeset());
+};
+BarOperation.prototype.toString = function() {
+return this.lhs.toString() + " | " + this.rhs.toString();
+};
+
+PathExpr.prototype = new Expression();
+PathExpr.prototype.constructor = PathExpr;
+PathExpr.superclass = Expression.prototype;
+function PathExpr(filter, filterPreds, locpath) {
+if (arguments.length > 0) {
+this.init(filter, filterPreds, locpath);
+}
+}
+PathExpr.prototype.init = function(filter, filterPreds, locpath) {
+PathExpr.superclass.init.call(this);
+this.filter = filter;
+this.filterPredicates = filterPreds;
+this.locationPath = locpath;
+};
+PathExpr.prototype.evaluate = function(c) {
+var nodes;
+var xpc = new XPathContext();
+xpc.variableResolver = c.variableResolver;
+xpc.functionResolver = c.functionResolver;
+xpc.namespaceResolver = c.namespaceResolver;
+xpc.expressionContextNode = c.expressionContextNode;
+xpc.virtualRoot = c.virtualRoot;
+xpc.caseInsensitive = c.caseInsensitive;
+if (this.filter == null) {
+nodes = [ c.contextNode ];
+} else {
+var ns = this.filter.evaluate(c);
+if (!Utilities.instance_of(ns, XNodeSet)) {
+if (this.filterPredicates != null && this.filterPredicates.length > 0 || this.locationPath != null) {
+throw new Error("Path expression filter must evaluate to a nodset if predicates or location path are used");
+}
+return ns;
+}
+nodes = ns.toArray();
+if (this.filterPredicates != null) {
+
+for (var j = 0; j < this.filterPredicates.length; j++) {
+var pred = this.filterPredicates[j];
+var newNodes = [];
+xpc.contextSize = nodes.length;
+for (xpc.contextPosition = 1; xpc.contextPosition <= xpc.contextSize; xpc.contextPosition++) {
+xpc.contextNode = nodes[xpc.contextPosition - 1];
+if (this.predicateMatches(pred, xpc)) {
+newNodes.push(xpc.contextNode);
+}
+}
+nodes = newNodes;
+}
+}
+}
+if (this.locationPath != null) {
+if (this.locationPath.absolute) {
+if (nodes[0].nodeType != 9 ) {
+if (xpc.virtualRoot != null) {
+nodes = [ xpc.virtualRoot ];
+} else {
+if (nodes[0].ownerDocument == null) {
+
+var n = nodes[0];
+while (n.parentNode != null) {
+n = n.parentNode;
+}
+nodes = [ n ];
+} else {
+nodes = [ nodes[0].ownerDocument ];
+}
+}
+} else {
+nodes = [ nodes[0] ];
+}
+}
+for (var i = 0; i < this.locationPath.steps.length; i++) {
+var step = this.locationPath.steps[i];
+var newNodes = [];
+for (var j = 0; j < nodes.length; j++) {
+xpc.contextNode = nodes[j];
+switch (step.axis) {
+case Step.ANCESTOR:
+
+if (xpc.contextNode === xpc.virtualRoot) {
+break;
+}
+var m;
+if (xpc.contextNode.nodeType == 2 ) {
+m = this.getOwnerElement(xpc.contextNode);
+} else {
+m = xpc.contextNode.parentNode;
+}
+while (m != null) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+if (m === xpc.virtualRoot) {
+break;
+}
+m = m.parentNode;
+}
+break;
+case Step.ANCESTORORSELF:
+
+for (var m = xpc.contextNode; m != null; m = m.nodeType == 2  ? this.getOwnerElement(m) : m.parentNode) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+if (m === xpc.virtualRoot) {
+break;
+}
+}
+break;
+case Step.ATTRIBUTE:
+
+var nnm = xpc.contextNode.attributes;
+if (nnm != null) {
+for (var k = 0; k < nnm.length; k++) {
+var m = nnm.item(k);
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+}
+}
+break;
+case Step.CHILD:
+
+for (var m = xpc.contextNode.firstChild; m != null; m = m.nextSibling) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+}
+break;
+case Step.DESCENDANT:
+
+var st = [ xpc.contextNode.firstChild ];
+while (st.length > 0) {
+for (var m = st.pop(); m != null; ) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+if (m.firstChild != null) {
+st.push(m.nextSibling);
+m = m.firstChild;
+} else {
+m = m.nextSibling;
+}
+}
+}
+break;
+case Step.DESCENDANTORSELF:
+
+if (step.nodeTest.matches(xpc.contextNode, xpc)) {
+newNodes.push(xpc.contextNode);
+}
+
+var st = [ xpc.contextNode.firstChild ];
+while (st.length > 0) {
+for (var m = st.pop(); m != null; ) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+if (m.firstChild != null) {
+st.push(m.nextSibling);
+m = m.firstChild;
+} else {
+m = m.nextSibling;
+}
+}
+}
+break;
+case Step.FOLLOWING:
+if (xpc.contextNode === xpc.virtualRoot) {
+break;
+}
+var st = [];
+if (xpc.contextNode.firstChild != null) {
+st.unshift(xpc.contextNode.firstChild);
+} else {
+st.unshift(xpc.contextNode.nextSibling);
+}
+for (var m = xpc.contextNode.parentNode; m != null && m.nodeType != 9  && m !== xpc.virtualRoot; m = m.parentNode) {
+st.unshift(m.nextSibling);
+}
+do {
+for (var m = st.pop(); m != null; ) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+if (m.firstChild != null) {
+st.push(m.nextSibling);
+m = m.firstChild;
+} else {
+m = m.nextSibling;
+}
+}
+} while (st.length > 0);
+break;
+case Step.FOLLOWINGSIBLING:
+if (xpc.contextNode === xpc.virtualRoot) {
+break;
+}
+for (var m = xpc.contextNode.nextSibling; m != null; m = m.nextSibling) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+}
+break;
+case Step.NAMESPACE:
+var n = {};
+if (xpc.contextNode.nodeType == 1 ) {
+n["xml"] = XPath.XML_NAMESPACE_URI;
+n["xmlns"] = XPath.XMLNS_NAMESPACE_URI;
+for (var m = xpc.contextNode; m != null && m.nodeType == 1 ; m = m.parentNode) {
+for (var k = 0; k < m.attributes.length; k++) {
+var attr = m.attributes.item(k);
+var nm = String(attr.name);
+if (nm == "xmlns") {
+if (n[""] == undefined) {
+n[""] = attr.value;
+}
+} else if (nm.length > 6 && nm.substring(0, 6) == "xmlns:") {
+var pre = nm.substring(6, nm.length);
+if (n[pre] == undefined) {
+n[pre] = attr.value;
+}
+}
+}
+}
+for (var pre in n) {
+var nsn = new NamespaceNode(pre, n[pre], xpc.contextNode);
+if (step.nodeTest.matches(nsn, xpc)) {
+newNodes.push(nsn);
+}
+}
+}
+break;
+case Step.PARENT:
+m = null;
+if (xpc.contextNode !== xpc.virtualRoot) {
+if (xpc.contextNode.nodeType == 2 ) {
+m = this.getOwnerElement(xpc.contextNode);
+} else {
+m = xpc.contextNode.parentNode;
+}
+}
+if (m != null && step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+break;
+case Step.PRECEDING:
+var st;
+if (xpc.virtualRoot != null) {
+st = [ xpc.virtualRoot ];
+} else {
+st = xpc.contextNode.nodeType == 9 
+? [ xpc.contextNode ]
+: [ xpc.contextNode.ownerDocument ];
+}
+outer: while (st.length > 0) {
+for (var m = st.pop(); m != null; ) {
+if (m == xpc.contextNode) {
+break outer;
+}
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.unshift(m);
+}
+if (m.firstChild != null) {
+st.push(m.nextSibling);
+m = m.firstChild;
+} else {
+m = m.nextSibling;
+}
+}
+}
+break;
+case Step.PRECEDINGSIBLING:
+if (xpc.contextNode === xpc.virtualRoot) {
+break;
+}
+for (var m = xpc.contextNode.previousSibling; m != null; m = m.previousSibling) {
+if (step.nodeTest.matches(m, xpc)) {
+newNodes.push(m);
+}
+}
+break;
+case Step.SELF:
+if (step.nodeTest.matches(xpc.contextNode, xpc)) {
+newNodes.push(xpc.contextNode);
+}
+break;
+default:
+}
+}
+nodes = newNodes;
+
+for (var j = 0; j < step.predicates.length; j++) {
+var pred = step.predicates[j];
+var newNodes = [];
+xpc.contextSize = nodes.length;
+for (xpc.contextPosition = 1; xpc.contextPosition <= xpc.contextSize; xpc.contextPosition++) {
+xpc.contextNode = nodes[xpc.contextPosition - 1];
+if (this.predicateMatches(pred, xpc)) {
+newNodes.push(xpc.contextNode);
+} else {
+}
+}
+nodes = newNodes;
+}
+}
+}
+var ns = new XNodeSet();
+ns.addArray(nodes);
+return ns;
+};
+PathExpr.prototype.predicateMatches = function(pred, c) {
+var res = pred.evaluate(c);
+if (Utilities.instance_of(res, XNumber)) {
+return c.contextPosition == res.numberValue();
+}
+return res.booleanValue();
+};
+PathExpr.prototype.toString = function() {
+if (this.filter != undefined) {
+var s = this.filter.toString();
+if (Utilities.instance_of(this.filter, XString)) {
+s = "'" + s + "'";
+}
+if (this.filterPredicates != undefined) {
+for (var i = 0; i < this.filterPredicates.length; i++) {
+s = s + "[" + this.filterPredicates[i].toString() + "]";
+}
+}
+if (this.locationPath != undefined) {
+if (!this.locationPath.absolute) {
+s += "/";
+}
+s += this.locationPath.toString();
+}
+return s;
+}
+return this.locationPath.toString();
+};
+PathExpr.prototype.getOwnerElement = function(n) {
+
+if (n.ownerElement) {
+return n.ownerElement;
+}
+
+try {
+if (n.selectSingleNode) {
+return n.selectSingleNode("..");
+}
+} catch (e) {
+}
+
+var doc = n.nodeType == 9 
+? n
+: n.ownerDocument;
+var elts = doc.getElementsByTagName("*");
+for (var i = 0; i < elts.length; i++) {
+var elt = elts.item(i);
+var nnm = elt.attributes;
+for (var j = 0; j < nnm.length; j++) {
+var an = nnm.item(j);
+if (an === n) {
+return elt;
+}
+}
+}
+return null;
+};
+
+LocationPath.prototype = new Object();
+LocationPath.prototype.constructor = LocationPath;
+LocationPath.superclass = Object.prototype;
+function LocationPath(abs, steps) {
+if (arguments.length > 0) {
+this.init(abs, steps);
+}
+}
+LocationPath.prototype.init = function(abs, steps) {
+this.absolute = abs;
+this.steps = steps;
+};
+LocationPath.prototype.toString = function() {
+var s;
+if (this.absolute) {
+s = "/";
+} else {
+s = "";
+}
+for (var i = 0; i < this.steps.length; i++) {
+if (i != 0) {
+s += "/";
+}
+s += this.steps[i].toString();
+}
+return s;
+};
+
+Step.prototype = new Object();
+Step.prototype.constructor = Step;
+Step.superclass = Object.prototype;
+function Step(axis, nodetest, preds) {
+if (arguments.length > 0) {
+this.init(axis, nodetest, preds);
+}
+}
+Step.prototype.init = function(axis, nodetest, preds) {
+this.axis = axis;
+this.nodeTest = nodetest;
+this.predicates = preds;
+};
+Step.prototype.toString = function() {
+var s;
+switch (this.axis) {
+case Step.ANCESTOR:
+s = "ancestor";
+break;
+case Step.ANCESTORORSELF:
+s = "ancestor-or-self";
+break;
+case Step.ATTRIBUTE:
+s = "attribute";
+break;
+case Step.CHILD:
+s = "child";
+break;
+case Step.DESCENDANT:
+s = "descendant";
+break;
+case Step.DESCENDANTORSELF:
+s = "descendant-or-self";
+break;
+case Step.FOLLOWING:
+s = "following";
+break;
+case Step.FOLLOWINGSIBLING:
+s = "following-sibling";
+break;
+case Step.NAMESPACE:
+s = "namespace";
+break;
+case Step.PARENT:
+s = "parent";
+break;
+case Step.PRECEDING:
+s = "preceding";
+break;
+case Step.PRECEDINGSIBLING:
+s = "preceding-sibling";
+break;
+case Step.SELF:
+s = "self";
+break;
+}
+s += "::";
+s += this.nodeTest.toString();
+for (var i = 0; i < this.predicates.length; i++) {
+s += "[" + this.predicates[i].toString() + "]";
+}
+return s;
+};
+Step.ANCESTOR = 0;
+Step.ANCESTORORSELF = 1;
+Step.ATTRIBUTE = 2;
+Step.CHILD = 3;
+Step.DESCENDANT = 4;
+Step.DESCENDANTORSELF = 5;
+Step.FOLLOWING = 6;
+Step.FOLLOWINGSIBLING = 7;
+Step.NAMESPACE = 8;
+Step.PARENT = 9;
+Step.PRECEDING = 10;
+Step.PRECEDINGSIBLING = 11;
+Step.SELF = 12;
+
+NodeTest.prototype = new Object();
+NodeTest.prototype.constructor = NodeTest;
+NodeTest.superclass = Object.prototype;
+function NodeTest(type, value) {
+if (arguments.length > 0) {
+this.init(type, value);
+}
+}
+NodeTest.prototype.init = function(type, value) {
+this.type = type;
+this.value = value;
+};
+NodeTest.prototype.toString = function() {
+switch (this.type) {
+case NodeTest.NAMETESTANY:
+return "*";
+case NodeTest.NAMETESTPREFIXANY:
+return this.value + ":*";
+case NodeTest.NAMETESTRESOLVEDANY:
+return "{" + this.value + "}*";
+case NodeTest.NAMETESTQNAME:
+return this.value;
+case NodeTest.NAMETESTRESOLVEDNAME:
+return "{" + this.namespaceURI + "}" + this.value;
+case NodeTest.COMMENT:
+return "comment()";
+case NodeTest.TEXT:
+return "text()";
+case NodeTest.PI:
+if (this.value != undefined) {
+return "processing-instruction(\"" + this.value + "\")";
+}
+return "processing-instruction()";
+case NodeTest.NODE:
+return "node()";
+}
+return "<unknown nodetest type>";
+};
+NodeTest.prototype.matches = function(n, xpc) {
+switch (this.type) {
+case NodeTest.NAMETESTANY:
+if (n.nodeType == 2 
+|| n.nodeType == 1 
+|| n.nodeType == XPathNamespace.XPATH_NAMESPACE_NODE) {
+return true;
+}
+return false;
+case NodeTest.NAMETESTPREFIXANY:
+if ((n.nodeType == 2  || n.nodeType == 1 )) {
+var ns = xpc.namespaceResolver.getNamespace(this.value, xpc.expressionContextNode);
+if (ns == null) {
+throw new Error("Cannot resolve QName " + this.value);
+}
+return true;	
+}
+return false;
+case NodeTest.NAMETESTQNAME:
+if (n.nodeType == 2 
+|| n.nodeType == 1 
+|| n.nodeType == XPathNamespace.XPATH_NAMESPACE_NODE) {
+var test = Utilities.resolveQName(this.value, xpc.namespaceResolver, xpc.expressionContextNode, false);
+if (test[0] == null) {
+throw new Error("Cannot resolve QName " + this.value);
+}
+test[0] = String(test[0]);
+test[1] = String(test[1]);
+if (test[0] == "") {
+test[0] = null;
+}
+var node = Utilities.resolveQName(n.nodeName, xpc.namespaceResolver, n, n.nodeType == 1 );
+node[0] = String(node[0]);
+node[1] = String(node[1]);
+if (node[0] == "") {
+node[0] = null;
+}
+if (xpc.caseInsensitive) {
+return test[0] == node[0] && String(test[1]).toLowerCase() == String(node[1]).toLowerCase();
+}
+return test[0] == node[0] && test[1] == node[1];
+}
+return false;
+case NodeTest.COMMENT:
+return n.nodeType == 8 ;
+case NodeTest.TEXT:
+return n.nodeType == 3  || n.nodeType == 4 ;
+case NodeTest.PI:
+return n.nodeType == 7 
+&& (this.value == null || n.nodeName == this.value);
+case NodeTest.NODE:
+return n.nodeType == 9 
+|| n.nodeType == 1 
+|| n.nodeType == 2 
+|| n.nodeType == 3 
+|| n.nodeType == 4 
+|| n.nodeType == 8 
+|| n.nodeType == 7 ;
+}
+return false;
+};
+NodeTest.NAMETESTANY = 0;
+NodeTest.NAMETESTPREFIXANY = 1;
+NodeTest.NAMETESTQNAME = 2;
+NodeTest.COMMENT = 3;
+NodeTest.TEXT = 4;
+NodeTest.PI = 5;
+NodeTest.NODE = 6;
+
+VariableReference.prototype = new Expression();
+VariableReference.prototype.constructor = VariableReference;
+VariableReference.superclass = Expression.prototype;
+function VariableReference(v) {
+if (arguments.length > 0) {
+this.init(v);
+}
+}
+VariableReference.prototype.init = function(v) {
+this.variable = v;
+};
+VariableReference.prototype.toString = function() {
+return "$" + this.variable;
+};
+VariableReference.prototype.evaluate = function(c) {
+return c.variableResolver.getVariable(this.variable, c);
+};
+
+FunctionCall.prototype = new Expression();
+FunctionCall.prototype.constructor = FunctionCall;
+FunctionCall.superclass = Expression.prototype;
+function FunctionCall(fn, args) {
+if (arguments.length > 0) {
+this.init(fn, args);
+}
+}
+FunctionCall.prototype.init = function(fn, args) {
+this.functionName = fn;
+this.arguments = args;
+};
+FunctionCall.prototype.toString = function() {
+var s = this.functionName + "(";
+for (var i = 0; i < this.arguments.length; i++) {
+if (i > 0) {
+s += ", ";
+}
+s += this.arguments[i].toString();
+}
+return s + ")";
+};
+FunctionCall.prototype.evaluate = function(c) {
+var f = c.functionResolver.getFunction(this.functionName, c);
+if (f == undefined) {
+throw new Error("Unknown function " + this.functionName);
+}
+var a = [c].concat(this.arguments);
+return f.apply(c.functionResolver.thisArg, a);
+};
+
+XString.prototype = new Expression();
+XString.prototype.constructor = XString;
+XString.superclass = Expression.prototype;
+function XString(s) {
+if (arguments.length > 0) {
+this.init(s);
+}
+}
+XString.prototype.init = function(s) {
+this.str = s;
+};
+XString.prototype.toString = function() {
+return this.str;
+};
+XString.prototype.evaluate = function(c) {
+return this;
+};
+XString.prototype.string = function() {
+return this;
+};
+XString.prototype.number = function() {
+return new XNumber(this.str);
+};
+XString.prototype.bool = function() {
+return new XBoolean(this.str);
+};
+XString.prototype.nodeset = function() {
+throw new Error("Cannot convert string to nodeset");
+};
+XString.prototype.stringValue = function() {
+return this.str;
+};
+XString.prototype.numberValue = function() {
+return this.number().numberValue();
+};
+XString.prototype.booleanValue = function() {
+return this.bool().booleanValue();
+};
+XString.prototype.equals = function(r) {
+if (Utilities.instance_of(r, XBoolean)) {
+return this.bool().equals(r);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.number().equals(r);
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithString(this, Operators.equals);
+}
+return new XBoolean(this.str == r.str);
+};
+XString.prototype.notequal = function(r) {
+if (Utilities.instance_of(r, XBoolean)) {
+return this.bool().notequal(r);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.number().notequal(r);
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithString(this, Operators.notequal);
+}
+return new XBoolean(this.str != r.str);
+};
+XString.prototype.lessthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.greaterthanorequal);
+}
+return this.number().lessthan(r.number());
+};
+XString.prototype.greaterthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.lessthanorequal);
+}
+return this.number().greaterthan(r.number());
+};
+XString.prototype.lessthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.greaterthan);
+}
+return this.number().lessthanorequal(r.number());
+};
+XString.prototype.greaterthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.lessthan);
+}
+return this.number().greaterthanorequal(r.number());
+};
+
+XNumber.prototype = new Expression();
+XNumber.prototype.constructor = XNumber;
+XNumber.superclass = Expression.prototype;
+function XNumber(n) {
+if (arguments.length > 0) {
+this.init(n);
+}
+}
+XNumber.prototype.init = function(n) {
+this.num = Number(n);
+};
+XNumber.prototype.toString = function() {
+return this.num;
+};
+XNumber.prototype.evaluate = function(c) {
+return this;
+};
+XNumber.prototype.string = function() {
+return new XString(this.num);
+};
+XNumber.prototype.number = function() {
+return this;
+};
+XNumber.prototype.bool = function() {
+return new XBoolean(this.num);
+};
+XNumber.prototype.nodeset = function() {
+throw new Error("Cannot convert number to nodeset");
+};
+XNumber.prototype.stringValue = function() {
+return this.string().stringValue();
+};
+XNumber.prototype.numberValue = function() {
+return this.num;
+};
+XNumber.prototype.booleanValue = function() {
+return this.bool().booleanValue();
+};
+XNumber.prototype.negate = function() {
+return new XNumber(-this.num);
+};
+XNumber.prototype.equals = function(r) {
+if (Utilities.instance_of(r, XBoolean)) {
+return this.bool().equals(r);
+}
+if (Utilities.instance_of(r, XString)) {
+return this.equals(r.number());
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.equals);
+}
+return new XBoolean(this.num == r.num);
+};
+XNumber.prototype.notequal = function(r) {
+if (Utilities.instance_of(r, XBoolean)) {
+return this.bool().notequal(r);
+}
+if (Utilities.instance_of(r, XString)) {
+return this.notequal(r.number());
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.notequal);
+}
+return new XBoolean(this.num != r.num);
+};
+XNumber.prototype.lessthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.greaterthanorequal);
+}
+if (Utilities.instance_of(r, XBoolean) || Utilities.instance_of(r, XString)) {
+return this.lessthan(r.number());
+}
+return new XBoolean(this.num < r.num);
+};
+XNumber.prototype.greaterthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.lessthanorequal);
+}
+if (Utilities.instance_of(r, XBoolean) || Utilities.instance_of(r, XString)) {
+return this.greaterthan(r.number());
+}
+return new XBoolean(this.num > r.num);
+};
+XNumber.prototype.lessthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.greaterthan);
+}
+if (Utilities.instance_of(r, XBoolean) || Utilities.instance_of(r, XString)) {
+return this.lessthanorequal(r.number());
+}
+return new XBoolean(this.num <= r.num);
+};
+XNumber.prototype.greaterthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this, Operators.lessthan);
+}
+if (Utilities.instance_of(r, XBoolean) || Utilities.instance_of(r, XString)) {
+return this.greaterthanorequal(r.number());
+}
+return new XBoolean(this.num >= r.num);
+};
+XNumber.prototype.plus = function(r) {
+return new XNumber(this.num + r.num);
+};
+XNumber.prototype.minus = function(r) {
+return new XNumber(this.num - r.num);
+};
+XNumber.prototype.multiply = function(r) {
+return new XNumber(this.num * r.num);
+};
+XNumber.prototype.div = function(r) {
+return new XNumber(this.num / r.num);
+};
+XNumber.prototype.mod = function(r) {
+return new XNumber(this.num % r.num);
+};
+
+XBoolean.prototype = new Expression();
+XBoolean.prototype.constructor = XBoolean;
+XBoolean.superclass = Expression.prototype;
+function XBoolean(b) {
+if (arguments.length > 0) {
+this.init(b);
+}
+}
+XBoolean.prototype.init = function(b) {
+this.b = Boolean(b);
+};
+XBoolean.prototype.toString = function() {
+return this.b.toString();
+};
+XBoolean.prototype.evaluate = function(c) {
+return this;
+};
+XBoolean.prototype.string = function() {
+return new XString(this.b);
+};
+XBoolean.prototype.number = function() {
+return new XNumber(this.b);
+};
+XBoolean.prototype.bool = function() {
+return this;
+};
+XBoolean.prototype.nodeset = function() {
+throw new Error("Cannot convert boolean to nodeset");
+};
+XBoolean.prototype.stringValue = function() {
+return this.string().stringValue();
+};
+XBoolean.prototype.numberValue = function() {
+return this.num().numberValue();
+};
+XBoolean.prototype.booleanValue = function() {
+return this.b;
+};
+XBoolean.prototype.not = function() {
+return new XBoolean(!this.b);
+};
+XBoolean.prototype.equals = function(r) {
+if (Utilities.instance_of(r, XString) || Utilities.instance_of(r, XNumber)) {
+return this.equals(r.bool());
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithBoolean(this, Operators.equals);
+}
+return new XBoolean(this.b == r.b);
+};
+XBoolean.prototype.notequal = function(r) {
+if (Utilities.instance_of(r, XString) || Utilities.instance_of(r, XNumber)) {
+return this.notequal(r.bool());
+}
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithBoolean(this, Operators.notequal);
+}
+return new XBoolean(this.b != r.b);
+};
+XBoolean.prototype.lessthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.greaterthanorequal);
+}
+return this.number().lessthan(r.number());
+};
+XBoolean.prototype.greaterthan = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.lessthanorequal);
+}
+return this.number().greaterthan(r.number());
+};
+XBoolean.prototype.lessthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.greaterthan);
+}
+return this.number().lessthanorequal(r.number());
+};
+XBoolean.prototype.greaterthanorequal = function(r) {
+if (Utilities.instance_of(r, XNodeSet)) {
+return r.compareWithNumber(this.number(), Operators.lessthan);
+}
+return this.number().greaterthanorequal(r.number());
+};
+
+AVLTree.prototype = new Object();
+AVLTree.prototype.constructor = AVLTree;
+AVLTree.superclass = Object.prototype;
+function AVLTree(n) {
+this.init(n);
+}
+AVLTree.prototype.init = function(n) {
+this.left = null;
+this.right = null;
+this.node = n;
+this.depth = 1;
+};
+AVLTree.prototype.balance = function() {
+var ldepth = this.left == null ? 0 : this.left.depth;
+var rdepth = this.right == null ? 0 : this.right.depth;
+if (ldepth > rdepth + 1) {
+
+var lldepth = this.left.left == null ? 0 : this.left.left.depth;
+var lrdepth = this.left.right == null ? 0 : this.left.right.depth;
+if (lldepth < lrdepth) {
+
+this.left.rotateRR();
+
+}
+this.rotateLL(); 
+} else if (ldepth + 1 < rdepth) {
+
+var rrdepth = this.right.right == null ? 0 : this.right.right.depth;
+var rldepth = this.right.left == null ? 0 : this.right.left.depth;
+if (rldepth > rrdepth) {
+
+this.right.rotateLL();
+
+}
+this.rotateRR();
+} 
+};
+AVLTree.prototype.rotateLL = function() {
+
+var nodeBefore = this.node;
+var rightBefore = this.right;
+this.node = this.left.node;
+this.right = this.left;
+this.left = this.left.left;
+this.right.left = this.right.right;
+this.right.right = rightBefore;
+this.right.node = nodeBefore;
+this.right.updateInNewLocation();
+this.updateInNewLocation();
+};
+AVLTree.prototype.rotateRR = function() {
+
+var nodeBefore = this.node;
+var leftBefore = this.left;
+this.node = this.right.node;
+this.left = this.right;
+this.right = this.right.right;
+this.left.right = this.left.left;
+this.left.left = leftBefore;
+this.left.node = nodeBefore;
+this.left.updateInNewLocation();
+this.updateInNewLocation();
+}; 
+AVLTree.prototype.updateInNewLocation = function() {
+this.getDepthFromChildren();
+};
+AVLTree.prototype.getDepthFromChildren = function() {
+this.depth = this.node == null ? 0 : 1;
+if (this.left != null) {
+this.depth = this.left.depth + 1;
+}
+if (this.right != null && this.depth <= this.right.depth) {
+this.depth = this.right.depth + 1;
+}
+};
+AVLTree.prototype.order = function(n1, n2) {
+if (n1 === n2) {
+return 0;
+}
+var d1 = 0;
+var d2 = 0;
+for (var m1 = n1; m1 != null; m1 = m1.parentNode) {
+d1++;
+}
+for (var m2 = n2; m2 != null; m2 = m2.parentNode) {
+d2++;
+}
+if (d1 > d2) {
+while (d1 > d2) {
+n1 = n1.parentNode;
+d1--;
+}
+if (n1 == n2) {
+return 1;
+}
+} else if (d2 > d1) {
+while (d2 > d1) {
+n2 = n2.parentNode;
+d2--;
+}
+if (n1 == n2) {
+return -1;
+}
+}
+while (n1.parentNode != n2.parentNode) {
+n1 = n1.parentNode;
+n2 = n2.parentNode;
+}
+while (n1.previousSibling != null && n2.previousSibling != null) {
+n1 = n1.previousSibling;
+n2 = n2.previousSibling;
+}
+if (n1.previousSibling == null) {
+return -1;
+}
+return 1;
+};
+AVLTree.prototype.add = function(n) {
+if (n === this.node) {
+return false;
+}
+var o = this.order(n, this.node);
+var ret = false;
+if (o == -1) {
+if (this.left == null) {
+this.left = new AVLTree(n);
+ret = true;
+} else {
+ret = this.left.add(n);
+if (ret) {
+this.balance();
+}
+}
+} else if (o == 1) {
+if (this.right == null) {
+this.right = new AVLTree(n);
+ret = true;
+} else {
+ret = this.right.add(n);
+if (ret) {
+this.balance();
+}
+}
+}
+if (ret) {
+this.getDepthFromChildren();
+}
+return ret;
+};
+
+XNodeSet.prototype = new Expression();
+XNodeSet.prototype.constructor = XNodeSet;
+XNodeSet.superclass = Expression.prototype;
+function XNodeSet() {
+this.init();
+}
+XNodeSet.prototype.init = function() {
+this.tree = null;
+this.size = 0;
+};
+XNodeSet.prototype.toString = function() {
+var p = this.first();
+if (p == null) {
+return "";
+}
+return this.stringForNode(p);
+};
+XNodeSet.prototype.evaluate = function(c) {
+return this;
+};
+XNodeSet.prototype.string = function() {
+return new XString(this.toString());
+};
+XNodeSet.prototype.stringValue = function() {
+return this.toString();
+};
+XNodeSet.prototype.number = function() {
+return new XNumber(this.string());
+};
+XNodeSet.prototype.numberValue = function() {
+return Number(this.string());
+};
+XNodeSet.prototype.bool = function() {
+return new XBoolean(this.tree != null);
+};
+XNodeSet.prototype.booleanValue = function() {
+return this.tree != null;
+};
+XNodeSet.prototype.nodeset = function() {
+return this;
+};
+XNodeSet.prototype.stringForNode = function(n) {
+if (n.nodeType == 9 ) {
+n = n.documentElement;
+}
+if (n.nodeType == 1 ) {
+return this.stringForNodeRec(n);
+}
+if (n.isNamespaceNode) {
+return n.namespace;
+}
+return n.nodeValue;
+};
+XNodeSet.prototype.stringForNodeRec = function(n) {
+var s = "";
+for (var n2 = n.firstChild; n2 != null; n2 = n2.nextSibling) {
+if (n2.nodeType == 3 ) {
+s += n2.nodeValue;
+} else if (n2.nodeType == 1 ) {
+s += this.stringForNodeRec(n2);
+}
+}
+return s;
+};
+XNodeSet.prototype.first = function() {
+var p = this.tree;
+if (p == null) {
+return null;
+}
+while (p.left != null) {
+p = p.left;
+}
+return p.node;
+};
+XNodeSet.prototype.add = function(n) {
+var added;
+if (this.tree == null) {
+this.tree = new AVLTree(n);
+added = true;
+} else {
+added = this.tree.add(n);
+}
+if (added) {
+this.size++;
+}
+};
+XNodeSet.prototype.addArray = function(ns) {
+for (var i = 0; i < ns.length; i++) {
+this.add(ns[i]);
+}
+};
+XNodeSet.prototype.toArray = function() {
+var a = [];
+this.toArrayRec(this.tree, a);
+return a;
+};
+XNodeSet.prototype.toArrayRec = function(t, a) {
+if (t != null) {
+this.toArrayRec(t.left, a);
+a.push(t.node);
+this.toArrayRec(t.right, a);
+}
+};
+XNodeSet.prototype.compareWithString = function(r, o) {
+var a = this.toArray();
+for (var i = 0; i < a.length; i++) {
+var n = a[i];
+var l = new XString(this.stringForNode(n));
+var res = o(l, r);
+if (res.booleanValue()) {
+return res;
+}
+}
+return new XBoolean(false);
+};
+XNodeSet.prototype.compareWithNumber = function(r, o) {
+var a = this.toArray();
+for (var i = 0; i < a.length; i++) {
+var n = a[i];
+var l = new XNumber(this.stringForNode(n));
+var res = o(l, r);
+if (res.booleanValue()) {
+return res;
+}
+}
+return new XBoolean(false);
+};
+XNodeSet.prototype.compareWithBoolean = function(r, o) {
+return o(this.bool(), r);
+};
+XNodeSet.prototype.compareWithNodeSet = function(r, o) {
+var a = this.toArray();
+for (var i = 0; i < a.length; i++) {
+var n = a[i];
+var l = new XString(this.stringForNode(n));
+var b = r.toArray();
+for (var j = 0; j < b.length; j++) {
+var n2 = b[j];
+var r = new XString(this.stringForNode(n2));
+var res = o(l, r);
+if (res.booleanValue()) {
+return res;
+}
+}
+}
+return new XBoolean(false);
+};
+XNodeSet.prototype.equals = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithString(r, Operators.equals);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.equals);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.equals);
+}
+return this.compareWithNodeSet(r, Operators.equals);
+};
+XNodeSet.prototype.notequal = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithString(r, Operators.notequal);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.notequal);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.notequal);
+}
+return this.compareWithNodeSet(r, Operators.notequal);
+};
+XNodeSet.prototype.lessthan = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithNumber(r.number(), Operators.lessthan);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.lessthan);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.lessthan);
+}
+return this.compareWithNodeSet(r, Operators.lessthan);
+};
+XNodeSet.prototype.greaterthan = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithNumber(r.number(), Operators.greaterthan);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.greaterthan);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.greaterthan);
+}
+return this.compareWithNodeSet(r, Operators.greaterthan);
+};
+XNodeSet.prototype.lessthanorequal = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithNumber(r.number(), Operators.lessthanorequal);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.lessthanorequal);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.lessthanorequal);
+}
+return this.compareWithNodeSet(r, Operators.lessthanorequal);
+};
+XNodeSet.prototype.greaterthanorequal = function(r) {
+if (Utilities.instance_of(r, XString)) {
+return this.compareWithNumber(r.number(), Operators.greaterthanorequal);
+}
+if (Utilities.instance_of(r, XNumber)) {
+return this.compareWithNumber(r, Operators.greaterthanorequal);
+}
+if (Utilities.instance_of(r, XBoolean)) {
+return this.compareWithBoolean(r, Operators.greaterthanorequal);
+}
+return this.compareWithNodeSet(r, Operators.greaterthanorequal);
+};
+XNodeSet.prototype.union = function(r) {
+var ns = new XNodeSet();
+ns.tree = this.tree;
+ns.size = this.size;
+ns.addArray(r.toArray());
+return ns;
+};
+
+XPathNamespace.prototype = new Object();
+XPathNamespace.prototype.constructor = XPathNamespace;
+XPathNamespace.superclass = Object.prototype;
+function XPathNamespace(pre, ns, p) {
+this.isXPathNamespace = true;
+this.ownerDocument = p.ownerDocument;
+this.nodeName = "#namespace";
+this.prefix = pre;
+this.localName = pre;
+this.namespaceURI = ns;
+this.nodeValue = ns;
+this.ownerElement = p;
+this.nodeType = XPathNamespace.XPATH_NAMESPACE_NODE;
+}
+XPathNamespace.prototype.toString = function() {
+return "{ \"" + this.prefix + "\", \"" + this.namespaceURI + "\" }";
+};
+
+var Operators = new Object();
+Operators.equals = function(l, r) {
+return l.equals(r);
+};
+Operators.notequal = function(l, r) {
+return l.notequal(r);
+};
+Operators.lessthan = function(l, r) {
+return l.lessthan(r);
+};
+Operators.greaterthan = function(l, r) {
+return l.greaterthan(r);
+};
+Operators.lessthanorequal = function(l, r) {
+return l.lessthanorequal(r);
+};
+Operators.greaterthanorequal = function(l, r) {
+return l.greaterthanorequal(r);
+};
+
+XPathContext.prototype = new Object();
+XPathContext.prototype.constructor = XPathContext;
+XPathContext.superclass = Object.prototype;
+function XPathContext(vr, nr, fr) {
+this.variableResolver = vr != null ? vr : new VariableResolver();
+this.namespaceResolver = nr != null ? nr : new NamespaceResolver();
+this.functionResolver = fr != null ? fr : new FunctionResolver();
+}
+
+VariableResolver.prototype = new Object();
+VariableResolver.prototype.constructor = VariableResolver;
+VariableResolver.superclass = Object.prototype;
+function VariableResolver() {
+}
+VariableResolver.prototype.getVariable = function(vn, c) {
+var parts = Utilities.splitQName(vn);
+if (parts[0] != null) {
+parts[0] = c.namespaceResolver.getNamespace(parts[0], c.expressionContextNode);
+if (parts[0] == null) {
+throw new Error("Cannot resolve QName " + fn);
+}
+}
+return this.getVariableWithName(parts[0], parts[1], c.expressionContextNode);
+};
+VariableResolver.prototype.getVariableWithName = function(ns, ln, c) {
+return null;
+};
+
+FunctionResolver.prototype = new Object();
+FunctionResolver.prototype.constructor = FunctionResolver;
+FunctionResolver.superclass = Object.prototype;
+function FunctionResolver(thisArg) {
+this.thisArg = thisArg != null ? thisArg : Functions;
+this.functions = new Object();
+this.addStandardFunctions();
+}
+FunctionResolver.prototype.addStandardFunctions = function() {
+this.functions["{}last"] = Functions.last;
+this.functions["{}position"] = Functions.position;
+this.functions["{}count"] = Functions.count;
+this.functions["{}id"] = Functions.id;
+this.functions["{}local-name"] = Functions.localName;
+this.functions["{}namespace-uri"] = Functions.namespaceURI;
+this.functions["{}name"] = Functions.name;
+this.functions["{}string"] = Functions.string;
+this.functions["{}concat"] = Functions.concat;
+this.functions["{}starts-with"] = Functions.startsWith;
+this.functions["{}contains"] = Functions.contains;
+this.functions["{}substring-before"] = Functions.substringBefore;
+this.functions["{}substring-after"] = Functions.substringAfter;
+this.functions["{}substring"] = Functions.substring;
+this.functions["{}string-length"] = Functions.stringLength;
+this.functions["{}normalize-space"] = Functions.normalizeSpace;
+this.functions["{}translate"] = Functions.translate;
+this.functions["{}boolean"] = Functions.boolean_;
+this.functions["{}not"] = Functions.not;
+this.functions["{}true"] = Functions.true_;
+this.functions["{}false"] = Functions.false_;
+this.functions["{}lang"] = Functions.lang;
+this.functions["{}number"] = Functions.number;
+this.functions["{}sum"] = Functions.sum;
+this.functions["{}floor"] = Functions.floor;
+this.functions["{}ceiling"] = Functions.ceiling;
+this.functions["{}round"] = Functions.round;
+};
+FunctionResolver.prototype.addFunction = function(ns, ln, f) {
+this.functions["{" + ns + "}" + ln] = f;
+};
+FunctionResolver.prototype.getFunction = function(fn, c) {
+var parts = Utilities.resolveQName(fn, c.namespaceResolver, c.contextNode, false);
+if (parts[0] == null) {
+throw new Error("Cannot resolve QName " + fn);
+}
+return this.getFunctionWithName(parts[0], parts[1], c.contextNode);
+};
+FunctionResolver.prototype.getFunctionWithName = function(ns, ln, c) {
+return this.functions["{" + ns + "}" + ln];
+};
+
+NamespaceResolver.prototype = new Object();
+NamespaceResolver.prototype.constructor = NamespaceResolver;
+NamespaceResolver.superclass = Object.prototype;
+function NamespaceResolver() {
+}
+NamespaceResolver.prototype.getNamespace = function(prefix, n) {
+if (prefix == "xml") {
+return XPath.XML_NAMESPACE_URI;
+} else if (prefix == "xmlns") {
+return XPath.XMLNS_NAMESPACE_URI;
+}
+if (n.nodeType == 9 ) {
+n = n.documentElement;
+} else if (n.nodeType == 2 ) {
+n = PathExpr.prototype.getOwnerElement(n);
+} else if (n.nodeType != 1 ) {
+n = n.parentNode;
+}
+while (n != null && n.nodeType == 1 ) {
+var nnm = n.attributes;
+for (var i = 0; i < nnm.length; i++) {
+var a = nnm.item(i);
+var aname = a.nodeName;
+if (aname == "xmlns" && prefix == ""
+|| aname == "xmlns:" + prefix) {
+return String(a.nodeValue);
+}
+}
+n = n.parentNode;
+}
+return null;
+};
+
+Functions = new Object();
+Functions.last = function() {
+var c = arguments[0];
+if (arguments.length != 1) {
+throw new Error("Function last expects ()");
+}
+return new XNumber(c.contextSize);
+};
+Functions.position = function() {
+var c = arguments[0];
+if (arguments.length != 1) {
+throw new Error("Function position expects ()");
+}
+return new XNumber(c.contextPosition);
+};
+Functions.count = function() {
+var c = arguments[0];
+var ns;
+if (arguments.length != 2 || !Utilities.instance_of(ns = arguments[1].evaluate(c), XNodeSet)) {
+throw new Error("Function count expects (node-set)");
+}
+return new XNumber(ns.size);
+};
+Functions.id = function() {
+var c = arguments[0];
+var id;
+if (arguments.length != 2) {
+throw new Error("Function id expects (object)");
+}
+id = arguments[1].evaluate(c);
+if (Utilities.instance_of(id, XNodeSet)) {
+id = id.toArray().join(" ");
+} else {
+id = id.stringValue();
+}
+var ids = id.split(/[\x0d\x0a\x09\x20]+/);
+var count = 0;
+var ns = new XNodeSet();
+var doc = c.contextNode.nodeType == 9 
+? c.contextNode
+: c.contextNode.ownerDocument;
+for (var i = 0; i < ids.length; i++) {
+var n;
+if (doc.getElementById) {
+n = doc.getElementById(ids[i]);
+} else {
+n = Utilities.getElementById(doc, ids[i]);
+}
+if (n != null) {
+ns.add(n);
+count++;
+}
+}
+return ns;
+};
+Functions.localName = function() {
+var c = arguments[0];
+var n;
+if (arguments.length == 1) {
+n = c.contextNode;
+} else if (arguments.length == 2) {
+n = arguments[1].evaluate(c).first();
+} else {
+throw new Error("Function local-name expects (node-set?)");
+}
+if (n == null) {
+return new XString("");
+}
+return new XString(n.localName ? n.localName : n.baseName);
+};
+Functions.namespaceURI = function() {
+var c = arguments[0];
+var n;
+if (arguments.length == 1) {
+n = c.contextNode;
+} else if (arguments.length == 2) {
+n = arguments[1].evaluate(c).first();
+} else {
+throw new Error("Function namespace-uri expects (node-set?)");
+}
+if (n == null) {
+return new XString("");
+}
+return new XString(n.namespaceURI);
+};
+Functions.name = function() {
+var c = arguments[0];
+var n;
+if (arguments.length == 1) {
+n = c.contextNode;
+} else if (arguments.length == 2) {
+n = arguments[1].evaluate(c).first();
+} else {
+throw new Error("Function name expects (node-set?)");
+}
+if (n == null) {
+return new XString("");
+}
+if (n.nodeType == 1  || n.nodeType == 2 ) {
+return new XString(n.nodeName);
+} else if (n.localName == null) {
+return new XString("");
+} else {
+return new XString(n.localName);
+}
+};
+Functions.string = function() {
+var c = arguments[0];
+if (arguments.length == 1) {
+return XNodeSet.prototype.stringForNode(c.contextNode);
+} else if (arguments.length == 2) {
+return arguments[1].evaluate(c).string();
+}
+throw new Error("Function string expects (object?)");
+};
+Functions.concat = function() {
+var c = arguments[0];
+if (arguments.length < 3) {
+throw new Error("Function concat expects (string, string, string*)");
+}
+var s = "";
+for (var i = 1; i < arguments.length; i++) {
+s += arguments[i].evaluate(c).stringValue();
+}
+return new XString(s);
+};
+Functions.startsWith = function() {
+var c = arguments[0];
+if (arguments.length != 3) {
+throw new Error("Function startsWith expects (string, string)");
+}
+var s1 = arguments[1].evaluate(c).stringValue();
+var s2 = arguments[2].evaluate(c).stringValue();
+return new XBoolean(s1.substring(0, s2.length) == s2);
+};
+Functions.contains = function() {
+var c = arguments[0];
+if (arguments.length != 3) {
+throw new Error("Function contains expects (string, string)");
+}
+var s1 = arguments[1].evaluate(c).stringValue();
+var s2 = arguments[2].evaluate(c).stringValue();
+return new XBoolean(s1.indexOf(s2) != -1);
+};
+Functions.substringBefore = function() {
+var c = arguments[0];
+if (arguments.length != 3) {
+throw new Error("Function substring-before expects (string, string)");
+}
+var s1 = arguments[1].evaluate(c).stringValue();
+var s2 = arguments[2].evaluate(c).stringValue();
+return new XString(s1.substring(0, s1.indexOf(s2)));
+};
+Functions.substringAfter = function() {
+var c = arguments[0];
+if (arguments.length != 3) {
+throw new Error("Function substring-after expects (string, string)");
+}
+var s1 = arguments[1].evaluate(c).stringValue();
+var s2 = arguments[2].evaluate(c).stringValue();
+if (s2.length == 0) {
+return new XString(s1);
+}
+var i = s1.indexOf(s2);
+if (i == -1) {
+return new XString("");
+}
+return new XString(s1.substring(s1.indexOf(s2) + 1));
+};
+Functions.substring = function() {
+var c = arguments[0];
+if (!(arguments.length == 3 || arguments.length == 4)) {
+throw new Error("Function substring expects (string, number, number?)");
+}
+var s = arguments[1].evaluate(c).stringValue();
+var n1 = Math.round(arguments[2].evaluate(c).numberValue()) - 1;
+var n2 = arguments.length == 4 ? n1 + Math.round(arguments[3].evaluate(c).numberValue()) : undefined;
+return new XString(s.substring(n1, n2));
+};
+Functions.stringLength = function() {
+var c = arguments[0];
+var s;
+if (arguments.length == 1) {
+s = XNodeSet.prototype.stringForNode(c.contextNode);
+} else if (arguments.length == 2) {
+s = arguments[1].evaluate(c).stringValue();
+} else {
+throw new Error("Function string-length expects (string?)");
+}
+return new XNumber(s.length);
+};
+Functions.normalizeSpace = function() {
+var c = arguments[0];
+var s;
+if (arguments.length == 1) {
+s = XNodeSet.prototype.stringForNode(c.contextNode);
+} else if (arguments.length == 2) {
+s = arguments[1].evaluate(c).stringValue();
+} else {
+throw new Error("Function normalize-space expects (string?)");
+}
+var i = 0;
+var j = s.length - 1;
+while (Utilities.isSpace(s.charCodeAt(j))) {
+j--;
+}
+var t = "";
+while (i <= j && Utilities.isSpace(s.charCodeAt(i))) {
+i++;
+}
+while (i <= j) {
+if (Utilities.isSpace(s.charCodeAt(i))) {
+t += " ";
+while (i <= j && Utilities.isSpace(s.charCodeAt(i))) {
+i++;
+}
+} else {
+t += s.charAt(i);
+i++;
+}
+}
+return new XString(t);
+};
+Functions.translate = function() {
+var c = arguments[0];
+if (arguments.length != 4) {
+throw new Error("Function translate expects (string, string, string)");
+}
+var s1 = arguments[1].evaluate(c).stringValue();
+var s2 = arguments[2].evaluate(c).stringValue();
+var s3 = arguments[3].evaluate(c).stringValue();
+var map = [];
+for (var i = 0; i < s2.length; i++) {
+var j = s2.charCodeAt(i);
+if (map[j] == undefined) {
+var k = i > s3.length ? "" : s3.charAt(i);
+map[j] = k;
+}
+}
+var t = "";
+for (var i = 0; i < s1.length; i++) {
+var c = s1.charCodeAt(i);
+var r = map[c];
+if (r == undefined) {
+t += s1.charAt(i);
+} else {
+t += r;
+}
+}
+return new XString(t);
+};
+Functions.boolean_ = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function boolean expects (object)");
+}
+return arguments[1].evaluate(c).bool();
+};
+Functions.not = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function not expects (object)");
+}
+return arguments[1].evaluate(c).bool().not();
+};
+Functions.true_ = function() {
+if (arguments.length != 1) {
+throw new Error("Function true expects ()");
+}
+return new XBoolean(true);
+};
+Functions.false_ = function() {
+if (arguments.length != 1) {
+throw new Error("Function false expects ()");
+}
+return new XBoolean(false);
+};
+Functions.lang = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function lang expects (string)");
+}
+var lang;
+for (var n = c.contextNode; n != null && n.nodeType != 9 ; n = n.parentNode) {
+var a = n.getAttributeNS(XPath.XML_NAMESPACE_URI, "lang");
+if (a != null) {
+lang = String(a);
+break;
+}
+}
+if (lang == null) {
+return new XBoolean(false);
+}
+var s = arguments[1].evaluate(c).stringValue();
+return new XBoolean(lang.substring(0, s.length) == s
+&& (lang.length == s.length || lang.charAt(s.length) == '-'));
+};
+Functions.number = function() {
+var c = arguments[0];
+if (!(arguments.length == 1 || arguments.length == 2)) {
+throw new Error("Function number expects (object?)");
+}
+if (arguments.length == 1) {
+return new XNumber(XNodeSet.prototype.stringForNode(c.contextNode));
+}
+return arguments[1].evaluate(c).number();
+};
+Functions.sum = function() {
+var c = arguments[0];
+var ns;
+if (arguments.length != 2 || !Utilities.instance_of((ns = arguments[1].evaluate(c)), XNodeSet)) {
+throw new Error("Function sum expects (node-set)");
+}
+ns = ns.toArray();
+var n = 0;
+for (var i = 0; i < ns.length; i++) {
+n += new XNumber(XNodeSet.prototype.stringForNode(ns[i])).numberValue();
+}
+return new XNumber(n);
+};
+Functions.floor = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function floor expects (number)");
+}
+return new XNumber(Math.floor(arguments[1].evaluate(c).numberValue()));
+};
+Functions.ceiling = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function ceiling expects (number)");
+}
+return new XNumber(Math.ceil(arguments[1].evaluate(c).numberValue()));
+};
+Functions.round = function() {
+var c = arguments[0];
+if (arguments.length != 2) {
+throw new Error("Function round expects (number)");
+}
+return new XNumber(Math.round(arguments[1].evaluate(c).numberValue()));
+};
+
+Utilities = new Object();
+Utilities.splitQName = function(qn) {
+var i = qn.indexOf(":");
+if (i == -1) {
+return [ null, qn ];
+}
+return [ qn.substring(0, i), qn.substring(i + 1) ];
+};
+Utilities.resolveQName = function(qn, nr, n, useDefault) {
+var parts = Utilities.splitQName(qn);
+if (parts[0] != null) {
+parts[0] = nr.getNamespace(parts[0], n);
+} else {
+if (useDefault) {
+parts[0] = nr.getNamespace("", n);
+if (parts[0] == null) {
+parts[0] = "";
+}
+} else {
+parts[0] = "";
+}
+}
+return parts;
+};
+Utilities.isSpace = function(c) {
+return c == 0x9 || c == 0xd || c == 0xa || c == 0x20;
+};
+Utilities.isLetter = function(c) {
+return c >= 0x0041 && c <= 0x005A ||
+c >= 0x0061 && c <= 0x007A ||
+c >= 0x00C0 && c <= 0x00D6 ||
+c >= 0x00D8 && c <= 0x00F6 ||
+c >= 0x00F8 && c <= 0x00FF ||
+c >= 0x0100 && c <= 0x0131 ||
+c >= 0x0134 && c <= 0x013E ||
+c >= 0x0141 && c <= 0x0148 ||
+c >= 0x014A && c <= 0x017E ||
+c >= 0x0180 && c <= 0x01C3 ||
+c >= 0x01CD && c <= 0x01F0 ||
+c >= 0x01F4 && c <= 0x01F5 ||
+c >= 0x01FA && c <= 0x0217 ||
+c >= 0x0250 && c <= 0x02A8 ||
+c >= 0x02BB && c <= 0x02C1 ||
+c == 0x0386 ||
+c >= 0x0388 && c <= 0x038A ||
+c == 0x038C ||
+c >= 0x038E && c <= 0x03A1 ||
+c >= 0x03A3 && c <= 0x03CE ||
+c >= 0x03D0 && c <= 0x03D6 ||
+c == 0x03DA ||
+c == 0x03DC ||
+c == 0x03DE ||
+c == 0x03E0 ||
+c >= 0x03E2 && c <= 0x03F3 ||
+c >= 0x0401 && c <= 0x040C ||
+c >= 0x040E && c <= 0x044F ||
+c >= 0x0451 && c <= 0x045C ||
+c >= 0x045E && c <= 0x0481 ||
+c >= 0x0490 && c <= 0x04C4 ||
+c >= 0x04C7 && c <= 0x04C8 ||
+c >= 0x04CB && c <= 0x04CC ||
+c >= 0x04D0 && c <= 0x04EB ||
+c >= 0x04EE && c <= 0x04F5 ||
+c >= 0x04F8 && c <= 0x04F9 ||
+c >= 0x0531 && c <= 0x0556 ||
+c == 0x0559 ||
+c >= 0x0561 && c <= 0x0586 ||
+c >= 0x05D0 && c <= 0x05EA ||
+c >= 0x05F0 && c <= 0x05F2 ||
+c >= 0x0621 && c <= 0x063A ||
+c >= 0x0641 && c <= 0x064A ||
+c >= 0x0671 && c <= 0x06B7 ||
+c >= 0x06BA && c <= 0x06BE ||
+c >= 0x06C0 && c <= 0x06CE ||
+c >= 0x06D0 && c <= 0x06D3 ||
+c == 0x06D5 ||
+c >= 0x06E5 && c <= 0x06E6 ||
+c >= 0x0905 && c <= 0x0939 ||
+c == 0x093D ||
+c >= 0x0958 && c <= 0x0961 ||
+c >= 0x0985 && c <= 0x098C ||
+c >= 0x098F && c <= 0x0990 ||
+c >= 0x0993 && c <= 0x09A8 ||
+c >= 0x09AA && c <= 0x09B0 ||
+c == 0x09B2 ||
+c >= 0x09B6 && c <= 0x09B9 ||
+c >= 0x09DC && c <= 0x09DD ||
+c >= 0x09DF && c <= 0x09E1 ||
+c >= 0x09F0 && c <= 0x09F1 ||
+c >= 0x0A05 && c <= 0x0A0A ||
+c >= 0x0A0F && c <= 0x0A10 ||
+c >= 0x0A13 && c <= 0x0A28 ||
+c >= 0x0A2A && c <= 0x0A30 ||
+c >= 0x0A32 && c <= 0x0A33 ||
+c >= 0x0A35 && c <= 0x0A36 ||
+c >= 0x0A38 && c <= 0x0A39 ||
+c >= 0x0A59 && c <= 0x0A5C ||
+c == 0x0A5E ||
+c >= 0x0A72 && c <= 0x0A74 ||
+c >= 0x0A85 && c <= 0x0A8B ||
+c == 0x0A8D ||
+c >= 0x0A8F && c <= 0x0A91 ||
+c >= 0x0A93 && c <= 0x0AA8 ||
+c >= 0x0AAA && c <= 0x0AB0 ||
+c >= 0x0AB2 && c <= 0x0AB3 ||
+c >= 0x0AB5 && c <= 0x0AB9 ||
+c == 0x0ABD ||
+c == 0x0AE0 ||
+c >= 0x0B05 && c <= 0x0B0C ||
+c >= 0x0B0F && c <= 0x0B10 ||
+c >= 0x0B13 && c <= 0x0B28 ||
+c >= 0x0B2A && c <= 0x0B30 ||
+c >= 0x0B32 && c <= 0x0B33 ||
+c >= 0x0B36 && c <= 0x0B39 ||
+c == 0x0B3D ||
+c >= 0x0B5C && c <= 0x0B5D ||
+c >= 0x0B5F && c <= 0x0B61 ||
+c >= 0x0B85 && c <= 0x0B8A ||
+c >= 0x0B8E && c <= 0x0B90 ||
+c >= 0x0B92 && c <= 0x0B95 ||
+c >= 0x0B99 && c <= 0x0B9A ||
+c == 0x0B9C ||
+c >= 0x0B9E && c <= 0x0B9F ||
+c >= 0x0BA3 && c <= 0x0BA4 ||
+c >= 0x0BA8 && c <= 0x0BAA ||
+c >= 0x0BAE && c <= 0x0BB5 ||
+c >= 0x0BB7 && c <= 0x0BB9 ||
+c >= 0x0C05 && c <= 0x0C0C ||
+c >= 0x0C0E && c <= 0x0C10 ||
+c >= 0x0C12 && c <= 0x0C28 ||
+c >= 0x0C2A && c <= 0x0C33 ||
+c >= 0x0C35 && c <= 0x0C39 ||
+c >= 0x0C60 && c <= 0x0C61 ||
+c >= 0x0C85 && c <= 0x0C8C ||
+c >= 0x0C8E && c <= 0x0C90 ||
+c >= 0x0C92 && c <= 0x0CA8 ||
+c >= 0x0CAA && c <= 0x0CB3 ||
+c >= 0x0CB5 && c <= 0x0CB9 ||
+c == 0x0CDE ||
+c >= 0x0CE0 && c <= 0x0CE1 ||
+c >= 0x0D05 && c <= 0x0D0C ||
+c >= 0x0D0E && c <= 0x0D10 ||
+c >= 0x0D12 && c <= 0x0D28 ||
+c >= 0x0D2A && c <= 0x0D39 ||
+c >= 0x0D60 && c <= 0x0D61 ||
+c >= 0x0E01 && c <= 0x0E2E ||
+c == 0x0E30 ||
+c >= 0x0E32 && c <= 0x0E33 ||
+c >= 0x0E40 && c <= 0x0E45 ||
+c >= 0x0E81 && c <= 0x0E82 ||
+c == 0x0E84 ||
+c >= 0x0E87 && c <= 0x0E88 ||
+c == 0x0E8A ||
+c == 0x0E8D ||
+c >= 0x0E94 && c <= 0x0E97 ||
+c >= 0x0E99 && c <= 0x0E9F ||
+c >= 0x0EA1 && c <= 0x0EA3 ||
+c == 0x0EA5 ||
+c == 0x0EA7 ||
+c >= 0x0EAA && c <= 0x0EAB ||
+c >= 0x0EAD && c <= 0x0EAE ||
+c == 0x0EB0 ||
+c >= 0x0EB2 && c <= 0x0EB3 ||
+c == 0x0EBD ||
+c >= 0x0EC0 && c <= 0x0EC4 ||
+c >= 0x0F40 && c <= 0x0F47 ||
+c >= 0x0F49 && c <= 0x0F69 ||
+c >= 0x10A0 && c <= 0x10C5 ||
+c >= 0x10D0 && c <= 0x10F6 ||
+c == 0x1100 ||
+c >= 0x1102 && c <= 0x1103 ||
+c >= 0x1105 && c <= 0x1107 ||
+c == 0x1109 ||
+c >= 0x110B && c <= 0x110C ||
+c >= 0x110E && c <= 0x1112 ||
+c == 0x113C ||
+c == 0x113E ||
+c == 0x1140 ||
+c == 0x114C ||
+c == 0x114E ||
+c == 0x1150 ||
+c >= 0x1154 && c <= 0x1155 ||
+c == 0x1159 ||
+c >= 0x115F && c <= 0x1161 ||
+c == 0x1163 ||
+c == 0x1165 ||
+c == 0x1167 ||
+c == 0x1169 ||
+c >= 0x116D && c <= 0x116E ||
+c >= 0x1172 && c <= 0x1173 ||
+c == 0x1175 ||
+c == 0x119E ||
+c == 0x11A8 ||
+c == 0x11AB ||
+c >= 0x11AE && c <= 0x11AF ||
+c >= 0x11B7 && c <= 0x11B8 ||
+c == 0x11BA ||
+c >= 0x11BC && c <= 0x11C2 ||
+c == 0x11EB ||
+c == 0x11F0 ||
+c == 0x11F9 ||
+c >= 0x1E00 && c <= 0x1E9B ||
+c >= 0x1EA0 && c <= 0x1EF9 ||
+c >= 0x1F00 && c <= 0x1F15 ||
+c >= 0x1F18 && c <= 0x1F1D ||
+c >= 0x1F20 && c <= 0x1F45 ||
+c >= 0x1F48 && c <= 0x1F4D ||
+c >= 0x1F50 && c <= 0x1F57 ||
+c == 0x1F59 ||
+c == 0x1F5B ||
+c == 0x1F5D ||
+c >= 0x1F5F && c <= 0x1F7D ||
+c >= 0x1F80 && c <= 0x1FB4 ||
+c >= 0x1FB6 && c <= 0x1FBC ||
+c == 0x1FBE ||
+c >= 0x1FC2 && c <= 0x1FC4 ||
+c >= 0x1FC6 && c <= 0x1FCC ||
+c >= 0x1FD0 && c <= 0x1FD3 ||
+c >= 0x1FD6 && c <= 0x1FDB ||
+c >= 0x1FE0 && c <= 0x1FEC ||
+c >= 0x1FF2 && c <= 0x1FF4 ||
+c >= 0x1FF6 && c <= 0x1FFC ||
+c == 0x2126 ||
+c >= 0x212A && c <= 0x212B ||
+c == 0x212E ||
+c >= 0x2180 && c <= 0x2182 ||
+c >= 0x3041 && c <= 0x3094 ||
+c >= 0x30A1 && c <= 0x30FA ||
+c >= 0x3105 && c <= 0x312C ||
+c >= 0xAC00 && c <= 0xD7A3 ||
+c >= 0x4E00 && c <= 0x9FA5 ||
+c == 0x3007 ||
+c >= 0x3021 && c <= 0x3029;
+};
+Utilities.isNCNameChar = function(c) {
+return c >= 0x0030 && c <= 0x0039 
+|| c >= 0x0660 && c <= 0x0669 
+|| c >= 0x06F0 && c <= 0x06F9 
+|| c >= 0x0966 && c <= 0x096F 
+|| c >= 0x09E6 && c <= 0x09EF 
+|| c >= 0x0A66 && c <= 0x0A6F 
+|| c >= 0x0AE6 && c <= 0x0AEF 
+|| c >= 0x0B66 && c <= 0x0B6F 
+|| c >= 0x0BE7 && c <= 0x0BEF 
+|| c >= 0x0C66 && c <= 0x0C6F 
+|| c >= 0x0CE6 && c <= 0x0CEF 
+|| c >= 0x0D66 && c <= 0x0D6F 
+|| c >= 0x0E50 && c <= 0x0E59 
+|| c >= 0x0ED0 && c <= 0x0ED9 
+|| c >= 0x0F20 && c <= 0x0F29
+|| c == 0x002E
+|| c == 0x002D
+|| c == 0x005F
+|| Utilities.isLetter(c)
+|| c >= 0x0300 && c <= 0x0345 
+|| c >= 0x0360 && c <= 0x0361 
+|| c >= 0x0483 && c <= 0x0486 
+|| c >= 0x0591 && c <= 0x05A1 
+|| c >= 0x05A3 && c <= 0x05B9 
+|| c >= 0x05BB && c <= 0x05BD 
+|| c == 0x05BF 
+|| c >= 0x05C1 && c <= 0x05C2 
+|| c == 0x05C4 
+|| c >= 0x064B && c <= 0x0652 
+|| c == 0x0670 
+|| c >= 0x06D6 && c <= 0x06DC 
+|| c >= 0x06DD && c <= 0x06DF 
+|| c >= 0x06E0 && c <= 0x06E4 
+|| c >= 0x06E7 && c <= 0x06E8 
+|| c >= 0x06EA && c <= 0x06ED 
+|| c >= 0x0901 && c <= 0x0903 
+|| c == 0x093C 
+|| c >= 0x093E && c <= 0x094C 
+|| c == 0x094D 
+|| c >= 0x0951 && c <= 0x0954 
+|| c >= 0x0962 && c <= 0x0963 
+|| c >= 0x0981 && c <= 0x0983 
+|| c == 0x09BC 
+|| c == 0x09BE 
+|| c == 0x09BF 
+|| c >= 0x09C0 && c <= 0x09C4 
+|| c >= 0x09C7 && c <= 0x09C8 
+|| c >= 0x09CB && c <= 0x09CD 
+|| c == 0x09D7 
+|| c >= 0x09E2 && c <= 0x09E3 
+|| c == 0x0A02 
+|| c == 0x0A3C 
+|| c == 0x0A3E 
+|| c == 0x0A3F 
+|| c >= 0x0A40 && c <= 0x0A42 
+|| c >= 0x0A47 && c <= 0x0A48 
+|| c >= 0x0A4B && c <= 0x0A4D 
+|| c >= 0x0A70 && c <= 0x0A71 
+|| c >= 0x0A81 && c <= 0x0A83 
+|| c == 0x0ABC 
+|| c >= 0x0ABE && c <= 0x0AC5 
+|| c >= 0x0AC7 && c <= 0x0AC9 
+|| c >= 0x0ACB && c <= 0x0ACD 
+|| c >= 0x0B01 && c <= 0x0B03 
+|| c == 0x0B3C 
+|| c >= 0x0B3E && c <= 0x0B43 
+|| c >= 0x0B47 && c <= 0x0B48 
+|| c >= 0x0B4B && c <= 0x0B4D 
+|| c >= 0x0B56 && c <= 0x0B57 
+|| c >= 0x0B82 && c <= 0x0B83 
+|| c >= 0x0BBE && c <= 0x0BC2 
+|| c >= 0x0BC6 && c <= 0x0BC8 
+|| c >= 0x0BCA && c <= 0x0BCD 
+|| c == 0x0BD7 
+|| c >= 0x0C01 && c <= 0x0C03 
+|| c >= 0x0C3E && c <= 0x0C44 
+|| c >= 0x0C46 && c <= 0x0C48 
+|| c >= 0x0C4A && c <= 0x0C4D 
+|| c >= 0x0C55 && c <= 0x0C56 
+|| c >= 0x0C82 && c <= 0x0C83 
+|| c >= 0x0CBE && c <= 0x0CC4 
+|| c >= 0x0CC6 && c <= 0x0CC8 
+|| c >= 0x0CCA && c <= 0x0CCD 
+|| c >= 0x0CD5 && c <= 0x0CD6 
+|| c >= 0x0D02 && c <= 0x0D03 
+|| c >= 0x0D3E && c <= 0x0D43 
+|| c >= 0x0D46 && c <= 0x0D48 
+|| c >= 0x0D4A && c <= 0x0D4D 
+|| c == 0x0D57 
+|| c == 0x0E31 
+|| c >= 0x0E34 && c <= 0x0E3A 
+|| c >= 0x0E47 && c <= 0x0E4E 
+|| c == 0x0EB1 
+|| c >= 0x0EB4 && c <= 0x0EB9 
+|| c >= 0x0EBB && c <= 0x0EBC 
+|| c >= 0x0EC8 && c <= 0x0ECD 
+|| c >= 0x0F18 && c <= 0x0F19 
+|| c == 0x0F35 
+|| c == 0x0F37 
+|| c == 0x0F39 
+|| c == 0x0F3E 
+|| c == 0x0F3F 
+|| c >= 0x0F71 && c <= 0x0F84 
+|| c >= 0x0F86 && c <= 0x0F8B 
+|| c >= 0x0F90 && c <= 0x0F95 
+|| c == 0x0F97 
+|| c >= 0x0F99 && c <= 0x0FAD 
+|| c >= 0x0FB1 && c <= 0x0FB7 
+|| c == 0x0FB9 
+|| c >= 0x20D0 && c <= 0x20DC 
+|| c == 0x20E1 
+|| c >= 0x302A && c <= 0x302F 
+|| c == 0x3099 
+|| c == 0x309A
+|| c == 0x00B7 
+|| c == 0x02D0 
+|| c == 0x02D1 
+|| c == 0x0387 
+|| c == 0x0640 
+|| c == 0x0E46 
+|| c == 0x0EC6 
+|| c == 0x3005 
+|| c >= 0x3031 && c <= 0x3035 
+|| c >= 0x309D && c <= 0x309E 
+|| c >= 0x30FC && c <= 0x30FE;
+};
+Utilities.coalesceText = function(n) {
+for (var m = n.firstChild; m != null; m = m.nextSibling) {
+if (m.nodeType == 3  || m.nodeType == 4 ) {
+var s = m.nodeValue;
+var first = m;
+m = m.nextSibling;
+while (m != null && (m.nodeType == 3  || m.nodeType == 4 )) {
+s += m.nodeValue;
+var del = m;
+m = m.nextSibling;
+del.parentNode.removeChild(del);
+}
+if (first.nodeType == 4 ) {
+var p = first.parentNode;
+if (first.nextSibling == null) {
+p.removeChild(first);
+p.appendChild(p.ownerDocument.createTextNode(s));
+} else {
+var next = first.nextSibling;
+p.removeChild(first);
+p.insertBefore(p.ownerDocument.createTextNode(s), next);
+}
+} else {
+first.nodeValue = s;
+}
+if (m == null) {
+break;
+}
+} else if (m.nodeType == 1 ) {
+Utilities.coalesceText(m);
+}
+}
+};
+Utilities.instance_of = function(o, c) {
+while (o != null) {
+if (o.constructor === c) {
+return true;
+}
+if (o === Object) {
+return false;
+}
+o = o.constructor.superclass;
+}
+return false;
+};
+Utilities.getElementById = function(n, id) {
+
+
+if (n.nodeType == 1 ) {
+if (n.getAttribute("id") == id
+|| n.getAttributeNS(null, "id") == id) {
+return n;
+}
+}
+for (var m = n.firstChild; m != null; m = m.nextSibling) {
+var res = Utilities.getElementById(m, id);
+if (res != null) {
+return res;
+}
+}
+return null;
+};
+
+XPathException.prototype = {};
+XPathException.prototype.constructor = XPathException;
+XPathException.superclass = Object.prototype;
+function XPathException(c, e) {
+this.code = c;
+this.exception = e;
+}
+XPathException.prototype.toString = function() {
+var msg = this.exception ? ": " + this.exception.toString() : "";
+switch (this.code) {
+case XPathException.INVALID_EXPRESSION_ERR:
+return "Invalid expression" + msg;
+case XPathException.TYPE_ERR:
+return "Type error" + msg;
+}
+};
+XPathException.INVALID_EXPRESSION_ERR = 51;
+XPathException.TYPE_ERR = 52;
+
+XPathExpression.prototype = {};
+XPathExpression.prototype.constructor = XPathExpression;
+XPathExpression.superclass = Object.prototype;
+function XPathExpression(e, r, p) {
+this.xpath = p.parse(e);
+this.context = new XPathContext();
+this.context.namespaceResolver = new XPathNSResolverWrapper(r);
+}
+XPathExpression.prototype.evaluate = function(n, t, res) {
+this.context.expressionContextNode = n;
+var result = this.xpath.evaluate(this.context);
+return new XPathResult(result, t);
+}
+
+XPathNSResolverWrapper.prototype = {};
+XPathNSResolverWrapper.prototype.constructor = XPathNSResolverWrapper;
+XPathNSResolverWrapper.superclass = Object.prototype;
+function XPathNSResolverWrapper(r) {
+this.xpathNSResolver = r;
+}
+XPathNSResolverWrapper.prototype.getNamespace = function(prefix, n) {
+if (this.xpathNSResolver == null) {
+return null;
+}
+return this.xpathNSResolver.lookupNamespaceURI(prefix);
+};
+
+NodeXPathNSResolver.prototype = {};
+NodeXPathNSResolver.prototype.constructor = NodeXPathNSResolver;
+NodeXPathNSResolver.superclass = Object.prototype;
+function NodeXPathNSResolver(n) {
+this.node = n;
+this.namespaceResolver = new NamespaceResolver();
+}
+NodeXPathNSResolver.prototype.lookupNamespaceURI = function(prefix) {
+return this.namespaceResolver.getNamespace(prefix, this.node);
+};
+
+XPathResult.prototype = {};
+XPathResult.prototype.constructor = XPathResult;
+XPathResult.superclass = Object.prototype;
+function XPathResult(v, t) {
+if (t == XPathResult.ANY_TYPE) {
+if (v.constructor === XString) {
+t = XPathResult.STRING_TYPE;
+} else if (v.constructor === XNumber) {
+t = XPathResult.NUMBER_TYPE;
+} else if (v.constructor === XBoolean) {
+t = XPathResult.BOOLEAN_TYPE;
+} else if (v.constructor === XNodeSet) {
+t = XPathResult.UNORDERED_NODE_ITERATOR_TYPE;
+}
+}
+this.resultType = t;
+switch (t) {
+case XPathResult.NUMBER_TYPE:
+this.numberValue = v.numberValue();
+return;
+case XPathResult.STRING_TYPE:
+this.stringValue = v.stringValue();
+return;
+case XPathResult.BOOLEAN_TYPE:
+this.booleanValue = v.booleanValue();
+return;
+case XPathResult.ANY_UNORDERED_NODE_TYPE:
+case XPathResult.FIRST_ORDERED_NODE_TYPE:
+if (v.constructor === XNodeSet) {
+this.singleNodeValue = v.first();
+return;
+}
+break;
+case XPathResult.UNORDERED_NODE_ITERATOR_TYPE:
+case XPathResult.ORDERED_NODE_ITERATOR_TYPE:
+if (v.constructor === XNodeSet) {
+this.invalidIteratorState = false;
+this.nodes = v.toArray();
+this.iteratorIndex = 0;
+return;
+}
+break;
+case XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE:
+case XPathResult.ORDERED_NODE_SNAPSHOT_TYPE:
+if (v.constructor === XNodeSet) {
+this.nodes = v.toArray();
+this.snapshotLength = this.nodes.length;
+return;
+}
+break;
+}
+throw new XPathException(XPathException.TYPE_ERR);
+};
+XPathResult.prototype.iterateNext = function() {
+if (this.resultType != XPathResult.UNORDERED_NODE_ITERATOR_TYPE
+&& this.resultType != XPathResult.ORDERED_NODE_ITERATOR_TYPE) {
+throw new XPathException(XPathException.TYPE_ERR);
+}
+return this.nodes[this.iteratorIndex++];
+};
+XPathResult.prototype.snapshotItem = function(i) {
+if (this.resultType != XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE
+&& this.resultType != XPathResult.ORDERED_NODE_SNAPSHOT_TYPE) {
+throw new XPathException(XPathException.TYPE_ERR);
+}
+return this.nodes[i];
+};
+XPathResult.ANY_TYPE = 0;
+XPathResult.NUMBER_TYPE = 1;
+XPathResult.STRING_TYPE = 2;
+XPathResult.BOOLEAN_TYPE = 3;
+XPathResult.UNORDERED_NODE_ITERATOR_TYPE = 4;
+XPathResult.ORDERED_NODE_ITERATOR_TYPE = 5;
+XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE = 6;
+XPathResult.ORDERED_NODE_SNAPSHOT_TYPE = 7;
+XPathResult.ANY_UNORDERED_NODE_TYPE = 8;
+XPathResult.FIRST_ORDERED_NODE_TYPE = 9;
+
+function installDOM3XPathSupport(doc, p) {
+doc.createExpression = function(e, r) {
+try {
+return new XPathExpression(e, r, p);
+} catch (e) {
+throw new XPathException(XPathException.INVALID_EXPRESSION_ERR, e);
+}
+};
+doc.createNSResolver = function(n) {
+return new NodeXPathNSResolver(n);
+};
+doc.evaluate = function(e, cn, r, t, res) {
+if (t < 0 || t > 9) {
+throw { code: 0, toString: function() { return "Request type not supported"; } };
+}
+return doc.createExpression(e, r, p).evaluate(cn, t, res);
+};
+};
+
+
+try {
+var shouldInstall = true;
+try {
+if (document.implementation
+&& document.implementation.hasFeature
+&& document.implementation.hasFeature("XPath", null)) {
+shouldInstall = false;
+}
+} catch (e) {
+}
+if (shouldInstall) {
+installDOM3XPathSupport(document, new XPathParser());
+}
+} catch (e) {
+}
+function SelectNodes(doc, xpath)
+{
+var parser = new XPathParser();
+var xpath = parser.parse(xpath);
+var context = new XPathContext();
+if(doc.documentElement){
+context.expressionContextNode = doc.documentElement;
+} else {
+context.expressionContextNode = doc;
+}
+var res = xpath.evaluate(context)
+return res.toArray();
+}
+module.exports = SelectNodes;
+}
 ,
-function(e,a){function s(e,a){this.code=e,this.params=a?a.concat():[],this.vars=[],this.calls=[],this.refs=[],this.externalRefs=[],this.fors=[],this.defs=[],this.defMap={},this.paramMap=r(this.params,{}),this.varMap={},this._forStack=[],n(this,this.code=e),delete this._forStack,this.callMap=r(this.calls,{}),this.refMap=r(this.refs,{}),this.externalRefMap=r(this.externalRefs,{})}function r(e,a){for(var s=e.length;s--;){var r=e[s];r in a?a[r]+=1:a[r]=1}return a}function i(e){this.code=e,this.index,this.lastIndex,this.ref,this.depth}function t(e,a){var r=a[2],i=r.params,t=(r.defaults,a[-1]||new s(a[1],i));t.name=r.name,t.defaults=r.defaults,e.fors=e.fors.concat(t.fors),e.defs.push(t.name),e.defMap[t.name]=t,t.defs=e.defs,t.defMap=e.defMap}function n(e,a){if(null==a)return null;for(var s=0;s<a.length;s++){var r=a[s];if(r instanceof Array){var i=r[0];switch(i){case u:case M:case d:case P:c(e,r[1]);break;case E:case v:case _:c(e,r[2])}switch(i){case x:var h=r[2]["class"];"org.xidea.lite.DefinePlugin"==h?t(e,r):"org.xidea.lite.parse.ClientPlugin"==h||("org.xidea.lite.EncodePlugin"==h||"org.xidea.lite.DatePlugin"==h||"org.xidea.lite.ModulePlugin"==h?n(e,r[1]):console.info("unknow plugin",r[2]));break;case g:case E:case v:n(e,r[1]);break;case _:f(e,r),l(e,r[3]),n(e,r[1]),o(e)}switch(i){case g:case u:l(e,r[2]),l(e,r[2])}}}}function f(e,a){var s=new i(a);s.depth=e._forStack.length,e.fors.push(s),e._forStack.push(s)}function o(e){e._forStack.pop()}function l(e,a){e.vars.push(a);var s=e.varMap;a in s?s[a]+=1:s[a]=1}function c(e,a){if(null!=a){var s=new p(a).getVarMap();for(var r in s){var i=s[r],t=i.length;if("for"==r)for(var n=0;t>n;n++){var f=i[n];""==f?h(e,"*"):"index"==f||"lastIndex"==f?h(e,f):(console.error("for 不能有index，lastIndex 之外的其他属性"),h(e,"*"))}else r in e.varMap||r in e.paramMap||e.externalRefs.push(r),e.refs.push(r)}var o=new p(a).getCallMap();for(var l in o)for(var i=o[l],t=i.length,n=0;t>n;n++)r in e.varMap||r in e.paramMap?e.calls.push("*"):r&&e.calls.push(r)}}function h(e,a){var s=e._forStack[e._forStack.length-1];if(!s)throw new Error("for 变量不能在循环外使用:for."+a);if("index"==a)s.index=!0;else if("lastIndex"==a)s.lastIndex=!0;else{if("*"!=a)throw new Error("for不支持属性:"+a);s.ref=!0}}if("function"==typeof a)var p=a(16).Expression;if("function"==typeof a){e.OptimizeScope=s;var u=a(13).VAR_TYPE,d=a(13).XA_TYPE,v=a(13).ELSE_TYPE,x=a(13).PLUGIN_TYPE,g=a(13).CAPTURE_TYPE,E=a(13).IF_TYPE,M=a(13).EL_TYPE,P=(a(13).BREAK_TYPE,a(13).XT_TYPE),_=a(13).FOR_TYPE}}
+function(exports,require,module){var DOCUMENT_LAYOUT_PROCESSED = "http://www.xidea.org/lite/core/c:layout-processed";
+var HTML_URI = "http://www.w3.org/1999/xhtml"
+var setNodeURI = require(39).setNodeURI
+var parseChildRemoveAttr = require(39).parseChildRemoveAttr
+var findXMLAttribute = require(8).findXMLAttribute
+var wrapScript = require(24).wrapScript;
+var PLUGIN_MODULE = "org.xidea.lite.ModulePlugin"
+exports.parse$9 = parseDocument;
+exports.parseExtends = exports.interceptExtends = processExtends
+
+
+exports.parseBlock = exports.interceptBlock = processBlock;
+exports.parseWidget = exports.interceptWidget =processWidget;
+exports.parseLazyWidget = exports.interceptLazyWidget =processWidget;
+
+
+function parseDocument(doc,ns){
+var isProcessed = this.getAttribute(DOCUMENT_LAYOUT_PROCESSED);
+
+if(!isProcessed){
+this.setAttribute(DOCUMENT_LAYOUT_PROCESSED,true);
+var root = doc.documentElement;
+var ln = root.localName || root.nodeName.replace(/^w+\:/,'');
+if((ln == 'extends' || ln == 'extend') && root.namespaceURI == ns){
+processExtends.call(this,root);
+return ;
+}else{
+try{
+var attr = root.getAttributeNodeNS(ns,"extends") || root.getAttributeNodeNS(ns,"extend");
+}catch(e){
+var attrs = root.attributes;
+var i = attrs.length-1;
+while(i-->0){
+var a = attrs.item(i);
+if(a.namespaceURI == ns && /^(?:w+\:)?extends?$/.test(a.nodeName)){
+attr = a;
+break;
+}
+}
+}
+if(attr != null){
+processExtends.call(this,attr);
+return ;
+}
+var layout = this.configMap.layout;
+if(layout){
+var uri = this.createURI(layout);
+if(uri != String(this.currentURI)){
+this.setAttribute('$page',doc);
+
+
+
+this.parse(uri);
+}
+return ;
+}
+}
+}
+this.next(doc);
+}
+function processExtends(node){
+var oldConfig = this.getAttribute("#extends");
+var el = node.nodeType == 1?node:node.ownerElement|| node.selectSingleNode('..');
+var root = el == el.ownerDocument.documentElement;
+var extendsConfig = {blockMap:{},parse:false,root:root};
+if(oldConfig){
+if(oldConfig.parse){
+if(root){
+if(extendsConfig.root){
+
+}
+extendsConfig = oldConfig;
+extendsConfig.parse = false;
+}else{
+extendsConfig.root = false;
+}
+}else{
+return;
+}
+}
+this.setAttribute("#extends" ,extendsConfig);
+var parentURI = findXMLAttribute(node,"*path","value","parent");
+
+var uri = this.createURI(parentURI);
+var parentNode = this.loadXML(uri);
+if(!root){
+parentNode = parentNode.documentElement;
+}
+var i = this.mark();
+parseChildRemoveAttr(this,node);
+this.reset(i);
+var parentURI = this.currentURI;
+try{
+this.setCurrentURI(uri);
+extendsConfig.parse=true;
+this.parse(parentNode);
+}finally{
+this.setCurrentURI(parentURI);
+}
+this.setAttribute("#extends" ,oldConfig);
+}
+function processBlock(node){
+var extendsConfig = this.getAttribute("#extends");
+var value = findXMLAttribute(node,"name","id");
+if(extendsConfig){
+var blockMap = extendsConfig.blockMap;
+var cached = value && (value in blockMap) && blockMap[value];
+if(extendsConfig.parse){
+if(cached){
+var parentURI = this.currentURI;
+try{
+
+setNodeURI(this,cached);
+extendsConfig.parse=true;
+
+_parseBlock(this,cached);
+}finally{
+this.setCurrentURI(parentURI);
+}
+}else{
+
+_parseBlock(this,node);
+}
+}else{
+if(!cached){
+blockMap[value] = node;
+}
+}
+}else{
+_parseBlock(this,node);
+}
+}
+function loadText(ctx,path){
+var uri = ctx.createURI(path);
+return ctx.loadText(uri);
+}
+function processWidget(node){
+var ctx = this;
+var lazy = node.nodeName.match(/lazy/i);
+var currentURI = ctx.currentURI;
+var src = findXMLAttribute(node,"path");
+var uri = ctx.createURI(src);
+var doc = ctx.loadXML(uri);
+
+var cssPath = src.replace(/\.\w+$/,'.css');
+var jsPath = src.replace(/\.\w+$/,'.js');
+var fragment = doc.createDocumentFragment();
+var body = doc.getElementsByTagName('body')[0];
+var resources = doc.getElementsByTagName('link');
+var i= resources.length-1
+while(i-->0){
+var res = resources[i];
+res.parentNode && res.parentNode.removeChild(res);
+fragment.appendChild(res)
+}
+var source = loadText(ctx,cssPath);
+if(source){
+var s = doc.createElementNS(HTML_URI,'link');
+
+s.setAttribute('rel','stylesheet');
+s.setAttribute('type','text/css');
+s.setAttribute('href',cssPath);
+
+fragment.appendChild(s)
+}
+if(body){
+var res = body.firstChild;
+
+while(res!=null){
+
+var next = res.nextSibling;
+fragment.appendChild(res)
+res = next;
+}
+body.parentNode.removeChild(body)
+var resources = doc.getElementsByTagName('script');
+var i= resources.length-1
+while(i-->0){
+var res = resources[i];
+res.parentNode && res.parentNode.removeChild(res);
+fragment.appendChild(res)
+}
+}else{
+fragment.appendChild(doc.documentElement)
+}
+var source = loadText(ctx,jsPath);
+if(source){
+var s = doc.createElementNS(HTML_URI,'script');
+
+source = wrapScript(source,'__define_run__')
+s.appendChild(doc.createTextNode(source));
+fragment.appendChild(s)
+}
+try{
+node.nodeType == 1 && node.removeAttribute('path');
+if(lazy){
+var config={};
+var tagName = _appendLazyStart(ctx,node,config);
+parseChildRemoveAttr(ctx,node);
+tagName && ctx.appendText('</'+tagName+'>')
+ctx.appendPlugin(PLUGIN_MODULE,JSON.stringify(config));
+this.parse(fragment);
+ctx.appendEnd();
+}else{
+this.parse(fragment);
+}
+}finally{
+this.currentURI = currentURI;
+}
+}
+
+function parseLazyWidget(node){
+}
+function _parseBlock(ctx,node){
+if(!node.nodeName.match(/lazy/i)){
+parseChildRemoveAttr(ctx,node);
+}else{
+var config={};
+var tagName = _appendLazyStart(ctx,node,config);
+ctx.appendPlugin(PLUGIN_MODULE,JSON.stringify(config));
+parseChildRemoveAttr(ctx,node);
+ctx.appendEnd();
+tagName && ctx.append('</'+tagName+'>')
+}
+}
+function _appendLazyStart(ctx,node,config){
+var blockId = genBlockID(ctx);
+
+if(node.nodeType == 1){
+var attrs = node.attributes ;
+for(var i=0,len = attrs.length;i<len;i++){
+var a = attrs.item(i);
+var n = a.name;
+if(!n.match(/\:|^id$/i)){
+config[n] = a.value;
+}
+}
+ctx.appendText('<div data-lazy-widget-id="',blockId,'"');
+for(var n in config){
+ctx.appendText(' ',n,'="',config[n],'"');
+}
+ctx.appendText('>')
+config.id=blockId
+return 'div';
+}else{
+node.ownerElement.setAttribute('data-lazy-widget-id',blockId);
+config.id=blockId
+}
+}
+function genBlockID(ctx){
+var oldId = ctx.__increaceBlockID||0;;
+return ctx.__increaceBlockID = ++oldId
+}
+}
 ,
-function(r,e){function n(r,e){var n=r[0];return 0>=n?t(r,e):3==l(n)?u(r,e):c(r,e)}function t(r,e){var n=r[1];switch(r[0]){case P:return n&&"RegExp"==n["class"]&&n.literal||JSON.stringify(n);case $:if("for"==n){var t=e.getForName();if(t)return t}return e.getVarName(n);case S:return"[]";case A:return"{}"}}function i(r,e){var t=e[1],i=e[2],a=n(t,r),u=n(i,r);if(i[0]==P){var c=o(e[2]);if("string"==typeof c&&("index"==c||"lastIndex"==c)){var f=r.findForAttribute(a,c);if(f)return f}}return a=O(e,t,a),r.genGetCode(a,u)}function a(r,e,t){var a=i(r,e),u=n(t,r);return a.match(/\)$/)?a.slice(0,-1)+","+u+")":(a=a.replace(s,"($1)$2"),a+"("+u.slice(1,-1)+")")}function u(r,e){var t=r[0],u=r[1],c=r[2];if(t==_)return i(e,r);if(t==g&&u[0]==_)return a(e,u,c);var f=v(r[0]),l=n(u,e),P=n(c,e);switch(t){case g:return P=P.slice(1,-1),l=l.replace(s,"($1)$2"),l+"("+P+")";case E:return"[]"==l?"["+P+"]":l.slice(0,-1)+","+P+"]";case d:return P=JSON.stringify(o(r))+":"+P+"}","{}"==l?"{"+P:l.slice(0,-1)+","+P;case N:return null;case T:var S=n(u[1],e),l=n(u[2],e);return S+"?"+l+":"+P}return l=O(r,u,l),P=O(r,c,null,P),l+f+P}function c(r,e){var t=r[0],i=r[1],a=n(i,e);o(r);a=O(r,i,null,a);var u=v(t);return u+a}var f=/^"[a-zA-Z_\$][_\$\w]*"$/,s=/^(\d+)(\.\w+)$/;({getForName:String,findForAttribute:function(r,e){},genGetCode:function(r,e){return f.test(e)?r+"."+e.slice(1,-1):r+"["+e+"]"}});if("function"==typeof e){r.stringifyJSEL=n;var o=e(31).getTokenParam,l=e(31).getTokenParamIndex,v=e(31).findTokenText,O=e(31).addELQute,_=e(31).OP_GET,g=(e(31).OP_IN,e(31).OP_INVOKE),E=e(31).OP_JOIN,d=e(31).OP_PUT,N=e(31).OP_QUESTION,T=e(31).OP_QUESTION_SELECT,P=e(31).VALUE_CONSTANTS,S=e(31).VALUE_LIST,A=e(31).VALUE_MAP,$=e(31).VALUE_VAR}}
+function(exports,require){
+var findELEnd=require(38).findELEnd;
+var PLUGIN_DEFINE=require(14).PLUGIN_DEFINE;
+var parseDefName = require(39).parseDefName;
+var findLiteParamMap=require(39).findLiteParamMap;
+var appendForStart = require(39).appendForStart;
+exports.seekxa = function(text){
+var end = findELEnd(text,0);
+if(end>0){
+try{
+var el = text.substring(1,end);
+if(/^\s*([\w\-]+|"[^"]+"|'[^']+')\s*\:/.test(el)){
+var map = findLiteParamMap(el);
+for(var n in map){
+this.appendXA(n,map[n]);
+}
+}else{
+this.appendXA(null,el)
+}
+return end;
+}catch(e){
+console.error("XML属性表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]",e)
+return -1;
+}
+}else{
+console.warn("XML属性表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]")
+return -1;
+}
+};
+exports.seekxt = function(text){
+var end = findELEnd(text,0);
+if(end>0){
+try{
+var el = text.substring(1,end);
+this.appendXT(el)
+return end;
+}catch(e){
+console.error("XML文本表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]",e)
+return -1;
+}
+}else{
+console.warn("XML文本表达式解析异常，请检查是否手误：[fileName:"+this.currentURI+",el:"+el+"]")
+return -1;
+}
+}
+exports.seekEnd= function(){
+this.appendEnd();
+return 0;
+}
+exports.seekDef=function (text){
+var end = findELEnd(text);
+if(end>0){
+var ns = text.substring(1,end);
+var config = parseDefName(ns);
+this.appendPlugin(PLUGIN_DEFINE,JSON.stringify(config));
+return end;
+}
+}
+exports.seekVar=function (text){
+var end = findELEnd(text);
+if(end>0){
+var value = text.substring(1,end);
+if(/^\s*(?:\w+|['"][^"]+['"])\s*$/.test(value)){
+this.appendCapture(value.replace(/['"]/g,''));
+}else{
+var map = findLiteParamMap(value);
+for(var n in map){
+this.appendVar(n,map[n]);
+}
+}
+return end;
+}
+}
+exports.seekClient= function(text){
+var end = findELEnd(text);
+if(end>0){
+var ns = text.substring(1,end);
+var config = parseDefName(ns);
+this.appendPlugin("org.xidea.lite.parse.ClientPlugin",JSON.stringify(config));
+return end;
+}
+}
+exports.seekIf=function (text){
+var end = findELEnd(text,0);
+if(end>0){
+this.appendIf(text.substring(1,end));
+return end;
+}
+}
+exports.seekElse=function (text){
+if(text.charAt() == '$'){
+this.appendEnd();
+this.appendElse(null);
+return 0;
+}else{
+var end = findELEnd(text);
+if(end>0){
+this.appendEnd();
+this.appendElse(text.substring(1,end)||null);
+return end;
+}
+}
+}
+exports.seekElif=function (text){
+var end = findELEnd(text);
+if(end>0){
+this.appendEnd();
+this.appendElse(text.substring(1,end)||null);
+return end;
+}
+}
+exports.seekFor=function (text){
+var end = findELEnd(text);
+if(end>0){
+var value = text.substring(1,end);
+appendForStart(this,value);
+return end;
+}
+}
+exports.seekOut=function (text){
+var end = findELEnd(text);
+if(end>0){
+var value = text.substring(1,end);
+this.appendEL(value);
+return end;
+}
+}
+}
 ,
-function(t,s){function e(t){var s=this.eval(t);return s instanceof RegExp&&(s={"class":"RegExp",literal:t+""}),s}function a(t,s){for(var e,a=0;e=t.charAt(s++);)if("["==e)a=1;else if("]"==e)a=0;else if("\\"==e)s++;else if(0==a&&"/"==e)for(;e=t.charAt(s++);)switch(e){case"g":case"i":case"m":break;default:return s-1}}function i(t){this.value=t.replace(/^\s+|\s+$/g,""),this.start=0,this.end=this.value.length,this.status=v,this.previousType=v,this.tokens=[],this.parseEL(),r(this.tokens),this.expression=n(c(o(this.tokens)))}function r(t){for(var s=t.length;s--;){var e=t[s][0];if(e==V){var a=h(t,s,-1,-1);t.splice(a+1,0,[k]),s++}else if(e==j){var i=t.length,a=h(t,s,1,i);t.splice(a,0,[p])}}}function h(t,s,e,a){for(var i=0;(s+=e)!=a;){var r=t[s][0];if(r>0){if(r==k)i+=e;else if(r==p)i-=e;else if(0==i&&d(r)<=d(V))return s;if(0>i)return s}}return e>0?a:-1}function n(t){for(var s=[],e=0;e<t.length;e++){var a=t[e],i=a[0];switch(i){case B:case $:case z:case J:s.push(a);break;default:if(3==_(i))var r=s.pop(),h=s.pop(),n=[i,h,r];else var h=s.pop(),n=[i,h];P(i)&&(n[_(i)]=a[1]),s.push(n)}}return s[0]}function o(t){for(var s=[[]],e=[],a=0;a<t.length;a++){var i=t[a];if(i[0]>0)if(0==e.length)e.push(i);else if(i[0]==k)e.push(i);else if(i[0]==p)for(;;){var r=e.pop();if(r[0]==k)break;u(s,r)}else{for(;0!=e.length&&f(i[0],e[e.length-1][0]);){var r=e.pop();u(s,r)}e.push(i)}else u(s,i)}for(;0!=e.length;){var r=e.pop();u(s,r)}return s[s.length-1]}function c(t){for(var s=0;s<t.length;s++){var e=t[s];e.length=A(e[0])}return t}function u(t,s){var e=t[t.length-1];e.push(s)}function d(t){switch(t){case k:case p:return Math.MIN_VALUE;default:return(t&I)<<4|(t&w)>>8}}function f(t,s){var e=d(s),a=d(t);return e>=a}if("function"==typeof s)var l=s(39).JSONTokenizer;var k=65534,p=65535,v=-100,T=-101,O=-102,b={getResult:function(){return this.expression},parseEL:function(){for(this.skipSpace(0);this.start<this.end;){var t=this.value.charAt(this.start);if('"'==t||"'"==t){var s=this.findString();this.addKeyOrObject(s,!1)}else if(t>="0"&&"9">=t){var e=this.findNumber();this.addKeyOrObject(e,!1)}else if(/[\w$_]/.test(t)){var a=this.findId();switch(a){case"true":this.addToken([B,!0]);break;case"false":this.addToken([B,!1]);break;case"null":this.addToken([B,null]);break;default:this.skipSpace(0),this.previousType==M?this.addToken([B,a]):this.addKeyOrObject(a,!0)}}else{var i=this.findOperator();this.parseOperator(i),null==i&&this.parseError("未知操作符:")}this.skipSpace(0)}},parseError:function(t){throw t=t+"\n@"+this.start+"\n"+this.value.substring(this.start)+"\n----\n"+this.value,console.error(t),new Error(t)},findOperator:function(){var t=this.value.charAt(this.start),s=this.start+1,e=this.value.charAt(s);switch(t){case",":case":":case"[":case"]":case"{":case"}":case"(":case")":case".":case"?":case"~":case"^":break;case"+":case"-":case"*":case"/":case"%":"="==e?this.parseError("不支持赋值操作:"):e==t&&this.parseError("不支持自增自减操作:");break;case"=":"="==e?(s++,"="==this.value.charAt(s)&&s++):this.parseError("不支持赋值操作:");break;case"!":"="==e&&(s++,"="==this.value.charAt(s)&&s++);break;case">":case"<":"="==e?s++:e==t&&this.value.charAt(s)==t&&s++;break;case"&":case"|":t==e&&s++;break;default:return null}return this.value.substring(this.start,this.start=s)},isMapMethod:function(){for(var t=this.tokens.length-1,s=0;t>=0;t--){var e=this.tokens[t],a=e[0];if(0==s){if(a==R||a==J)return!0;if(a==x)return!1}a==k?s--:a==p&&s++}return!1},parseOperator:function(t){if(1==t.length)switch(t.charAt(0)){case"(":this.status==T?(this.addToken([N]),this.skipSpace(")")?(this.addToken([B,[]]),this.start++):this.addList()):this.addToken([k]);break;case"[":this.status==T?(this.addToken([M]),this.addToken([k])):this.addList();break;case"{":this.addMap();break;case"}":case"]":case")":this.addToken([p]);break;case"+":this.addToken([this.status==T?L:m]);break;case"-":this.addToken([this.status==T?K:U]);break;case":":this.addToken([j]);break;case",":this.isMapMethod()?this.status=O:this.addToken([x]);break;case"/":var s=this.value.charAt(this.start);if("/"==s){var i=this.value.indexOf("\n",this.start),r=this.value.indexOf("\r",this.start),h=Math.min(i,r);0>h&&(h=Math.max(i,r)),h>0?this.start=h:this.start=this.end;break}if("*"==s){var h=this.value.indexOf("*/",this.start);if(!(h>0))throw new Error("未結束注釋:"+this.value+"@"+this.start);this.start=h+2;break}if(this.status!=T){var n=a(this.value,this.start);if(n>0){this.addToken([B,e(this.value.substring(this.start-1,n))]),this.start=n;break}throw new Error("异常正则:"+this.value+"@"+this.start)}default:this.addToken([S(t)])}else this.addToken([S(t)])},addToken:function(t){var s=t[0];switch(s==$&&"in"==t[1]&&(t[0]=s=y),s){case k:this.status=v;break;case B:case $:case p:this.status=T;break;default:this.status=O}this.previousType=s,this.tokens.push(t)},addKeyOrObject:function(t,s){this.skipSpace(":")&&this.isMapMethod()?(this.addToken([R,t]),this.start++):s?this.addToken([$,t]):this.addToken([B,t])},addList:function(){this.addToken([k]),this.addToken([z]),this.skipSpace("]")||this.addToken([x])},addMap:function(){this.addToken([k]),this.addToken([J])}},g=new l("");for(var E in b)g[E]=b[E];if(i.prototype=g,"function"==typeof s){t.getPriority=d,t.ExpressionTokenizer=i;var P=s(31).hasTokenParam,P=(s(31).getTokenParam,s(31).hasTokenParam),_=s(31).getTokenParamIndex,A=s(31).getTokenLength,S=s(31).findTokenType,I=s(31).BIT_PRIORITY,w=s(31).BIT_PRIORITY_SUB,L=s(31).OP_ADD,M=s(31).OP_GET,y=s(31).OP_IN,N=s(31).OP_INVOKE,x=s(31).OP_JOIN,U=(s(31).OP_NE,s(31).OP_NEG),m=s(31).OP_POS,R=s(31).OP_PUT,V=s(31).OP_QUESTION,j=s(31).OP_QUESTION_SELECT,K=s(31).OP_SUB,B=s(31).VALUE_CONSTANTS,z=s(31).VALUE_LIST,J=s(31).VALUE_MAP,$=s(31).VALUE_VAR}}
+function(exports,require){
+
+function parseConfig(doc){
+if(typeof doc == 'string'){doc = loadLiteXML(doc)}
+var lites = doc.getElementsByTagName("lite");
+var len = lites.length;
+
+if(len >= 1){
+var root = new LiteGroup(lites.item(0))
+if(len>1){
+console.error("配置文件只允许一个lite节点","您的文档中包含"+len+"个节点，后续节点将作为第一个节点子节点解析。");
+for(var i=1;i<len;i++){
+root.children.push(new LiteGroup(lites[i],this));
+}
+}
+var json = root.toJSON();
+return json;
+}
+return null
+}
+function LiteGroup(node,parentConfig){
+this.parentConfig = parentConfig || null
+this.config = {}
+this.encoding= findXMLAttribute(node,'encoding','charset');
+this.type = findXMLAttribute(node,'type',"mime-type",'mimeType');
+this.contentType = findXMLAttribute(node,'contentType','contextType');
+this.layout = findXMLAttribute(node,'layout');
+this.extensionMap = {};
+this.children = [];
+this.includes = [];
+this.excludes = [];
+var child = node.firstChild;
+while(child){
+if(child.nodeType == 1){
+switch(child.nodeName){
+case 'feature':
+case 'attribute':
+case 'config':
+this.config[findXMLAttribute(child,'name','key','uri','url')] = 
+findXMLAttribute(child,'value','#text')
+break;
+case 'extension':
+var ns = findXMLAttribute(child,'namespace','name','key','uri','url');
+var p = findXMLAttribute(child,'package','impl','value','#text');
+var ps = this.extensionMap[ns];
+if(ps && ps instanceof Array){
+appendAfter(ps,p);
+}else{
+this.extensionMap[ns] = [p];
+}
+break;
+case 'include':
+this.includes.push(findXMLAttribute(child,'value','#text','pattern'));
+break;
+case 'exclude':
+this.excludes.push(findXMLAttribute(child,'value','#text','pattern'));
+break;
+case 'group':
+this.children.push(new LiteGroup(child,this))
+break;
+default:
+console.warn("unknow nodeName:"+child.nodeName);
+}
+}
+child = child.nextSibling;
+}
+}
+LiteGroup.prototype.toJSON = function(){
+var result = [];
+var len = this.children.length;
+var json = {}
+this.initialize();
+for(var i=0;i<len;i++){
+result.push.apply(result,this.children[i].toJSON());
+}
+json.includes = this.includes;
+json.excludes = this.excludes;
+json.config = this.config;
+json.extensionMap = this.extensionMap;
+result.push(json);
+return result;
+}
+LiteGroup.prototype.initialize = function(){
+this.initialize = Function.prototype;
+var parentConfig = this.parentConfig
+if(parentConfig){
+var config = {};
+copy(parentConfig.config,config);
+copy(this.config,config);
+this.config=config;
+this.extensionMap = margeExtensionMap(parentConfig.extensionMap,this.extensionMap);
+}
+this.includes = compilePatterns(this.includes)
+this.excludes = compilePatterns(this.excludes)
+mergeContentType(this,parentConfig);
+this.config["encoding"] = this.encoding;
+this.config["contentType"] = this.contentType;
+if(this.layout != null){
+if(!this.layout || this.layout.charAt() == '/'){
+this.config["layout"] = this.layout;
+}else{
+console.error("layout 必须为绝对地址('/'开始),你的设置为："+this.layout);
+}
+}
+}
+function mergeContentType(thiz,parentConfig){
+var type=thiz.type;
+var encoding = thiz.encoding;
+var contentType = thiz.contentType;
+
+if(contentType!=null){
+console.info("contentType 用于同时指定 type 和charset 属性，如此需求更推荐您采用type和encoding代替")
+var p = contentType.indexOf('charset=');
+if(p>0){
+var charset = contentType.substring(p+8);
+if(encoding){
+if(charset.toUpperCase() != encoding.toUpperCase()){
+console.info('encoding 与 contentType 不一致'+encoding+','+contentType
++"; ");
+}
+}else{
+encoding = charset;
+}
+}
+var contentType0 = contentType.replace(/\s*;.*$/,'');
+if(type){
+if(type.toUpperCase() != contentType0.toUpperCase()){
+console.error('type 与 contentType 不一致'+type+','+contentType0
++';type 设置将被忽略');
+}
+}
+type = contentType0
+}
+
+if(encoding == null){
+encoding = parentConfig && parentConfig.encoding || 'UTF-8';
+}
+if(type == null){
+type = parentConfig && parentConfig.type;
+}
+if(contentType == null){
+if(type){
+contentType = type+";charset="+encoding;
+}
+}else{
+var p = contentType.indexOf('charset=');
+if(p<0){
+contentType +=";charset="+encoding;
+}
+}
+thiz.type = type;
+thiz.encoding = encoding;
+thiz.contentType = contentType;
+}
+function copy(source,dest){
+for(var n in source){
+dest[n] = source[n];
+}
+}
+function margeExtensionMap(parentExtMap,thisExtMap){
+var result = {};
+for(var n in thisExtMap){
+result[n] = [].concat(thisExtMap[n]);
+}
+for(var n in parentExtMap){
+var list = [].concat(parentExtMap[n]);
+var thisExt = result[n] ;
+if(thisExt){
+var i = thisExt.length;
+while(i--){
+appendAfter(list,thisExt[i]);
+}
+}
+result[n] = list;
+}
+return result;
+}
+function appendAfter(ps,p){
+var i = ps.length;
+while(i--){
+if(ps[i] == p){
+ps.splice(i,1)
+}
+}
+ps.push(p);
+}
+function compilePatterns(ps){
+var i = ps.length;
+while(i--){
+ps[i] = buildURIMatcher(ps[i]);
+}
+return ps.join('|')||null;
+}
+if(typeof require == 'function'){
+exports.parseConfig=parseConfig;
+var buildURIMatcher = require(7).buildURIMatcher
+var loadLiteXML = require(8).loadLiteXML;
+var findXMLAttribute=require(8).findXMLAttribute;
+}
+}
 ,
-function(e,r){function n(e){if("string"==typeof e)e=new l(e).getResult();else if(e instanceof n)return e;this.token=e}function t(e){null==e.callMap&&(e.callMap={},e.varMap={},a(e.token,e))}function a(e,r){var n=e[0];if(0>=n)return void(n==B&&i(r.varMap,e[1],""));var t=e[1];if(n==N)if(t[0]==B)i(r.callMap,t[1],"");else if(t[0]==M){var u=s(t,r,[]).reverse(),c=u.slice(1).join(".");""!=u[0]&&("*"!=u[0]&&i(r.varMap,u[0],c),i(r.callMap,u[0],c))}else a(t,r),i(r.callMap,"*","");else if(n==M){var u=s(e,r,[]).reverse(),c=u.slice(1).join(".");""!=u[0]&&"*"!=u[0]&&i(r.varMap,u[0],c)}else t&&a(t,r);var o=_(e[0]);o>2&&a(e[2],r)}function s(e,r,n){var t=e[1],i=e[2];return i[0]==m?n.push(i[1]):(a(i,r),n.push("*")),t[0]==B?n.push(t[1]):t[0]==m?n.push(""):t[0]==M?s(t,r,n):(a(t,r),n.push("*")),n}function i(e,r,n){var t=r in e?e[r]:e[r]=[];return t.indexOf(n)<0&&t.push(n),t}function u(e,r){var n=c(r,e);return p(n)}function c(e,r){var n=e[0];switch(n){case J:return[];case z:return{};case B:return t=e[1],(t in r?r:this)[t];case m:return t=e[1],t&&"RegExp"==t["class"]?window.eval(t.literal):t;case v:return p(c(e[1],r))&&c(e[2],r);case d:return p(c(e[1],r))||c(e[2],r);case D:return p(c(e[1],r))?c(e[2],r):o;case G:return t=p(c(e[1],r)),t==o?c(e[2],r):t}var t=c(e[1],r);if(3==_(n))var a=p(c(e[2],r));if(n==N){if("function"==typeof t)return t.apply(r,a);if(t instanceof o){var s=t[0],i=t[1],u=s[i];if(u==String.prototype.replace||u==String.prototype.match){a=a.slice(0);var f=a[0];f&&"RegExp"==f["class"]&&(a[0]=window.eval(f.source))}return u.apply(s,a)}throw new Error("not a fn!!"+t)}switch(t=p(t),n){case M:return new o(t,a);case R:return!t;case Q:return+t;case k:return-t;case P:return t+a;case j:return t-a;case U:return t*a;case E:return t/a;case A:return t%a;case S:return t>a;case g:return t>=a;case V:return t!=a;case x:return t!==a;case h:return t==a;case T:return t===a;case w:return a>t;case L:return a>=t;case y:return t in a;case I:return t.push(a),t;case C:return t[O(e)]=a,t}}function o(e,r){this[0]=e,this[1]=r}function p(e){return e instanceof o?e[0][e[1]]:e}if(n.prototype.evaluate=function(e){return u(e,this.token)},n.prototype.getVarMap=function(){return t(this),this.varMap},n.prototype.getCallMap=function(){return t(this),this.callMap},n.prototype.toString=function(e){return f(this.token,e)},n.evaluate=u,"function"==typeof r){e.Expression=n;var f=r(28).stringifyJSEL,l=r(29).ExpressionTokenizer,O=r(31).getTokenParam,_=r(31).getTokenParamIndex,P=r(31).OP_ADD,v=r(31).OP_AND,E=r(31).OP_DIV,h=r(31).OP_EQ,T=r(31).OP_EQ_STRICT,M=r(31).OP_GET,S=r(31).OP_GT,g=r(31).OP_GTEQ,y=r(31).OP_IN,N=r(31).OP_INVOKE,I=r(31).OP_JOIN,w=r(31).OP_LT,L=r(31).OP_LTEQ,A=r(31).OP_MOD,U=r(31).OP_MUL,V=r(31).OP_NE,k=r(31).OP_NEG,x=r(31).OP_NE_STRICT,R=r(31).OP_NOT,d=r(31).OP_OR,Q=r(31).OP_POS,C=r(31).OP_PUT,D=r(31).OP_QUESTION,G=r(31).OP_QUESTION_SELECT,j=r(31).OP_SUB,m=r(31).VALUE_CONSTANTS,J=r(31).VALUE_LIST,z=r(31).VALUE_MAP,B=r(31).VALUE_VAR}}
+function(exports,require){if(typeof require == 'function'){
+var Expression=require(17).Expression;
+}
+function OptimizeScope(code,params){
+this.code = code;
+
+this.params = params?params.concat():[];
+
+this.vars = [];
+
+this.calls = [];
+
+this.refs = [];
+
+this.externalRefs = [];
+
+this.fors = [];
+
+this.defs = [];
+this.defMap = {};
+this.paramMap = listMap(this.params,{});
+this.varMap = {}
+this._forStack = [];
+vistLite(this,this.code = code);
+delete this._forStack;
+this.callMap =listMap(this.calls, {});
+this.refMap =listMap(this.refs, {});
+this.externalRefMap =listMap(this.externalRefs, {});
+}
+function listMap(list,map){
+var i = list.length;
+while(i--){
+var n = list[i];
+if(n in map){
+map[n]+=1;
+}else{
+map[n] = 1;
+}
+}
+return map;
+}
+function ForStatus(code){
+this.code = code;
+this.index;
+this.lastIndex;
+this.ref;
+this.depth
+
+}
+function vistDef(context,item){
+var config = item[2];
+var params = config.params;
+var defaults = config.defaults;
+
+var def = item[-1]||new OptimizeScope(item[1],params);
+def.name = config.name;
+def.defaults = config.defaults;
+context.fors = context.fors.concat(def.fors)
+context.defs.push(def.name);
+context.defMap[def.name] = def;
+def.defs = context.defs;
+def.defMap = context.defMap;
+}
+function vistLite(context,code){
+if(code == null){
+return null;
+}
+for(var i=0;i<code.length;i++){
+var item = code[i];
+if(item instanceof Array){
+var type = item[0];
+
+switch (type) {
+case VAR_TYPE:
+case EL_TYPE:
+case XA_TYPE:
+case XT_TYPE:
+walkEL(context, item[1]);
+break;
+case IF_TYPE:
+case ELSE_TYPE:
+case FOR_TYPE:
+walkEL(context, item[2]);
+break;
+
+
+
+
+}
+
+switch (type) {
+case PLUGIN_TYPE:
+var className = item[2]['class'];
+if(className == 'org.xidea.lite.DefinePlugin'){
+vistDef(context,item);
+}else if(className == 'org.xidea.lite.parse.ClientPlugin'){
+
+}else if(className == 'org.xidea.lite.EncodePlugin' 
+||className =='org.xidea.lite.DatePlugin'
+||className =='org.xidea.lite.ModulePlugin'){
+vistLite(context,item[1]);
+}else{
+console.info('unknow plugin',item[2])
+}
+break;
+case CAPTURE_TYPE:
+case IF_TYPE:
+case ELSE_TYPE:
+vistLite(context,item[1]);
+break;
+case FOR_TYPE:
+enterFor(context,item);
+addVar(context,item[3]);
+vistLite(context,item[1]);
+exitFor(context);
+break;
+
+
+
+
+}
+
+switch(type){
+case CAPTURE_TYPE:
+case VAR_TYPE:
+addVar(context,item[2]);
+addVar(context,item[2]);
+}
+}
+}
+}
+function enterFor(context,forCode){
+var fs = new ForStatus(forCode);
+fs.depth = context._forStack.length;
+context.fors.push(fs)
+context._forStack.push(fs)
+}
+function exitFor(context){
+context._forStack.pop()
+}
+function addVar(context,n){
+context.vars.push(n);
+var map = context.varMap;
+if(n in map){
+map[n]+=1;
+}else{
+map[n] = 1;
+}
+}
+
+function walkEL(thiz,el){
+if(el == null){
+return;
+}
+var varMap = new Expression(el).getVarMap();
+
+for(var varName in varMap){
+var list = varMap[varName];
+var len = list.length;
+if(varName == 'for'){
+
+for(var i =0;i<len;i++){
+var p = list[i];
+if(p == ''){
+setForStatus(thiz,'*');
+}else if(p == 'index' || p == 'lastIndex'){
+setForStatus(thiz,p);
+}else{
+console.error('for 不能有index，lastIndex 之外的其他属性');
+setForStatus(thiz,'*');
+}
+}
+}else{
+if(!(varName in thiz.varMap || varName in thiz.paramMap)){
+thiz.externalRefs.push(varName);
+}
+thiz.refs.push(varName);
+}
+}
+var callMap = new Expression(el).getCallMap();
+for(var callName in callMap){
+var list = callMap[callName];
+var len = list.length;
+for(var i =0;i<len;i++){
+if(varName in thiz.varMap 
+
+|| varName in thiz.paramMap
+){
+thiz.calls.push('*');
+}else if(varName){
+thiz.calls.push(varName);
+}
+}
+}
+}
+function setForStatus(thiz,attrName){
+var fs = thiz._forStack[thiz._forStack.length-1];
+if(fs){
+if(attrName == 'index'){fs.index =true;}
+else if(attrName == 'lastIndex'){fs.lastIndex =true;}
+else if(attrName == '*'){fs.ref = true;}
+else{throw new Error("for不支持属性:"+attrName);}
+}else{
+throw new Error("for 变量不能在循环外使用:for."+attrName);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(typeof require == 'function'){
+exports.OptimizeScope=OptimizeScope;
+var VAR_TYPE=require(14).VAR_TYPE;
+var XA_TYPE=require(14).XA_TYPE;
+var ELSE_TYPE=require(14).ELSE_TYPE;
+var PLUGIN_TYPE=require(14).PLUGIN_TYPE;
+var CAPTURE_TYPE=require(14).CAPTURE_TYPE;
+var IF_TYPE=require(14).IF_TYPE;
+var EL_TYPE=require(14).EL_TYPE;
+var BREAK_TYPE=require(14).BREAK_TYPE;
+var XT_TYPE=require(14).XT_TYPE;
+var FOR_TYPE=require(14).FOR_TYPE;
+}
+}
 ,
-function(e,r){function n(e,r){W[e]=r,Z[r]=e}function t(e){return Z[e]}function a(e){return W[e]}function c(e){switch(e){case N:case I:case z:return!0;default:return!1}}function s(e){return e[_(e[0])]}function u(e){var r=_(e);return c(e)?r+1:r}function _(e){if(0>e)return 1;var r=(e&E)>>6;return r+2}function P(e){var r=e&re||e&ne||e&te,n=e&ae||e&ce||e&se;return n?r?null:!1:!0}function O(e,r){var n=i(e),t=i(r),a=P(n),c=P(t);return a===!1||c===!1?ae:a===!0&&c===!0?te:te|ae}function i(e){var r=e[0];if(r>0){var n=e[1],t=e[2];switch(r){case q:return ce;case z:return se;case h:return O(n,t);case U:case L:case Y:case B:case g:case p:case H:case J:case j:case v:return te;case l:case Q:case V:case m:case C:case G:case w:case x:case b:return ne;case K:case F:return i(n)|i(t);case S:if(t[0]==I)if(n[0]==N&&"for"==n[1]){if("index"==t[1]||"lastIndex"==t[1])return te}else if("length"==t[1]){var a=i(n);return a&se?ue:a&ce||a&ae?a&ae||a&ne||a&te?re|te:te:re}return ue;case d:if(n[0]==N)switch(n[1]){case"encodeURI":case"encodeURIComponent":case"decodeURI":case"decodeURIComponent":return ae;case"parseInt":case"parseInt":return te;case"isFinite":case"isNaN":return ne}else if(n[0]==S&&(t=n[2],n=n[1],t[0]==I)){var c=t[1];if(n[0]==N){var s=n[1];if("JSON"==s){if("stringify"==c)return ae}else if("Math"==s)return te}}return ue;default:return ue}}else switch(r){case I:var u=e[1];if(null==u)return re;switch(typeof u){case"boolean":return ne;case"number":return te;case"string":return ae;case"object":return u instanceof Array?ce:se}return ue;case N:return ue;case R:return ce;case A:return se;default:return ue}}function T(e,r,n,t){var a=_e(e[0]),c=_e(r[0]);return n?(a>c&&(n="("+n+")"),n):(t&&a>=c&&(t="("+t+")"),t)}var f=60,o=3840,E=192,I=-1,N=-2,R=-3,A=-4,S=96,d=97,l=28,v=29,U=30,L=31,Y=88,B=89,g=90,h=84,p=85,k=80,y=81,M=82,Q=332,V=333,m=334,C=335,D=4428,G=76,w=77,x=78,b=79,H=1096,J=840,j=584,K=328,F=72,X=68,$=69,q=64,z=65,W={},Z={};n(I,"value"),n(N,"var"),n(R,"[]"),n(A,"{}"),n(S,"."),n(d,"()"),n(l,"!"),n(v,"~"),n(U,"+"),n(L,"-"),n(Y,"*"),n(B,"/"),n(g,"%"),n(h,"+"),n(p,"-"),n(k,"<<"),n(y,">>"),n(M,">>>"),n(Q,"<"),n(V,">"),n(m,"<="),n(C,">="),n(D," in "),n(G,"=="),n(w,"!="),n(x,"==="),n(b,"!=="),n(H,"&"),n(J,"^"),n(j,"|"),n(K,"&&"),n(F,"||"),n(X,"?"),n($,":"),n(q,","),n(z,":");var ee=0,re=1<<ee++,ne=1<<ee++,te=1<<ee++,ae=1<<ee++,ce=1<<ee++,se=1<<ee++,ue=(1<<ee++)-1;if("function"==typeof r){e.getTokenParam=s,e.hasTokenParam=c,e.getTokenParamIndex=_,e.getTokenLength=u,e.findTokenType=t,e.findTokenText=a,e.getELType=i,e.addELQute=T,e.BIT_ARGS=E,e.BIT_PRIORITY=f,e.BIT_PRIORITY_SUB=o,e.OP_ADD=h,e.OP_AND=K,e.OP_BIT_AND=H,e.OP_BIT_NOT=v,e.OP_BIT_OR=j,e.OP_BIT_XOR=J,e.OP_DIV=B,e.OP_EQ=G,e.OP_EQ_STRICT=x,e.OP_GET=S,e.OP_GT=V,e.OP_GTEQ=C,e.OP_IN=D,e.OP_INVOKE=d,e.OP_JOIN=q,e.OP_LSH=k,e.OP_LT=Q,e.OP_LTEQ=m,e.OP_MOD=g,e.OP_MUL=Y,e.OP_NE=w,e.OP_NEG=L,e.OP_NE_STRICT=b,e.OP_NOT=l,e.OP_OR=F,e.OP_POS=U,e.OP_PUT=z,e.OP_QUESTION=X,e.OP_QUESTION_SELECT=$,e.OP_RSH=y,e.OP_SUB=p,e.OP_URSH=M,e.TYPE_ANY=ue,e.TYPE_ARRAY=ce,e.TYPE_BOOLEAN=ne,e.TYPE_MAP=se,e.TYPE_NULL=re,e.TYPE_NUMBER=te,e.TYPE_STRING=ae,e.TYPE_TOKEN_MAP=W,e.VALUE_CONSTANTS=I,e.VALUE_LIST=R,e.VALUE_MAP=A,e.VALUE_VAR=N;var _e=(r(30).evaluate,r(29).getPriority)}}
+function(exports,require){
+
+var ID_PATTERN_QUTE = /^"[a-zA-Z_\$][_\$\w]*"$/;
+var NUMBER_CALL = /^(\d+)(\.\w+)$/;
+var PRESERVED = /^(break|case|catch|continue|default|delete|do|else|finally|for|function|if|in|instanceof|new|return|switch|throw|try|typeof|var|void|while|with|class|const|debugger|enum|export|extends|import|super)$/
+var defaultContext = {
+getForName:String,
+findForAttribute:function(varName,propertyName){},
+genGetCode:function(owner,property){
+if(ID_PATTERN_QUTE.test(property)){
+return owner+'.'+property.slice(1,-1);
+}else{
+return owner+'['+property+']';
+}
+}
+}
+
+function stringifyJSEL(el,context){
+var type = el[0];
+if(type<=0){
+return stringifyValue(el,context)
+}else if(getTokenParamIndex(type) ==3){
+return stringifyInfix(el,context);
+}else{
+return stringifyPrefix(el,context);
+}
+}
+
+function stringifyValue(el,context){
+var param = el[1];
+switch(el[0]){
+case VALUE_CONSTANTS:
+return (param && param['class']=='RegExp' && param.literal) || JSON.stringify(param);
+case VALUE_VAR:
+
+if(param == 'for'){
+var f = context.getForName();
+if(f){
+param = f;
+}
+
+
+}else{
+}
+return context.getVarName(param) ;
+case VALUE_LIST:
+return "[]";
+case VALUE_MAP:
+return "{}";
+}
+}
+function stringifyGetter(context,el){
+var el1 = el[1];
+var el2 = el[2];
+if(el2[0] == VALUE_CONSTANTS && el1[0] == VALUE_VAR){
+var varName = getTokenParam(el1)
+var propertyName = getTokenParam(el2)
+if(typeof propertyName == 'string'){
+var forAttr = context.findForAttribute(varName,propertyName);
+if(forAttr){
+return forAttr;
+}
+}
+}
+var value1 = stringifyJSEL(el1,context);
+var value2 = stringifyJSEL(el2,context);
+
+
+
+value1 = addELQute(el,el1,value1)
+return context.genGetCode(value1,value2);
+}
+function stringifyPropertyCall(context,propertyEL,callArguments){
+var value1 = stringifyGetter(context,propertyEL);
+var value2 = stringifyJSEL(callArguments,context);
+if(value1.match(/\)$/)){
+
+return value1.slice(0,-1)+','+value2+')'
+}else{
+value1 = value1.replace(NUMBER_CALL,'($1)$2')
+return value1+"("+value2.slice(1,-1)+')';
+}
+}
+
+function stringifyInfix(el,context){
+var type = el[0];
+var el1 = el[1];
+var el2 = el[2];
+if(type == OP_GET){
+return stringifyGetter(context,el);
+}else if(type == OP_INVOKE && el1[0] == OP_GET){
+return stringifyPropertyCall(context,el1,el2);
+}
+var opc = findTokenText(el[0]);
+var value1 = stringifyJSEL(el1,context);
+var value2 = stringifyJSEL(el2,context);
+
+switch(type){
+case OP_INVOKE:
+value2 = value2.slice(1,-1);
+value1 = value1.replace(NUMBER_CALL,'($1)$2')
+return value1+"("+value2+')';
+
+case OP_JOIN:
+if("[]"==value1){
+return "["+value2+"]"
+}else{
+return value1.slice(0,-1)+','+value2+"]"
+}
+case OP_PUT:
+value2 = JSON.stringify(getTokenParam(el))+":"+value2+"}";
+if("{}"==value1){
+return "{"+value2
+}else{
+return value1.slice(0,-1)+','+value2
+}
+case OP_QUESTION:
+
+
+
+
+
+return null;
+case OP_QUESTION_SELECT:
+
+
+var test = stringifyJSEL(el1[1],context);
+var value1 = stringifyJSEL(el1[2],context);
+return test+'?'+value1+":"+value2;
+}
+value1 = addELQute(el,el1,value1)
+value2 = addELQute(el,el2,null,value2)
+return value1 + opc + value2;
+}
+
+function stringifyPrefix(el,context){
+var type = el[0];
+var el1 = el[1];
+var value = stringifyJSEL(el1,context);
+var param = getTokenParam(el);
+value = addELQute(el,el1,null,value)
+var opc = findTokenText(type);
+return opc+value;
+}
+if(typeof require == 'function'){
+exports.stringifyJSEL=stringifyJSEL;
+var getTokenParam=require(33).getTokenParam;
+var getTokenParamIndex=require(33).getTokenParamIndex;
+var findTokenText=require(33).findTokenText;
+var addELQute=require(33).addELQute;
+var OP_GET=require(33).OP_GET;
+var OP_IN=require(33).OP_IN;
+var OP_INVOKE=require(33).OP_INVOKE;
+var OP_JOIN=require(33).OP_JOIN;
+var OP_PUT=require(33).OP_PUT;
+var OP_QUESTION=require(33).OP_QUESTION;
+var OP_QUESTION_SELECT=require(33).OP_QUESTION_SELECT;
+var VALUE_CONSTANTS=require(33).VALUE_CONSTANTS;
+var VALUE_LIST=require(33).VALUE_LIST;
+var VALUE_MAP=require(33).VALUE_MAP;
+var VALUE_VAR=require(33).VALUE_VAR;
+}
+}
 ,
-function(t,s){function e(t){var s=this.eval(t);return s instanceof RegExp&&(s={"class":"RegExp",literal:t+""}),s}function a(t,s){for(var e,a=0;e=t.charAt(s++);)if("["==e)a=1;else if("]"==e)a=0;else if("\\"==e)s++;else if(0==a&&"/"==e)for(;e=t.charAt(s++);)switch(e){case"g":case"i":case"m":break;default:return s-1}}function i(t){this.value=t.replace(/^\s+|\s+$/g,""),this.start=0,this.end=this.value.length,this.status=v,this.previousType=v,this.tokens=[],this.parseEL(),r(this.tokens),this.expression=n(c(o(this.tokens)))}function r(t){for(var s=t.length;s--;){var e=t[s][0];if(e==V){var a=h(t,s,-1,-1);t.splice(a+1,0,[k]),s++}else if(e==j){var i=t.length,a=h(t,s,1,i);t.splice(a,0,[p])}}}function h(t,s,e,a){for(var i=0;(s+=e)!=a;){var r=t[s][0];if(r>0){if(r==k)i+=e;else if(r==p)i-=e;else if(0==i&&d(r)<=d(V))return s;if(0>i)return s}}return e>0?a:-1}function n(t){for(var s=[],e=0;e<t.length;e++){var a=t[e],i=a[0];switch(i){case B:case $:case z:case J:s.push(a);break;default:if(3==_(i))var r=s.pop(),h=s.pop(),n=[i,h,r];else var h=s.pop(),n=[i,h];P(i)&&(n[_(i)]=a[1]),s.push(n)}}return s[0]}function o(t){for(var s=[[]],e=[],a=0;a<t.length;a++){var i=t[a];if(i[0]>0)if(0==e.length)e.push(i);else if(i[0]==k)e.push(i);else if(i[0]==p)for(;;){var r=e.pop();if(r[0]==k)break;u(s,r)}else{for(;0!=e.length&&f(i[0],e[e.length-1][0]);){var r=e.pop();u(s,r)}e.push(i)}else u(s,i)}for(;0!=e.length;){var r=e.pop();u(s,r)}return s[s.length-1]}function c(t){for(var s=0;s<t.length;s++){var e=t[s];e.length=A(e[0])}return t}function u(t,s){var e=t[t.length-1];e.push(s)}function d(t){switch(t){case k:case p:return Math.MIN_VALUE;default:return(t&I)<<4|(t&w)>>8}}function f(t,s){var e=d(s),a=d(t);return e>=a}if("function"==typeof s)var l=s(39).JSONTokenizer;var k=65534,p=65535,v=-100,T=-101,O=-102,b={getResult:function(){return this.expression},parseEL:function(){for(this.skipSpace(0);this.start<this.end;){var t=this.value.charAt(this.start);if('"'==t||"'"==t){var s=this.findString();this.addKeyOrObject(s,!1)}else if(t>="0"&&"9">=t){var e=this.findNumber();this.addKeyOrObject(e,!1)}else if(/[\w$_]/.test(t)){var a=this.findId();switch(a){case"true":this.addToken([B,!0]);break;case"false":this.addToken([B,!1]);break;case"null":this.addToken([B,null]);break;default:this.skipSpace(0),this.previousType==M?this.addToken([B,a]):this.addKeyOrObject(a,!0)}}else{var i=this.findOperator();this.parseOperator(i),null==i&&this.parseError("未知操作符:")}this.skipSpace(0)}},parseError:function(t){throw t=t+"\n@"+this.start+"\n"+this.value.substring(this.start)+"\n----\n"+this.value,console.error(t),new Error(t)},findOperator:function(){var t=this.value.charAt(this.start),s=this.start+1,e=this.value.charAt(s);switch(t){case",":case":":case"[":case"]":case"{":case"}":case"(":case")":case".":case"?":case"~":case"^":break;case"+":case"-":case"*":case"/":case"%":"="==e?this.parseError("不支持赋值操作:"):e==t&&this.parseError("不支持自增自减操作:");break;case"=":"="==e?(s++,"="==this.value.charAt(s)&&s++):this.parseError("不支持赋值操作:");break;case"!":"="==e&&(s++,"="==this.value.charAt(s)&&s++);break;case">":case"<":"="==e?s++:e==t&&this.value.charAt(s)==t&&s++;break;case"&":case"|":t==e&&s++;break;default:return null}return this.value.substring(this.start,this.start=s)},isMapMethod:function(){for(var t=this.tokens.length-1,s=0;t>=0;t--){var e=this.tokens[t],a=e[0];if(0==s){if(a==R||a==J)return!0;if(a==x)return!1}a==k?s--:a==p&&s++}return!1},parseOperator:function(t){if(1==t.length)switch(t.charAt(0)){case"(":this.status==T?(this.addToken([N]),this.skipSpace(")")?(this.addToken([B,[]]),this.start++):this.addList()):this.addToken([k]);break;case"[":this.status==T?(this.addToken([M]),this.addToken([k])):this.addList();break;case"{":this.addMap();break;case"}":case"]":case")":this.addToken([p]);break;case"+":this.addToken([this.status==T?L:m]);break;case"-":this.addToken([this.status==T?K:U]);break;case":":this.addToken([j]);break;case",":this.isMapMethod()?this.status=O:this.addToken([x]);break;case"/":var s=this.value.charAt(this.start);if("/"==s){var i=this.value.indexOf("\n",this.start),r=this.value.indexOf("\r",this.start),h=Math.min(i,r);0>h&&(h=Math.max(i,r)),h>0?this.start=h:this.start=this.end;break}if("*"==s){var h=this.value.indexOf("*/",this.start);if(!(h>0))throw new Error("未結束注釋:"+this.value+"@"+this.start);this.start=h+2;break}if(this.status!=T){var n=a(this.value,this.start);if(n>0){this.addToken([B,e(this.value.substring(this.start-1,n))]),this.start=n;break}throw new Error("异常正则:"+this.value+"@"+this.start)}default:this.addToken([S(t)])}else this.addToken([S(t)])},addToken:function(t){var s=t[0];switch(s==$&&"in"==t[1]&&(t[0]=s=y),s){case k:this.status=v;break;case B:case $:case p:this.status=T;break;default:this.status=O}this.previousType=s,this.tokens.push(t)},addKeyOrObject:function(t,s){this.skipSpace(":")&&this.isMapMethod()?(this.addToken([R,t]),this.start++):s?this.addToken([$,t]):this.addToken([B,t])},addList:function(){this.addToken([k]),this.addToken([z]),this.skipSpace("]")||this.addToken([x])},addMap:function(){this.addToken([k]),this.addToken([J])}},g=new l("");for(var E in b)g[E]=b[E];if(i.prototype=g,"function"==typeof s){t.getPriority=d,t.ExpressionTokenizer=i;var P=s(31).hasTokenParam,P=(s(31).getTokenParam,s(31).hasTokenParam),_=s(31).getTokenParamIndex,A=s(31).getTokenLength,S=s(31).findTokenType,I=s(31).BIT_PRIORITY,w=s(31).BIT_PRIORITY_SUB,L=s(31).OP_ADD,M=s(31).OP_GET,y=s(31).OP_IN,N=s(31).OP_INVOKE,x=s(31).OP_JOIN,U=(s(31).OP_NE,s(31).OP_NEG),m=s(31).OP_POS,R=s(31).OP_PUT,V=s(31).OP_QUESTION,j=s(31).OP_QUESTION_SELECT,K=s(31).OP_SUB,B=s(31).VALUE_CONSTANTS,z=s(31).VALUE_LIST,J=s(31).VALUE_MAP,$=s(31).VALUE_VAR}}
+function(exports,require){if(typeof require == 'function'){
+var JSONTokenizer=require(41).JSONTokenizer;
+}
+
+var BRACKET_BEGIN = 0xFFFE;
+var BRACKET_END = 0xFFFF;
+var STATUS_BEGIN = -100;
+var STATUS_EXPRESSION = -101;
+var STATUS_OPERATOR = -102;
+var fns = {
+getResult :function() {
+return this.expression;
+
+},
+parseEL :function() {
+this.skipSpace(0);
+while (this.start < this.end) {
+var c = this.value.charAt(this.start);
+if (c == '"' || c == '\'') {
+var text = this.findString();
+this.addKeyOrObject(text, false);
+} else if (c >= '0' && c <= '9') {
+var number = this.findNumber();
+this.addKeyOrObject(number, false);
+} else if (/[\w$_]/.test(c)) {
+var id = this.findId();
+switch(id){
+case 'true':
+this.addToken([VALUE_CONSTANTS,true]);
+break;
+case 'false':
+this.addToken([VALUE_CONSTANTS,false]);
+break;
+case 'null':
+this.addToken([VALUE_CONSTANTS,null]);
+break;
+
+
+
+default:
+this.skipSpace(0);
+if (this.previousType == OP_GET) {
+this.addToken([VALUE_CONSTANTS,
+id]);
+} else {
+this.addKeyOrObject(id, true);
+}
+}
+} else {
+var op = this.findOperator();
+
+if( c=='.' && /\d/.test(this.value.charAt(this.start))){
+var number = this.value.substr(this.start-1).match(/^\.\d+/)[0];
+this.start+=number.length-1;
+this.addKeyOrObject(1*number, false);
+}else{
+
+this.parseOperator(op);
+if (op == null) {
+this.parseError("未知操作符:");
+}
+}
+}
+this.skipSpace(0);
+}
+},
+parseError:function(msg){
+msg = msg+"\n@"+ this.start + "\n"
++ this.value.substring(this.start)+"\n----\n"+this.value
+console.error(msg);
+throw new Error(msg);
+},
+findOperator :function() {
+var c = this.value.charAt(this.start);
+var end = this.start+1;
+var next = this.value.charAt(end);
+switch (c) {
+case ',':
+case ':':
+case '[':
+case ']':
+case '{':
+case '}':
+case '(':
+case ')':
+case '.':
+case '?':
+case '~':
+case '^':
+break;
+case '+':
+case '-':
+case '*':
+case '/':
+case '%':
+if(next == '=' ){
+this.parseError("不支持赋值操作:");
+}else if(next == c){
+this.parseError("不支持自增自减操作:");
+}
+break;
+case '=':
+if(next == '='){
+end++;
+if(this.value.charAt(end) == '='){
+end++;
+}
+}else{
+this.parseError("不支持赋值操作:");
+}
+break;
+case '!':
+if(next == '='){
+end++;
+if(this.value.charAt(end) == '='){
+end++;
+}
+}
+break;
+case '>':
+case '<':
+if (next == '=') {
+end++;
+}else if(next == c){
+if(this.value.charAt(end) == c){
+end++;
+}
+}
+break;
+case '&':
+case '|':
+if( (c == next)){
+end++;
+}
+break;
+default:
+return null;
+}
+return this.value.substring(this.start, this.start = end);
+},
+
+isMapMethod :function() {
+var i = this.tokens.length - 1;
+var depth = 0;
+for (; i >= 0; i--) {
+var token = this.tokens[i];
+var type = token[0];
+if (depth == 0) {
+if (type == OP_PUT
+|| type == VALUE_MAP) {
+
+
+return true;
+} else if (type == OP_JOIN) {
+
+
+return false;
+}
+}
+if (type == BRACKET_BEGIN) {
+depth--;
+} else if (type == BRACKET_END) {
+depth++;
+}
+}
+return false;
+},
+parseOperator :function(op) {
+if (op.length == 1) {
+switch (op.charAt(0)) {
+case '(':
+if (this.status == STATUS_EXPRESSION) {
+this.addToken([OP_INVOKE]);
+if (this.skipSpace(')')) {
+this.addToken([VALUE_CONSTANTS,
+[]]);
+this.start++;
+} else {
+this.addList();
+}
+} else {
+this.addToken([BRACKET_BEGIN]);
+}
+break;
+case '[':
+if (this.status == STATUS_EXPRESSION) {
+this.addToken([OP_GET]);
+this.addToken([BRACKET_BEGIN]);
+}else {
+this.addList();
+}
+break;
+case '{':
+this.addMap();
+break;
+case '}':
+case ']':
+case ')':
+this.addToken([BRACKET_END]);
+break;
+case '+':
+this.addToken([
+this.status == STATUS_EXPRESSION ? OP_ADD : OP_POS]);
+break;
+case '-':
+this.addToken([
+this.status == STATUS_EXPRESSION ? OP_SUB
+: OP_NEG]);
+break;
+case ':':
+this.addToken([OP_QUESTION_SELECT]);
+break;
+case ',':
+
+if (this.isMapMethod()) {
+this.status = STATUS_OPERATOR;
+}else{
+this.addToken([OP_JOIN]);
+}
+break;
+case '/':
+var next = this.value.charAt(this.start);
+if (next == '/') {
+var end1 = this.value.indexOf('\n', this.start);
+var end2 = this.value.indexOf('\r', this.start);
+var cend = Math.min(end1, end2);
+if (cend < 0) {
+cend = Math.max(end1, end2);
+}
+if (cend > 0) {
+this.start = cend;
+} else {
+this.start = this.end;
+}
+break;
+} else if (next == '*') {
+var cend = this.value.indexOf("*/", this.start);
+if (cend > 0) {
+this.start = cend + 2;
+} else {
+throw new Error("未結束注釋:" + this.value
++ "@" + this.start);
+}
+break;
+}else if(this.status != STATUS_EXPRESSION){
+var end = findRegExp(this.value,this.start);
+if(end>0){
+this.addToken([VALUE_CONSTANTS,
+toValue(
+this.value.substring(this.start-1,end))]);
+this.start = end;
+break;
+}else{
+throw new Error("异常正则:"+this.value+'@'+this.start)
+}
+
+
+}
+default:
+this.addToken([findTokenType(op)]);
+}
+} else {
+this.addToken([findTokenType(op)]);
+}
+},
+addToken :function(token) {
+var type= token[0];
+if(type == VALUE_VAR){
+if("in" == token[1]){
+token[0] = type = OP_IN;
+}
+}
+switch (type) {
+case BRACKET_BEGIN:
+this.status = STATUS_BEGIN;
+break;
+case VALUE_CONSTANTS:
+case VALUE_VAR:
+case BRACKET_END:
+this.status = STATUS_EXPRESSION;
+break;
+default:
+this.status = STATUS_OPERATOR;
+break;
+}
+
+this.previousType = type;
+this.tokens.push(token);
+},
+addKeyOrObject :function(object, isVar) {
+if (this.skipSpace(':') && this.isMapMethod()) {
+this.addToken([OP_PUT, object]);
+this.start++;
+} else if (isVar) {
+this.addToken([VALUE_VAR, object]);
+} else {
+this.addToken([VALUE_CONSTANTS, object]);
+}
+},
+addList :function() {
+this.addToken([BRACKET_BEGIN]);
+this.addToken([VALUE_LIST]);
+if (!this.skipSpace(']')) {
+this.addToken([OP_JOIN]);
+}
+},
+addMap :function() {
+this.addToken([BRACKET_BEGIN]);
+this.addToken([VALUE_MAP]);
+}
+};
+var pt = new JSONTokenizer('');
+for(var n in fns){
+pt[n] = fns[n]
+}
+function toValue(s){
+var v= this.eval(s);
+if(v instanceof RegExp){
+v = {
+"class":"RegExp",
+'literal':s+''
+}
+}
+return v;
+}
+function findRegExp(text,start){
+var depth=0,c;
+while(c = text.charAt(start++)){
+if(c=='['){
+depth = 1;
+}else if(c==']'){
+depth = 0;
+}else if (c == '\\') {
+start++;
+}else if(depth == 0 && c == '/'){
+while(c = text.charAt(start++)){
+switch(c){
+case 'g':
+case 'i':
+case 'm':
+break;
+default:
+return start-1;
+}
+}
+}
+}
+}
+
+function ExpressionTokenizer(value){
+this.value = value.replace(/^\s+|\s+$/g,'');
+this.start = 0;
+this.end = this.value.length;
+this.status = STATUS_BEGIN;
+this.previousType = STATUS_BEGIN;
+this.tokens = [];
+this.parseEL();
+prepareSelect(this.tokens)
+this.expression = buildTree(trimToken(right(this.tokens)));
+}
+function prepareSelect(tokens) {
+var p1 = tokens.length;
+while (p1--) {
+var type1 = tokens[p1][0];
+if (type1 == OP_QUESTION) { 
+var pos = getSelectRange(tokens,p1, -1, -1);
+tokens.splice(pos+1,0, [BRACKET_BEGIN]);
+p1++;
+} else if (type1 == OP_QUESTION_SELECT) {
+var end = tokens.length;
+var pos = getSelectRange(tokens,p1, 1, end);
+tokens.splice(pos,0, [BRACKET_END]);
+}
+}
+}
+function getSelectRange(tokens,p2, inc, end) {
+var dep = 0;
+while ((p2 += inc) != end) {
+var type2 = tokens[p2][0];
+if (type2 > 0) {
+if (type2 == BRACKET_BEGIN) {
+dep += inc;
+} else if (type2 == BRACKET_END) {
+dep -= inc;
+} else if (dep == 0 && getPriority(type2) <= getPriority(OP_QUESTION)) {
+return p2;
+}
+if (dep < 0) {
+return p2;
+}
+}
+}
+return inc > 0 ? end : -1;
+}
+function buildTree(tokens){
+var stack = [];
+for(var i=0;i<tokens.length;i++){
+var item = tokens[i]
+var type = item[0];
+switch(type){
+case VALUE_CONSTANTS:
+case VALUE_VAR:
+case VALUE_LIST:
+case VALUE_MAP:
+stack.push(item);
+break;
+default:
+if(getTokenParamIndex(type) ==3){
+var arg2 = stack.pop();
+var arg1 = stack.pop();
+var el = [type,arg1,arg2]
+}else{
+var arg1 = stack.pop();
+var el = [type,arg1]
+}
+if(hasTokenParam(type)){
+el[getTokenParamIndex(type)] = item[1];
+}
+stack.push(el)
+}
+}
+return stack[0];
+}
+ExpressionTokenizer.prototype = pt;
+
+function right(tokens) {
+var rightStack = [[]];
+var buffer = [];
+for (var i = 0;i<tokens.length;i++) {
+var item = tokens[i];
+if (item[0] > 0) {
+if (buffer.length == 0) {
+buffer.push(item);
+} else if (item[0] == BRACKET_BEGIN) {
+buffer.push(item);
+} else if (item[0] == BRACKET_END) {
+while (true) {
+var operator = buffer.pop();
+if (operator[0] == BRACKET_BEGIN) {
+break;
+}
+addRightToken(rightStack, operator);
+}
+} else {
+while (buffer.length!=0
+&& rightEnd(item[0], buffer[buffer.length-1][0])) {
+var operator = buffer.pop();
+
+
+addRightToken(rightStack, operator);
+}
+buffer.push(item);
+}
+} else {
+addRightToken(rightStack, item);
+}
+}
+while (buffer.length !=0) {
+var operator = buffer.pop();
+addRightToken(rightStack, operator);
+}
+return rightStack[rightStack.length-1];
+}
+function trimToken(tokens){
+for(var i=0;i<tokens.length;i++){
+var token = tokens[i];
+token.length = getTokenLength(token[0]);
+}
+return tokens;
+}
+function addRightToken(rightStack,
+token) {
+var list = rightStack[rightStack.length-1];
+
+
+
+
+
+
+
+
+
+
+list.push(token);
+}
+function getPriority(type) {
+switch (type) {
+case BRACKET_BEGIN:
+case BRACKET_END:
+return Math.MIN_VALUE;
+default:
+return (type & BIT_PRIORITY)<<4 | (type & BIT_PRIORITY_SUB)>>8;
+}
+}
+
+function rightEnd(currentType, priviousType) {
+var priviousPriority = getPriority(priviousType);
+var currentPriority = getPriority(currentType);
+return currentPriority <= priviousPriority;
+}
+if(typeof require == 'function'){
+exports.getPriority=getPriority;
+exports.ExpressionTokenizer=ExpressionTokenizer;
+var hasTokenParam=require(33).hasTokenParam;
+var getTokenParam=require(33).getTokenParam;
+var hasTokenParam=require(33).hasTokenParam;
+var getTokenParamIndex=require(33).getTokenParamIndex;
+var getTokenLength=require(33).getTokenLength;
+var findTokenType=require(33).findTokenType;
+var BIT_PRIORITY=require(33).BIT_PRIORITY;
+var BIT_PRIORITY_SUB=require(33).BIT_PRIORITY_SUB;
+var OP_ADD=require(33).OP_ADD;
+var OP_GET=require(33).OP_GET;
+var OP_IN=require(33).OP_IN;
+var OP_INVOKE=require(33).OP_INVOKE;
+var OP_JOIN=require(33).OP_JOIN;
+var OP_NE=require(33).OP_NE;
+var OP_NEG=require(33).OP_NEG;
+var OP_POS=require(33).OP_POS;
+var OP_PUT=require(33).OP_PUT;
+var OP_QUESTION=require(33).OP_QUESTION;
+var OP_QUESTION_SELECT=require(33).OP_QUESTION_SELECT;
+var OP_SUB=require(33).OP_SUB;
+var VALUE_CONSTANTS=require(33).VALUE_CONSTANTS;
+var VALUE_LIST=require(33).VALUE_LIST;
+var VALUE_MAP=require(33).VALUE_MAP;
+var VALUE_VAR=require(33).VALUE_VAR;
+}
+}
 ,
-function(r,e,n){console.log("read module err!!!nwmatcher/src/nwmatcher\nError: ENOENT: no such file or directory, open '/Users/jinjinyun/node_modules/nwmatcher/src/nwmatcher'")}
+function(exports,require){
+var BIT_PRIORITY= 60;
+var BIT_PRIORITY_SUB= 3840;
+var BIT_ARGS= 192;
+var POS_INC= 12;
+var VALUE_CONSTANTS= -1;
+var VALUE_VAR= -2;
+var VALUE_LIST= -3;
+var VALUE_MAP= -4;
+var OP_GET= 96;
+var OP_INVOKE= 97;
+var OP_NOT= 28;
+var OP_BIT_NOT= 29;
+var OP_POS= 30;
+var OP_NEG= 31;
+var OP_MUL= 88;
+var OP_DIV= 89;
+var OP_MOD= 90;
+var OP_ADD= 84;
+var OP_SUB= 85;
+var OP_LSH= 80;
+var OP_RSH= 81;
+var OP_URSH= 82;
+var OP_LT= 332;
+var OP_GT= 333;
+var OP_LTEQ= 334;
+var OP_GTEQ= 335;
+var OP_IN= 4428;
+var OP_EQ= 76;
+var OP_NE= 77;
+var OP_EQ_STRICT= 78;
+var OP_NE_STRICT= 79;
+var OP_BIT_AND= 1096;
+var OP_BIT_XOR= 840;
+var OP_BIT_OR= 584;
+var OP_AND= 328;
+var OP_OR= 72;
+var OP_QUESTION= 68;
+var OP_QUESTION_SELECT= 69;
+var OP_JOIN= 64;
+var OP_PUT= 65;
+var TYPE_TOKEN_MAP = {}
+var TOKEN_TYPE_MAP = {}
+function addToken(type,token){
+TYPE_TOKEN_MAP[type] = token;
+TOKEN_TYPE_MAP[token] = type;
+}
+addToken(VALUE_CONSTANTS ,"value");
+addToken(VALUE_VAR ,"var");
+addToken(VALUE_LIST ,"[]");
+addToken(VALUE_MAP ,"{}");
+
+addToken(OP_GET ,".");
+addToken(OP_INVOKE ,"()");
+
+addToken(OP_NOT ,"!");
+addToken(OP_BIT_NOT ,"~");
+addToken(OP_POS ,"+");
+addToken(OP_NEG ,"-");
+
+addToken(OP_MUL ,"*");
+addToken(OP_DIV ,"/");
+addToken(OP_MOD ,"%");
+
+
+addToken(OP_ADD ,"+");
+addToken(OP_SUB ,"-");
+
+addToken(OP_LSH ,"<<");
+addToken(OP_RSH ,">>");
+addToken(OP_URSH ,">>>");
+
+addToken(OP_LT ,"<");
+addToken(OP_GT ,">");
+addToken(OP_LTEQ ,"<=");
+addToken(OP_GTEQ ,">=");
+addToken(OP_IN ," in ");
+
+addToken(OP_EQ ,"==");
+addToken(OP_NE ,"!=");
+addToken(OP_EQ_STRICT ,"===");
+addToken(OP_NE_STRICT ,"!==");
+
+addToken(OP_BIT_AND ,"&");
+addToken(OP_BIT_XOR ,"^");
+addToken(OP_BIT_OR ,"|");
+
+addToken(OP_AND ,"&&");
+addToken(OP_OR ,"||");
+
+
+addToken(OP_QUESTION ,"?");
+
+addToken(OP_QUESTION_SELECT ,":");
+
+
+addToken(OP_JOIN ,",");
+
+addToken(OP_PUT ,":");
+function findTokenType(token) {
+return TOKEN_TYPE_MAP[token];
+}
+function findTokenText(type) {
+return TYPE_TOKEN_MAP[type];
+}
+function hasTokenParam(type) {
+switch (type) {
+case VALUE_VAR:
+case VALUE_CONSTANTS:
+
+
+
+case OP_PUT:
+return true;
+default:
+return false;
+}
+}
+function getTokenParam(el) {
+return el[getTokenParamIndex(el[0])]
+}
+function getTokenLength(type) {
+var size = getTokenParamIndex(type);
+return hasTokenParam(type)?size+1:size;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getTokenParamIndex(type) {
+if(type<0){
+return 1;
+}
+var c = (type & BIT_ARGS) >> 6;
+return c + 2;
+}
+var offset = 0
+var TYPE_NULL = 1<<offset++;
+var TYPE_BOOLEAN = 1<<offset++;
+var TYPE_NUMBER = 1<<offset++;
+var TYPE_STRING = 1<<offset++;
+var TYPE_ARRAY = 1<<offset++;
+var TYPE_MAP = 1<<offset++;
+var TYPE_ANY = (1<<offset++) -1;
+
+
+
+
+
+
+
+function isNTSFAN(type){
+var isN = (type & TYPE_NULL) ||(type & TYPE_BOOLEAN) ||(type & TYPE_NUMBER);
+var isS = (type & TYPE_STRING) ||(type & TYPE_ARRAY) ||(type & TYPE_MAP);
+if(!isS ){
+return true;
+}
+if(!isN ){
+return false;
+}
+return null;
+}
+function getAddType(arg1,arg2){
+var t1 = getELType(arg1);
+var t2 = getELType(arg2);
+var ns1 = isNTSFAN(t1);
+var ns2 = isNTSFAN(t2);
+
+if(ns1 === false || ns2 === false){
+return TYPE_STRING;
+}
+if(ns1 === true && ns2 === true){
+return TYPE_NUMBER;
+}
+return TYPE_NUMBER|TYPE_STRING;
+}
+function getELType(el){
+var op = el[0];
+var type;
+if(op>0){
+var arg1 = el[1];
+var arg2 = el[2];
+switch(op){
+case OP_JOIN:
+return TYPE_ARRAY;
+case OP_PUT:
+return TYPE_MAP;
+case OP_ADD:
+
+
+
+return getAddType(arg1,arg2)
+
+case OP_POS:
+case OP_NEG:
+case OP_MUL:
+case OP_DIV:
+case OP_MOD:
+case OP_SUB:
+case OP_BIT_AND:
+case OP_BIT_XOR:
+case OP_BIT_OR:
+case OP_BIT_NOT:
+return TYPE_NUMBER;
+case OP_NOT:
+case OP_LT:
+case OP_GT:
+case OP_LTEQ:
+case OP_GTEQ:
+case OP_EQ:
+case OP_NE:
+case OP_EQ_STRICT:
+case OP_NE_STRICT:
+return TYPE_BOOLEAN;
+case OP_AND:
+case OP_OR:
+return getELType(arg1) | getELType(arg2);
+case OP_GET:
+if(arg2[0] == VALUE_CONSTANTS){
+if(arg1[0] == VALUE_VAR && arg1[1] == 'for'){
+if(arg2[1] == 'index' || arg2[1] == 'lastIndex'){
+return TYPE_NUMBER;
+}
+}else if( arg2[1] == 'length'){
+var t1 = getELType(arg1);
+
+
+
+
+
+
+if(t1 & TYPE_MAP){
+return TYPE_ANY;
+}else if((t1 & TYPE_ARRAY) || (t1 & TYPE_STRING)){
+if((t1 & TYPE_STRING) || (t1 & TYPE_BOOLEAN)||(t1 & TYPE_NUMBER)){
+return TYPE_NULL|TYPE_NUMBER;
+}else{
+return TYPE_NUMBER;
+}
+}else{
+return TYPE_NULL;
+}
+}
+}
+return TYPE_ANY;
+case OP_INVOKE:
+if(arg1[0] == VALUE_VAR){
+switch(arg1[1]){
+case "encodeURI":
+case "encodeURIComponent":
+case "decodeURI":
+case "decodeURIComponent":
+return TYPE_STRING;
+case "parseInt":
+case "parseInt":
+return TYPE_NUMBER;
+case "isFinite":
+case "isNaN":
+return TYPE_BOOLEAN;
+}
+}else if(arg1[0] == OP_GET){
+
+arg2 = arg1[2];
+arg1 = arg1[1];
+if(arg2[0] == VALUE_CONSTANTS){
+var method = arg2[1];
+if(arg1[0] == VALUE_VAR){
+var owner = arg1[1];
+if(owner == 'JSON'){
+if(method == 'stringify'){
+return TYPE_STRING;
+}
+}else if(owner == 'Math'){
+return TYPE_NUMBER;
+}
+}
+}
+}
+return TYPE_ANY;
+default:
+return TYPE_ANY;
+}
+}else{
+switch(op){
+case VALUE_CONSTANTS:
+var v= el[1];
+if(v == null){
+return TYPE_NULL;
+}
+switch(typeof v){
+case 'boolean':
+return TYPE_BOOLEAN;
+case 'number':
+return TYPE_NUMBER;
+case 'string':
+return TYPE_STRING;
+case 'object':
+if(v instanceof Array){
+return TYPE_ARRAY;
+}
+return TYPE_MAP;
+}
+return TYPE_ANY;
+case VALUE_VAR:
+return TYPE_ANY;
+case VALUE_LIST:
+return TYPE_ARRAY;
+case VALUE_MAP:
+return TYPE_MAP;
+default:
+return TYPE_ANY;
+}
+}
+}
+
+function addELQute(parentEl,childEL,value1,value2){
+var pp = getPriority(parentEl[0]);
+var cp = getPriority(childEL[0]);
+if(value1){
+if(cp<pp){
+value1 = '('+value1+')';
+}
+return value1;
+}else if(value2 && pp>=cp){
+value2 = '('+value2+')';
+}
+return value2;
+}
+if(typeof require == 'function'){
+exports.getTokenParam=getTokenParam;
+exports.hasTokenParam=hasTokenParam;
+exports.getTokenParamIndex=getTokenParamIndex;
+exports.getTokenLength=getTokenLength;
+exports.findTokenType=findTokenType;
+exports.findTokenText=findTokenText;
+exports.getELType=getELType;
+exports.addELQute=addELQute;
+exports.BIT_ARGS=BIT_ARGS;
+exports.BIT_PRIORITY=BIT_PRIORITY;
+exports.BIT_PRIORITY_SUB=BIT_PRIORITY_SUB;
+exports.OP_ADD=OP_ADD;
+exports.OP_AND=OP_AND;
+exports.OP_BIT_AND=OP_BIT_AND;
+exports.OP_BIT_NOT=OP_BIT_NOT;
+exports.OP_BIT_OR=OP_BIT_OR;
+exports.OP_BIT_XOR=OP_BIT_XOR;
+exports.OP_DIV=OP_DIV;
+exports.OP_EQ=OP_EQ;
+exports.OP_EQ_STRICT=OP_EQ_STRICT;
+exports.OP_GET=OP_GET;
+exports.OP_GT=OP_GT;
+exports.OP_GTEQ=OP_GTEQ;
+exports.OP_IN=OP_IN;
+exports.OP_INVOKE=OP_INVOKE;
+exports.OP_JOIN=OP_JOIN;
+exports.OP_LSH=OP_LSH;
+exports.OP_LT=OP_LT;
+exports.OP_LTEQ=OP_LTEQ;
+exports.OP_MOD=OP_MOD;
+exports.OP_MUL=OP_MUL;
+exports.OP_NE=OP_NE;
+exports.OP_NEG=OP_NEG;
+exports.OP_NE_STRICT=OP_NE_STRICT;
+exports.OP_NOT=OP_NOT;
+exports.OP_OR=OP_OR;
+exports.OP_POS=OP_POS;
+exports.OP_PUT=OP_PUT;
+exports.OP_QUESTION=OP_QUESTION;
+exports.OP_QUESTION_SELECT=OP_QUESTION_SELECT;
+exports.OP_RSH=OP_RSH;
+exports.OP_SUB=OP_SUB;
+exports.OP_URSH=OP_URSH;
+exports.TYPE_ANY=TYPE_ANY;
+exports.TYPE_ARRAY=TYPE_ARRAY;
+exports.TYPE_BOOLEAN=TYPE_BOOLEAN;
+exports.TYPE_MAP=TYPE_MAP;
+exports.TYPE_NULL=TYPE_NULL;
+exports.TYPE_NUMBER=TYPE_NUMBER;
+exports.TYPE_STRING=TYPE_STRING;
+exports.TYPE_TOKEN_MAP=TYPE_TOKEN_MAP;
+exports.VALUE_CONSTANTS=VALUE_CONSTANTS;
+exports.VALUE_LIST=VALUE_LIST;
+exports.VALUE_MAP=VALUE_MAP;
+exports.VALUE_VAR=VALUE_VAR;
+var evaluate=require(34).evaluate;
+var getPriority=require(32).getPriority;
+}
+}
 ,
-function(r,e){function a(r,e){e=e||0;var a=r.length,s=e+1;if(s>=a)return-1;var i=0,c=0;do{var f=r.charAt(s);switch(f){case"\\":s++;break;case"'":case'"':i==f?i=0:0==i&&(i=f);break;case"{":case"[":case"(":0==i&&c++;break;case"}":case"]":case")":if(0==i&&(c--,0>c))return s;break;case"/":if(0==i){var u=t(r,e,s);if(u){var o=n(r,s);o>0?s=o:console.error("无效状态")}}}}while(++s<a);return-1}function t(r,e,a){for(var t=a-1;t>e;t--){var n=r.charAt(t);if(!/\s/.test(n)){if(/[\w\$]/.test(n))return!1;switch(n){case"]":case")":case"}":return!1;default:return!0}}}return!0}function n(r,e){var a=r.length,t=0;for(e++;a>e;e++){var n=r.charAt(e);if("["==n)t=1;else if("]"==n)t=0;else if("\\"==n)e++;else if(0==t&&"/"==n)for(;a>e;)switch(n=r.charAt(e++)){case"g":case"i":case"m":break;default:return e-1}}return-1}function s(r){for(var e={};r;){var a=r.match(/^\s*([\w\$\_]+|'[^']*'|"[^"]*")\s*(?:[\:=]\s*([\s\S]+))\s*$/);if(!a)throw console.error("非法参数信息",r);r=a[2];var t=a[1].replace(/^['"]|['"]$/g,""),n=i(r),s=r.substring(0,n);e[t]=s,r=r.substring(n+1)}return e}function i(r){var e=0;do{var a=r.indexOf(",",e+1),t=r.indexOf(";",e+1);if(e=t>0&&a>0?Math.min(a,t):Math.max(a,t),0>=e)break;var n=r.substring(0,e);try{return new Function(n),e}catch(s){e+=1}}while(e>=0);return r.length}"function"==typeof e&&(r.findLiteParamMap=s,r.findELEnd=a)}
+function(exports,require){
+
+function Expression(value){
+if(typeof value == 'string'){
+value = new ExpressionTokenizer(value).getResult();
+}else if(value instanceof Expression){
+return value;
+}
+this.token = value;
+}
+Expression.prototype.evaluate = function(context){
+return evaluate(context,this.token);
+}
+
+Expression.prototype.getVarMap = function(){
+init(this);
+return this.varMap;
+}
+
+Expression.prototype.getCallMap = function(){
+init(this);
+return this.callMap;
+}
+function init(thiz){
+if(thiz.callMap == null){
+thiz.callMap = {};
+thiz.varMap = {};
+walkEL(thiz.token,thiz);
+}
+}
+function walkEL(token,context){
+var op = token[0];
+if(op<=0){
+if(op == VALUE_VAR){
+_addKeyList(context.varMap,token[1],'');
+}
+return;
+}else{
+var arg1 = token[1];
+if(op == OP_INVOKE){
+if(arg1[0] == VALUE_VAR){
+_addKeyList(context.callMap,arg1[1],'');
+}else if(arg1[0] == OP_GET){
+var list = walkMembers(arg1,context,[]).reverse();
+var ps = list.slice(1).join('.');
+if(list[0] != ''){
+if(list[0] != '*' ){
+_addKeyList(context.varMap,list[0],ps);
+}
+_addKeyList(context.callMap,list[0],ps);
+}
+}else{
+walkEL(arg1,context);
+_addKeyList(context.callMap,"*",'');
+}
+}else{
+if(op == OP_GET){
+var list = walkMembers(token,context,[]).reverse();
+var ps = list.slice(1).join('.');
+if(list[0] != ''){
+if(list[0] != '*' ){
+_addKeyList(context.varMap,list[0],ps);
+}
+}
+}else{
+arg1 && walkEL(arg1,context);
+}
+}
+var pos = getTokenParamIndex(token[0]);
+if(pos>2){
+walkEL(token[2],context);
+}
+}
+}
+function walkMembers(token,context,buf){
+var owner = token[1];
+var key = token[2];
+if(key[0] == VALUE_CONSTANTS){
+buf.push(key[1]);
+}else{
+walkEL(key,context);
+buf.push('*');
+}
+if(owner[0] == VALUE_VAR){
+buf.push(owner[1]);
+}else if(owner[0] == VALUE_CONSTANTS){
+buf.push('');
+}else if(owner[0] == OP_GET){
+walkMembers(owner,context,buf);
+}else{
+walkEL(owner,context);
+buf.push('*');
+}
+return buf;
+}
+function _addKeyList(map,key,value){
+var list = key in map? map[key]: (map[key] = []);
+if(list.indexOf(value) <0){
+list.push(value);
+}
+return list;
+}
+Expression.prototype.toString = function(context){
+return stringifyJSEL(this.token,context);
+
+}
+Expression.evaluate = evaluate;
+
+function evaluate(context,el){
+var result = _evaluate(el,context)
+return realValue(result);
+}
+function _evaluate(item,context){
+var type = item[0];
+switch(type){
+case VALUE_LIST:
+return [];
+case VALUE_MAP:
+return {};
+case VALUE_VAR:
+arg1 = item[1]
+return (arg1 in context?context:this)[arg1];
+case VALUE_CONSTANTS:
+arg1 = item[1];
+return arg1&&arg1['class'] == 'RegExp'?window.eval(arg1.literal):arg1;
+
+case OP_AND:
+return realValue(_evaluate(item[1],context)) && (_evaluate(item[2],context));
+case OP_OR:
+return realValue(_evaluate(item[1],context)) || (_evaluate(item[2],context));
+case OP_QUESTION:
+if(realValue(_evaluate(item[1],context))){
+return _evaluate(item[2],context);
+}else{
+return PropertyValue;
+}
+case OP_QUESTION_SELECT:
+arg1 = realValue(_evaluate(item[1],context));
+if(arg1 == PropertyValue){
+return _evaluate(item[2],context);
+}else{
+return arg1;
+}
+}
+var arg1=_evaluate(item[1],context);
+if(getTokenParamIndex(type) ==3){
+var arg2=realValue(_evaluate(item[2],context));
+}
+if(type == OP_INVOKE){
+if(typeof arg1 == 'function'){
+return arg1.apply(context,arg2);
+}else if(arg1 instanceof PropertyValue){
+var thiz = arg1[0];
+var key = arg1[1];
+var fn = thiz[key];
+
+if(fn == String.prototype.replace || fn == String.prototype.match){
+arg2 = arg2.slice(0);
+var exp = arg2[0];
+if(exp && exp['class'] == 'RegExp'){
+arg2[0] = window.eval(exp.source)
+}
+}
+return fn.apply(thiz,arg2);
+}else{
+throw new Error("not a fn!!"+arg1)
+}
+}
+arg1 = realValue(arg1);
+switch(type){
+
+
+
+case OP_GET:
+return new PropertyValue(arg1,arg2);
+case OP_NOT:
+return !arg1;
+case OP_POS:
+return +arg1;
+case OP_NEG:
+return -arg1;
+
+case OP_ADD:
+return arg1+arg2;
+case OP_SUB:
+return arg1-arg2;
+case OP_MUL:
+return arg1*arg2;
+case OP_DIV:
+return arg1/arg2;
+case OP_MOD:
+return arg1%arg2;
+
+case OP_GT:
+return arg1 > arg2;
+case OP_GTEQ:
+return arg1 >= arg2;
+case OP_NE:
+return arg1 != arg2;
+case OP_NE_STRICT:
+return arg1 !== arg2;
+case OP_EQ:
+return arg1 == arg2;
+case OP_EQ_STRICT:
+return arg1 === arg2;
+case OP_LT:
+return arg1 < arg2;
+case OP_LTEQ:
+return arg1 <= arg2;
+case OP_IN:
+return arg1 in arg2;
+case OP_JOIN:
+arg1.push(arg2)
+return arg1;
+case OP_PUT:
+arg1[getTokenParam(item)]= arg2;
+return arg1;
+}
+}
+function PropertyValue(base,name){
+this[0] = base;
+this[1] = name;
+}
+function realValue(arg1){
+if(arg1 instanceof PropertyValue){
+return arg1[0][arg1[1]];
+}
+return arg1;
+}
+if(typeof require == 'function'){
+exports.Expression=Expression;
+var stringifyJSEL = require(31).stringifyJSEL
+var ExpressionTokenizer=require(32).ExpressionTokenizer;
+var getTokenParam=require(33).getTokenParam;
+var getTokenParamIndex=require(33).getTokenParamIndex;
+var OP_ADD=require(33).OP_ADD;
+var OP_AND=require(33).OP_AND;
+var OP_DIV=require(33).OP_DIV;
+var OP_EQ=require(33).OP_EQ;
+var OP_EQ_STRICT=require(33).OP_EQ_STRICT;
+var OP_GET=require(33).OP_GET;
+var OP_GT=require(33).OP_GT;
+var OP_GTEQ=require(33).OP_GTEQ;
+var OP_IN=require(33).OP_IN;
+var OP_INVOKE=require(33).OP_INVOKE;
+var OP_JOIN=require(33).OP_JOIN;
+var OP_LT=require(33).OP_LT;
+var OP_LTEQ=require(33).OP_LTEQ;
+var OP_MOD=require(33).OP_MOD;
+var OP_MUL=require(33).OP_MUL;
+var OP_NE=require(33).OP_NE;
+var OP_NEG=require(33).OP_NEG;
+var OP_NE_STRICT=require(33).OP_NE_STRICT;
+var OP_NOT=require(33).OP_NOT;
+var OP_OR=require(33).OP_OR;
+var OP_POS=require(33).OP_POS;
+var OP_PUT=require(33).OP_PUT;
+var OP_QUESTION=require(33).OP_QUESTION;
+var OP_QUESTION_SELECT=require(33).OP_QUESTION_SELECT;
+var OP_SUB=require(33).OP_SUB;
+var VALUE_CONSTANTS=require(33).VALUE_CONSTANTS;
+var VALUE_LIST=require(33).VALUE_LIST;
+var VALUE_MAP=require(33).VALUE_MAP;
+var VALUE_VAR=require(33).VALUE_VAR;
+}
+}
 ,
-function(e,t,n){!function(t,r){"object"==typeof n&&"object"==typeof e?(n.exports=function(e){e.console=console,e.parseInt=parseInt,e.Function=Function,e.Boolean=Boolean,e.Number=Number,e.RegExp=RegExp,e.String=String,e.Object=Object,e.Array=Array,e.Error=Error,e.Date=Date,e.Math=Math;var t=e.Object();return r(e,t),t},n.factory=r):(r(t,(t.NW||(t.NW=t.Object()))&&(t.NW.Dom||(t.NW.Dom=t.Object()))),t.NW.Dom.factory=r)}(this,function(e,t){var n,r,a,i,s,l,c,o,u,f,d,p,m,h="nwmatcher-1.3.6",g=t,b=e.document,y=b.documentElement,E=e.Array.prototype.slice,v=e.Object.prototype.toString,w="[#.:]?",x="([~*^$|!]?={1})",N="[\\x20\\t\\n\\r\\f]*",A="[\\x20]|[>+~][^>+~]",C="(?:[-+]?\\d*n)?[-+]?\\d*",S='"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"'+"|'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'",k="\\([^()]+\\)|\\(.*\\)",O="\\{[^{}]+\\}|\\{.*\\}",I="\\[[^[\\]]*\\]|\\[.*\\]",T="\\[.*\\]|\\(.*\\)|\\{.*\\}",j="(?:[-\\w]|[^\\x00-\\xa0]|\\\\.)",L="(?:-?[_a-zA-Z]{1}[-\\w]*|[^\\x00-\\xa0]+|\\\\.+)+",R="("+S+"|"+L+")",B=N+"("+j+"*:?"+j+"+)"+N+"(?:"+x+N+R+")?"+N,U=B.replace(R,"([\\x22\\x27]*)((?:\\\\?.)*?)\\3"),$="((?:"+C+"|"+S+"|"+w+"|"+j+"+|\\["+B+"\\]|\\(.+\\)|"+N+"|,)+)",D=".+",_="(?=[\\x20\\t\\n\\r\\f]*[^>+~(){}<>])(\\*|(?:"+w+L+")|"+A+"|\\["+B+"\\]|\\("+$+"\\)|\\{"+D+"\\}|(?:,|"+N+"))+",H=_.replace($,".*"),M=new e.RegExp(_,"g"),z=new e.RegExp("^"+N+"|"+N+"$","g"),P=new e.RegExp("^((?!:not)("+w+"|"+L+"|\\([^()]*\\))+|\\["+B+"\\])$"),F=new e.RegExp("([^,\\\\()[\\]]+|"+I+"|"+k+"|"+O+"|\\\\.)+","g"),G=new e.RegExp("(\\["+B+"\\]|\\("+$+"\\)|\\\\.|[^\\x20\\t\\r\\n\\f>+~])+","g"),q=/[\x20\t\n\r\f]+/g,Q=new e.RegExp(L+"|^$"),V=function(){var e=/ \w+\(/,t=String(Object.prototype.toString).replace(e," (");return function(n){return n&&"string"!=typeof n&&t==String(n).replace(e," (")}}(),W=V(b.hasFocus),Z=V(b.querySelector),X=V(b.getElementById),Y=V(y.getElementsByTagName),J=V(y.getElementsByClassName),K=V(y.getAttribute),ee=V(y.hasAttribute),te=function(){var e=!1;try{e=!!E.call(b.childNodes,0)[0]}catch(t){}return e}(),ne="nextElementSibling"in y&&"previousElementSibling"in y,re=X?function(){var t=!0,n="x"+e.String(+new e.Date),r=b.createElementNS?"a":'<a name="'+n+'">';return(r=b.createElement(r)).name=n,y.insertBefore(r,y.firstChild),t=!!b.getElementById(n),y.removeChild(r),t}():!0,ae=Y?function(){var e=b.createElement("div");return e.appendChild(b.createComment("")),!!e.getElementsByTagName("*")[0]}():!0,ie=J?function(){var e,t=b.createElement("div"),n="台北";return t.appendChild(b.createElement("span")).setAttribute("class",n+"abc "+n),t.appendChild(b.createElement("span")).setAttribute("class","x"),e=!t.getElementsByClassName(n)[0],t.lastChild.className=n,e||2!=t.getElementsByClassName(n).length}():!0,se=K?function(){var e=b.createElement("input");return e.setAttribute("value",5),5!=e.defaultValue}():!0,le=ee?function(){var e=b.createElement("option");return e.setAttribute("selected","selected"),!e.hasAttribute("selected")}():!0,ce=function(){var e=b.createElement("select");return e.appendChild(b.createElement("option")),!e.firstChild.selected}(),oe=/opera/i.test(v.call(e.opera)),ue=oe&&e.parseFloat(e.opera.version())>=11,fe=Z?function(){var t,n,r=new e.Array,a=function(e,n,r){var a=!1;t.appendChild(n);try{a=t.querySelectorAll(e).length==r}catch(i){}for(;t.firstChild;)t.removeChild(t.firstChild);return a};return t=b.implementation&&b.implementation.createDocument?b.implementation.createDocument("","",null).appendChild(b.createElement("html")).appendChild(b.createElement("head")).parentNode.appendChild(b.createElement("body")):b.createElement("div"),n=b.createElement("div"),n.innerHTML='<p id="a"></p><br>',a("p#a+*",n,0)&&r.push("\\w+#\\w+.*[+~]"),n=b.createElement("p"),n.setAttribute("class",""),a('[class^=""]',n,1)&&r.push("[*^$]=[\\x20\\t\\n\\r\\f]*(?:\"\"|'')"),n=b.createElement("option"),n.setAttribute("selected","selected"),a(":checked",n,0)&&r.push(":checked"),n=b.createElement("input"),n.setAttribute("type","hidden"),a(":enabled",n,0)&&r.push(":enabled",":disabled"),n=b.createElement("link"),n.setAttribute("href","x"),a(":link",n,1)||r.push(":link"),le&&r.push("\\[[\\x20\\t\\n\\r\\f]*(?:checked|disabled|ismap|multiple|readonly|selected|value)"),r.length?new e.RegExp(r.join("|")):{test:function(){return!1}}}():!0,de=new e.RegExp("(?:\\[[\\x20\\t\\n\\r\\f]*class\\b|\\."+L+")"),pe=new e.RegExp(ae&&ie||oe?"^#?-?[_a-zA-Z]{1}"+j+"*$":ae?"^[.#]?-?[_a-zA-Z]{1}"+j+"*$":ie?"^(?:\\*|#-?[_a-zA-Z]{1}"+j+"*)$":"^(?:\\*|[.#]?-?[_a-zA-Z]{1}"+j+"*)$"),me=new e.Object({a:1,A:1,area:1,AREA:1,link:1,LINK:1}),he=new e.Object({checked:1,disabled:1,ismap:1,multiple:1,readonly:1,selected:1}),ge=new e.Object({value:"defaultValue",checked:"defaultChecked",selected:"defaultSelected"}),be=new e.Object({action:2,cite:2,codebase:2,data:2,href:2,longdesc:2,lowsrc:2,src:2,usemap:2}),ye=new e.Object({"class":0,accept:1,"accept-charset":1,align:1,alink:1,axis:1,bgcolor:1,charset:1,checked:1,clear:1,codetype:1,color:1,compact:1,declare:1,defer:1,dir:1,direction:1,disabled:1,enctype:1,face:1,frame:1,hreflang:1,"http-equiv":1,lang:1,language:1,link:1,media:1,method:1,multiple:1,nohref:1,noresize:1,noshade:1,nowrap:1,readonly:1,rel:1,rev:1,rules:1,scope:1,scrolling:1,selected:1,shape:1,target:1,text:1,type:1,valign:1,valuetype:1,vlink:1}),Ee=new e.Object({accept:1,"accept-charset":1,alink:1,axis:1,bgcolor:1,charset:1,codetype:1,color:1,enctype:1,face:1,hreflang:1,"http-equiv":1,lang:1,language:1,link:1,media:1,rel:1,rev:1,target:1,text:1,type:1,vlink:1}),ve=new e.Object({}),we=new e.Object({"=":"n=='%m'","^=":"n.indexOf('%m')==0","*=":"n.indexOf('%m')>-1","|=":"(n+'-').indexOf('%m-')==0","~=":"(' '+n+' ').indexOf(' %m ')>-1","$=":"n.substr(n.length-'%m'.length)=='%m'"}),xe=new e.Object({ID:new e.RegExp("^\\*?#("+j+"+)|"+T),TAG:new e.RegExp("^("+j+"+)|"+T),CLASS:new e.RegExp("^\\*?\\.("+j+"+$)|"+T)}),Ne=new e.Object({spseudos:/^\:(root|empty|(?:first|last|only)(?:-child|-of-type)|nth(?:-last)?(?:-child|-of-type)\(\s*(even|odd|(?:[-+]{0,1}\d*n\s*)?[-+]{0,1}\s*\d*)\s*\))?(.*)/i,dpseudos:/^\:(link|visited|target|active|focus|hover|checked|disabled|enabled|selected|lang\(([-\w]{2,})\)|not\(([^()]*|.*)\))?(.*)/i,attribute:new e.RegExp("^\\["+U+"\\](.*)"),children:/^[\x20\t\n\r\f]*\>[\x20\t\n\r\f]*(.*)/,adjacent:/^[\x20\t\n\r\f]*\+[\x20\t\n\r\f]*(.*)/,relative:/^[\x20\t\n\r\f]*\~[\x20\t\n\r\f]*(.*)/,ancestor:/^[\x20\t\n\r\f]+(.*)/,universal:/^\*(.*)/,id:new e.RegExp("^#("+j+"+)(.*)"),tagName:new e.RegExp("^("+j+"+)(.*)"),className:new e.RegExp("^\\.("+j+"+)(.*)")}),Ae=function(t,n){var r,a=-1;if(!t.length&&e.Array.slice)return e.Array.slice(n);for(;r=n[++a];)t[t.length]=r;return t},Ce=function(e,t,n){for(var r,a=-1;(r=t[++a])&&!1!==n(e[e.length]=r););return e},Se=function(e,t){var n,r=b;i=e,b=e.ownerDocument||e,(t||r!==b)&&(y=b.documentElement,m="DiV"==b.createElement("DiV").nodeName,p=m||"string"!=typeof b.compatMode?function(){var e=b.createElement("div").style;return e&&(e.width=1)&&"1px"==e.width}():b.compatMode.indexOf("CSS")<0,n=b.createElement("div"),n.appendChild(b.createElement("p")).setAttribute("class","xXx"),n.appendChild(b.createElement("p")).setAttribute("class","xxx"),f=!m&&J&&p&&(2!=n.getElementsByClassName("xxx").length||2!=n.getElementsByClassName("xXx").length),d=!m&&Z&&p&&(2!=n.querySelectorAll("[class~=xxx]").length||2!=n.querySelectorAll(".xXx").length),Ve.CACHING&&g.setCache(!0,b))},ke=function(e){return e.replace(/\\([0-9a-fA-F]{1,6}\x20?|.)|([\x22\x27])/g,function(e,t,n){var r,a,i,s,l;return n?"\\"+n:/^[0-9a-fA-F]/.test(t)?(r=parseInt(t,16),0>r||r>1114111?"\\ufffd":65535>=r?(s="000"+r.toString(16),"\\u"+s.substr(s.length-4)):(r-=65536,i=(r>>10)+55296,l=r%1024+56320,a="000"+i.toString(16),s="000"+l.toString(16),"\\u"+a.substr(a.length-4)+"\\u"+s.substr(s.length-4))):/^[\\\x22\x27]/.test(t)?e:t})},Oe=function(e,t){for(var n=-1,r=null;(r=t[++n])&&r.getAttribute("id")!=e;);return r},Ie=re?function(e,t){var n=null;return e=e.replace(/\\([^\\]{1})/g,"$1"),m||9!=t.nodeType?Oe(e,t.getElementsByTagName("*")):(n=t.getElementById(e))&&n.name==e&&t.getElementsByName?Oe(e,t.getElementsByName(e)):n}:function(e,t){return e=e.replace(/\\([^\\]{1})/g,"$1"),t.getElementById&&t.getElementById(e)||Oe(e,t.getElementsByTagName("*"))},Te=function(e,t){return t||(t=b),i!==t&&Se(t),Ie(e,t)},je=function(t,n){var r="*"==t,a=n,i=new e.Array,s=a.firstChild;for(r||(t=t.toUpperCase());a=s;)if(a.tagName>"@"&&(r||a.tagName.toUpperCase()==t)&&(i[i.length]=a),!(s=a.firstChild||a.nextSibling))for(;!s&&(a=a.parentNode)&&a!==n;)s=a.nextSibling;return i},Le=!ae&&te?function(e,t){return m||11==t.nodeType?je(e,t):E.call(t.getElementsByTagName(e),0)}:function(t,n){var r,a=-1,i=a,s=new e.Array,l=n.getElementsByTagName(t);if("*"==t)for(;r=l[++a];)r.nodeName>"@"&&(s[++i]=r);else for(;r=l[++a];)s[a]=r;return s},Re=function(e,t){return t||(t=b),i!==t&&Se(t),Le(e,t)},Be=function(e,t){return et('[name="'+e.replace(/\\([^\\]{1})/g,"$1")+'"]',t)},Ue=function(t,n){var r,a,i=-1,s=i,l=new e.Array,c=Le("*",n);for(t=" "+(p?t.toLowerCase():t).replace(/\\([^\\]{1})/g,"$1")+" ";r=c[++i];)a=m?r.getAttribute("class"):r.className,a&&a.length&&(" "+(p?a.toLowerCase():a).replace(q," ")+" ").indexOf(t)>-1&&(l[++s]=r);return l},$e=function(e,t){return ie||f||m||!t.getElementsByClassName?Ue(e,t):E.call(t.getElementsByClassName(e.replace(/\\([^\\]{1})/g,"$1")),0)},De=function(e,t){return t||(t=b),i!==t&&Se(t),$e(e,t)},_e="compareDocumentPosition"in y?function(e,t){return 16==(16&e.compareDocumentPosition(t))}:"contains"in y?function(e,t){return e!==t&&e.contains(t)}:function(e,t){for(;t=t.parentNode;)if(t===e)return!0;return!1},He=se?function(e,t){return t=t.toLowerCase(),"object"==typeof e[t]?e.attributes[t]&&e.attributes[t].value:"type"==t?e.getAttribute(t):be[t]?e.getAttribute(t,2):he[t]?e.getAttribute(t)?t:"false":(e=e.getAttributeNode(t))&&e.value}:function(e,t){return e.getAttribute(t)},Me=le?function(e,t){var n=e.getAttributeNode(t=t.toLowerCase());return ge[t]&&"value"!=t?e[ge[t]]:n&&n.specified}:function(e,t){return m?!!e.getAttribute(t):e.hasAttribute(t)},ze=function(e){for(e=e.firstChild;e;){if(3==e.nodeType||e.nodeName>"@")return!1;e=e.nextSibling}return!0},Pe=function(e){return Me(e,"href")&&me[e.nodeName]},Fe=function(e,t){for(var n=1,r=t?"nextSibling":"previousSibling";e=e[r];)e.nodeName>"@"&&++n;return n},Ge=function(e,t){for(var n=1,r=t?"nextSibling":"previousSibling",a=e.nodeName;e=e[r];)e.nodeName==a&&++n;return n},qe=function(t){if("string"==typeof t)return Ve[t]||Ve;if("object"!=typeof t)return!1;for(var n in t)Ve[n]=!!t[n],"SIMPLENOT"==n?(nt=new e.Object,rt=new e.Object,at=new e.Object,it=new e.Object,Ve[n]||(Ve.USE_QSAPI=!1)):"USE_QSAPI"==n&&(Ve[n]=!!t[n]&&Z);return M=new e.RegExp(Ve.SIMPLENOT?_:H,"g"),!0},Qe=function(t){if(Ve.VERBOSITY)throw new e.Error(t);e.console&&e.console.log&&e.console.log(t)},Ve=new e.Object({CACHING:!1,SHORTCUTS:!1,SIMPLENOT:!0,UNIQUE_ID:!0,USE_HTML5:!0,USE_QSAPI:Z,VERBOSITY:!0}),We="r[r.length]=c[k];if(f&&false===f(c[k]))break main;else continue main;",Ze=function(t,n,r){var a="string"==typeof t?t.match(F):t;if("string"==typeof n||(n=""),1==a.length)n+=Ye(a[0],r?We:"f&&f(k);return true;",r);else for(var i,s=-1,l=new e.Object;i=a[++s];)i=i.replace(z,""),!l[i]&&(l[i]=!0)&&(n+=Ye(i,r?We:"f&&f(k);return true;",r));return r?new e.Function("c,s,r,d,h,g,f,v","var N,n,x=0,k=-1,e;main:while((e=c[++k])){"+n+"}return r;"):new e.Function("e,s,r,d,h,g,f,v","var N,n,x=0,k=e;"+n+"return false;")},Xe="var z=v[@]||(v[@]=[]),l=z.length-1;while(l>=0&&z[l]!==e)--l;if(l!==-1){break;}z[z.length]=e;",Ye=function(t,n,r){for(var a,i,s,l,c,o,u,f,d,h=0;t;){if(h++,c=t.match(Ne.universal))l="";else if(c=t.match(Ne.id))n="if("+(m?'s.getAttribute(e,"id")':'(e.submit?s.getAttribute(e,"id"):e.id)')+'=="'+c[1]+'"){'+n+"}";else if(c=t.match(Ne.tagName))n="if(e.nodeName"+(m?'=="'+c[1]+'"':'.toUpperCase()=="'+c[1].toUpperCase()+'"')+"){"+n+"}";else if(c=t.match(Ne.className))n="if((n="+(m?'s.getAttribute(e,"class")':"e.className")+')&&n.length&&(" "+'+(p?"n.toLowerCase()":"n")+".replace("+q+'," ")+" ").indexOf(" '+(p?c[1].toLowerCase():c[1])+' ")>-1){'+n+"}";else if(c=t.match(Ne.attribute)){if(l=c[1].split(":"),l=2==l.length?l[1]:l[0]+"",c[2]&&!we[c[2]])return Qe('Unsupported operator in attribute selectors "'+t+'"'),"";f="false",c[2]&&c[4]&&(f=we[c[2]])?(c[4]=ke(c[4]),ye["class"]=p?1:0,d=(m?Ee:ye)[l.toLowerCase()],f=f.replace(/\%m/g,d?c[4].toLowerCase():c[4])):("!="==c[2]||"="==c[2])&&(f="n"+c[2]+'=""'),n='if(n=s.hasAttribute(e,"'+c[1]+'")){'+(c[2]?'n=s.getAttribute(e,"'+c[1]+'")':"")+(d&&c[2]?".toLowerCase();":";")+"if("+(c[2]?f:"n")+"){"+n+"}}"}else if(c=t.match(Ne.adjacent))n=(r?"":Xe.replace(/@/g,h))+n,n=ne?"var N"+h+"=e;while(e&&(e=e.previousElementSibling)){"+n+"break;}e=N"+h+";":"var N"+h+'=e;while(e&&(e=e.previousSibling)){if(e.nodeName>"@"){'+n+"break;}}e=N"+h+";";else if(c=t.match(Ne.relative))n=(r?"":Xe.replace(/@/g,h))+n,n=ne?"var N"+h+"=e;e=e.parentNode.firstElementChild;while(e&&e!==N"+h+"){"+n+"e=e.nextElementSibling;}e=N"+h+";":"var N"+h+"=e;e=e.parentNode.firstChild;while(e&&e!==N"+h+'){if(e.nodeName>"@"){'+n+"}e=e.nextSibling;}e=N"+h+";";else if(c=t.match(Ne.children))n=(r?"":Xe.replace(/@/g,h))+n,n="var N"+h+"=e;while(e&&e!==h&&e!==g&&(e=e.parentNode)){"+n+"break;}e=N"+h+";";else if(c=t.match(Ne.ancestor))n=(r?"":Xe.replace(/@/g,h))+n,n="var N"+h+"=e;while(e&&e!==h&&e!==g&&(e=e.parentNode)){"+n+"}e=N"+h+";";else if((c=t.match(Ne.spseudos))&&c[1])switch(c[1]){case"root":n=c[3]?"if(e===h||s.contains(h,e)){"+n+"}":"if(e===h){"+n+"}";break;case"empty":n="if(s.isEmpty(e)){"+n+"}";break;default:if(c[1]&&c[2]){if("n"==c[2]){n="if(e!==h){"+n+"}";break}"even"==c[2]?(a=2,i=0):"odd"==c[2]?(a=2,i=1):(i=(s=c[2].match(/(-?\d+)$/))?e.parseInt(s[1],10):0,a=(s=c[2].match(/(-?\d*)n/i))?e.parseInt(s[1],10):0,s&&"-"==s[1]&&(a=-1)),f=a>1?/last/i.test(c[1])?"(n-("+i+"))%"+a+"==0":"n>="+i+"&&(n-("+i+"))%"+a+"==0":-1>a?/last/i.test(c[1])?"(n-("+i+"))%"+a+"==0":"n<="+i+"&&(n-("+i+"))%"+a+"==0":0===a?"n=="+i:-1==a?"n<="+i:"n>="+i,n="if(e!==h){n=s["+(/-of-type/i.test(c[1])?'"nthOfType"':'"nthElement"')+"](e,"+(/last/i.test(c[1])?"true":"false")+");if("+f+"){"+n+"}}"}else a=/first/i.test(c[1])?"previous":"next",s=/only/i.test(c[1])?"previous":"next",i=/first|last/i.test(c[1]),d=/-of-type/i.test(c[1])?"&&n.nodeName!=e.nodeName":'&&n.nodeName<"@"',n="if(e!==h){"+("n=e;while((n=n."+a+"Sibling)"+d+");if(!n){"+(i?n:"n=e;while((n=n."+s+"Sibling)"+d+");if(!n){"+n+"}")+"}")+"}"}else if((c=t.match(Ne.dpseudos))&&c[1])switch(c[1].match(/^\w+/)[0]){case"not":if(l=c[3].replace(z,""),Ve.SIMPLENOT&&!P.test(l))return Qe('Negation pseudo-class only accepts simple selectors "'+t+'"'),"";n="compatMode"in b?"if(!"+Ze(l,"",!1)+"(e,s,r,d,h,g)){"+n+"}":'if(!s.match(e, "'+l.replace(/\x22/g,'\\"')+'",g)){'+n+"}";break;case"checked":n='if((typeof e.form!=="undefined"&&(/^(?:radio|checkbox)$/i).test(e.type)&&e.checked)'+(Ve.USE_HTML5?"||(/^option$/i.test(e.nodeName)&&(e.selected||e.checked))":"")+"){"+n+"}";break;case"disabled":n='if(((typeof e.form!=="undefined"'+(Ve.USE_HTML5?"":"&&!(/^hidden$/i).test(e.type)")+")||s.isLink(e))&&e.disabled===true){"+n+"}";break;case"enabled":n='if(((typeof e.form!=="undefined"'+(Ve.USE_HTML5?"":"&&!(/^hidden$/i).test(e.type)")+")||s.isLink(e))&&e.disabled===false){"+n+"}";break;case"lang":f="",c[2]&&(f=c[2].substr(0,2)+"-"),n='do{(n=e.lang||"").toLowerCase();if((n==""&&h.lang=="'+c[2].toLowerCase()+'")||(n&&(n=="'+c[2].toLowerCase()+'"||n.substr(0,3)=="'+f.toLowerCase()+'"))){'+n+"break;}}while((e=e.parentNode)&&e!==g);";break;case"target":n="if(e.id==d.location.hash.slice(1)){"+n+"}";break;case"link":n="if(s.isLink(e)&&!e.visited){"+n+"}";break;case"visited":n="if(s.isLink(e)&&e.visited){"+n+"}";break;case"active":if(m)break;n="if(e===d.activeElement){"+n+"}";break;case"hover":if(m)break;n="if(e===d.hoverElement){"+n+"}";break;case"focus":if(m)break;n=W?'if(e===d.activeElement&&d.hasFocus()&&(e.type||e.href||typeof e.tabIndex=="number")){'+n+"}":"if(e===d.activeElement&&(e.type||e.href)){"+n+"}";break;case"selected":l=ce?"||(n=e.parentNode)&&n.options[n.selectedIndex]===e":"",n="if(/^option$/i.test(e.nodeName)&&(e.selected||e.checked"+l+")){"+n+"}"}else{l=!1,u=!1;for(l in ve)if((c=t.match(ve[l].Expression))&&c[1]&&(o=ve[l].Callback(c,n),n=o.source,u=o.status))break;if(!u)return Qe('Unknown pseudo-class selector "'+t+'"'),"";if(!l)return Qe('Unknown token in selector "'+t+'"'),""}if(!c)return Qe('Invalid syntax in selector "'+t+'"'),"";t=c&&c[c.length-1]}return n},Je=function(t,r,a,s){var c;if(!t||1!=t.nodeType)return Qe("Invalid element argument"),!1;if("string"!=typeof r)return Qe("Invalid selector argument"),!1;if(a&&1==a.nodeType&&!_e(a,t))return!1;if(i!==a&&Se(a||(a=t.ownerDocument)),r=r.replace(z,""),Ve.SHORTCUTS&&(r=g.shortcuts(r,t,a)),l!=r){if(!(c=r.match(M))||c[0]!=r)return Qe('The string "'+r+'", is not a valid CSS selector'),!1;n=(c=r.match(F)).length<2,l=r,o=c}else c=o;return rt[r]&&nt[r]===a||(rt[r]=Ze(n?[r]:c,"",!1),nt[r]=a),rt[r](t,st,[],b,y,a,s,new e.Object)},Ke=function(e,t){return et(e,t,function(){return!1})[0]||null},et=function(t,n,l){var o,f,p,h,v,w,x=t;if(0===arguments.length)return Qe("Not enough arguments"),[];if("string"!=typeof t)return[];if(n&&!/1|9|11/.test(n.nodeType))return Qe("Invalid or illegal context element"),[];if(i!==n&&Se(n||(n=b)),Ve.CACHING&&(h=g.loadResults(x,n,b,y)))return l?Ce([],h,l):h;if(!ue&&pe.test(t))switch(t.charAt(0)){case"#":Ve.UNIQUE_ID&&(h=(p=Ie(t.slice(1),n))?[p]:[]);break;case".":h=$e(t.slice(1),n);break;default:h=Le(t,n)}else if(!m&&Ve.USE_QSAPI&&(!d||!de.test(t))&&!fe.test(t))try{h=n.querySelectorAll(t)}catch(N){}if(h)return h=l?Ce([],h,l):te?E.call(h):Ae([],h),Ve.CACHING&&g.saveResults(x,n,b,h),h;if(t=t.replace(z,""),Ve.SHORTCUTS&&(t=g.shortcuts(t,n)),f=c!=t){if(!(v=t.match(M))||v[0]!=t)return Qe('The string "'+t+'", is not a valid CSS selector'),[];r=(v=t.match(F)).length<2,c=t,u=v}else v=u;if(11==n.nodeType)h=je("*",n);else if(!m&&r){if(f&&(v=t.match(G),w=v[v.length-1],a=w.split(":not")[0],s=t.length-w.length),Ve.UNIQUE_ID&&(v=a.match(xe.ID))&&(w=v[1])?(p=Ie(w,n))&&(Je(p,t)?(l&&l(p),h=new e.Array(p)):h=new e.Array):Ve.UNIQUE_ID&&(v=t.match(xe.ID))&&(w=v[1])&&((p=Ie(w,b))?"#"+w==t?(l&&l(p),h=new e.Array(p)):n=/[>+~]/.test(t)?p.parentNode:p:h=new e.Array),h)return Ve.CACHING&&g.saveResults(x,n,b,h),h;if(!J&&(v=a.match(xe.TAG))&&(w=v[1])){if(0===(h=Le(w,n)).length)return[];t=t.slice(0,s)+t.slice(s).replace(w,"*")}else if((v=a.match(xe.CLASS))&&(w=v[1])){if(0===(h=$e(w,n)).length)return[];t=Q.test(t.charAt(t.indexOf(w)-1))?t.slice(0,s)+t.slice(s).replace("."+w,""):t.slice(0,s)+t.slice(s).replace("."+w,"*")}else if((v=t.match(xe.CLASS))&&(w=v[1])){if(0===(h=$e(w,n)).length)return[];for(o=0,els=new e.Array;h.length>o;++o)els=Ae(els,h[o].getElementsByTagName("*"));h=els,t=Q.test(t.charAt(t.indexOf(w)-1))?t.slice(0,s)+t.slice(s).replace("."+w,""):t.slice(0,s)+t.slice(s).replace("."+w,"*")}else if(J&&(v=a.match(xe.TAG))&&(w=v[1])){if(0===(h=Le(w,n)).length)return[];t=t.slice(0,s)+t.slice(s).replace(w,"*")}}return h||(h=/^(?:applet|object)$/i.test(n.nodeName)?n.childNodes:Le("*",n)),it[t]&&at[t]===n||(it[t]=Ze(r?[t]:v,"",!0),at[t]=n),h=it[t](h,st,[],b,y,n,l,new e.Object),Ve.CACHING&&g.saveResults(x,n,b,h),h},tt=function(e){return e},nt=new e.Object,rt=new e.Object,at=new e.Object,it=new e.Object,st=new e.Object({nthElement:Fe,nthOfType:Ge,getAttribute:He,hasAttribute:Me,byClass:$e,byName:Be,byTag:Le,byId:Ie,contains:_e,isEmpty:ze,isLink:Pe,select:et,match:Je}),lt=new e.Object({prefixes:w,encoding:j,operators:x,whitespace:N,identifier:L,attributes:B,combinators:A,pseudoclass:$,pseudoparms:C,quotedvalue:S});g.ACCEPT_NODE=We,g.byId=Te,g.byTag=Re,g.byName=Be,g.byClass=De,g.getAttribute=He,g.hasAttribute=Me,g.match=Je,g.first=Ke,g.select=et,g.compile=Ze,g.contains=_e,g.configure=qe,g.setCache=tt,g.loadResults=tt,g.saveResults=tt,g.shortcuts=tt,g.emit=Qe,g.Config=Ve,g.Snapshot=st,g.Operators=we,g.Selectors=ve,g.Tokens=lt,g.Version=h,g.registerOperator=function(e,t){we[e]||(we[e]=t)},g.registerSelector=function(t,n,r){ve[t]||(ve[t]=new e.Object({Expression:n,Callback:r}))},Se(b,!0)})}
+function(exports,require){if(typeof require == 'function'){
+var JSONTokenizer=require(41).JSONTokenizer;
+}
+
+var BRACKET_BEGIN = 0xFFFE;
+var BRACKET_END = 0xFFFF;
+var STATUS_BEGIN = -100;
+var STATUS_EXPRESSION = -101;
+var STATUS_OPERATOR = -102;
+var fns = {
+getResult :function() {
+return this.expression;
+
+},
+parseEL :function() {
+this.skipSpace(0);
+while (this.start < this.end) {
+var c = this.value.charAt(this.start);
+if (c == '"' || c == '\'') {
+var text = this.findString();
+this.addKeyOrObject(text, false);
+} else if (c >= '0' && c <= '9') {
+var number = this.findNumber();
+this.addKeyOrObject(number, false);
+} else if (/[\w$_]/.test(c)) {
+var id = this.findId();
+switch(id){
+case 'true':
+this.addToken([VALUE_CONSTANTS,true]);
+break;
+case 'false':
+this.addToken([VALUE_CONSTANTS,false]);
+break;
+case 'null':
+this.addToken([VALUE_CONSTANTS,null]);
+break;
+
+
+
+default:
+this.skipSpace(0);
+if (this.previousType == OP_GET) {
+this.addToken([VALUE_CONSTANTS,
+id]);
+} else {
+this.addKeyOrObject(id, true);
+}
+}
+} else {
+var op = this.findOperator();
+
+if( c=='.' && /\d/.test(this.value.charAt(this.start))){
+var number = this.value.substr(this.start-1).match(/^\.\d+/)[0];
+this.start+=number.length-1;
+this.addKeyOrObject(1*number, false);
+}else{
+
+this.parseOperator(op);
+if (op == null) {
+this.parseError("未知操作符:");
+}
+}
+}
+this.skipSpace(0);
+}
+},
+parseError:function(msg){
+msg = msg+"\n@"+ this.start + "\n"
++ this.value.substring(this.start)+"\n----\n"+this.value
+console.error(msg);
+throw new Error(msg);
+},
+findOperator :function() {
+var c = this.value.charAt(this.start);
+var end = this.start+1;
+var next = this.value.charAt(end);
+switch (c) {
+case ',':
+case ':':
+case '[':
+case ']':
+case '{':
+case '}':
+case '(':
+case ')':
+case '.':
+case '?':
+case '~':
+case '^':
+break;
+case '+':
+case '-':
+case '*':
+case '/':
+case '%':
+if(next == '=' ){
+this.parseError("不支持赋值操作:");
+}else if(next == c){
+this.parseError("不支持自增自减操作:");
+}
+break;
+case '=':
+if(next == '='){
+end++;
+if(this.value.charAt(end) == '='){
+end++;
+}
+}else{
+this.parseError("不支持赋值操作:");
+}
+break;
+case '!':
+if(next == '='){
+end++;
+if(this.value.charAt(end) == '='){
+end++;
+}
+}
+break;
+case '>':
+case '<':
+if (next == '=') {
+end++;
+}else if(next == c){
+if(this.value.charAt(end) == c){
+end++;
+}
+}
+break;
+case '&':
+case '|':
+if( (c == next)){
+end++;
+}
+break;
+default:
+return null;
+}
+return this.value.substring(this.start, this.start = end);
+},
+
+isMapMethod :function() {
+var i = this.tokens.length - 1;
+var depth = 0;
+for (; i >= 0; i--) {
+var token = this.tokens[i];
+var type = token[0];
+if (depth == 0) {
+if (type == OP_PUT
+|| type == VALUE_MAP) {
+
+
+return true;
+} else if (type == OP_JOIN) {
+
+
+return false;
+}
+}
+if (type == BRACKET_BEGIN) {
+depth--;
+} else if (type == BRACKET_END) {
+depth++;
+}
+}
+return false;
+},
+parseOperator :function(op) {
+if (op.length == 1) {
+switch (op.charAt(0)) {
+case '(':
+if (this.status == STATUS_EXPRESSION) {
+this.addToken([OP_INVOKE]);
+if (this.skipSpace(')')) {
+this.addToken([VALUE_CONSTANTS,
+[]]);
+this.start++;
+} else {
+this.addList();
+}
+} else {
+this.addToken([BRACKET_BEGIN]);
+}
+break;
+case '[':
+if (this.status == STATUS_EXPRESSION) {
+this.addToken([OP_GET]);
+this.addToken([BRACKET_BEGIN]);
+}else {
+this.addList();
+}
+break;
+case '{':
+this.addMap();
+break;
+case '}':
+case ']':
+case ')':
+this.addToken([BRACKET_END]);
+break;
+case '+':
+this.addToken([
+this.status == STATUS_EXPRESSION ? OP_ADD : OP_POS]);
+break;
+case '-':
+this.addToken([
+this.status == STATUS_EXPRESSION ? OP_SUB
+: OP_NEG]);
+break;
+case ':':
+this.addToken([OP_QUESTION_SELECT]);
+break;
+case ',':
+
+if (this.isMapMethod()) {
+this.status = STATUS_OPERATOR;
+}else{
+this.addToken([OP_JOIN]);
+}
+break;
+case '/':
+var next = this.value.charAt(this.start);
+if (next == '/') {
+var end1 = this.value.indexOf('\n', this.start);
+var end2 = this.value.indexOf('\r', this.start);
+var cend = Math.min(end1, end2);
+if (cend < 0) {
+cend = Math.max(end1, end2);
+}
+if (cend > 0) {
+this.start = cend;
+} else {
+this.start = this.end;
+}
+break;
+} else if (next == '*') {
+var cend = this.value.indexOf("*/", this.start);
+if (cend > 0) {
+this.start = cend + 2;
+} else {
+throw new Error("未結束注釋:" + this.value
++ "@" + this.start);
+}
+break;
+}else if(this.status != STATUS_EXPRESSION){
+var end = findRegExp(this.value,this.start);
+if(end>0){
+this.addToken([VALUE_CONSTANTS,
+toValue(
+this.value.substring(this.start-1,end))]);
+this.start = end;
+break;
+}else{
+throw new Error("异常正则:"+this.value+'@'+this.start)
+}
+
+
+}
+default:
+this.addToken([findTokenType(op)]);
+}
+} else {
+this.addToken([findTokenType(op)]);
+}
+},
+addToken :function(token) {
+var type= token[0];
+if(type == VALUE_VAR){
+if("in" == token[1]){
+token[0] = type = OP_IN;
+}
+}
+switch (type) {
+case BRACKET_BEGIN:
+this.status = STATUS_BEGIN;
+break;
+case VALUE_CONSTANTS:
+case VALUE_VAR:
+case BRACKET_END:
+this.status = STATUS_EXPRESSION;
+break;
+default:
+this.status = STATUS_OPERATOR;
+break;
+}
+
+this.previousType = type;
+this.tokens.push(token);
+},
+addKeyOrObject :function(object, isVar) {
+if (this.skipSpace(':') && this.isMapMethod()) {
+this.addToken([OP_PUT, object]);
+this.start++;
+} else if (isVar) {
+this.addToken([VALUE_VAR, object]);
+} else {
+this.addToken([VALUE_CONSTANTS, object]);
+}
+},
+addList :function() {
+this.addToken([BRACKET_BEGIN]);
+this.addToken([VALUE_LIST]);
+if (!this.skipSpace(']')) {
+this.addToken([OP_JOIN]);
+}
+},
+addMap :function() {
+this.addToken([BRACKET_BEGIN]);
+this.addToken([VALUE_MAP]);
+}
+};
+var pt = new JSONTokenizer('');
+for(var n in fns){
+pt[n] = fns[n]
+}
+function toValue(s){
+var v= this.eval(s);
+if(v instanceof RegExp){
+v = {
+"class":"RegExp",
+'literal':s+''
+}
+}
+return v;
+}
+function findRegExp(text,start){
+var depth=0,c;
+while(c = text.charAt(start++)){
+if(c=='['){
+depth = 1;
+}else if(c==']'){
+depth = 0;
+}else if (c == '\\') {
+start++;
+}else if(depth == 0 && c == '/'){
+while(c = text.charAt(start++)){
+switch(c){
+case 'g':
+case 'i':
+case 'm':
+break;
+default:
+return start-1;
+}
+}
+}
+}
+}
+
+function ExpressionTokenizer(value){
+this.value = value.replace(/^\s+|\s+$/g,'');
+this.start = 0;
+this.end = this.value.length;
+this.status = STATUS_BEGIN;
+this.previousType = STATUS_BEGIN;
+this.tokens = [];
+this.parseEL();
+prepareSelect(this.tokens)
+this.expression = buildTree(trimToken(right(this.tokens)));
+}
+function prepareSelect(tokens) {
+var p1 = tokens.length;
+while (p1--) {
+var type1 = tokens[p1][0];
+if (type1 == OP_QUESTION) { 
+var pos = getSelectRange(tokens,p1, -1, -1);
+tokens.splice(pos+1,0, [BRACKET_BEGIN]);
+p1++;
+} else if (type1 == OP_QUESTION_SELECT) {
+var end = tokens.length;
+var pos = getSelectRange(tokens,p1, 1, end);
+tokens.splice(pos,0, [BRACKET_END]);
+}
+}
+}
+function getSelectRange(tokens,p2, inc, end) {
+var dep = 0;
+while ((p2 += inc) != end) {
+var type2 = tokens[p2][0];
+if (type2 > 0) {
+if (type2 == BRACKET_BEGIN) {
+dep += inc;
+} else if (type2 == BRACKET_END) {
+dep -= inc;
+} else if (dep == 0 && getPriority(type2) <= getPriority(OP_QUESTION)) {
+return p2;
+}
+if (dep < 0) {
+return p2;
+}
+}
+}
+return inc > 0 ? end : -1;
+}
+function buildTree(tokens){
+var stack = [];
+for(var i=0;i<tokens.length;i++){
+var item = tokens[i]
+var type = item[0];
+switch(type){
+case VALUE_CONSTANTS:
+case VALUE_VAR:
+case VALUE_LIST:
+case VALUE_MAP:
+stack.push(item);
+break;
+default:
+if(getTokenParamIndex(type) ==3){
+var arg2 = stack.pop();
+var arg1 = stack.pop();
+var el = [type,arg1,arg2]
+}else{
+var arg1 = stack.pop();
+var el = [type,arg1]
+}
+if(hasTokenParam(type)){
+el[getTokenParamIndex(type)] = item[1];
+}
+stack.push(el)
+}
+}
+return stack[0];
+}
+ExpressionTokenizer.prototype = pt;
+
+function right(tokens) {
+var rightStack = [[]];
+var buffer = [];
+for (var i = 0;i<tokens.length;i++) {
+var item = tokens[i];
+if (item[0] > 0) {
+if (buffer.length == 0) {
+buffer.push(item);
+} else if (item[0] == BRACKET_BEGIN) {
+buffer.push(item);
+} else if (item[0] == BRACKET_END) {
+while (true) {
+var operator = buffer.pop();
+if (operator[0] == BRACKET_BEGIN) {
+break;
+}
+addRightToken(rightStack, operator);
+}
+} else {
+while (buffer.length!=0
+&& rightEnd(item[0], buffer[buffer.length-1][0])) {
+var operator = buffer.pop();
+
+
+addRightToken(rightStack, operator);
+}
+buffer.push(item);
+}
+} else {
+addRightToken(rightStack, item);
+}
+}
+while (buffer.length !=0) {
+var operator = buffer.pop();
+addRightToken(rightStack, operator);
+}
+return rightStack[rightStack.length-1];
+}
+function trimToken(tokens){
+for(var i=0;i<tokens.length;i++){
+var token = tokens[i];
+token.length = getTokenLength(token[0]);
+}
+return tokens;
+}
+function addRightToken(rightStack,
+token) {
+var list = rightStack[rightStack.length-1];
+
+
+
+
+
+
+
+
+
+
+list.push(token);
+}
+function getPriority(type) {
+switch (type) {
+case BRACKET_BEGIN:
+case BRACKET_END:
+return Math.MIN_VALUE;
+default:
+return (type & BIT_PRIORITY)<<4 | (type & BIT_PRIORITY_SUB)>>8;
+}
+}
+
+function rightEnd(currentType, priviousType) {
+var priviousPriority = getPriority(priviousType);
+var currentPriority = getPriority(currentType);
+return currentPriority <= priviousPriority;
+}
+if(typeof require == 'function'){
+exports.getPriority=getPriority;
+exports.ExpressionTokenizer=ExpressionTokenizer;
+var hasTokenParam=require(33).hasTokenParam;
+var getTokenParam=require(33).getTokenParam;
+var hasTokenParam=require(33).hasTokenParam;
+var getTokenParamIndex=require(33).getTokenParamIndex;
+var getTokenLength=require(33).getTokenLength;
+var findTokenType=require(33).findTokenType;
+var BIT_PRIORITY=require(33).BIT_PRIORITY;
+var BIT_PRIORITY_SUB=require(33).BIT_PRIORITY_SUB;
+var OP_ADD=require(33).OP_ADD;
+var OP_GET=require(33).OP_GET;
+var OP_IN=require(33).OP_IN;
+var OP_INVOKE=require(33).OP_INVOKE;
+var OP_JOIN=require(33).OP_JOIN;
+var OP_NE=require(33).OP_NE;
+var OP_NEG=require(33).OP_NEG;
+var OP_POS=require(33).OP_POS;
+var OP_PUT=require(33).OP_PUT;
+var OP_QUESTION=require(33).OP_QUESTION;
+var OP_QUESTION_SELECT=require(33).OP_QUESTION_SELECT;
+var OP_SUB=require(33).OP_SUB;
+var VALUE_CONSTANTS=require(33).VALUE_CONSTANTS;
+var VALUE_LIST=require(33).VALUE_LIST;
+var VALUE_MAP=require(33).VALUE_MAP;
+var VALUE_VAR=require(33).VALUE_VAR;
+}
+}
 ,
-function(e,r){function t(){}function a(e,r,t,a,o){function m(e){if(e>65535){e-=65536;var r=55296+(e>>10),t=56320+(1023&e);return String.fromCharCode(r,t)}return String.fromCharCode(e)}function h(e){var r=e.slice(1,-1);return r in t?t[r]:"#"===r.charAt(0)?m(parseInt(r.substr(1).replace("x","0x"))):(o.error("entity not found:"+e),e)}function g(r){if(r>D){var t=e.substring(D,r).replace(/&#?\w+;/g,h);x&&p(D),a.characters(t,0,r-D),D=r}}function p(r,t){for(;r>=b&&(t=v.exec(e));)w=t.index,b=w+t[0].length,x.lineNumber++;x.columnNumber=r-w+1}for(var w=0,b=0,v=/.*(?:\r\n?|\n)|.*$/g,x=a.locator,N=[{currentNSMap:r}],F={},D=0;;){try{var k=e.indexOf("<",D);if(0>k){if(!e.substr(D).match(/^\s*$/)){var E=a.doc,C=E.createTextNode(e.substr(D));E.appendChild(C),a.currentElement=C}return}switch(k>D&&g(k),e.charAt(k+1)){case"/":var $=e.indexOf(">",k+3),A=e.substring(k+2,$),M=N.pop();0>$?(A=e.substring(k+2).replace(/[\s<].*/,""),o.error("end tag name: "+A+" is not complete:"+M.tagName),$=k+1+A.length):A.match(/\s</)&&(A=A.replace(/[\s<].*/,""),o.error("end tag name: "+A+" maybe not complete"),$=k+1+A.length);var O=M.localNSMap,T=M.tagName==A,S=T||M.tagName&&M.tagName.toLowerCase()==A.toLowerCase();if(S){if(a.endElement(M.uri,M.localName,A),O)for(var q in O)a.endPrefixMapping(q);T||o.fatalError("end tag name: "+A+" is not match the current start tagName:"+M.tagName)}else N.push(M);$++;break;case"?":x&&p(k),$=f(e,k,a);break;case"!":x&&p(k),$=l(e,k,a,o);break;default:x&&p(k);var y=new d,I=N[N.length-1].currentNSMap,$=s(e,k,y,I,h,o),L=y.length;if(!y.closed&&u(e,$,y.tagName,F)&&(y.closed=!0,t.nbsp||o.warning("unclosed xml attribute")),x&&L){for(var _=n(x,{}),R=0;L>R;R++){var P=y[R];p(P.offset),P.locator=n(x,{})}a.locator=_,c(y,a,I)&&N.push(y),a.locator=x}else c(y,a,I)&&N.push(y);"http://www.w3.org/1999/xhtml"!==y.uri||y.closed?$++:$=i(e,$,y.tagName,h,a)}}catch(B){o.error("element parse error: "+B),$=-1}$>D?D=$:g(Math.max(k,D)+1)}}function n(e,r){return r.lineNumber=e.lineNumber,r.columnNumber=e.columnNumber,r}function s(e,r,t,a,n,s){for(var c,i,u=++r,o=b;;){var l=e.charAt(u);switch(l){case"=":if(o===v)c=e.slice(r,u),o=N;else{if(o!==x)throw new Error("attribute equal must after attrName");o=N}break;case"'":case'"':if(o===N||o===v){if(o===v&&(s.warning('attribute value must after "="'),c=e.slice(r,u)),r=u+1,u=e.indexOf(l,r),!(u>0))throw new Error("attribute value no end '"+l+"' match");i=e.slice(r,u).replace(/&#?\w+;/g,n),t.add(c,i,r-1),o=D}else{if(o!=F)throw new Error('attribute value must after "="');i=e.slice(r,u).replace(/&#?\w+;/g,n),t.add(c,i,r),s.warning('attribute "'+c+'" missed start quot('+l+")!!"),r=u+1,o=D}break;case"/":switch(o){case b:t.setTagName(e.slice(r,u));case D:case k:case E:o=E,t.closed=!0;case F:case v:case x:break;default:throw new Error("attribute invalid close char('/')")}break;case"":return s.error("unexpected end of input"),o==b&&t.setTagName(e.slice(r,u)),u;case">":switch(o){case b:t.setTagName(e.slice(r,u));case D:case k:case E:break;case F:case v:i=e.slice(r,u),"/"===i.slice(-1)&&(t.closed=!0,i=i.slice(0,-1));case x:o===x&&(i=c),o==F?(s.warning('attribute "'+i+'" missed quot(")!!'),t.add(c,i.replace(/&#?\w+;/g,n),r)):("http://www.w3.org/1999/xhtml"===a[""]&&i.match(/^(?:disabled|checked|selected)$/i)||s.warning('attribute "'+i+'" missed value!! "'+i+'" instead!!'),t.add(i,i,r));break;case N:throw new Error("attribute value missed!!")}return u;case"":l=" ";default:if(" ">=l)switch(o){case b:t.setTagName(e.slice(r,u)),o=k;break;case v:c=e.slice(r,u),o=x;break;case F:var i=e.slice(r,u).replace(/&#?\w+;/g,n);s.warning('attribute "'+i+'" missed quot(")!!'),t.add(c,i,r);case D:o=k}else switch(o){case x:t.tagName;"http://www.w3.org/1999/xhtml"===a[""]&&c.match(/^(?:disabled|checked|selected)$/i)||s.warning('attribute "'+c+'" missed value!! "'+c+'" instead2!!'),t.add(c,c,r),r=u,o=v;break;case D:s.warning('attribute space is required"'+c+'"!!');case k:o=v,r=u;break;case N:o=F,r=u;break;case E:throw new Error("elements closed character '/' and '>' must be connected to")}}u++}}function c(e,r,t){for(var a=e.tagName,n=null,s=e.length;s--;){var c=e[s],i=c.qName,u=c.value,l=i.indexOf(":");if(l>0)var f=c.prefix=i.slice(0,l),d=i.slice(l+1),m="xmlns"===f&&d;else d=i,f=null,m="xmlns"===i&&"";c.localName=d,m!==!1&&(null==n&&(n={},o(t,t={})),t[m]=n[m]=u,c.uri="http://www.w3.org/2000/xmlns/",r.startPrefixMapping(m,u))}for(var s=e.length;s--;){c=e[s];var f=c.prefix;f&&("xml"===f&&(c.uri="http://www.w3.org/XML/1998/namespace"),"xmlns"!==f&&(c.uri=t[f||""]))}var l=a.indexOf(":");l>0?(f=e.prefix=a.slice(0,l),d=e.localName=a.slice(l+1)):(f=null,d=e.localName=a);var h=e.uri=t[f||""];if(r.startElement(h,d,a,e),!e.closed)return e.currentNSMap=t,e.localNSMap=n,!0;if(r.endElement(h,d,a),n)for(f in n)r.endPrefixMapping(f)}function i(e,r,t,a,n){if(/^(?:script|textarea)$/i.test(t)){var s=e.indexOf("</"+t+">",r),c=e.substring(r+1,s);if(/[&<]/.test(c))return/^script$/i.test(t)?(n.characters(c,0,c.length),s):(c=c.replace(/&#?\w+;/g,a),n.characters(c,0,c.length),s)}return r+1}function u(e,r,t,a){var n=a[t];return null==n&&(n=e.lastIndexOf("</"+t+">"),r>n&&(n=e.lastIndexOf("</"+t)),a[t]=n),r>n}function o(e,r){for(var t in e)r[t]=e[t]}function l(e,r,t,a){var n=e.charAt(r+2);switch(n){case"-":if("-"===e.charAt(r+3)){var s=e.indexOf("-->",r+4);return s>r?(t.comment(e,r+4,s-r-4),s+3):(a.error("Unclosed comment"),-1)}return-1;default:if("CDATA["==e.substr(r+3,6)){var s=e.indexOf("]]>",r+9);return t.startCDATA(),t.characters(e,r+9,s-r-9),t.endCDATA(),s+3}var c=h(e,r),i=c.length;if(i>1&&/!doctype/i.test(c[0][0])){var u=c[1][0],o=i>3&&/^public$/i.test(c[2][0])&&c[3][0],l=i>4&&c[4][0],f=c[i-1];return t.startDTD(u,o&&o.replace(/^(['"])(.*?)\1$/,"$2"),l&&l.replace(/^(['"])(.*?)\1$/,"$2")),t.endDTD(),f.index+f[0].length}}return-1}function f(e,r,t){var a=e.indexOf("?>",r);if(a){var n=e.substring(r,a).match(/^<\?(\S*)\s*([\s\S]*?)\s*$/);if(n){n[0].length;return t.processingInstruction(n[1],n[2]),a+2}return-1}return-1}function d(e){}function m(e,r){return e.__proto__=r,e}function h(e,r){var t,a=[],n=/'[^']+'|"[^"]+"|[^\s<>\/=]+=?|(\/?\s*>|<)/g;for(n.lastIndex=r,n.exec(e);t=n.exec(e);)if(a.push(t),t[1])return a}var g=/[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/,p=new RegExp("[\\-\\.0-9"+g.source.slice(1,-1)+"\\u00B7\\u0300-\\u036F\\u203F-\\u2040]"),w=new RegExp("^"+g.source+p.source+"*(?::"+g.source+p.source+"*)?$"),b=0,v=1,x=2,N=3,F=4,D=5,k=6,E=7;t.prototype={parse:function(e,r,t){var n=this.domBuilder;n.startDocument(),o(r,r={}),a(e,r,t,n,this.errorHandler),n.endDocument()}},d.prototype={setTagName:function(e){if(!w.test(e))throw new Error("invalid tagName:"+e);this.tagName=e},add:function(e,r,t){if(!w.test(e))throw new Error("invalid attribute:"+e);this[this.length++]={qName:e,value:r,offset:t}},length:0,getLocalName:function(e){return this[e].localName},getLocator:function(e){return this[e].locator},getQName:function(e){return this[e].qName},getURI:function(e){return this[e].uri},getValue:function(e){return this[e].value}},m({},m.prototype)instanceof m||(m=function(e,r){function t(){}t.prototype=r,t=new t;for(r in e)t[r]=e[r];return t}),e.XMLReader=t}
+function(exports,require){
+
+
+var nameStartChar = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]/
+var nameChar = new RegExp("[\\-\\.0-9"+nameStartChar.source.slice(1,-1)+"\\u00B7\\u0300-\\u036F\\u203F-\\u2040]");
+var tagNamePattern = new RegExp('^'+nameStartChar.source+nameChar.source+'*(?:\:'+nameStartChar.source+nameChar.source+'*)?$');
+
+
+
+
+var S_TAG = 0;
+var S_ATTR = 1;
+var S_ATTR_SPACE=2;
+var S_EQ = 3;
+var S_ATTR_NOQUOT_VALUE = 4;
+var S_ATTR_END = 5;
+var S_TAG_SPACE = 6;
+var S_TAG_CLOSE = 7;
+function XMLReader(){
+}
+XMLReader.prototype = {
+parse:function(source,defaultNSMap,entityMap){
+var domBuilder = this.domBuilder;
+domBuilder.startDocument();
+_copy(defaultNSMap ,defaultNSMap = {})
+parse(source,defaultNSMap,entityMap,
+domBuilder,this.errorHandler);
+domBuilder.endDocument();
+}
+}
+function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
+function fixedFromCharCode(code) {
+
+
+if (code > 0xffff) {
+code -= 0x10000;
+var surrogate1 = 0xd800 + (code >> 10)
+, surrogate2 = 0xdc00 + (code & 0x3ff);
+return String.fromCharCode(surrogate1, surrogate2);
+} else {
+return String.fromCharCode(code);
+}
+}
+function entityReplacer(a){
+var k = a.slice(1,-1);
+if(k in entityMap){
+return entityMap[k]; 
+}else if(k.charAt(0) === '#'){
+return fixedFromCharCode(parseInt(k.substr(1).replace('x','0x')))
+}else{
+errorHandler.error('entity not found:'+a);
+return a;
+}
+}
+function appendText(end){
+if(end>start){
+var xt = source.substring(start,end).replace(/&#?\w+;/g,entityReplacer);
+locator&&position(start);
+domBuilder.characters(xt,0,end-start);
+start = end
+}
+}
+function position(p,m){
+while(p>=lineEnd && (m = linePattern.exec(source))){
+lineStart = m.index;
+lineEnd = lineStart + m[0].length;
+locator.lineNumber++;
+
+}
+locator.columnNumber = p-lineStart+1;
+}
+var lineStart = 0;
+var lineEnd = 0;
+var linePattern = /.*(?:\r\n?|\n)|.*$/g
+var locator = domBuilder.locator;
+var parseStack = [{currentNSMap:defaultNSMapCopy}]
+var closeMap = {};
+var start = 0;
+while(true){
+try{
+var tagStart = source.indexOf('<',start);
+if(tagStart<0){
+if(!source.substr(start).match(/^\s*$/)){
+var doc = domBuilder.doc;
+var text = doc.createTextNode(source.substr(start));
+doc.appendChild(text);
+domBuilder.currentElement = text;
+}
+return;
+}
+if(tagStart>start){
+appendText(tagStart);
+}
+switch(source.charAt(tagStart+1)){
+case '/':
+var end = source.indexOf('>',tagStart+3);
+var tagName = source.substring(tagStart+2,end);
+var config = parseStack.pop();
+if(end<0){
+tagName = source.substring(tagStart+2).replace(/[\s<].*/,'');
+
+errorHandler.error("end tag name: "+tagName+' is not complete:'+config.tagName);
+end = tagStart+1+tagName.length;
+}else if(tagName.match(/\s</)){
+tagName = tagName.replace(/[\s<].*/,'');
+errorHandler.error("end tag name: "+tagName+' maybe not complete');
+end = tagStart+1+tagName.length;
+}
+
+
+var localNSMap = config.localNSMap;
+var endMatch = config.tagName == tagName;
+var endIgnoreCaseMach = endMatch || config.tagName&&config.tagName.toLowerCase() == tagName.toLowerCase()
+if(endIgnoreCaseMach){
+domBuilder.endElement(config.uri,config.localName,tagName);
+if(localNSMap){
+for(var prefix in localNSMap){
+domBuilder.endPrefixMapping(prefix) ;
+}
+}
+if(!endMatch){
+errorHandler.fatalError("end tag name: "+tagName+' is not match the current start tagName:'+config.tagName );
+}
+}else{
+parseStack.push(config)
+}
+end++;
+break;
+
+case '?':
+locator&&position(tagStart);
+end = parseInstruction(source,tagStart,domBuilder);
+break;
+case '!':
+locator&&position(tagStart);
+end = parseDCC(source,tagStart,domBuilder,errorHandler);
+break;
+default:
+locator&&position(tagStart);
+var el = new ElementAttributes();
+var currentNSMap = parseStack[parseStack.length-1].currentNSMap;
+
+var end = parseElementStartPart(source,tagStart,el,currentNSMap,entityReplacer,errorHandler);
+var len = el.length;
+if(!el.closed && fixSelfClosed(source,end,el.tagName,closeMap)){
+el.closed = true;
+if(!entityMap.nbsp){
+errorHandler.warning('unclosed xml attribute');
+}
+}
+if(locator && len){
+var locator2 = copyLocator(locator,{});
+
+for(var i = 0;i<len;i++){
+var a = el[i];
+position(a.offset);
+a.locator = copyLocator(locator,{});
+}
+
+domBuilder.locator = locator2
+if(appendElement(el,domBuilder,currentNSMap)){
+parseStack.push(el)
+}
+domBuilder.locator = locator;
+}else{
+if(appendElement(el,domBuilder,currentNSMap)){
+parseStack.push(el)
+}
+}
+if(el.uri === 'http://www.w3.org/1999/xhtml' && !el.closed){
+end = parseHtmlSpecialContent(source,end,el.tagName,entityReplacer,domBuilder)
+}else{
+end++;
+}
+}
+}catch(e){
+errorHandler.error('element parse error: '+e)
+
+end = -1;
+
+}
+if(end>start){
+start = end;
+}else{
+
+appendText(Math.max(tagStart,start)+1);
+}
+}
+}
+function copyLocator(f,t){
+t.lineNumber = f.lineNumber;
+t.columnNumber = f.columnNumber;
+return t;
+}
+
+function parseElementStartPart(source,start,el,currentNSMap,entityReplacer,errorHandler){
+var attrName;
+var value;
+var p = ++start;
+var s = S_TAG;
+while(true){
+var c = source.charAt(p);
+switch(c){
+case '=':
+if(s === S_ATTR){
+attrName = source.slice(start,p);
+s = S_EQ;
+}else if(s === S_ATTR_SPACE){
+s = S_EQ;
+}else{
+
+throw new Error('attribute equal must after attrName');
+}
+break;
+case '\'':
+case '"':
+if(s === S_EQ || s === S_ATTR 
+){
+if(s === S_ATTR){
+errorHandler.warning('attribute value must after "="')
+attrName = source.slice(start,p)
+}
+start = p+1;
+p = source.indexOf(c,start)
+if(p>0){
+value = source.slice(start,p).replace(/&#?\w+;/g,entityReplacer);
+el.add(attrName,value,start-1);
+s = S_ATTR_END;
+}else{
+
+throw new Error('attribute value no end \''+c+'\' match');
+}
+}else if(s == S_ATTR_NOQUOT_VALUE){
+value = source.slice(start,p).replace(/&#?\w+;/g,entityReplacer);
+
+el.add(attrName,value,start);
+
+errorHandler.warning('attribute "'+attrName+'" missed start quot('+c+')!!');
+start = p+1;
+s = S_ATTR_END
+}else{
+
+throw new Error('attribute value must after "="');
+}
+break;
+case '/':
+switch(s){
+case S_TAG:
+el.setTagName(source.slice(start,p));
+case S_ATTR_END:
+case S_TAG_SPACE:
+case S_TAG_CLOSE:
+s =S_TAG_CLOSE;
+el.closed = true;
+case S_ATTR_NOQUOT_VALUE:
+case S_ATTR:
+case S_ATTR_SPACE:
+break;
+
+default:
+throw new Error("attribute invalid close char('/')")
+}
+break;
+case '':
+
+errorHandler.error('unexpected end of input');
+if(s == S_TAG){
+el.setTagName(source.slice(start,p));
+}
+return p;
+case '>':
+switch(s){
+case S_TAG:
+el.setTagName(source.slice(start,p));
+case S_ATTR_END:
+case S_TAG_SPACE:
+case S_TAG_CLOSE:
+break;
+case S_ATTR_NOQUOT_VALUE:
+case S_ATTR:
+value = source.slice(start,p);
+if(value.slice(-1) === '/'){
+el.closed = true;
+value = value.slice(0,-1)
+}
+case S_ATTR_SPACE:
+if(s === S_ATTR_SPACE){
+value = attrName;
+}
+if(s == S_ATTR_NOQUOT_VALUE){
+errorHandler.warning('attribute "'+value+'" missed quot(")!!');
+el.add(attrName,value.replace(/&#?\w+;/g,entityReplacer),start)
+}else{
+if(currentNSMap[''] !== 'http://www.w3.org/1999/xhtml' || !value.match(/^(?:disabled|checked|selected)$/i)){
+errorHandler.warning('attribute "'+value+'" missed value!! "'+value+'" instead!!')
+}
+el.add(value,value,start)
+}
+break;
+case S_EQ:
+throw new Error('attribute value missed!!');
+}
+
+return p;
+
+case '\u0080':
+c = ' ';
+default:
+if(c<= ' '){
+switch(s){
+case S_TAG:
+el.setTagName(source.slice(start,p));
+s = S_TAG_SPACE;
+break;
+case S_ATTR:
+attrName = source.slice(start,p)
+s = S_ATTR_SPACE;
+break;
+case S_ATTR_NOQUOT_VALUE:
+var value = source.slice(start,p).replace(/&#?\w+;/g,entityReplacer);
+errorHandler.warning('attribute "'+value+'" missed quot(")!!');
+el.add(attrName,value,start)
+case S_ATTR_END:
+s = S_TAG_SPACE;
+break;
+
+
+
+
+
+
+}
+}else{
+
+
+switch(s){
+
+
+
+case S_ATTR_SPACE:
+var tagName = el.tagName;
+if(currentNSMap[''] !== 'http://www.w3.org/1999/xhtml' || !attrName.match(/^(?:disabled|checked|selected)$/i)){
+errorHandler.warning('attribute "'+attrName+'" missed value!! "'+attrName+'" instead2!!')
+}
+el.add(attrName,attrName,start);
+start = p;
+s = S_ATTR;
+break;
+case S_ATTR_END:
+errorHandler.warning('attribute space is required"'+attrName+'"!!')
+case S_TAG_SPACE:
+s = S_ATTR;
+start = p;
+break;
+case S_EQ:
+s = S_ATTR_NOQUOT_VALUE;
+start = p;
+break;
+case S_TAG_CLOSE:
+throw new Error("elements closed character '/' and '>' must be connected to");
+}
+}
+}
+
+p++;
+}
+}
+
+function appendElement(el,domBuilder,currentNSMap){
+var tagName = el.tagName;
+var localNSMap = null;
+
+var i = el.length;
+while(i--){
+var a = el[i];
+var qName = a.qName;
+var value = a.value;
+var nsp = qName.indexOf(':');
+if(nsp>0){
+var prefix = a.prefix = qName.slice(0,nsp);
+var localName = qName.slice(nsp+1);
+var nsPrefix = prefix === 'xmlns' && localName
+}else{
+localName = qName;
+prefix = null
+nsPrefix = qName === 'xmlns' && ''
+}
+
+a.localName = localName ;
+
+if(nsPrefix !== false){
+if(localNSMap == null){
+localNSMap = {}
+
+_copy(currentNSMap,currentNSMap={})
+
+}
+currentNSMap[nsPrefix] = localNSMap[nsPrefix] = value;
+a.uri = 'http://www.w3.org/2000/xmlns/'
+domBuilder.startPrefixMapping(nsPrefix, value) 
+}
+}
+var i = el.length;
+while(i--){
+a = el[i];
+var prefix = a.prefix;
+if(prefix){
+if(prefix === 'xml'){
+a.uri = 'http://www.w3.org/XML/1998/namespace';
+}if(prefix !== 'xmlns'){
+a.uri = currentNSMap[prefix || '']
+
+}
+}
+}
+var nsp = tagName.indexOf(':');
+if(nsp>0){
+prefix = el.prefix = tagName.slice(0,nsp);
+localName = el.localName = tagName.slice(nsp+1);
+}else{
+prefix = null;
+localName = el.localName = tagName;
+}
+
+var ns = el.uri = currentNSMap[prefix || ''];
+domBuilder.startElement(ns,localName,tagName,el);
+
+
+if(el.closed){
+domBuilder.endElement(ns,localName,tagName);
+if(localNSMap){
+for(prefix in localNSMap){
+domBuilder.endPrefixMapping(prefix) 
+}
+}
+}else{
+el.currentNSMap = currentNSMap;
+el.localNSMap = localNSMap;
+
+return true;
+}
+}
+function parseHtmlSpecialContent(source,elStartEnd,tagName,entityReplacer,domBuilder){
+if(/^(?:script|textarea)$/i.test(tagName)){
+var elEndStart = source.indexOf('</'+tagName+'>',elStartEnd);
+var text = source.substring(elStartEnd+1,elEndStart);
+if(/[&<]/.test(text)){
+if(/^script$/i.test(tagName)){
+
+
+domBuilder.characters(text,0,text.length);
+
+return elEndStart;
+
+}
+text = text.replace(/&#?\w+;/g,entityReplacer);
+domBuilder.characters(text,0,text.length);
+return elEndStart;
+
+}
+}
+return elStartEnd+1;
+}
+function fixSelfClosed(source,elStartEnd,tagName,closeMap){
+
+var pos = closeMap[tagName];
+if(pos == null){
+
+pos = source.lastIndexOf('</'+tagName+'>')
+if(pos<elStartEnd){
+pos = source.lastIndexOf('</'+tagName)
+}
+closeMap[tagName] =pos
+}
+return pos<elStartEnd;
+
+}
+function _copy(source,target){
+for(var n in source){target[n] = source[n]}
+}
+function parseDCC(source,start,domBuilder,errorHandler){
+var next= source.charAt(start+2)
+switch(next){
+case '-':
+if(source.charAt(start + 3) === '-'){
+var end = source.indexOf('-->',start+4);
+
+if(end>start){
+domBuilder.comment(source,start+4,end-start-4);
+return end+3;
+}else{
+errorHandler.error("Unclosed comment");
+return -1;
+}
+}else{
+
+return -1;
+}
+default:
+if(source.substr(start+3,6) == 'CDATA['){
+var end = source.indexOf(']]>',start+9);
+domBuilder.startCDATA();
+domBuilder.characters(source,start+9,end-start-9);
+domBuilder.endCDATA() 
+return end+3;
+}
+
+
+var matchs = split(source,start);
+var len = matchs.length;
+if(len>1 && /!doctype/i.test(matchs[0][0])){
+var name = matchs[1][0];
+var pubid = len>3 && /^public$/i.test(matchs[2][0]) && matchs[3][0]
+var sysid = len>4 && matchs[4][0];
+var lastMatch = matchs[len-1]
+domBuilder.startDTD(name,pubid && pubid.replace(/^(['"])(.*?)\1$/,'$2'),
+sysid && sysid.replace(/^(['"])(.*?)\1$/,'$2'));
+domBuilder.endDTD();
+return lastMatch.index+lastMatch[0].length
+}
+}
+return -1;
+}
+function parseInstruction(source,start,domBuilder){
+var end = source.indexOf('?>',start);
+if(end){
+var match = source.substring(start,end).match(/^<\?(\S*)\s*([\s\S]*?)\s*$/);
+if(match){
+var len = match[0].length;
+domBuilder.processingInstruction(match[1], match[2]) ;
+return end+2;
+}else{
+return -1;
+}
+}
+return -1;
+}
+
+function ElementAttributes(source){
+}
+ElementAttributes.prototype = {
+setTagName:function(tagName){
+if(!tagNamePattern.test(tagName)){
+throw new Error('invalid tagName:'+tagName)
+}
+this.tagName = tagName
+},
+add:function(qName,value,offset){
+if(!tagNamePattern.test(qName)){
+throw new Error('invalid attribute:'+qName)
+}
+this[this.length++] = {qName:qName,value:value,offset:offset}
+},
+length:0,
+getLocalName:function(i){return this[i].localName},
+getLocator:function(i){return this[i].locator},
+getQName:function(i){return this[i].qName},
+getURI:function(i){return this[i].uri},
+getValue:function(i){return this[i].value}
+
+
+
+
+
+
+
+
+
+
+}
+function _set_proto_(thiz,parent){
+thiz.__proto__ = parent;
+return thiz;
+}
+if(!(_set_proto_({},_set_proto_.prototype) instanceof _set_proto_)){
+_set_proto_ = function(thiz,parent){
+function p(){};
+p.prototype = parent;
+p = new p();
+for(parent in thiz){
+p[parent] = thiz[parent];
+}
+return p;
+}
+}
+function split(source,start){
+var match;
+var buf = [];
+var reg = /'[^']+'|"[^"]+"|[^\s<>\/=]+=?|(\/?\s*>|<)/g;
+reg.lastIndex = start;
+reg.exec(source);
+while(match = reg.exec(source)){
+buf.push(match);
+if(match[1])return buf;
+}
+}
+exports.XMLReader = XMLReader;
+}
 ,
-function(e,t){function n(e,t){for(var n in e)t[n]=e[n]}function r(e,t){function r(){}var i=e.prototype;if(Object.create){var o=Object.create(t.prototype);i.__proto__=o}i instanceof t||(r.prototype=t.prototype,r=new r,n(i,r),e.prototype=i=r),i.constructor!=e&&("function"!=typeof e&&console.error("unknow Class:"+e),i.constructor=e)}function i(e,t){if(t instanceof Error)var n=t;else n=this,Error.call(this,ie[e]),this.message=ie[e],Error.captureStackTrace&&Error.captureStackTrace(this,i);return n.code=e,t&&(this.message=this.message+": "+t),n}function o(){}function a(e,t){this._node=e,this._refresh=t,u(this)}function u(e){var t=e._node._inc||e._node.ownerDocument._inc;if(e._inc!=t){var r=e._refresh(e._node);F(e,"length",r.length),n(r,e),e._inc=t}}function s(){}function l(e,t){for(var n=e.length;n--;)if(e[n]===t)return n}function c(e,t,n,r){if(r?t[l(t,r)]=n:t[t.length++]=n,e){n.ownerElement=e;var i=e.ownerDocument;i&&(r&&g(i,e,r),v(i,e,n))}}function h(e,t,n){var r=l(t,n);if(!(r>=0))throw i(ae,new Error(e.tagName+"@"+n));for(var o=t.length-1;o>r;)t[r]=t[++r];if(t.length=o,e){var a=e.ownerDocument;a&&(g(a,e,n),n.ownerElement=null)}}function p(e){if(this._features={},e)for(var t in e)this._features=e[t]}function d(){}function f(e){return"<"==e&&"&lt;"||">"==e&&"&gt;"||"&"==e&&"&amp;"||'"'==e&&"&quot;"||"&#"+e.charCodeAt()+";"}function m(e,t){if(t(e))return!0;if(e=e.firstChild)do if(m(e,t))return!0;while(e=e.nextSibling)}function N(){}function v(e,t,n){e&&e._inc++;var r=n.namespaceURI;"http://www.w3.org/2000/xmlns/"==r&&(t._nsMap[n.prefix?n.localName:""]=n.value)}function g(e,t,n,r){e&&e._inc++;var i=n.namespaceURI;"http://www.w3.org/2000/xmlns/"==i&&delete t._nsMap[n.prefix?n.localName:""]}function w(e,t,n){if(e&&e._inc){e._inc++;var r=t.childNodes;if(n)r[r.length++]=n;else{for(var i=t.firstChild,o=0;i;)r[o++]=i,i=i.nextSibling;r.length=o}}}function E(e,t){var n=t.previousSibling,r=t.nextSibling;return n?n.nextSibling=r:e.firstChild=r,r?r.previousSibling=n:e.lastChild=n,w(e.ownerDocument,e),t}function y(e,t,n){var r=t.parentNode;if(r&&r.removeChild(t),t.nodeType===te){var i=t.firstChild;if(null==i)return t;var o=t.lastChild}else i=o=t;var a=n?n.previousSibling:e.lastChild;i.previousSibling=a,o.nextSibling=n,a?a.nextSibling=i:e.firstChild=i,null==n?e.lastChild=o:n.previousSibling=o;do i.parentNode=e;while(i!==o&&(i=i.nextSibling));return w(e.ownerDocument||e,e),t.nodeType==te&&(t.firstChild=t.lastChild=null),t}function b(e,t){var n=t.parentNode;if(n){var r=e.lastChild;n.removeChild(t);var r=e.lastChild}var r=e.lastChild;return t.parentNode=e,t.previousSibling=r,t.nextSibling=null,r?r.nextSibling=t:e.firstChild=t,e.lastChild=t,w(e.ownerDocument,e,t),t}function T(){this._nsMap={}}function _(){}function D(){}function S(){}function I(){}function C(){}function A(){}function R(){}function x(){}function O(){}function U(){}function M(){}function B(){}function P(e,t){var n=[],r=9==this.nodeType?this.documentElement:this,i=r.prefix,o=r.namespaceURI;if(o&&null==i){var i=r.lookupPrefix(o);if(null==i)var a=[{namespace:o,prefix:null}]}return V(this,n,e,t,a),n.join("")}function L(e,t,n){var r=e.prefix||"",i=e.namespaceURI;if(!r&&!i)return!1;if("xml"===r&&"http://www.w3.org/XML/1998/namespace"===i||"http://www.w3.org/2000/xmlns/"==i)return!1;for(var o=n.length;o--;){var a=n[o];if(a.prefix==r)return a.namespace!=i}return!0}function V(e,t,n,r,i){if(r){if(e=r(e),!e)return;if("string"==typeof e)return void t.push(e)}switch(e.nodeType){case X:i||(i=[]);var o=(i.length,e.attributes),a=o.length,u=e.firstChild,s=e.tagName;n=$===e.namespaceURI||n,t.push("<",s);for(var l=0;a>l;l++){var c=o.item(l);"xmlns"==c.prefix?i.push({prefix:c.localName,namespace:c.value}):"xmlns"==c.nodeName&&i.push({prefix:"",namespace:c.value})}for(var l=0;a>l;l++){var c=o.item(l);if(L(c,n,i)){var h=c.prefix||"",p=c.namespaceURI,d=h?" xmlns:"+h:" xmlns";t.push(d,'="',p,'"'),i.push({prefix:h,namespace:p})}V(c,t,n,r,i)}if(L(e,n,i)){var h=e.prefix||"",p=e.namespaceURI,d=h?" xmlns:"+h:" xmlns";t.push(d,'="',p,'"'),i.push({prefix:h,namespace:p})}if(u||n&&!/^(?:meta|link|img|br|hr|input)$/i.test(s)){if(t.push(">"),n&&/^script$/i.test(s))for(;u;)u.data?t.push(u.data):V(u,t,n,r,i),u=u.nextSibling;else for(;u;)V(u,t,n,r,i),u=u.nextSibling;t.push("</",s,">")}else t.push("/>");return;case K:case te:for(var u=e.firstChild;u;)V(u,t,n,r,i),u=u.nextSibling;return;case G:return t.push(" ",e.name,'="',e.value.replace(/[<&"]/g,f),'"');case H:return t.push(e.data.replace(/[<&]/g,f));case W:return t.push("<![CDATA[",e.data,"]]>");case Q:return t.push("<!--",e.data,"-->");case ee:var m=e.publicId,N=e.systemId;if(t.push("<!DOCTYPE ",e.name),m)t.push(' PUBLIC "',m),N&&"."!=N&&t.push('" "',N),t.push('">');else if(N&&"."!=N)t.push(' SYSTEM "',N,'">');else{var v=e.internalSubset;v&&t.push(" [",v,"]"),t.push(">")}return;case J:return t.push("<?",e.target," ",e.data,"?>");case q:return t.push("&",e.nodeName,";");default:t.push("??",e.nodeName)}}function k(e,t,n){var r;switch(t.nodeType){case X:r=t.cloneNode(!1),r.ownerDocument=e;case te:break;case G:n=!0}if(r||(r=t.cloneNode(!1)),r.ownerDocument=e,r.parentNode=null,n)for(var i=t.firstChild;i;)r.appendChild(k(e,i,n)),i=i.nextSibling;return r}function j(e,t,n){var r=new t.constructor;for(var i in t){var a=t[i];"object"!=typeof a&&a!=r[i]&&(r[i]=a)}switch(t.childNodes&&(r.childNodes=new o),r.ownerDocument=e,r.nodeType){case X:var u=t.attributes,l=r.attributes=new s,c=u.length;l._ownerElement=r;for(var h=0;c>h;h++)r.setAttributeNode(j(e,u.item(h),!0));break;case G:n=!0}if(n)for(var p=t.firstChild;p;)r.appendChild(j(e,p,n)),p=p.nextSibling;return r}function F(e,t,n){e[t]=n}function Y(e){switch(e.nodeType){case X:case te:var t=[];for(e=e.firstChild;e;)7!==e.nodeType&&8!==e.nodeType&&t.push(Y(e)),e=e.nextSibling;return t.join("");default:return e.nodeValue}}var $="http://www.w3.org/1999/xhtml",z={},X=z.ELEMENT_NODE=1,G=z.ATTRIBUTE_NODE=2,H=z.TEXT_NODE=3,W=z.CDATA_SECTION_NODE=4,q=z.ENTITY_REFERENCE_NODE=5,Z=z.ENTITY_NODE=6,J=z.PROCESSING_INSTRUCTION_NODE=7,Q=z.COMMENT_NODE=8,K=z.DOCUMENT_NODE=9,ee=z.DOCUMENT_TYPE_NODE=10,te=z.DOCUMENT_FRAGMENT_NODE=11,ne=z.NOTATION_NODE=12,re={},ie={},oe=(re.INDEX_SIZE_ERR=(ie[1]="Index size error",1),re.DOMSTRING_SIZE_ERR=(ie[2]="DOMString size error",2),re.HIERARCHY_REQUEST_ERR=(ie[3]="Hierarchy request error",3)),ae=(re.WRONG_DOCUMENT_ERR=(ie[4]="Wrong document",4),re.INVALID_CHARACTER_ERR=(ie[5]="Invalid character",5),re.NO_DATA_ALLOWED_ERR=(ie[6]="No data allowed",6),re.NO_MODIFICATION_ALLOWED_ERR=(ie[7]="No modification allowed",7),re.NOT_FOUND_ERR=(ie[8]="Not found",8)),ue=(re.NOT_SUPPORTED_ERR=(ie[9]="Not supported",9),re.INUSE_ATTRIBUTE_ERR=(ie[10]="Attribute in use",10));re.INVALID_STATE_ERR=(ie[11]="Invalid state",11),re.SYNTAX_ERR=(ie[12]="Syntax error",12),re.INVALID_MODIFICATION_ERR=(ie[13]="Invalid modification",13),re.NAMESPACE_ERR=(ie[14]="Invalid namespace",14),re.INVALID_ACCESS_ERR=(ie[15]="Invalid access",15);i.prototype=Error.prototype,n(re,i),o.prototype={length:0,item:function(e){return this[e]||null},toString:function(e,t){for(var n=[],r=0;r<this.length;r++)V(this[r],n,e,t);return n.join("")}},a.prototype.item=function(e){return u(this),this[e]},r(a,o),s.prototype={length:0,item:o.prototype.item,getNamedItem:function(e){for(var t=this.length;t--;){var n=this[t];if(n.nodeName==e)return n}},setNamedItem:function(e){var t=e.ownerElement;if(t&&t!=this._ownerElement)throw new i(ue);var n=this.getNamedItem(e.nodeName);return c(this._ownerElement,this,e,n),n},setNamedItemNS:function(e){var t,n=e.ownerElement;if(n&&n!=this._ownerElement)throw new i(ue);return t=this.getNamedItemNS(e.namespaceURI,e.localName),c(this._ownerElement,this,e,t),t},removeNamedItem:function(e){var t=this.getNamedItem(e);return h(this._ownerElement,this,t),t},removeNamedItemNS:function(e,t){var n=this.getNamedItemNS(e,t);return h(this._ownerElement,this,n),n},getNamedItemNS:function(e,t){for(var n=this.length;n--;){var r=this[n];if(r.localName==t&&r.namespaceURI==e)return r}return null}},p.prototype={hasFeature:function(e,t){var n=this._features[e.toLowerCase()];return n&&(!t||t in n)?!0:!1},createDocument:function(e,t,n){var r=new N;if(r.implementation=this,r.childNodes=new o,r.doctype=n,n&&r.appendChild(n),t){var i=r.createElementNS(e,t);r.appendChild(i)}return r},createDocumentType:function(e,t,n){var r=new A;return r.name=e,r.nodeName=e,r.publicId=t,r.systemId=n,r}},d.prototype={firstChild:null,lastChild:null,previousSibling:null,nextSibling:null,attributes:null,parentNode:null,childNodes:null,ownerDocument:null,nodeValue:null,namespaceURI:null,prefix:null,localName:null,insertBefore:function(e,t){return y(this,e,t)},replaceChild:function(e,t){this.insertBefore(e,t),t&&this.removeChild(t)},removeChild:function(e){return E(this,e)},appendChild:function(e){return this.insertBefore(e,null)},hasChildNodes:function(){return null!=this.firstChild},cloneNode:function(e){return j(this.ownerDocument||this,this,e)},normalize:function(){for(var e=this.firstChild;e;){var t=e.nextSibling;t&&t.nodeType==H&&e.nodeType==H?(this.removeChild(t),e.appendData(t.data)):(e.normalize(),e=t)}},isSupported:function(e,t){return this.ownerDocument.implementation.hasFeature(e,t)},hasAttributes:function(){return this.attributes.length>0},lookupPrefix:function(e){for(var t=this;t;){var n=t._nsMap;if(n)for(var r in n)if(n[r]==e)return r;t=t.nodeType==G?t.ownerDocument:t.parentNode}return null},lookupNamespaceURI:function(e){for(var t=this;t;){var n=t._nsMap;if(n&&e in n)return n[e];t=t.nodeType==G?t.ownerDocument:t.parentNode}return null},isDefaultNamespace:function(e){var t=this.lookupPrefix(e);return null==t}},n(z,d),n(z,d.prototype),N.prototype={nodeName:"#document",nodeType:K,doctype:null,documentElement:null,_inc:1,insertBefore:function(e,t){if(e.nodeType==te){for(var n=e.firstChild;n;){var r=n.nextSibling;this.insertBefore(n,t),n=r}return e}return null==this.documentElement&&e.nodeType==X&&(this.documentElement=e),y(this,e,t),e.ownerDocument=this,e},removeChild:function(e){return this.documentElement==e&&(this.documentElement=null),E(this,e)},importNode:function(e,t){return k(this,e,t)},getElementById:function(e){var t=null;return m(this.documentElement,function(n){return n.nodeType==X&&n.getAttribute("id")==e?(t=n,!0):void 0}),t},createElement:function(e){var t=new T;t.ownerDocument=this,t.nodeName=e,t.tagName=e,t.childNodes=new o;var n=t.attributes=new s;return n._ownerElement=t,t},createDocumentFragment:function(){var e=new U;return e.ownerDocument=this,e.childNodes=new o,e},createTextNode:function(e){var t=new S;return t.ownerDocument=this,t.appendData(e),t},createComment:function(e){var t=new I;return t.ownerDocument=this,t.appendData(e),t},createCDATASection:function(e){var t=new C;return t.ownerDocument=this,t.appendData(e),t},createProcessingInstruction:function(e,t){var n=new M;return n.ownerDocument=this,n.tagName=n.target=e,n.nodeValue=n.data=t,n},createAttribute:function(e){var t=new _;return t.ownerDocument=this,t.name=e,t.nodeName=e,t.localName=e,t.specified=!0,t},createEntityReference:function(e){var t=new O;return t.ownerDocument=this,t.nodeName=e,t},createElementNS:function(e,t){var n=new T,r=t.split(":"),i=n.attributes=new s;return n.childNodes=new o,n.ownerDocument=this,n.nodeName=t,n.tagName=t,n.namespaceURI=e,2==r.length?(n.prefix=r[0],n.localName=r[1]):n.localName=t,i._ownerElement=n,n},createAttributeNS:function(e,t){var n=new _,r=t.split(":");return n.ownerDocument=this,n.nodeName=t,n.name=t,n.namespaceURI=e,n.specified=!0,2==r.length?(n.prefix=r[0],n.localName=r[1]):n.localName=t,n}},r(N,d),T.prototype={nodeType:X,hasAttribute:function(e){return null!=this.getAttributeNode(e)},getAttribute:function(e){var t=this.getAttributeNode(e);return t&&t.value||""},getAttributeNode:function(e){return this.attributes.getNamedItem(e)},setAttribute:function(e,t){var n=this.ownerDocument.createAttribute(e);n.value=n.nodeValue=""+t,this.setAttributeNode(n)},removeAttribute:function(e){var t=this.getAttributeNode(e);t&&this.removeAttributeNode(t)},appendChild:function(e){return e.nodeType===te?this.insertBefore(e,null):b(this,e)},setAttributeNode:function(e){return this.attributes.setNamedItem(e)},setAttributeNodeNS:function(e){return this.attributes.setNamedItemNS(e)},removeAttributeNode:function(e){return this.attributes.removeNamedItem(e.nodeName)},removeAttributeNS:function(e,t){var n=this.getAttributeNodeNS(e,t);n&&this.removeAttributeNode(n)},hasAttributeNS:function(e,t){return null!=this.getAttributeNodeNS(e,t)},getAttributeNS:function(e,t){var n=this.getAttributeNodeNS(e,t);return n&&n.value||""},setAttributeNS:function(e,t,n){var r=this.ownerDocument.createAttributeNS(e,t);r.value=r.nodeValue=""+n,this.setAttributeNode(r)},getAttributeNodeNS:function(e,t){return this.attributes.getNamedItemNS(e,t)},getElementsByTagName:function(e){return new a(this,function(t){var n=[];return m(t,function(r){r===t||r.nodeType!=X||"*"!==e&&r.tagName!=e||n.push(r)}),n})},getElementsByTagNameNS:function(e,t){return new a(this,function(n){var r=[];return m(n,function(i){i===n||i.nodeType!==X||"*"!==e&&i.namespaceURI!==e||"*"!==t&&i.localName!=t||r.push(i)}),r})}},N.prototype.getElementsByTagName=T.prototype.getElementsByTagName,N.prototype.getElementsByTagNameNS=T.prototype.getElementsByTagNameNS,r(T,d),_.prototype.nodeType=G,r(_,d),D.prototype={data:"",substringData:function(e,t){return this.data.substring(e,e+t)},appendData:function(e){e=this.data+e,this.nodeValue=this.data=e,this.length=e.length},insertData:function(e,t){this.replaceData(e,0,t)},appendChild:function(e){throw new Error(ie[oe])},deleteData:function(e,t){this.replaceData(e,t,"")},replaceData:function(e,t,n){var r=this.data.substring(0,e),i=this.data.substring(e+t);n=r+n+i,this.nodeValue=this.data=n,this.length=n.length}},r(D,d),S.prototype={nodeName:"#text",nodeType:H,splitText:function(e){var t=this.data,n=t.substring(e);t=t.substring(0,e),this.data=this.nodeValue=t,this.length=t.length;var r=this.ownerDocument.createTextNode(n);return this.parentNode&&this.parentNode.insertBefore(r,this.nextSibling),r}},r(S,D),I.prototype={nodeName:"#comment",nodeType:Q},r(I,D),C.prototype={nodeName:"#cdata-section",nodeType:W},r(C,D),A.prototype.nodeType=ee,r(A,d),R.prototype.nodeType=ne,r(R,d),x.prototype.nodeType=Z,r(x,d),O.prototype.nodeType=q,r(O,d),U.prototype.nodeName="#document-fragment",U.prototype.nodeType=te,r(U,d),M.prototype.nodeType=J,r(M,d),B.prototype.serializeToString=function(e,t,n){return P.call(e,t,n)},d.prototype.toString=P;try{Object.defineProperty&&(Object.defineProperty(a.prototype,"length",{get:function(){return u(this),this.$$length}}),Object.defineProperty(d.prototype,"textContent",{get:function(){return Y(this)},set:function(e){switch(this.nodeType){case X:case te:for(;this.firstChild;)this.removeChild(this.firstChild);(e||String(e))&&this.appendChild(this.ownerDocument.createTextNode(e));break;default:this.data=e,this.value=e,this.nodeValue=e}}}),F=function(e,t,n){e["$$"+t]=n})}catch(se){}e.DOMImplementation=p,e.XMLSerializer=B}
+function(exports,require){
+function copy(src,dest){
+for(var p in src){
+dest[p] = src[p];
+}
+}
+
+function _extends(Class,Super){
+var pt = Class.prototype;
+if(Object.create){
+var ppt = Object.create(Super.prototype)
+pt.__proto__ = ppt;
+}
+if(!(pt instanceof Super)){
+function t(){};
+t.prototype = Super.prototype;
+t = new t();
+copy(pt,t);
+Class.prototype = pt = t;
+}
+if(pt.constructor != Class){
+if(typeof Class != 'function'){
+console.error("unknow Class:"+Class)
+}
+pt.constructor = Class
+}
+}
+var htmlns = 'http://www.w3.org/1999/xhtml' ;
+
+var NodeType = {}
+var ELEMENT_NODE = NodeType.ELEMENT_NODE = 1;
+var ATTRIBUTE_NODE = NodeType.ATTRIBUTE_NODE = 2;
+var TEXT_NODE = NodeType.TEXT_NODE = 3;
+var CDATA_SECTION_NODE = NodeType.CDATA_SECTION_NODE = 4;
+var ENTITY_REFERENCE_NODE = NodeType.ENTITY_REFERENCE_NODE = 5;
+var ENTITY_NODE = NodeType.ENTITY_NODE = 6;
+var PROCESSING_INSTRUCTION_NODE = NodeType.PROCESSING_INSTRUCTION_NODE = 7;
+var COMMENT_NODE = NodeType.COMMENT_NODE = 8;
+var DOCUMENT_NODE = NodeType.DOCUMENT_NODE = 9;
+var DOCUMENT_TYPE_NODE = NodeType.DOCUMENT_TYPE_NODE = 10;
+var DOCUMENT_FRAGMENT_NODE = NodeType.DOCUMENT_FRAGMENT_NODE = 11;
+var NOTATION_NODE = NodeType.NOTATION_NODE = 12;
+
+var ExceptionCode = {}
+var ExceptionMessage = {};
+var INDEX_SIZE_ERR = ExceptionCode.INDEX_SIZE_ERR = ((ExceptionMessage[1]="Index size error"),1);
+var DOMSTRING_SIZE_ERR = ExceptionCode.DOMSTRING_SIZE_ERR = ((ExceptionMessage[2]="DOMString size error"),2);
+var HIERARCHY_REQUEST_ERR = ExceptionCode.HIERARCHY_REQUEST_ERR = ((ExceptionMessage[3]="Hierarchy request error"),3);
+var WRONG_DOCUMENT_ERR = ExceptionCode.WRONG_DOCUMENT_ERR = ((ExceptionMessage[4]="Wrong document"),4);
+var INVALID_CHARACTER_ERR = ExceptionCode.INVALID_CHARACTER_ERR = ((ExceptionMessage[5]="Invalid character"),5);
+var NO_DATA_ALLOWED_ERR = ExceptionCode.NO_DATA_ALLOWED_ERR = ((ExceptionMessage[6]="No data allowed"),6);
+var NO_MODIFICATION_ALLOWED_ERR = ExceptionCode.NO_MODIFICATION_ALLOWED_ERR = ((ExceptionMessage[7]="No modification allowed"),7);
+var NOT_FOUND_ERR = ExceptionCode.NOT_FOUND_ERR = ((ExceptionMessage[8]="Not found"),8);
+var NOT_SUPPORTED_ERR = ExceptionCode.NOT_SUPPORTED_ERR = ((ExceptionMessage[9]="Not supported"),9);
+var INUSE_ATTRIBUTE_ERR = ExceptionCode.INUSE_ATTRIBUTE_ERR = ((ExceptionMessage[10]="Attribute in use"),10);
+
+var INVALID_STATE_ERR	= ExceptionCode.INVALID_STATE_ERR	= ((ExceptionMessage[11]="Invalid state"),11);
+var SYNTAX_ERR	= ExceptionCode.SYNTAX_ERR	= ((ExceptionMessage[12]="Syntax error"),12);
+var INVALID_MODIFICATION_ERR	= ExceptionCode.INVALID_MODIFICATION_ERR	= ((ExceptionMessage[13]="Invalid modification"),13);
+var NAMESPACE_ERR	= ExceptionCode.NAMESPACE_ERR	= ((ExceptionMessage[14]="Invalid namespace"),14);
+var INVALID_ACCESS_ERR	= ExceptionCode.INVALID_ACCESS_ERR	= ((ExceptionMessage[15]="Invalid access"),15);
+function DOMException(code, message) {
+if(message instanceof Error){
+var error = message;
+}else{
+error = this;
+Error.call(this, ExceptionMessage[code]);
+this.message = ExceptionMessage[code];
+if(Error.captureStackTrace) Error.captureStackTrace(this, DOMException);
+}
+error.code = code;
+if(message) this.message = this.message + ": " + message;
+return error;
+};
+DOMException.prototype = Error.prototype;
+copy(ExceptionCode,DOMException)
+
+function NodeList() {
+};
+NodeList.prototype = {
+
+length:0, 
+
+item: function(index) {
+return this[index] || null;
+},
+toString:function(isHTML,nodeFilter){
+for(var buf = [], i = 0;i<this.length;i++){
+serializeToString(this[i],buf,isHTML,nodeFilter);
+}
+return buf.join('');
+}
+};
+function LiveNodeList(node,refresh){
+this._node = node;
+this._refresh = refresh
+_updateLiveList(this);
+}
+function _updateLiveList(list){
+var inc = list._node._inc || list._node.ownerDocument._inc;
+if(list._inc != inc){
+var ls = list._refresh(list._node);
+
+__set__(list,'length',ls.length);
+copy(ls,list);
+list._inc = inc;
+}
+}
+LiveNodeList.prototype.item = function(i){
+_updateLiveList(this);
+return this[i];
+}
+_extends(LiveNodeList,NodeList);
+
+function NamedNodeMap() {
+};
+function _findNodeIndex(list,node){
+var i = list.length;
+while(i--){
+if(list[i] === node){return i}
+}
+}
+function _addNamedNode(el,list,newAttr,oldAttr){
+if(oldAttr){
+list[_findNodeIndex(list,oldAttr)] = newAttr;
+}else{
+list[list.length++] = newAttr;
+}
+if(el){
+newAttr.ownerElement = el;
+var doc = el.ownerDocument;
+if(doc){
+oldAttr && _onRemoveAttribute(doc,el,oldAttr);
+_onAddAttribute(doc,el,newAttr);
+}
+}
+}
+function _removeNamedNode(el,list,attr){
+
+var i = _findNodeIndex(list,attr);
+if(i>=0){
+var lastIndex = list.length-1
+while(i<lastIndex){
+list[i] = list[++i]
+}
+list.length = lastIndex;
+if(el){
+var doc = el.ownerDocument;
+if(doc){
+_onRemoveAttribute(doc,el,attr);
+attr.ownerElement = null;
+}
+}
+}else{
+throw DOMException(NOT_FOUND_ERR,new Error(el.tagName+'@'+attr))
+}
+}
+NamedNodeMap.prototype = {
+length:0,
+item:NodeList.prototype.item,
+getNamedItem: function(key) {
+
+
+
+
+var i = this.length;
+while(i--){
+var attr = this[i];
+
+if(attr.nodeName == key){
+return attr;
+}
+}
+},
+setNamedItem: function(attr) {
+var el = attr.ownerElement;
+if(el && el!=this._ownerElement){
+throw new DOMException(INUSE_ATTRIBUTE_ERR);
+}
+var oldAttr = this.getNamedItem(attr.nodeName);
+_addNamedNode(this._ownerElement,this,attr,oldAttr);
+return oldAttr;
+},
+
+setNamedItemNS: function(attr) {
+var el = attr.ownerElement, oldAttr;
+if(el && el!=this._ownerElement){
+throw new DOMException(INUSE_ATTRIBUTE_ERR);
+}
+oldAttr = this.getNamedItemNS(attr.namespaceURI,attr.localName);
+_addNamedNode(this._ownerElement,this,attr,oldAttr);
+return oldAttr;
+},
+
+removeNamedItem: function(key) {
+var attr = this.getNamedItem(key);
+_removeNamedNode(this._ownerElement,this,attr);
+return attr;
+},
+
+removeNamedItemNS:function(namespaceURI,localName){
+var attr = this.getNamedItemNS(namespaceURI,localName);
+_removeNamedNode(this._ownerElement,this,attr);
+return attr;
+},
+getNamedItemNS: function(namespaceURI, localName) {
+var i = this.length;
+while(i--){
+var node = this[i];
+if(node.localName == localName && node.namespaceURI == namespaceURI){
+return node;
+}
+}
+return null;
+}
+};
+
+function DOMImplementation( features) {
+this._features = {};
+if (features) {
+for (var feature in features) {
+this._features = features[feature];
+}
+}
+};
+DOMImplementation.prototype = {
+hasFeature: function( feature,  version) {
+var versions = this._features[feature.toLowerCase()];
+if (versions && (!version || version in versions)) {
+return true;
+} else {
+return false;
+}
+},
+
+createDocument:function(namespaceURI, qualifiedName, doctype){
+var doc = new Document();
+doc.implementation = this;
+doc.childNodes = new NodeList();
+doc.doctype = doctype;
+if(doctype){
+doc.appendChild(doctype);
+}
+if(qualifiedName){
+var root = doc.createElementNS(namespaceURI,qualifiedName);
+doc.appendChild(root);
+}
+return doc;
+},
+
+createDocumentType:function(qualifiedName, publicId, systemId){
+var node = new DocumentType();
+node.name = qualifiedName;
+node.nodeName = qualifiedName;
+node.publicId = publicId;
+node.systemId = systemId;
+
+
+
+
+
+return node;
+}
+};
+
+function Node() {
+};
+Node.prototype = {
+firstChild : null,
+lastChild : null,
+previousSibling : null,
+nextSibling : null,
+attributes : null,
+parentNode : null,
+childNodes : null,
+ownerDocument : null,
+nodeValue : null,
+namespaceURI : null,
+prefix : null,
+localName : null,
+
+insertBefore:function(newChild, refChild){
+return _insertBefore(this,newChild,refChild);
+},
+replaceChild:function(newChild, oldChild){
+this.insertBefore(newChild,oldChild);
+if(oldChild){
+this.removeChild(oldChild);
+}
+},
+removeChild:function(oldChild){
+return _removeChild(this,oldChild);
+},
+appendChild:function(newChild){
+return this.insertBefore(newChild,null);
+},
+hasChildNodes:function(){
+return this.firstChild != null;
+},
+cloneNode:function(deep){
+return cloneNode(this.ownerDocument||this,this,deep);
+},
+
+normalize:function(){
+var child = this.firstChild;
+while(child){
+var next = child.nextSibling;
+if(next && next.nodeType == TEXT_NODE && child.nodeType == TEXT_NODE){
+this.removeChild(next);
+child.appendData(next.data);
+}else{
+child.normalize();
+child = next;
+}
+}
+},
+
+isSupported:function(feature, version){
+return this.ownerDocument.implementation.hasFeature(feature,version);
+},
+
+hasAttributes:function(){
+return this.attributes.length>0;
+},
+lookupPrefix:function(namespaceURI){
+var el = this;
+while(el){
+var map = el._nsMap;
+
+if(map){
+for(var n in map){
+if(map[n] == namespaceURI){
+return n;
+}
+}
+}
+el = el.nodeType == ATTRIBUTE_NODE?el.ownerDocument : el.parentNode;
+}
+return null;
+},
+
+lookupNamespaceURI:function(prefix){
+var el = this;
+while(el){
+var map = el._nsMap;
+
+if(map){
+if(prefix in map){
+return map[prefix] ;
+}
+}
+el = el.nodeType == ATTRIBUTE_NODE?el.ownerDocument : el.parentNode;
+}
+return null;
+},
+
+isDefaultNamespace:function(namespaceURI){
+var prefix = this.lookupPrefix(namespaceURI);
+return prefix == null;
+}
+};
+function _xmlEncoder(c){
+return c == '<' && '&lt;' ||
+c == '>' && '&gt;' ||
+c == '&' && '&amp;' ||
+c == '"' && '&quot;' ||
+'&#'+c.charCodeAt()+';'
+}
+copy(NodeType,Node);
+copy(NodeType,Node.prototype);
+
+function _visitNode(node,callback){
+if(callback(node)){
+return true;
+}
+if(node = node.firstChild){
+do{
+if(_visitNode(node,callback)){return true}
+}while(node=node.nextSibling)
+}
+}
+function Document(){
+}
+function _onAddAttribute(doc,el,newAttr){
+doc && doc._inc++;
+var ns = newAttr.namespaceURI ;
+if(ns == 'http://www.w3.org/2000/xmlns/'){
+
+el._nsMap[newAttr.prefix?newAttr.localName:''] = newAttr.value
+}
+}
+function _onRemoveAttribute(doc,el,newAttr,remove){
+doc && doc._inc++;
+var ns = newAttr.namespaceURI ;
+if(ns == 'http://www.w3.org/2000/xmlns/'){
+
+delete el._nsMap[newAttr.prefix?newAttr.localName:'']
+}
+}
+function _onUpdateChild(doc,el,newChild){
+if(doc && doc._inc){
+doc._inc++;
+
+var cs = el.childNodes;
+if(newChild){
+cs[cs.length++] = newChild;
+}else{
+
+var child = el.firstChild;
+var i = 0;
+while(child){
+cs[i++] = child;
+child =child.nextSibling;
+}
+cs.length = i;
+}
+}
+}
+
+function _removeChild(parentNode,child){
+var previous = child.previousSibling;
+var next = child.nextSibling;
+if(previous){
+previous.nextSibling = next;
+}else{
+parentNode.firstChild = next
+}
+if(next){
+next.previousSibling = previous;
+}else{
+parentNode.lastChild = previous;
+}
+_onUpdateChild(parentNode.ownerDocument,parentNode);
+return child;
+}
+
+function _insertBefore(parentNode,newChild,nextChild){
+var cp = newChild.parentNode;
+if(cp){
+cp.removeChild(newChild);
+}
+if(newChild.nodeType === DOCUMENT_FRAGMENT_NODE){
+var newFirst = newChild.firstChild;
+if (newFirst == null) {
+return newChild;
+}
+var newLast = newChild.lastChild;
+}else{
+newFirst = newLast = newChild;
+}
+var pre = nextChild ? nextChild.previousSibling : parentNode.lastChild;
+newFirst.previousSibling = pre;
+newLast.nextSibling = nextChild;
+if(pre){
+pre.nextSibling = newFirst;
+}else{
+parentNode.firstChild = newFirst;
+}
+if(nextChild == null){
+parentNode.lastChild = newLast;
+}else{
+nextChild.previousSibling = newLast;
+}
+do{
+newFirst.parentNode = parentNode;
+}while(newFirst !== newLast && (newFirst= newFirst.nextSibling))
+_onUpdateChild(parentNode.ownerDocument||parentNode,parentNode);
+
+if (newChild.nodeType == DOCUMENT_FRAGMENT_NODE) {
+newChild.firstChild = newChild.lastChild = null;
+}
+return newChild;
+}
+function _appendSingleChild(parentNode,newChild){
+var cp = newChild.parentNode;
+if(cp){
+var pre = parentNode.lastChild;
+cp.removeChild(newChild);
+var pre = parentNode.lastChild;
+}
+var pre = parentNode.lastChild;
+newChild.parentNode = parentNode;
+newChild.previousSibling = pre;
+newChild.nextSibling = null;
+if(pre){
+pre.nextSibling = newChild;
+}else{
+parentNode.firstChild = newChild;
+}
+parentNode.lastChild = newChild;
+_onUpdateChild(parentNode.ownerDocument,parentNode,newChild);
+return newChild;
+
+}
+Document.prototype = {
+
+nodeName : '#document',
+nodeType : DOCUMENT_NODE,
+doctype : null,
+documentElement : null,
+_inc : 1,
+insertBefore : function(newChild, refChild){
+if(newChild.nodeType == DOCUMENT_FRAGMENT_NODE){
+var child = newChild.firstChild;
+while(child){
+var next = child.nextSibling;
+this.insertBefore(child,refChild);
+child = next;
+}
+return newChild;
+}
+if(this.documentElement == null && newChild.nodeType == ELEMENT_NODE){
+this.documentElement = newChild;
+}
+return _insertBefore(this,newChild,refChild),(newChild.ownerDocument = this),newChild;
+},
+removeChild : function(oldChild){
+if(this.documentElement == oldChild){
+this.documentElement = null;
+}
+return _removeChild(this,oldChild);
+},
+
+importNode : function(importedNode,deep){
+return importNode(this,importedNode,deep);
+},
+
+getElementById :	function(id){
+var rtv = null;
+_visitNode(this.documentElement,function(node){
+if(node.nodeType == ELEMENT_NODE){
+if(node.getAttribute('id') == id){
+rtv = node;
+return true;
+}
+}
+})
+return rtv;
+},
+
+createElement :	function(tagName){
+var node = new Element();
+node.ownerDocument = this;
+node.nodeName = tagName;
+node.tagName = tagName;
+node.childNodes = new NodeList();
+var attrs	= node.attributes = new NamedNodeMap();
+attrs._ownerElement = node;
+return node;
+},
+createDocumentFragment :	function(){
+var node = new DocumentFragment();
+node.ownerDocument = this;
+node.childNodes = new NodeList();
+return node;
+},
+createTextNode :	function(data){
+var node = new Text();
+node.ownerDocument = this;
+node.appendData(data)
+return node;
+},
+createComment :	function(data){
+var node = new Comment();
+node.ownerDocument = this;
+node.appendData(data)
+return node;
+},
+createCDATASection :	function(data){
+var node = new CDATASection();
+node.ownerDocument = this;
+node.appendData(data)
+return node;
+},
+createProcessingInstruction :	function(target,data){
+var node = new ProcessingInstruction();
+node.ownerDocument = this;
+node.tagName = node.target = target;
+node.nodeValue= node.data = data;
+return node;
+},
+createAttribute :	function(name){
+var node = new Attr();
+node.ownerDocument	= this;
+node.name = name;
+node.nodeName	= name;
+node.localName = name;
+node.specified = true;
+return node;
+},
+createEntityReference :	function(name){
+var node = new EntityReference();
+node.ownerDocument	= this;
+node.nodeName	= name;
+return node;
+},
+
+createElementNS :	function(namespaceURI,qualifiedName){
+var node = new Element();
+var pl = qualifiedName.split(':');
+var attrs	= node.attributes = new NamedNodeMap();
+node.childNodes = new NodeList();
+node.ownerDocument = this;
+node.nodeName = qualifiedName;
+node.tagName = qualifiedName;
+node.namespaceURI = namespaceURI;
+if(pl.length == 2){
+node.prefix = pl[0];
+node.localName = pl[1];
+}else{
+
+node.localName = qualifiedName;
+}
+attrs._ownerElement = node;
+return node;
+},
+
+createAttributeNS :	function(namespaceURI,qualifiedName){
+var node = new Attr();
+var pl = qualifiedName.split(':');
+node.ownerDocument = this;
+node.nodeName = qualifiedName;
+node.name = qualifiedName;
+node.namespaceURI = namespaceURI;
+node.specified = true;
+if(pl.length == 2){
+node.prefix = pl[0];
+node.localName = pl[1];
+}else{
+
+node.localName = qualifiedName;
+}
+return node;
+}
+};
+_extends(Document,Node);
+function Element() {
+this._nsMap = {};
+};
+Element.prototype = {
+nodeType : ELEMENT_NODE,
+hasAttribute : function(name){
+return this.getAttributeNode(name)!=null;
+},
+getAttribute : function(name){
+var attr = this.getAttributeNode(name);
+return attr && attr.value || '';
+},
+getAttributeNode : function(name){
+return this.attributes.getNamedItem(name);
+},
+setAttribute : function(name, value){
+var attr = this.ownerDocument.createAttribute(name);
+attr.value = attr.nodeValue = "" + value;
+this.setAttributeNode(attr)
+},
+removeAttribute : function(name){
+var attr = this.getAttributeNode(name)
+attr && this.removeAttributeNode(attr);
+},
+
+appendChild:function(newChild){
+if(newChild.nodeType === DOCUMENT_FRAGMENT_NODE){
+return this.insertBefore(newChild,null);
+}else{
+return _appendSingleChild(this,newChild);
+}
+},
+setAttributeNode : function(newAttr){
+return this.attributes.setNamedItem(newAttr);
+},
+setAttributeNodeNS : function(newAttr){
+return this.attributes.setNamedItemNS(newAttr);
+},
+removeAttributeNode : function(oldAttr){
+
+return this.attributes.removeNamedItem(oldAttr.nodeName);
+},
+
+removeAttributeNS : function(namespaceURI, localName){
+var old = this.getAttributeNodeNS(namespaceURI, localName);
+old && this.removeAttributeNode(old);
+},
+hasAttributeNS : function(namespaceURI, localName){
+return this.getAttributeNodeNS(namespaceURI, localName)!=null;
+},
+getAttributeNS : function(namespaceURI, localName){
+var attr = this.getAttributeNodeNS(namespaceURI, localName);
+return attr && attr.value || '';
+},
+setAttributeNS : function(namespaceURI, qualifiedName, value){
+var attr = this.ownerDocument.createAttributeNS(namespaceURI, qualifiedName);
+attr.value = attr.nodeValue = "" + value;
+this.setAttributeNode(attr)
+},
+getAttributeNodeNS : function(namespaceURI, localName){
+return this.attributes.getNamedItemNS(namespaceURI, localName);
+},
+getElementsByTagName : function(tagName){
+return new LiveNodeList(this,function(base){
+var ls = [];
+_visitNode(base,function(node){
+if(node !== base && node.nodeType == ELEMENT_NODE && (tagName === '*' || node.tagName == tagName)){
+ls.push(node);
+}
+});
+return ls;
+});
+},
+getElementsByTagNameNS : function(namespaceURI, localName){
+return new LiveNodeList(this,function(base){
+var ls = [];
+_visitNode(base,function(node){
+if(node !== base && node.nodeType === ELEMENT_NODE && (namespaceURI === '*' || node.namespaceURI === namespaceURI) && (localName === '*' || node.localName == localName)){
+ls.push(node);
+}
+});
+return ls;
+});
+}
+};
+Document.prototype.getElementsByTagName = Element.prototype.getElementsByTagName;
+Document.prototype.getElementsByTagNameNS = Element.prototype.getElementsByTagNameNS;
+_extends(Element,Node);
+function Attr() {
+};
+Attr.prototype.nodeType = ATTRIBUTE_NODE;
+_extends(Attr,Node);
+function CharacterData() {
+};
+CharacterData.prototype = {
+data : '',
+substringData : function(offset, count) {
+return this.data.substring(offset, offset+count);
+},
+appendData: function(text) {
+text = this.data+text;
+this.nodeValue = this.data = text;
+this.length = text.length;
+},
+insertData: function(offset,text) {
+this.replaceData(offset,0,text);
+},
+appendChild:function(newChild){
+throw new Error(ExceptionMessage[HIERARCHY_REQUEST_ERR])
+},
+deleteData: function(offset, count) {
+this.replaceData(offset,count,"");
+},
+replaceData: function(offset, count, text) {
+var start = this.data.substring(0,offset);
+var end = this.data.substring(offset+count);
+text = start + text + end;
+this.nodeValue = this.data = text;
+this.length = text.length;
+}
+}
+_extends(CharacterData,Node);
+function Text() {
+};
+Text.prototype = {
+nodeName : "#text",
+nodeType : TEXT_NODE,
+splitText : function(offset) {
+var text = this.data;
+var newText = text.substring(offset);
+text = text.substring(0, offset);
+this.data = this.nodeValue = text;
+this.length = text.length;
+var newNode = this.ownerDocument.createTextNode(newText);
+if(this.parentNode){
+this.parentNode.insertBefore(newNode, this.nextSibling);
+}
+return newNode;
+}
+}
+_extends(Text,CharacterData);
+function Comment() {
+};
+Comment.prototype = {
+nodeName : "#comment",
+nodeType : COMMENT_NODE
+}
+_extends(Comment,CharacterData);
+function CDATASection() {
+};
+CDATASection.prototype = {
+nodeName : "#cdata-section",
+nodeType : CDATA_SECTION_NODE
+}
+_extends(CDATASection,CharacterData);
+function DocumentType() {
+};
+DocumentType.prototype.nodeType = DOCUMENT_TYPE_NODE;
+_extends(DocumentType,Node);
+function Notation() {
+};
+Notation.prototype.nodeType = NOTATION_NODE;
+_extends(Notation,Node);
+function Entity() {
+};
+Entity.prototype.nodeType = ENTITY_NODE;
+_extends(Entity,Node);
+function EntityReference() {
+};
+EntityReference.prototype.nodeType = ENTITY_REFERENCE_NODE;
+_extends(EntityReference,Node);
+function DocumentFragment() {
+};
+DocumentFragment.prototype.nodeName =	"#document-fragment";
+DocumentFragment.prototype.nodeType =	DOCUMENT_FRAGMENT_NODE;
+_extends(DocumentFragment,Node);
+function ProcessingInstruction() {
+}
+ProcessingInstruction.prototype.nodeType = PROCESSING_INSTRUCTION_NODE;
+_extends(ProcessingInstruction,Node);
+function XMLSerializer(){}
+XMLSerializer.prototype.serializeToString = function(node,isHtml,nodeFilter){
+return nodeSerializeToString.call(node,isHtml,nodeFilter);
+}
+Node.prototype.toString = nodeSerializeToString;
+function nodeSerializeToString(isHtml,nodeFilter){
+var buf = [];
+var refNode = this.nodeType == 9?this.documentElement:this;
+var prefix = refNode.prefix;
+var uri = refNode.namespaceURI;
+if(uri && prefix == null){
+
+var prefix = refNode.lookupPrefix(uri);
+if(prefix == null){
+
+var visibleNamespaces=[
+{namespace:uri,prefix:null}
+
+]
+}
+}
+serializeToString(this,buf,isHtml,nodeFilter,visibleNamespaces);
+
+return buf.join('');
+}
+function needNamespaceDefine(node,isHTML, visibleNamespaces) {
+var prefix = node.prefix||'';
+var uri = node.namespaceURI;
+if (!prefix && !uri){
+return false;
+}
+if (prefix === "xml" && uri === "http://www.w3.org/XML/1998/namespace" 
+|| uri == 'http://www.w3.org/2000/xmlns/'){
+return false;
+}
+var i = visibleNamespaces.length 
+
+while (i--) {
+var ns = visibleNamespaces[i];
+
+
+if (ns.prefix == prefix){
+return ns.namespace != uri;
+}
+}
+
+
+
+
+
+
+return true;
+}
+function serializeToString(node,buf,isHTML,nodeFilter,visibleNamespaces){
+if(nodeFilter){
+node = nodeFilter(node);
+if(node){
+if(typeof node == 'string'){
+buf.push(node);
+return;
+}
+}else{
+return;
+}
+
+}
+switch(node.nodeType){
+case ELEMENT_NODE:
+if (!visibleNamespaces) visibleNamespaces = [];
+var startVisibleNamespaces = visibleNamespaces.length;
+var attrs = node.attributes;
+var len = attrs.length;
+var child = node.firstChild;
+var nodeName = node.tagName;
+isHTML = (htmlns === node.namespaceURI) ||isHTML 
+buf.push('<',nodeName);
+for(var i=0;i<len;i++){
+
+var attr = attrs.item(i);
+if (attr.prefix == 'xmlns') {
+visibleNamespaces.push({ prefix: attr.localName, namespace: attr.value });
+}else if(attr.nodeName == 'xmlns'){
+visibleNamespaces.push({ prefix: '', namespace: attr.value });
+}
+}
+for(var i=0;i<len;i++){
+var attr = attrs.item(i);
+if (needNamespaceDefine(attr,isHTML, visibleNamespaces)) {
+var prefix = attr.prefix||'';
+var uri = attr.namespaceURI;
+var ns = prefix ? ' xmlns:' + prefix : " xmlns";
+buf.push(ns, '="' , uri , '"');
+visibleNamespaces.push({ prefix: prefix, namespace:uri });
+}
+serializeToString(attr,buf,isHTML,nodeFilter,visibleNamespaces);
+}
+
+if (needNamespaceDefine(node,isHTML, visibleNamespaces)) {
+var prefix = node.prefix||'';
+var uri = node.namespaceURI;
+var ns = prefix ? ' xmlns:' + prefix : " xmlns";
+buf.push(ns, '="' , uri , '"');
+visibleNamespaces.push({ prefix: prefix, namespace:uri });
+}
+if(child || isHTML && !/^(?:meta|link|img|br|hr|input)$/i.test(nodeName)){
+buf.push('>');
+
+if(isHTML && /^script$/i.test(nodeName)){
+while(child){
+if(child.data){
+buf.push(child.data);
+}else{
+serializeToString(child,buf,isHTML,nodeFilter,visibleNamespaces);
+}
+child = child.nextSibling;
+}
+}else
+{
+while(child){
+serializeToString(child,buf,isHTML,nodeFilter,visibleNamespaces);
+child = child.nextSibling;
+}
+}
+buf.push('</',nodeName,'>');
+}else{
+buf.push('/>');
+}
+
+
+return;
+case DOCUMENT_NODE:
+case DOCUMENT_FRAGMENT_NODE:
+var child = node.firstChild;
+while(child){
+serializeToString(child,buf,isHTML,nodeFilter,visibleNamespaces);
+child = child.nextSibling;
+}
+return;
+case ATTRIBUTE_NODE:
+return buf.push(' ',node.name,'="',node.value.replace(/[<&"]/g,_xmlEncoder),'"');
+case TEXT_NODE:
+return buf.push(node.data.replace(/[<&]/g,_xmlEncoder));
+case CDATA_SECTION_NODE:
+return buf.push( '<![CDATA[',node.data,']]>');
+case COMMENT_NODE:
+return buf.push( "<!--",node.data,"-->");
+case DOCUMENT_TYPE_NODE:
+var pubid = node.publicId;
+var sysid = node.systemId;
+buf.push('<!DOCTYPE ',node.name);
+if(pubid){
+buf.push(' PUBLIC "',pubid);
+if (sysid && sysid!='.') {
+buf.push( '" "',sysid);
+}
+buf.push('">');
+}else if(sysid && sysid!='.'){
+buf.push(' SYSTEM "',sysid,'">');
+}else{
+var sub = node.internalSubset;
+if(sub){
+buf.push(" [",sub,"]");
+}
+buf.push(">");
+}
+return;
+case PROCESSING_INSTRUCTION_NODE:
+return buf.push( "<?",node.target," ",node.data,"?>");
+case ENTITY_REFERENCE_NODE:
+return buf.push( '&',node.nodeName,';');
+
+
+default:
+buf.push('??',node.nodeName);
+}
+}
+function importNode(doc,node,deep){
+var node2;
+switch (node.nodeType) {
+case ELEMENT_NODE:
+node2 = node.cloneNode(false);
+node2.ownerDocument = doc;
+
+
+
+
+
+case DOCUMENT_FRAGMENT_NODE:
+break;
+case ATTRIBUTE_NODE:
+deep = true;
+break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+if(!node2){
+node2 = node.cloneNode(false);
+}
+node2.ownerDocument = doc;
+node2.parentNode = null;
+if(deep){
+var child = node.firstChild;
+while(child){
+node2.appendChild(importNode(doc,child,deep));
+child = child.nextSibling;
+}
+}
+return node2;
+}
+
+
+
+function cloneNode(doc,node,deep){
+var node2 = new node.constructor();
+for(var n in node){
+var v = node[n];
+if(typeof v != 'object' ){
+if(v != node2[n]){
+node2[n] = v;
+}
+}
+}
+if(node.childNodes){
+node2.childNodes = new NodeList();
+}
+node2.ownerDocument = doc;
+switch (node2.nodeType) {
+case ELEMENT_NODE:
+var attrs	= node.attributes;
+var attrs2	= node2.attributes = new NamedNodeMap();
+var len = attrs.length
+attrs2._ownerElement = node2;
+for(var i=0;i<len;i++){
+node2.setAttributeNode(cloneNode(doc,attrs.item(i),true));
+}
+break;;
+case ATTRIBUTE_NODE:
+deep = true;
+}
+if(deep){
+var child = node.firstChild;
+while(child){
+node2.appendChild(cloneNode(doc,child,deep));
+child = child.nextSibling;
+}
+}
+return node2;
+}
+function __set__(object,key,value){
+object[key] = value
+}
+
+try{
+if(Object.defineProperty){
+Object.defineProperty(LiveNodeList.prototype,'length',{
+get:function(){
+_updateLiveList(this);
+return this.$$length;
+}
+});
+Object.defineProperty(Node.prototype,'textContent',{
+get:function(){
+return getTextContent(this);
+},
+set:function(data){
+switch(this.nodeType){
+case ELEMENT_NODE:
+case DOCUMENT_FRAGMENT_NODE:
+while(this.firstChild){
+this.removeChild(this.firstChild);
+}
+if(data || String(data)){
+this.appendChild(this.ownerDocument.createTextNode(data));
+}
+break;
+default:
+
+this.data = data;
+this.value = data;
+this.nodeValue = data;
+}
+}
+})
+function getTextContent(node){
+switch(node.nodeType){
+case ELEMENT_NODE:
+case DOCUMENT_FRAGMENT_NODE:
+var buf = [];
+node = node.firstChild;
+while(node){
+if(node.nodeType!==7 && node.nodeType !==8){
+buf.push(getTextContent(node));
+}
+node = node.nextSibling;
+}
+return buf.join('');
+default:
+return node.nodeValue;
+}
+}
+__set__ = function(object,key,value){
+
+object['$$'+key] = value
+}
+}
+}catch(e){
+}
+
+exports.DOMImplementation = DOMImplementation;
+exports.XMLSerializer = XMLSerializer;
+
+}
 ,
-function(e,r){function t(e){if(e.search(/^(?:\s|\/[*\/])/m)<0)return e;for(var r=s(e),t=[],n=0;n<r.length;n++){var a=r[n];switch(a.charAt()){case"'":case'"':t.push(a);break;case"/":var i=a.match(/^\/(?:(\*\s*@)|\/|\*)/);(!i||i[1])&&t.push(a);break;default:t.push(a.replace(/^[\t ]+|([\r\n])\s+/g,"$1"))}}return t.join("")}function s(e){var r,t=/'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|\/\/.*|\/\*([^*]+|\*[^\/])*\*\/|[\/<]/,s=[],u=!1;for(t.lastIndex=0;(r=t.exec(e))&&r;){var f=r.index,r=r[0],l="<"==r;if("/"==r||l){var h=(l?n:i)(s,e.substring(f));if(h){r=h,l&&(ex='new XML("'+h.replace(/["\r\n]/g,a)+'")'),u=!1;var o=s[s.length-1],p=e.substring(r.length+f),g=/\bparseLite\s*\(\s*$/,b=/^\s*\)/;if(l&&c&&o.test(g)&&b.test(p)){s.pop(),h=c(h),e=p.replace(b,"");continue}s.push(e.substring(0,f),h)}else u?s[s.length-1]+=e.substring(0,f+1):s.push(e.substring(0,f+1)),u=!0}else s.push(e.substring(0,f),r),u=!1;e=e.substring(r.length+f)}return s.push(e),s}function n(e,r){var t=r.match(/^<([a-zA-Z_][\w_\-\.]*(?:\:[\w_\-\.]+)?)(?:\s*[\/>]|\s+[\w_])/);if(!t)return null;t=t[1],t=t.replace(/\.\-/g,"\\$&");var s=new RegExp("<(/)?"+t,"g"),n=0;for(s.lastIndex=0;t=s.exec(r);)if(t[1]){if(0==--n)return r.substring(0,t.index+t[0].length+1);if(0>n)return null}else n++}function a(e){switch(e){case"\r":return"\\r";case"\n":return"\\n";case'"':return'\\"'}}function i(e,r){for(var t=e.length;t--;){var s=e[t];if(!/^\/[\/*]|^\s+$/.test(s)){if(s=s.replace(/\s+$/,""),/^['"]|^\/.+\/$/.test(s))break;if(/^(?:\b(?:new|instanceof|typeof)|[^\w_$\]})])$/.test(s))break;return u(r)}}}function u(e){for(var r,t=0,s=1;r=e.charAt(s++);){if("\n"==r||"\r"==r)return;if("["==r)t=1;else if("]"==r)t=0;else if("\\"==r)s++;else if(0==t&&"/"==r)for(;r=e.charAt(s++);)switch(r){case"g":case"i":case"m":break;default:return e.substring(0,s-1)}}}try{var c=r(40).parseLite}catch(f){}"function"==typeof r&&(e.partitionJavaScript=s,e.compressJS=t)}
+function(exports,require){
+exports.findELEnd=findELEnd;
+
+function findELEnd(text, elQuteBegin) {
+elQuteBegin = elQuteBegin||0;
+var length = text.length;
+var next = elQuteBegin + 1;
+if (next >= length) {
+return -1;
+}
+var stringChar = 0;
+var depth = 0;
+do {
+var c = text.charAt(next);
+switch (c) {
+case '\\':
+next++;
+break;
+case '\'':
+case '"':
+if (stringChar == c) {
+stringChar = 0;
+} else if (stringChar == 0) {
+stringChar = c;
+}
+break;
+case '{':
+case '[':
+case '(':
+if (stringChar == 0) {
+depth++;
+}
+break;
+case '}':
+case ']':
+case ')':
+if (stringChar == 0) {
+depth--;
+if (depth < 0) {
+return next;
+}
+}
+break;
+case '/':
+if (stringChar == 0) {
+var regExp = isRegExp(text, elQuteBegin, next);
+if (regExp) {
+var end = findRegExpEnd(text, next);
+if(end >0){
+next = end;
+}else{
+console.error("无效状态");
+}
+}
+}
+}
+} while (++next < length);
+return -1;
+}
+function isRegExp(text, elQuteBegin,
+regExpStart) {
+for (var i = regExpStart-1; i > elQuteBegin; i--) {
+var pc = text.charAt(i);
+if (!/\s/.test(pc)) {
+if (/[\w\$]/.test(pc)) {
+return false;
+} else {
+switch (pc) {
+case ']':
+case ')':
+case '}':
+return false;
+
+
+
+
+
+
+
+default:
+return true;
+}
+}
+}
+}
+
+return true;
+}
+function findRegExpEnd( text, regExpStart) {
+var length = text.length;
+var depth = 0;
+for (regExpStart++; regExpStart < length; regExpStart++) {
+var rc = text.charAt(regExpStart);
+if (rc == '[') {
+depth = 1;
+} else if (rc == ']') {
+depth = 0;
+} else if (rc == '\\') {
+regExpStart++;
+} else if (depth == 0 && rc == '/') {
+while (regExpStart < length) {
+rc = text.charAt(regExpStart++);
+switch (rc) {
+case 'g':
+case 'i':
+case 'm':
+break;
+default:
+return regExpStart - 1;
+}
+}
+}
+}
+return -1;
+}
+}
 ,
-function(t,s){function r(t){this.value=t.replace(/^\s+|\s+$/g,""),this.start=0,this.end=this.value.length}r.prototype={parse:function(){this.skipComment();var t=this.value.charAt(this.start);if('"'==t)return this.findString();if("-"==t||t>="0"&&"9">=t)return this.findNumber();if("["==t)return this.findList();if("{"==t)return this.findMap();var s=this.findId();if("true".equals(s))return Boolean.TRUE;if("false".equals(s))return Boolean.FALSE;if("null".equals(s))return null;throw new Error("语法错误:"+this.value+"@"+this.start)},findMap:function(){this.start++,this.skipComment();for(var t={};;){var s=this.parse();this.skipComment();var r=this.value.charAt(this.start++);if(":"!=r)throw new Error("错误对象语法:"+this.value+"@"+this.start);var a=this.parse();if(this.skipComment(),r=this.value.charAt(this.start++),"}"==r)return t[s]=a,t;if(","!=r)throw new Error("错误对象语法:"+this.value+"@"+this.start);t.put(s,a)}},findList:function(){var t=[];if(this.start++,this.skipComment(),"]"==this.value.charAt(this.start))return this.start++,t;for(t.push(this.parse());;){this.skipComment();var s=this.value.charAt(this.start++);if("]"==s)return t;if(","!=s)throw new Error("错误数组语法:"+this.value+"@"+this.start);this.skipComment(),t.push(this.parse())}},findNumber:function(){var t=this.start,s=!1,r=this.value.charAt(t++);if("-"==r&&(r=this.value.charAt(t++)),"0"==r)return t<this.end?this.parseZero():(this.start=t,0);for(var a=r-"0";t<this.end&&(r=this.value.charAt(t++),r>="0"&&"9">=r);)a=10*a+(r-"0");if("."==r){for(r=this.value.charAt(t++);r>="0"&&"9">=r&&(s=!0,t<this.end);)r=this.value.charAt(t++);if(!s)return this.start=t-2,a}if("E"==r||"e"==r)for(s=!0,r=this.value.charAt(t++),("+"==r||"-"==r)&&(r=this.value.charAt(t++));r>="0"&&"9">=r&&t<this.end;)r=this.value.charAt(t++);else r=this.value.charAt(t-1),("0">r||r>"9")&&t--;return s?1*this.value.substring(this.start,this.start=t):(this.start=t,a)},parseZero:function(){var t=this.value.substr(this.start);return t=t.replace(/([+-]?0(?:x[0-9a-f]+|\.?[0-9]*))[\s\S]*/i,"$1"),this.start+=t.length,t.indexOf(".")<0?parseInt(t):parseFloat(t)},findId:function(){var t=this.start;if(/[\w\$_]/.test(this.value.charAt(t++))){for(;t<this.end&&/[\w\$_]/.test(this.value.charAt(t));)t++;return this.value.substring(this.start,this.start=t)}throw new Error("无效id")},findString:function(){for(var t=this.value.charAt(this.start++),s=[];this.start<this.end;){var r=this.value.charAt(this.start++);switch(r){case"\\":var a=this.value.charAt(this.start++);switch(a){case"b":s.push("\b");break;case"f":s.push("\f");break;case"n":s.push("\n");break;case"r":s.push("\r");break;case"t":s.push("	");break;case"v":s.push(11);break;case" ":s.push(" ");break;case"\\":case"/":s.push(a);break;case"'":s.push("'");break;case'"':s.push('"');break;case"u":var r=this.value.substring(this.start,this.start+4);r=parseInt(r,16),s.push(String.fromCharCode(r)),this.start+=4;break;case"x":var r=this.value.substring(this.start,this.start+2);r=parseInt(r,16),s.push(String.fromCharCode(r)),this.start+=2;break;default:s.push(r),s.push(a)}break;case'"':case"'":if(r==t)return s.join("");default:s.push(r)}}throw new Error("未结束字符串:"+this.value+"@"+this.start)},skipComment:function(){for(;;){for(;this.start<this.end;){var t=this.value.charAt(this.start);if(" "!=t&&"	"!=t)break;this.start++}if(!(this.start<this.end&&"/"==this.value.charAt(this.start)))break;this.start++;var s=this.value.charAt(this.start++);if("/"==s){var r=this.value.indexOf("\n",this.start),a=this.value.indexOf("\r",this.start),i=Math.min(r,a);0>i&&(i=Math.max(r,a)),i>0?this.start=i:this.start=this.end}else if("*"==s){var i=this.value.indexOf("*/",this.start);if(!(i>0))throw new Error("未結束注釋:"+this.value+"@"+this.start);this.start=i+2}}},skipSpace:function(t){for(;this.start<this.end;){var s=this.value.charAt(this.start);if(" "!=s&&"	"!=s&&"\r"!=s&&"\n"!=s)break;this.start++}if(t>"\x00"&&this.start<this.end){var r=this.value.charAt(this.start);if(t==r)return!0}return!1}},"function"==typeof s&&(t.JSONTokenizer=r)}
+function(exports,require){exports.parseDefName = parseDefName;
+exports.findLiteParamMap = findLiteParamMap;
+exports.parseChildRemoveAttr = parseChildRemoveAttr;
+exports.setNodeURI = setNodeURI;
+exports.appendForStart = appendForStart;
+var getLiteTagInfo=require(8).getLiteTagInfo;
+function parseDefName(name){
+var n = name;
+var i = n.indexOf('(');
+var defaults = [];
+var params = [];
+if(i>0){
+var args = n.substring(i+1);
+args = args.replace(/^\s+|\)\s*$/g,'')
+n = toid(n.substring(0,i));
+i = 0;
+while(args){
+i = args.indexOf(',',i);
+if(i>0){
+var arg = args.substring(0,i);
+try{
+new Function(arg);
+args = args.substring(i+1).replace(/^\s+|\s+$/g,'');
+i=0;
+}catch(e){
+i++;
+continue;
+}
+}else{
+arg = args;
+args = null;
+try{
+new Function(arg);
+}catch(e){
+console.error("函数定义中参数表语法错误:"+arg+name,e);
+throw e;
+}
+}
+var p = arg.indexOf('=',i);
+if(p>0){
+params.push(toid(arg.substring(0,p)));
+defaults.push(JSON.parse(arg.substring(p+1)));
+}else{
+if(defaults.length){
+var msg = "函数定义中参数表语法错误:默认参数值能出现在参数表最后:"+name;
+console.error(msg);
+throw new Error(msg);
+}
+params.push(toid(arg));
+}
+}
+return {"name":n,"params":params,"defaults":defaults};
+}else{
+return {"name":n}
+}
+}
+function findLiteParamMap(value){
+var result = {};
+while(value){
+var match = value.match(/^\s*([\w\$\_]+|'[^']*'|"[^"]*")\s*(?:[\:=]\s*([\s\S]+))\s*$/);
+if(!match){
+throw console.error("非法参数信息",value);
+return null;
+}
+value =match[2];
+var key = match[1].replace(/^['"]|['"]$/g,'');
+var p = findStatementEnd(value);
+var statment = value.substring(0,p);
+result[key] = statment;
+value = value.substring(p+1);
+}
+return result;
+}
+
+function findStatementEnd(text){
+var end = 0;
+do{
+var end1 = text.indexOf(',',end + 1);
+var end2 = text.indexOf(';',end + 1);
+if(end2>0 && end1>0){
+end = Math.min(end1 , end2);
+}else{
+end = Math.max(end1,end2);
+}
+if(end<=0){
+break;
+}
+var code = text.substring(0,end);
+try{
+new Function(code);
+return end;
+}catch(e){
+end = end+1
+}
+}while(end>=0)
+return text.length;
+}
+function setNodeURI(context,node){
+if(!node.nodeType){
+if(node.length){
+node = node.item(0);
+}
+}
+var doc = node.nodeType == 9?node:node.ownerDocument;
+if(doc){
+var uri = doc.documentURI
+if(/^lite:\//.test(uri)){
+context.setCurrentURI(context.createURI(uri));
+}else if(uri){
+var info = getLiteTagInfo(doc.documentElement);
+
+var i = info && info.indexOf('|@');
+if(i>0){
+uri = info.substring(i+2);
+}
+context.setCurrentURI(context.createURI(uri));
+
+}
+}
+}
+function parseChildRemoveAttr(context,node,ignoreSpace){
+if(node.nodeType == 1){
+var child = node.firstChild;
+if(ignoreSpace){
+while(child){
+if(child.nodeType != 3 || String(child.data).replace(/\s+/g,'')){
+context.parse(child)
+}
+child = child.nextSibling;
+}
+}else{
+while(child){
+context.parse(child)
+child = child.nextSibling;
+}
+}
+}else if(node.nodeType == 2){
+
+
+var el = node.ownerElement||node.selectSingleNode('..');
+
+el.removeAttributeNode(node);
+context.parse(el);
+}else {
+context.parse(node)
+}
+}
+
+var FOR_PATTERN = /\s*([\$\w_]+)\s*(?:\(\s*([\w\$_]+)\))?\s*(?:\:|in)([\s\S]*)/;
+function appendForStart(context,var_,list,status_){
+
+if(!list){
+var match = var_.match(FOR_PATTERN);
+if(!match){
+throw console.error("非法 for 循环信息",value);
+}
+var var_ = match[1];
+var status_ =match[2];
+var list =match[3];
+}
+var be = _splitList(list);
+if(be.length==2){
+var begin = be[0];
+var end = be[1];
+list = "Math.abs("+begin+'-'+end+")+1";
+context.appendFor(var_,list,status_||null);
+context.appendVar(var_,var_+'+'+begin+"-1");
+}else if(be.length ==1){
+context.appendFor(var_,list,status_||null);
+}else{
+console.error("for表达式无效："+list);
+throw new Error('for 表达式无效：list='+list+';var='+var_);
+}
+}
+function _splitList(list){
+try{
+new Function("return "+list.replace(/\.\./g,'.%%.'));
+return [list];
+}catch(e){
+var dd= 0
+while(true){
+dd = list.indexOf('..',dd+1);
+if(dd>0){
+try{
+var begin = list.substring(0,dd);
+var end = list.substring(dd+2);
+new Function("return "+begin+'-'+end);
+var begin2 = begin.replace(/^\s*\[/,'');
+if(begin2 != begin){
+try{
+new Function("return "+begin);
+begin2 = begin;
+}catch(e){
+}
+}
+if(begin2 != begin){
+end = end.replace(/\]\s*$/,'');
+console.debug("[start,last] 语法 不是通用表达式，只能在for循环中使用。",list);
+return [begin2,end];
+}else{
+console.warn("range for 表达式(非通用表达式)推荐模式为：[start,last]，您提供的表达式为"+list);
+return [begin,end];
+}
+}catch(e){
+}
+
+}else{
+return [];
+}
+}
+}
+}
+function toid(n){
+n = n.replace(/^\s+|\s+$/g,'');
+try{
+new Function("return "+n);
+}catch(e){
+console.error("无效id:"+n,e);
+throw e;
+}
+return n;
+}
+}
 ,
-function(n,e){function t(n,e){var t=n&&n.documentURI,i=e&&e.root||t&&n.root,c=new a(i&&new r(i));t&&c.setCurrentURI(t),n=c.loadXML(n),c.parse(n);try{e instanceof Array&&(e={params:e});var s=new o,u=s.translate(c.toList(),e);return n=new Function("return "+u).apply(),n.toString=function(){return u},n}catch(l){throw console.error("translate error",l,u),l}}if("function"==typeof e){n.parseLite=t,n.LiteEngine=e(41).LiteEngine,n.compile=function(n,t,r,o,a){var i=e(6).buildURIMatcher;o=o&&o.length&&new RegExp(o.map(i).join("|")),a=a&&a.length&&new RegExp(a.map(i).join("|"))};var r=e(14).ParseConfig,o=e(1).JSTranslator,a=e(0).ParseContext}}
+function(exports,require){
+var uncompressed = /^[\t ]{2}|^\s*\/\/|\/\**[\r\n]/m;
+function tokenCompress(source,file,root){
+source = String(source).replace(/\r\n?/g,'\n');
+if(source.search(uncompressed)<0){
+return source;
+}
+var ps = partitionJavaScript(source,file,root);
+var result = [];
+for(var i =0;i<ps.length;i++){
+var item = ps[i];
+switch(item.charAt()){
+case '\'':
+case '\"':
+result.push(item);
+break;
+case '/':
+
+var stat = item.match(/^\/(?:(\*\s*@)|\/|\*)/);
+if(!stat || stat[1]){
+result.push(item);
+}
+break;
+default:
+
+
+result.push(item.replace(/(\n)+|([^\S\r\n])+/gm,'$1$2').replace(/(?:([\r\n])+\s*)+/g,'$1'));
+}
+}
+return result.join('');
+}
+var compressedCache = []
+function compressJS(source,file,root){
+source = source.replace(/^\/\*[\s\S]*?\*\/\s*/g,'')
+var i = compressedCache.indexOf(source);
+if(i>=0){
+if(i%2 == 0){
+var kv = compressedCache.splice(i,2)
+compressedCache.push(kv[0],kv[1]);
+return kv[1];
+}else{
+return source;
+}
+};
+var result = source;
+var sample = source.slice(source.length	/10,source.length/1.1);
+
+if(sample.length < 200 || sample.match(uncompressed)){
+try{
+result= tokenCompress(source,file,root);
+}catch(e){
+result= tokenCompress('this.x='+source,file,root).replace(/^this.x=|(});$/g,'$1') ;
+}
+}
+compressedCache.push(source,result);
+if(compressedCache.length>64){
+compressedCache.shift();
+compressedCache.shift();
+}
+return result;
+}
+var TYPE_COMMENT=0, TYPE_SOURCE =1, TYPE_STRING =2, TYPE_REGEXP=3;
+
+function partitionJavaScript(source,file,root){
+
+var regexp = /'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|\/\/.*|\/\*[\s\S]*?\*\/|\/(?=[^*\/].*\/(?:[img]*\b|[^\w]))|<(?=(?:[A-Za-z_][\w_\-\.]*(?:\:[\w\-\.]*)?)(?:\s*\/?>|\s+\w))/i;
+var m,result = [],latestType=-1;
+source = source.replace(/\r\n|\r/g,'\n');
+function append(token,type){
+
+if(token){
+if(latestType == type){
+result[result.length-1]+=token;
+}else{
+result.push(token);
+latestType = type;
+}
+}
+}
+function appendXML(xml){
+var preIndex = result.length-1;
+var prev = result[preIndex];
+
+var preFunctionMatch = prev.match(/(?:(\([\w\s,]*\))(\{\s*(?:return\s*)?))?$/);
+if(preFunctionMatch){
+var params = preFunctionMatch[1];
+var functionQute = preFunctionMatch[2];
+
+}
+var args = params&&params.replace(/[\s()]/g,'').split(',')||[];
+var fn = parseTemplate(xml,file,{
+root:root,
+params:args||[]
+})
+var fnCode = String(fn).replace(/^\s+|\s+$/g,'');
+if(functionQute){
+prev = prev.slice(0,prev.length-preFunctionMatch[0].length+1);
+result[preIndex] = prev+fnCode.replace(/^[^(]+.|\}[^}]*$/g,'')
+}else{
+var m = fnCode.match(/^function\([\w\s,]*\)\{\s*return/);
+if(m){
+result[preIndex] = prev+fnCode.substring(m[0].length).replace(/;?\s*\}[^}]*$/,'')
+}else{
+result[preIndex] = prev+'('+fnCode+')()';
+}
+}
+}
+
+regexp.lastIndex = 0;
+while(m = regexp.exec(source)){
+
+if(m){
+var index = m.index;
+var m = m[0];
+var xml = m == '<'
+
+if(m == '/' || xml){
+append(source.substring(0,index),TYPE_SOURCE)
+var m2 = (xml ?findXML:findExp)(result,source.substring(index));
+
+if(m2){
+m = m2;
+if(xml){
+appendXML(m);
+}else{
+append(m,TYPE_REGEXP)
+}
+}else{
+
+append(m.replace(/^\//,'\t\/'),TYPE_SOURCE);
+}
+}else{
+append(source.substring(0,index),TYPE_SOURCE)
+switch(m.charAt()){
+case '\'':
+case '\"':
+append(m,TYPE_STRING);
+break;
+case '/':
+var m2 = m.charAt(1);
+if(m2=='*' || m2 == '/'){
+append(m,TYPE_COMMENT);
+break;
+}
+default:
+append(m,TYPE_SOURCE);
+}
+}
+source = source.substring(m.length+index);
+}else{
+break;
+}
+}
+append(source,TYPE_SOURCE);
+return result;
+}
+
+function findXML(result,source){
+var tag = source.match(/^<([a-z_][\w_\-\.]*(?:\:[a-z_][\w_\-\.]*)?)(?:\s*[\/>]|\s+[\w_])/i);
+if(tag){
+tag = tag[1];
+tag = tag.replace(/\.\-/g,'\\$&');
+var reg = new RegExp('<(/)?'+tag,'g');
+var depth = 0;
+reg.lastIndex = 0;
+while(tag = reg.exec(source)){
+if(tag[1]){
+if(--depth == 0){
+return source.substring(0,tag.index+tag[0].length+1)
+}else if(depth<0){
+return null;
+}
+}else{
+depth++;
+}
+}
+}else{
+return null;
+}
+}
+function parseTemplate(xml,file,options){
+var m = xml.match(/^([\w\-\/\.]+)(#.*)?$/)
+if(m){
+var attr = m[2];
+
+var buf =["<c:include path='",m[1],"' "];
+if(attr && attr.length>1){
+buf.push('selector="',attr.substr(1).replace(/["]/g,'&#34;'),'"/>')
+}else{
+buf.push('/>')
+}
+xml = buf.join('')
+}
+
+var parser = new (require(22).DOMParser)({
+locator:{systemId:file||options.root},
+xmlns:{
+c:'http://www.xidea.org/lite/core',
+h:'http://www.xidea.org/lite/html-ext'
+}
+});
+xml = parser.parseFromString(xml,'text/html');
+return require(42).parseLite(xml,options);
+}
+
+function findExp(result,source){
+var i = result.length;
+while(i--){
+var line = result[i];
+
+if(!/^\/[\/*]|^\s+$/.test(line)){
+line = line.replace(/\s+$/,'');
+if(/^['"]|^\/.+\/$/.test(line)){
+break;
+}else if(/\b(?:new|instanceof|typeof)$/.test(line)){
+return findExpSource(source);
+}else if(/(?:[)\]}]|[\w_]|--|\+\+)$/.test(line)){
+break;
+}else{
+return findExpSource(source);
+}
+}
+}
+}
+function findExpSource(text){
+var depth=0,c,start = 1;
+while(c = text.charAt(start++)){
+if(c =='\n' || c == '\r'){
+
+return;
+}
+if(c=='['){
+depth = 1;
+}else if(c==']'){
+depth = 0;
+}else if (c == '\\') {
+start++;
+}else if(depth == 0 && c == '/'){
+outer:
+while(c = text.charAt(start++)){
+switch(c){
+case 'g':
+case 'i':
+case 'm':
+break;
+default:
+if(/\w/.test(c)){
+
+return null;
+}else{
+break outer;
+}
+}
+}
+
+text = text.substring(0,start-1);
+
+return text;
+}
+}
+
+}
+if(typeof require == 'function'){
+exports.partitionJavaScript=partitionJavaScript;
+exports.compressJS=compressJS;
+}
+}
 ,
-function(e,t,r,n){function i(e,r){e=t(42).resolve(e||"./"),e=e.replace(/[\\\/]*$/,"/"),this.root=e,this.templateMap={},this.renderTask={};var n=this,i=r&&r.configurator;try{var o=t(44).configRoot;this.compiler=t(43).fork(a+"/process.js",[o,e,"-configurator",i||""]),this.compiler.on("message",function(e){n.onChange(e.path,e.code,e.config)})}catch(s){if(null==this.compiler){var n=this,p=t(44).setupCompiler,c=p(e,function(e){var t=e.action;("remove"==t||"add"==t||"error"==t)&&n.onChange(e.path,e.code,e.config)},i);this.compiler={send:c}}}}function o(e,r,n){n.writeHead(200,{"Content-Type":e.contentType});try{e.render(r,n)}catch(i){var o="<pre>"+t(4).inspect(i,!0)+"\n\n"+(i.message+i.stack);throw n.end(o),i}}var a=n.replace(/[^\/]+$/,""),s=t(2).Template;i.prototype.requestCompile=function(e){this.compiler.send(e)},i.prototype.onChange=function(e,t,r){if(t){var n=new s(t,r);null==r.error&&(this.templateMap[e]=n);var i=this.renderTask[e];if(i){delete this.renderTask[e];for(var a=0;a<i.length;a++){var p=i[a];p[0]=n,o.apply(null,p)}}}else delete this.templateMap[e],console.info("clear template cache:",e)},i.prototype.render=function(e,r,n,i){var a=String(n.headers.cookie),s=a.replace(/(?:^|&[\s\S]*;\s*)LITE_DEBUG=(\w+)[\s\S]*$/,"$1");if(s=s==a?!1:s,"model"==s)i.end(JSON.stringify(r));else if("source"==s)t(20).readFile(t(42).resolve(this.root,e.replace(/^[\\\/]/,"")),"binary",function(e,t){e?(i.writeHead(404,{"Content-Type":"text/plain"}),i.end(e+"\n")):(i.writeHead(200,{"Content-Type":"text/plain;charset=utf8"}),i.end(t,"binary"))});else{var p=this.templateMap[e];p?o(p,r,i):((this.renderTask[e]||(this.renderTask[e]=[])).push([e,r,i]),this.requestCompile(e))}},e.LiteEngine=i}
+function(exports,require){
+
+function JSONTokenizer(value){
+this.value = value.replace(/^\s+|\s+$/g,'');
+this.start = 0;
+this.end = this.value.length;
+}
+JSONTokenizer.prototype = {
+parse : function() {
+this.skipComment();
+var c = this.value.charAt(this.start);
+if (c == '"') {
+return this.findString();
+} else if (c == '-' || c >= '0' && c <= '9') {
+return this.findNumber();
+} else if (c == '[') {
+return this.findList();
+} else if (c == '{') {
+return this.findMap();
+} else {
+var key = this.findId();
+if ("true".equals(key)) {
+return Boolean.TRUE;
+} else if ("false".equals(key)) {
+return Boolean.FALSE;
+} else if ("null".equals(key)) {
+return null;
+} else {
+throw new Error("语法错误:" + this.value + "@"
++ this.start);
+}
+}
+},
+findMap : function() {
+this.start++;
+this.skipComment();
+var result = {};
+while (true) {
+
+var key = this.parse();
+this.skipComment();
+var c = this.value.charAt(this.start++);
+if (c != ':') {
+throw new Error("错误对象语法:" + this.value + "@"
++ this.start);
+}
+var valueObject = this.parse();
+this.skipComment();
+c = this.value.charAt(this.start++);
+if (c == '}') {
+result[key]= valueObject;
+return result;
+} else if (c != ',') {
+throw new Error("错误对象语法:" + this.value + "@"
++ this.start);
+} else {
+result.put(key, valueObject);
+}
+}
+},
+findList:function() {
+var result = [];
+
+this.start++;
+this.skipComment();
+if (this.value.charAt(this.start) == ']') {
+this.start++;
+return result;
+} else {
+result.push(this.parse());
+}
+while (true) {
+this.skipComment();
+var c = this.value.charAt(this.start++);
+if (c == ']') {
+return result;
+} else if (c == ',') {
+this.skipComment();
+result.push(this.parse());
+} else {
+throw new Error("错误数组语法:" + this.value + "@"
++ this.start);
+}
+}
+},
+findNumber:function() {
+var i = this.start;
+var isFloatingPoint = false;
+var c = this.value.charAt(i++);
+if (c == '-') {
+c = this.value.charAt(i++);
+}
+if (c == '0') {
+if (i < this.end) {
+return this.parseZero();
+} else {
+this.start = i;
+return 0;
+}
+}
+var ivalue = c - '0';
+while (i < this.end) {
+c = this.value.charAt(i++);
+if (c >= '0' && c <= '9') {
+ivalue = (ivalue * 10) + (c - '0');
+} else {
+break;
+}
+}
+if (c == '.') {
+c = this.value.charAt(i++);
+while (c >= '0' && c <= '9') {
+isFloatingPoint = true;
+if (i < this.end) {
+c = this.value.charAt(i++);
+} else {
+break;
+}
+}
+if (!isFloatingPoint) {
+
+
+this.start = i - 2;
+return ivalue;
+}
+}
+if (c == 'E' || c == 'e') {
+isFloatingPoint = true;
+c = this.value.charAt(i++);
+if (c == '+' || c == '-') {
+c = this.value.charAt(i++);
+}
+while (c >= '0' && c <= '9') {
+if (i < this.end) {
+c = this.value.charAt(i++);
+} else {
+break;
+}
+}
+} else {
+c = this.value.charAt(i - 1);
+if (c < '0' || c > '9') {
+i--;
+}
+}
+if (isFloatingPoint) {
+return this.value.substring(this.start, this.start = i)*1;
+} else {
+this.start = i;
+return ivalue;
+}
+},
+parseZero: function(){
+var value = this.value.substr(this.start);
+value = value.replace(/([+-]?0(?:x[0-9a-f]+|\.?[0-9]*))[\s\S]*/i,'$1');
+this.start += value.length;
+
+if(value.indexOf('.')<0){
+return parseInt(value);
+}
+return parseFloat(value);
+},
+findId:function() {
+var p = this.start;
+if (/[\w\$_]/.test(this.value.charAt(p++))) {
+while (p < this.end) {
+if (!/[\w\$_]/.test(this.value.charAt(p))) {
+break;
+}
+p++;
+}
+return (this.value.substring(this.start, this.start = p));
+}
+throw new Error("无效id");
+},
+
+findString:function() {
+var quoteChar = this.value.charAt(this.start++);
+var buf = [];
+while (this.start < this.end) {
+var c = this.value.charAt(this.start++);
+switch (c) {
+case '\\':
+var c2 = this.value.charAt(this.start++);
+switch (c2) {
+case 'b':
+buf.push('\b');
+break;
+case 'f':
+buf.push('\f');
+break;
+case 'n':
+buf.push('\n');
+break;
+case 'r':
+buf.push('\r');
+break;
+case 't':
+buf.push('\t');
+break;
+case 'v':
+buf.push(0xb);
+break; 
+case ' ':
+buf.push(' ');
+break;
+case '\\':
+case '\/':
+buf.push(c2);
+break;
+case '\'':
+buf.push('\'');
+break;
+case '\"':
+buf.push('"');
+break;
+case 'u':
+var c = this.value.substring(
+this.start, this.start + 4);
+c = parseInt(c, 16);
+buf.push(String.fromCharCode(c));
+this.start += 4;
+break;
+case 'x':
+var c = this.value.substring(this.start, this.start + 2);
+c = parseInt(c, 16);
+buf.push(String.fromCharCode(c));
+this.start += 2;
+break;
+default:
+buf.push(c);
+buf.push(c2);
+}
+break;
+case '"':
+case '\'':
+if (c == quoteChar) {
+return (buf.join(''));
+}
+default:
+buf.push(c);
+}
+}
+throw new Error("未结束字符串:" + this.value
++ "@" + this.start);
+},
+skipComment:function() {
+while (true) {
+while (this.start < this.end) {
+var c = this.value.charAt(this.start);
+if (c == ' ' || c =='\t') {
+this.start++;
+}else{
+break;
+}
+}
+if (this.start < this.end && this.value.charAt(this.start) == '/') {
+this.start++;
+var next = this.value.charAt(this.start++);
+if (next == '/') {
+var end1 = this.value.indexOf('\n', this.start);
+var end2 = this.value.indexOf('\r', this.start);
+var cend = Math.min(end1, end2);
+if (cend < 0) {
+cend = Math.max(end1, end2);
+}
+if (cend > 0) {
+this.start = cend;
+} else {
+this.start = this.end;
+}
+} else if (next == '*') {
+var cend = this.value.indexOf("*/", this.start);
+if (cend > 0) {
+this.start = cend + 2;
+} else {
+throw new Error("未結束注釋:" + this.value
++ "@" + this.start);
+}
+}
+} else {
+break;
+}
+}
+},
+skipSpace:function(nextChar) {
+while (this.start < this.end) {
+var c = this.value.charAt(this.start);
+if (c == ' ' || c =='\t' || c == '\r' || c == '\n') {
+this.start++;
+}else{
+break;
+}
+}
+if (nextChar > '\x00' && this.start < this.end) {
+var next = this.value.charAt(this.start);
+if (nextChar == next) {
+return true;
+}
+}
+return false;
+}
+}
+
+
+
+if(typeof require == 'function'){
+exports.JSONTokenizer=JSONTokenizer;
+}
+}
 ,
-function(o,e,r){console.log("read module err!!!path\nError: ENOENT: no such file or directory, open 'path'")}
+function(exports,require){
+
+function parseLite(data,config){
+var path = data && data.documentURI;
+var root = config&&config.root || path&&path.replace(/[^\/\\]+$/,'');
+var parseContext = new ParseContext(root && new ParseConfig(root));
+path && parseContext.setCurrentURI(path)
+data = parseContext.loadXML(data);
+parseContext.parse(data);
+try{
+if(config instanceof Array){
+config = {params:config} 
+}
+var translator = new JSTranslator();
+
+var code = translator.translate(parseContext.toList(),config);
+
+data = new Function('return '+code).apply();
+data.toString=function(){
+return code;
+}
+return data;
+}catch(e){
+console.error("translate error",e,code)
+throw e;
+}
+}
+if(typeof require == 'function'){
+exports.parseLite=parseLite;
+exports.LiteEngine=require(43).LiteEngine;
+var ParseConfig=require(15).ParseConfig;
+var JSTranslator=require(1).JSTranslator;
+var ParseContext=require(0).ParseContext;
+}
+}
 ,
-function(o,e,r){console.log("read module err!!!child_process\nError: ENOENT: no such file or directory, open 'child_process'")}
+function(exports,require,module,__filename){var __dirname= __filename.replace(/[^\/]+$/,"");var Template = require(2).Template
+exports.getTemplateId = getTemplateId;
+exports.LiteEngine = LiteEngine;
+function LiteEngine(root,options){
+options = options || {}
+this.litecache = options.litecache;
+this.released = options.released;
+root = require(44).resolve(root || './')
+root = root.replace(/[\\\/]*$/,'/');
+this.root = root;
+this.templateMap = {};
+this.renderTask = {};
+if(!this.released){
+this.compiler = initCompiler(this, options.configurator);
+}
+}
+
+function initCompiler(engine,configurator){
+try{
+if(configurator instanceof Function){
+throw new Error();
+}
+
+var root = engine.root;
+var configRootKey = require(46).configRootKey
+var args = [configRootKey,root]
+if(configurator){
+args.push('-configurator',configurator);
+}
+var compiler = require(45).fork(__dirname + '/process.js',args);
+compiler.on('message', function(result){
+
+engine.onChange(result.path,result.code,result.config)
+}); 
+return compiler;
+}catch(e){
+var setupCompiler = require(46).setupCompiler;
+var sender = setupCompiler(root,function(result){
+var action = result.action;
+if(action == 'remove' || action == 'add' || action=='error'){
+engine.onChange(result.path,result.code,result.config)
+}
+},configurator);
+return {
+send:sender
+}
+}
+}
+LiteEngine.prototype.requestCompile = function(path){
+if(this.released){
+var id = getTemplateId(path);
+var file = require(44).join(this.litecache,id+'.js');
+this.onChange(path,null,{liteFile:file})
+}else{
+this.compiler.send(path);
+}
+}
+LiteEngine.prototype.onChange = function(path,code,config) {
+
+if(config&&config.liteFile){
+try{
+var tpl = require(config.liteFile);
+tpl = new Template(tpl.template,tpl.config);
+}catch(e){
+console.error(e)
+code = "function(context,out){var err = 'template:"+config.liteFile+" not found!!';console.error(err);out.push(err);return out.join('')}";
+var tpl = new Template(code,config);
+}
+}else if(code && config.error == null){
+
+var id = getTemplateId(path);
+var file = this.updateLitecache(id,code,config)
+try{
+var tpl = require(file);
+tpl = new Template(tpl.template || code,tpl.config);
+}catch(e){
+console.error(e);
+var tpl = new Template(code,config);
+}
+this.templateMap[path] = tpl; 
+}else{
+delete this.templateMap[path];
+
+console.info('clear template cache:' ,path);
+return;
+}
+var task = this.renderTask[path];
+if(task){
+delete this.renderTask[path];
+for(var i=0;i<task.length;i++){
+var args = task[i];
+args[0] = tpl;
+doRender.apply(null,args)
+}
+}
+}
+LiteEngine.prototype.updateLitecache = function(id,code,config){
+var litecache = this.litecache;
+var fs = require(4);
+if(litecache && fs.existsSync(litecache)){
+var file = require(44).join(litecache,id+'.js');
+if(code){
+var source = ['exports.template=',code,';\nexports.config = ',JSON.stringify(config)].join('')
+fs.writeFileSync(file,source);
+return file;
+}else{
+fs.unlinkFileSync(file)
+}
+}
+}
+LiteEngine.prototype.render=function(path,model,req,response){
+var cookie = String(req.headers.cookie);
+var debug = cookie.replace(/(?:^|&[\s\S]*;\s*)LITE_DEBUG=(\w+)[\s\S]*$/,'$1');
+debug = debug == cookie?false:debug;
+if(debug=='model'){
+response.end(JSON.stringify(model));
+}else if(debug=='source'){
+require(4).readFile(require(44).resolve(this.root ,path.replace(/^[\\\/]/,'')), "binary", function(err, file) { 
+if(err) {
+response.writeHead(404, {"Content-Type": "text/plain"}); 
+response.end(err + "\n"); 
+}else{
+response.writeHead(200, {"Content-Type": 'text/plain;charset=utf8'}); 
+response.end(file, "binary"); 
+} 
+});
+}else{
+var tpl = this.templateMap[path];
+if(tpl){
+doRender(tpl,model,response);
+}else{
+(this.renderTask[path] || (this.renderTask[path] =[])).push([path,model,response]);
+this.requestCompile(path);
+}
+}
+}
+function doRender(tpl,model,response){
+if(!response.headersSent){
+
+
+
+if(!response.statusCode ){
+response.statusCode = 200;
+}
+if(response.getHeader('content-type') == null){
+response.setHeader('content-type', tpl.contentType||'text/html;charset=utf-8')
+}
+}
+
+try{
+tpl.render(model,response);
+}catch(e){
+var rtv = '<pre>'+require(5).inspect(e,true)+'\n\n'+(e.message +e.stack);
+response.end(rtv);
+throw e;
+}
+}
+function getTemplateId(path){
+
+return path.slice(1).replace(/[^\w\_]/g,'_');
+}
+}
 ,
-function(o,r){function e(o,e,i){function n(o,r){for(var e=c[o]={},i=0;i<r.length;i++){var n=r[i];e[n]=!0;var f=a[n];null==f&&(f=a[n]={},t(n)),f[o]=!0}}function t(i){r(20).watch(r(42).join(o,i),function(o,r){for(var n in a[i]){var t=c[n];t&&t[i]&&(delete c[n],e({path:n,action:"remove"}))}})}var c={},a={},f=r(45).LiteCompiler,s=new f(o);if(i){console.log("filter:",i);try{if("string"==typeof i){var l=configurators.split("#"),v=l[0],p=l[1],i=r(v)[p];s.waitPromise=!0,s=i(s)}}catch(u){console.error("filter init error:"+u)}}return function(o){try{var r=s.compile(o),i=r.resources;n(o,i),e({path:o,action:"add",code:r.jscode,config:r.config})}catch(t){throw t}}}var i="-lite-engine-child-process-root";o.configRoot=i;var n=process.argv,t=n[2]==i;if(t){var c=n[3].replace(/\/?$/,"/");if("-configurator"==n[4]&&n[5])var a=n[5];var f=e(c,function(o){process.send(o)},a);process.on("message",function(o){f(o)})}o.setupCompiler=e}
+function(exports,require,module){console.log("read module err!!!path\nError: ENOENT: no such file or directory, open 'path'")
+}
 ,
-function(e,t){function r(e,r){var i=t(42),e=String(i.resolve(e||"./")).replace(/\\/g,"/"),r=r||i.resolve(e,"lite.xml");if(t(20).existsSync(r)){var n=s(r);this.config=new o(e,n)}else{var r=i.resolve(e,"WEB-INF/lite.xml");if(t(20).existsSync(r)){var n=s(r);this.config=new o(e,n)}else this.config=new o(e,null)}console.info("LiteCompiler root:",e)}var o=t(14).ParseConfig,i=t(0).ParseContext,n=t(1).JSTranslator,s=t(7).loadLiteXML;r.prototype.createParseContext=function(e){return new i(this.config,e)},r.prototype.compile=function(e){var t=this.createParseContext(e),r=t.createURI(e);t.parse(r);var o=t.toList();if(o.length)var i=new n({waitPromise:!0}),s=e.replace(/[^\w\_]/g,"_"),a=i.translate(o,{name:s});else var a="function(){}";for(var l=t.getResources(),c=t.getConfigMap(),f=l.length;f--;)l[f]=l[f].path;return{resources:l,litecode:o,jscode:a,config:c}},e.LiteCompiler=r},[])
-function buildContext(){var t=new ParseContext,e={};for(var r in editorMap)e[r]=editorMap[r].getValue();e["/source.xhtml"]=templateEditor.getValue();var a=t.loadXML;return t.loadXML=function(r){return r.path&&(r.path in e?r=e[r.path]:console.warn("未知文件路径",r.path)),a.call(t,r)},t.parse(t.createURI("/source.xhtml")),t}function compileToJS(){try{var t=buildContext(),e=t.toList(),r=new JSTranslator,a=r.translate(e)}finally{showResult(a),updateResultRunner("JavaScript",e,a)}}function compileToNodeJS(){try{var t=buildContext(),e=t.toList(),r=new JSTranslator({waitPromise:!0}),a=r.translate(e)}finally{var n=a;showResult(n),updateResultRunner("NodeJS",e,n)}}function compileToPHP(){try{var t=buildContext(),e=t.toList(),r="/test.xhtml".replace(/[\/\-\$\.!%]/g,"_"),a=new PHPTranslator({waitPromise:!0}),n=a.translate(e,{name:r})}finally{showResult(n),updateResultRunner("PHP",e,n)}}function compileToLite(){try{var t=buildContext(),e=t.toList(),e=JSON.stringify(e)}finally{showResult(e),updateResultRunner("Java",e,null)}}var editorMap=editorMap||{},ParseContext=require(0).ParseContext,JSTranslator=require(1).JSTranslator,PHPTranslator=require(3).PHPTranslator,wrapResponse=require(2).wrapResponse,resultEditor=CodeMirror(placeMirror,{value:"",readOnly:!0,lineNumbers:!0,mode:{name:"javascript"}});
+function(exports,require,module){console.log("read module err!!!child_process\nError: ENOENT: no such file or directory, open 'child_process'")
+}
+,
+function(exports,require){var configRootKey = '-lite-engine-child-process-root';
+exports.configRootKey = configRootKey
+
+var argv = process.argv;
+var isChild = argv[2]==configRootKey;
+if(isChild){
+
+var root = argv[3].replace(/\/?$/,'/');
+if(argv[4] == '-configurator' && argv[5]){
+var configurator = argv[5];
+}
+
+var compile = setupCompiler(root,function(cmd){
+
+process.send(cmd)
+},configurator);
+process.on('message', function(path){
+compile(path);
+});
+}
+function setupCompiler(root,callback,configurator){
+var fs = require(4);
+
+var templateMap = {
+}
+
+var resourceMap = {}
+var LiteCompiler = require(47).LiteCompiler;
+
+var templateCompiler= new LiteCompiler(root);
+templateCompiler.waitPromise = true
+if(configurator){
+
+try{
+if('string' == typeof configurator ){
+var args = configurators.split('#');
+var path = args[0];
+var name = args[1];
+var configurator = require(path)[name];
+configurator(templateCompiler)
+}else if(configurator instanceof Function){
+configurator(templateCompiler)
+}
+}catch(e){
+console.error('filter init error:'+e);
+}
+}
+function addTemplateWatch(path,resources){
+var template = templateMap[path]={};
+for(var i = 0;i<resources.length;i++){
+var res = resources[i];
+template[res]=true;
+var resource= resourceMap[res];
+if(resource == null){
+
+resource = resourceMap[res] = {};
+addResourceWatch(res);
+}
+resource[path] = true;
+}
+}
+function addResourceWatch(resourcePath){
+fs.watch(require(44).join(root,resourcePath), function (event, filename) {
+
+for(var tplPath in resourceMap[resourcePath]){
+var tpl = templateMap[tplPath];
+if(tpl && tpl[resourcePath]){
+delete templateMap[tplPath];
+
+callback({path:tplPath,action:'remove'})
+
+}
+}
+});
+}
+
+return (function(path){
+try{
+if(fs.existsSync(root+path)){
+var result = templateCompiler.compile(path);
+}else{
+result = {resources:['./'],
+litecode:[],
+jscode:'function(c,out){out.push("File Not Found:'+path+'");return out.join()}',
+config:{}
+};
+}
+
+var res = result.resources;
+
+addTemplateWatch(path,res);
+callback({path:path,action:'add',code:result.jscode,config:result.config})
+
+}catch(e){
+
+throw e;
+callback({path:path,action:'error',
+code:"function(){return '<pre>'+"+JSON.stringify(require(5).inspect(e,true)+
+'\n\n'+(e.message +e.stack))+"}",
+config:{contentType:'text/html',encoding:'utf-8',error:e}
+})
+}
+});
+}
+exports.setupCompiler = setupCompiler;
+}
+,
+function(exports,require){var ParseConfig = require(15).ParseConfig;
+var ParseContext = require(0).ParseContext;
+var JSTranslator = require(1).JSTranslator;
+var loadLiteXML = require(8).loadLiteXML;
+var buildURIMatcher = require(7).buildURIMatcher
+var getTemplateId = require(43).getTemplateId
+exports.LiteCompiler = LiteCompiler;
+exports.execute = function(args){
+var options = {};
+var key = '';
+for(var i=2;i<args.length;i++){
+var arg = args[i];
+if(arg.charAt() == '-'){
+key = arg.substr(1)
+options[key] = [];
+}else{
+options[key].push(arg)
+}
+}
+
+var root = options.root && options.root[0];
+var output = options.output && options.output[0];
+compile(root,output,options.translator,
+options.includes,options.excludes)
+}
+function LiteCompiler(root,options){
+options = options || {};
+var path = require(44);
+var root =String(path.resolve(root || './')).replace(/\\/g,'/');
+var compileDir = options.compileDir;
+var configPath = options.configPath || path.resolve(root,'lite.xml');
+if(require(4).existsSync(configPath)){
+var dom = loadLiteXML(configPath);
+
+this.config = new ParseConfig(root,dom);
+}else if(!options.configPath){
+configPath = path.resolve(root,'WEB-INF/lite.xml');
+if(require(4).existsSync(configPath)){
+var dom = loadLiteXML(configPath);
+
+this.config = new ParseConfig(root,dom);
+}
+}
+this.config = this.config || new ParseConfig(root,null);
+this.translator = new JSTranslator({
+
+waitPromise:true
+});
+console.info("LiteCompiler root:",root);
+}
+LiteCompiler.prototype.createParseContext = function(path){
+return new ParseContext(this.config,path);
+}
+LiteCompiler.prototype.compile=function(path){
+var root = this.config.root;
+var context = this.createParseContext(path);
+var uri = context.createURI(path);
+context.parse(uri);
+
+
+var litecode = context.toList();
+if(litecode.length){
+
+var functionName = getTemplateId(path);
+var jscode = this.translator.translate(litecode,{name:functionName});
+}else{
+var jscode = "function(){}";
+}
+var res = context.getResources();
+var config = context.getConfigMap();
+var i = res.length;
+while(i--){
+res[i] = res[i].path
+}
+return {resources:res,litecode:litecode,jscode:jscode,config:config};
+}
+
+function compile(root,output,translator,includes,excludes){
+var fs = require(4)
+var path = require(44)
+root = fs.realpathSync(root || './');
+output = output || path.join(root,'.litecode');
+if(!fs.existsSync(output))fs.mkdirSync(output);
+
+var compiler = new LiteCompiler(root);
+includes = includes && includes.length && new RegExp(includes.map(buildURIMatcher).join('|'))
+excludes = excludes && excludes.length && new RegExp(excludes.map(buildURIMatcher).join('|'))
+function loadFile(dir){
+fs.readdir(dir,function(err,files){
+for(var i=0;i<files.length;i++){
+var n = files[i];
+var file = dir+'/'+n;
+
+var stat = fs.statSync(file);
+if(stat.isFile()){
+var p = path.relative(root,file).replace(/^[\/\\]?|\\/g,'/');
+if(excludes && excludes.test(p)){
+continue;
+}
+if(includes ? includes.test(p):/\.xhtml$/.test(p)){
+console.log('compile:',path.join(output,p))
+var result = compiler.compile(p);
+var source = ['exports.template=',result.jscode,';\nexports.config = ',JSON.stringify(result.config)].join('')
+var id = getTemplateId(p);
+fs.writeFile(path.join(output,id)+'.js',source,function(err,path){
+
+})
+
+}
+
+}else if(n.charAt() != '.' &&stat.isDirectory() ){
+loadFile(file)
+}
+}
+});
+}
+loadFile(root);
+}
+},[])
+
+
+
+var editorMap = editorMap || {};
+var ParseContext = require(0).ParseContext;
+var JSTranslator = require(1).JSTranslator;
+var PHPTranslator = require(3).PHPTranslator;
+var wrapResponse = require(2).wrapResponse
+var resultEditor = CodeMirror(placeMirror, {
+value: '',
+readOnly:true,
+lineNumbers: true,
+mode: {name:"javascript"}
+});
+
+function buildContext(){
+var context = new ParseContext();
+var cached = {};
+for(var path in editorMap){
+cached[path] = editorMap[path].getValue();
+}
+cached["/source.xhtml"] = templateEditor.getValue();
+var baseXMLLoader = context.loadXML;
+context.loadXML = function(uri){
+if(uri.path){
+if(uri.path in cached){
+uri = cached[uri.path];
+}else{
+console.warn("未知文件路径",uri.path)
+}
+}
+return baseXMLLoader.call(context,uri);
+}
+context.parse(context.createURI('/source.xhtml'));
+return context;
+}
+function compileToJS(){
+try{
+var context = buildContext();
+var litecode = context.toList();
+var translator = new JSTranslator();
+var jscode = translator.translate(litecode);
+}finally{
+showResult(jscode);
+updateResultRunner('JavaScript',litecode,jscode);
+}
+}
+function compileToNodeJS(){
+try{
+var context = buildContext();
+var litecode = context.toList();
+var translator = new JSTranslator({waitPromise:true});
+var jscode = translator.translate(litecode);
+}finally{
+var nodecode = jscode;
+showResult(nodecode);
+updateResultRunner('NodeJS',litecode,nodecode);
+}
+}
+function compileToPHP(){
+try{
+var context = buildContext();
+var litecode = context.toList();
+var id = "/test.xhtml".replace(/[\/\-\$\.!%]/g,'_');
+var pt = new PHPTranslator({
+waitPromise:true
+});
+var phpcode = pt.translate(litecode,{name:id});
+}finally{
+showResult(phpcode);
+updateResultRunner('PHP',litecode,phpcode);
+}
+}
+function compileToLite(){
+try{
+var context = buildContext();
+var litecode = context.toList();
+var litecode = JSON.stringify(litecode);
+}finally{
+showResult(litecode);
+updateResultRunner('Java',litecode,null);
+}
+}

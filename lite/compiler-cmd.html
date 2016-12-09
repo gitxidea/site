@@ -175,10 +175,10 @@ return false;
 				<strong>示例</strong>
 			</p>
 			<script>//
-__id__1480353736800_51=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
+__id__1481289780148_32=["java -jar WEB-INF/lib/Lite.jar -output ../output -includes /**.js /**.xhtml -linked true -excludes /WEB-INF/** -translator php",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353736800_51[0],__id__1480353736800_51[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780148_32[0],__id__1481289780148_32[1],'');</script></div>
 
 			<p title="这是一个java执行命令，命令模式是: java -jar &lt;JARPATH> -arg value -args value1 value2">
 				在这个编译程序中，-jar 用于指定jar库（编译程序）的地址，必须放在最开始的位置；
@@ -222,10 +222,10 @@ __id__1480353736800_51=["java -jar WEB-INF/lib/Lite.jar -output ../output -inclu
 					代表某个目录下的任意文件，**
 					代表任意文件和任意级子目录下的任意文件。
 					<script>//
-__id__1480353736801_91=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
+__id__1481289780150_20=["//目录module 下的任意xhtml扩展名的文件\n/module/*.xhtml\n\n//目录module 下的任意文件和任意级任意子目录的任意文件\n/module/**\n\n//任意一个js文件\n/**.js\n\n//任意一个test目录下的文件\n**/test/*\n\n//任意一个包含test文字的目录下的文件\n**/*test*/*",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353736801_91[0],__id__1480353736801_91[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780150_20[0],__id__1481289780150_20[1],'');</script></div>
 				</p>
 				<p>
 					直接包含的文件不一定能被打包，因为他可能被excludes 排除。
@@ -242,22 +242,22 @@ __id__1480353736801_91=["//目录module 下的任意xhtml扩展名的文件\n/mo
 					<ul>
 						比如
 						<script>//
-__id__1480353736802_63=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
+__id__1481289780150_35=["java -jar WEB-INF/lib/Lite.jar -includes /index.xhtml -linked true",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353736802_63[0],__id__1480353736802_63[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780150_35[0],__id__1481289780150_35[1],'');</script></div>
 						<br/>
 						<script>//
-__id__1480353736802_42=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script\>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
+__id__1481289780150_53=["<!-- file:index.xhtml -->\n...\n<html>\n<head>\n<script src=\"/static/js/a.js\"></script\>\n<link src=\"/static/css/a.css\"></link>\n</head>\n<body>\n....",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353736802_42[0],__id__1480353736802_42[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780150_53[0],__id__1481289780150_53[1],'');</script></div>
 						<br/>
 						<script>//
-__id__1480353736802_93=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
+__id__1481289780150_69=["/* file: /static/css/a.css*/\n....\nbody{\n\tbackground:url('/static/img/a.png');\n}\n....",null];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353736802_93[0],__id__1480353736802_93[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780150_69[0],__id__1481289780150_69[1],'');</script></div>
 						<p>因为文件/index.xhtml 中存在：/static/js/a.js 和 /static/css/a.css 的引用;
 							/static/css/a.css 中存在图片：/static/img/a.png的引用。
 							系统会分析到他们之间的关联，自动间接包含：
@@ -409,7 +409,7 @@ ds.charset = 'UTF-8';
 				<a href="faq-badcase.html">常犯错误</a>
 			</li>
 			<li>
-				<a href="faq-plan.html">开发计划</a>
+				<a href="https://github.com/jindw/lite/issues#faq-plan.html">开发计划</a>
 			</li>
 		</ul>
 		<h3>二次开发参考</h3>

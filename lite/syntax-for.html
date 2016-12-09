@@ -120,28 +120,28 @@ return false;
 		<ul>
 		
 		<script>//
-__id__1480353737182_83=["<label>时间：</label>\n<!-- 最常见的是对数组循环 -->\n<select name=\"year\">\n\t<c:for var=\"year\" list=\"${[1981,1982,1983]}\">\n\t\t<option>${year}</option>\n\t</c:for>\n</select>年\n<!-- 您还可以指定区间循环(偷个懒，还是属性模式简单,效果与标签模式一样)-->\n<select name=\"month\">\n\t<option c:for=\"${month:[1..12]}\">${month}</option>\n</select>月\n<!-- 您也可以对数字循环，数字循环的时候，var变量从1开始 -->\n<select name=\"date\">\n\t<option c:for=\"${date:31}\">${date}</option>\n</select>日\n<!-- 先申明一个循环对象 -->\n<c:var name=\"apMap\" value=\"${ {'AM':'上午','PM':'下午'} }\"/>\n<!-- 您还可以对对象key循环 -->\n<select name=\"ap\">\n\t<c:for var=\"ap\" list=\"${apMap}\">\n\t\t<option value='${ap}'>${apMap[ap]}</option>\n\t</c:for>\n</select>","{}"];
+__id__1481289780486_81=["<label>时间：</label>\n<!-- 最常见的是对数组循环 -->\n<select name=\"year\">\n\t<c:for var=\"year\" list=\"${[1981,1982,1983]}\">\n\t\t<option>${year}</option>\n\t</c:for>\n</select>年\n<!-- 您还可以指定区间循环(偷个懒，还是属性模式简单,效果与标签模式一样)-->\n<select name=\"month\">\n\t<option c:for=\"${month:[1..12]}\">${month}</option>\n</select>月\n<!-- 您也可以对数字循环，数字循环的时候，var变量从1开始 -->\n<select name=\"date\">\n\t<option c:for=\"${date:31}\">${date}</option>\n</select>日\n<!-- 先申明一个循环对象 -->\n<c:var name=\"apMap\" value=\"${ {'AM':'上午','PM':'下午'} }\"/>\n<!-- 您还可以对对象key循环 -->\n<select name=\"ap\">\n\t<c:for var=\"ap\" list=\"${apMap}\">\n\t\t<option value='${ap}'>${apMap[ap]}</option>\n\t</c:for>\n</select>","{}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737182_83[0],__id__1480353737182_83[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780486_81[0],__id__1481289780486_81[1],'');</script></div>
 		</ul>
 		<a name="forElse"></a>
 		<h3>示例2（循环空处理和for状态字）</h3>
 		<ul>
 			<script>//
-__id__1480353737182_24=["{\n\t\"result\":[\n\t\t{\"name\":\"张三\",\"age\":21},\n\t\t{\"name\":\"李四\",\"age\":22},\n\t\t{\"name\":\"王二\",\"age\":23}\n\t]\n}",null];
+__id__1481289780486_90=["{\n\t\"result\":[\n\t\t{\"name\":\"张三\",\"age\":21},\n\t\t{\"name\":\"李四\",\"age\":22},\n\t\t{\"name\":\"王二\",\"age\":23}\n\t]\n}",null];
 //
 </script>
 <script>//
-resultJsonModel=__id__1480353737182_24[0];
+resultJsonModel=__id__1481289780486_90[0];
 //
 </script>
 
 		<script>//
-__id__1480353737182_76=["<c:for var=\"item\" list=\"${result}\" status=\"outerFor\">\n\t<!-- 这里 ${for.dataFor} 等价于 ${outerFor.index} -->\n\t<div>第${for.index}条数据属性值为：</div>\n\t<div>\n\t\t<p c:for=\"${key:item}\">\n\t\t\t第${outerFor.index}条数据的第${for.index}个属性，属性名：${key}；属性值：${item[key]}\n\t\t</p>\n\t</div>\n</c:for>\n<c:else>\n\t<p>没有数据</p>\n</c:else>",resultJsonModel];
+__id__1481289780486_67=["<c:for var=\"item\" list=\"${result}\" status=\"outerFor\">\n\t<!-- 这里 ${for.dataFor} 等价于 ${outerFor.index} -->\n\t<div>第${for.index}条数据属性值为：</div>\n\t<div>\n\t\t<p c:for=\"${key:item}\">\n\t\t\t第${outerFor.index}条数据的第${for.index}个属性，属性名：${key}；属性值：${item[key]}\n\t\t</p>\n\t</div>\n</c:for>\n<c:else>\n\t<p>没有数据</p>\n</c:else>",resultJsonModel];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737182_76[0],__id__1480353737182_76[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780486_67[0],__id__1481289780486_67[1],'');</script></div>
 		<p>
 			for 做为一个关键字，只包含两个属性 index 和lastIndex；在循环内不需要申明可以直接使用。
 			在循环嵌套的时候，for 关键字指向的是自己直接所在的循环的状态。
@@ -152,10 +152,10 @@ __id__1480353737182_76=["<c:for var=\"item\" list=\"${result}\" status=\"outerFo
 		<h3>示例3（反向循环，跳跃循环）</h3>
 		<ul>
 			<script>//
-__id__1480353737182_99=["<!-- 通过数据的reverse 函数实现数组逆转\n\t（reverse为有副作用的函数，为了消除副作用，需要concat复制后调用） -->\n<c:for var=\"item\" list=\"${list.concat().reverse()}\">\n\t<p>${item}</p>\n</c:for>\n\n<!-- 对数组的偶数位循环 -->\n<c:for var=\"item\" list=\"${list}\">\n\t<p c:if=\"${(for.index+1)%2}\">\n\t\t${item}\n\t</p>\n</c:for>","{list:[1,2,3,4]}"];
+__id__1481289780486_91=["<!-- 通过数据的reverse 函数实现数组逆转\n\t（reverse为有副作用的函数，为了消除副作用，需要concat复制后调用） -->\n<c:for var=\"item\" list=\"${list.concat().reverse()}\">\n\t<p>${item}</p>\n</c:for>\n\n<!-- 对数组的偶数位循环 -->\n<c:for var=\"item\" list=\"${list}\">\n\t<p c:if=\"${(for.index+1)%2}\">\n\t\t${item}\n\t</p>\n</c:for>","{list:[1,2,3,4]}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737182_99[0],__id__1480353737182_99[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780486_91[0],__id__1481289780486_91[1],'');</script></div>
 		</ul>
 	
 		<div id="post">
@@ -285,7 +285,7 @@ ds.charset = 'UTF-8';
 				<a href="faq-badcase.html">常犯错误</a>
 			</li>
 			<li>
-				<a href="faq-plan.html">开发计划</a>
+				<a href="https://github.com/jindw/lite/issues#faq-plan.html">开发计划</a>
 			</li>
 		</ul>
 		<h3>二次开发参考</h3>

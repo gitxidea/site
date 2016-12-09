@@ -113,18 +113,18 @@ return false;
 				<p>
 					示例
 					<script>//
-__id__1480353737189_55=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
+__id__1481289780497_79=["<span>\n您好：\n\t<c:if test=\"${displayName}\">${displayName}</c:if>\n\t<c:else test=\"${loginName}\">${loginName}</c:else>\n\t<c:else>匆匆过客</c:else>；\n今天是：\n\t<c:if test=\"${day>5}\">休息</c:if>\n\t<c:else>工作</c:else>日\n</span>","{day:2}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737189_55[0],__id__1480353737189_55[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780497_79[0],__id__1481289780497_79[1],'');</script></div>
 					<p>
 						<i>
 							小技巧1： JavaScript 与或运算（JavaScript与或技巧）和三目运算符号，也可以解决上述问题。语法如下：
 							<script>//
-__id__1480353737189_78=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
+__id__1481289780497_65=["<span>您好：${displayName||loginName||'匆匆过客'}；今天是：${day>5?'休息':'工作'}日</span>","{day:2}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737189_78[0],__id__1480353737189_78[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780497_65[0],__id__1481289780497_65[1],'');</script></div>
 						</i>
 					</p>
 				</p>
@@ -135,10 +135,10 @@ __id__1480353737189_78=["<span>您好：${displayName||loginName||'匆匆过客'
 				<p>
 					else 语法可以直接接for循环，用来处理空循环分支
 					<script>//
-__id__1480353737189_72=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
+__id__1481289780497_61=["<c:for var=\"item\" list=\"${result}\">\n\t${item}\n</c:for>\n<c:else>\n\t没有你需要的数据\n</c:else>","{result:[]}"];
 //
 </script>
-<div class="code"><script>renderSource(__id__1480353737189_72[0],__id__1480353737189_72[1],'');</script></div>
+<div class="code"><script>renderSource(__id__1481289780497_61[0],__id__1481289780497_61[1],'');</script></div>
 				</p>
 				<p>
 					<i>
@@ -287,7 +287,7 @@ ds.charset = 'UTF-8';
 				<a href="faq-badcase.html">常犯错误</a>
 			</li>
 			<li>
-				<a href="faq-plan.html">开发计划</a>
+				<a href="https://github.com/jindw/lite/issues#faq-plan.html">开发计划</a>
 			</li>
 		</ul>
 		<h3>二次开发参考</h3>
