@@ -1,0 +1,24 @@
+<html>
+<body>
+<script>
+function addImage(url){
+	var img = new Image();
+	img.src= url;
+	document.body.appendChild(img)
+}
+
+function loadJSON(url){
+	var xhr = new XMLHttpRequest();
+	xhr.open(url,"GET",true);
+	xhr.send('');
+	xhr.onreadystatechange = function(){
+	if(xhr.readyState == 4){
+	alert(xhr.responseText)
+	}
+	}
+}
+</script>
+<p onclick="addImage('http://www.xidea.org/test//test.png')"> add Image </p>
+<p onclick="loadJSON('http://www.xidea.org/test/xmldom-issues.json')"> add Image </p>
+</body>
+</html>
