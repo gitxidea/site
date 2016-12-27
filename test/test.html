@@ -7,18 +7,19 @@ function addImage(url){
 	document.body.appendChild(img)
 }
 
-function loadJSON(url){
+function loadJSON(method,url){
 	var xhr = new XMLHttpRequest();
-	xhr.open(url,"GET",true);
+	xhr.open(method,url,true);
 	xhr.send('');
 	xhr.onreadystatechange = function(){
-	if(xhr.readyState == 4){
-	alert(xhr.responseText)
-	}
+		if(xhr.readyState == 4){
+			alert(xhr.responseText)
+		}
 	}
 }
 </script>
 <p onclick="addImage('http://www.xidea.org/test//test.png')"> add Image </p>
-<p onclick="loadJSON('http://www.xidea.org/test/xmldom-issues.json')"> add Image </p>
+<p onclick="loadJSON('GET','http://www.xidea.org/test/xmldom-issues.json')"> test get </p>
+<p onclick="loadJSON('POST','http://www.xidea.org/test/xmldom-issues.json')"> test put </p>
 </body>
 </html>
