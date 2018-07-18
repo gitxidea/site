@@ -17,7 +17,9 @@ var ua = navigator.userAgent;
 	
 var downloadUrl = null;
 var iphone = false;
+var defualtWait = 1000;
 if(ua.match(/MicroMessenger/)){
+	defualtWait *=10;
 	document.write('<div class=msg style="font-weight:bold">请在浏览器中打开安装页！！！！</div>');
 }
 if(ua.match(/iPhone;/)){
@@ -39,7 +41,7 @@ if(ua.match(/iPhone;/)){
 // }
 
 
-var timeout = iphone? 1000 * 10 : 1000;
+var timeout = iphone? 1000 * 10 : defualtWait;
 var timeout0 = timeout;
 var loading = document.getElementById('loading');
 var intv = setInterval(function(){
