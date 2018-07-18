@@ -14,8 +14,10 @@
 <div id="loading">检测安装包...</div>
 <script>
 var ua = navigator.userAgent;
+	
 var downloadUrl = null;
 var iphone = false;
+document.write(ua+'<br>');
 if(ua.match(/iPhone;/)){
 	downloadUrl = "https://apptest.sankuai.com/page/app/detail/148023";
 	//https://apptest.sankuai.com/download/fc6be0ca-f43e-4e59-af7a-7af46354d46a.ipa";
