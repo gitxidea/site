@@ -17,7 +17,9 @@ var ua = navigator.userAgent;
 	
 var downloadUrl = null;
 var iphone = false;
-document.write(ua+'<br>');
+if(ua.match(/MicroMessenger/)){
+	document.write('<div class=msg style="font-weight:bold">请在浏览器中打开安装页！！！！</div>');
+}
 if(ua.match(/iPhone;/)){
 	downloadUrl = "https://apptest.sankuai.com/page/app/detail/148023";
 	//https://apptest.sankuai.com/download/fc6be0ca-f43e-4e59-af7a-7af46354d46a.ipa";
