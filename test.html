@@ -32,18 +32,18 @@ if(ua.match(/iPhone;/)){
 // }
 
 
-var timeout = iphone? 1000 * 10 : 3000;
+var timeout = iphone? 1000 * 10 : 1000;
 var timeout0 = timeout;
 var loading = document.getElementById('loading');
 var intv = setInterval(function(){
 	if(timeout <0){
 		clearInterval(intv);
 		window.location.href = downloadUrl;
-		loading.innerHTML = '';
+		loading.innerHTML = '<a href='+downloadUrl+'>点击下载</a>';
 
 	}else{
 		loading.style.opacity=timeout/timeout0
-		loading.innerHTML = (timeout / 1000)+" 秒后开始安装";
+		loading.innerHTML = (timeout / 1000)+" 秒后下载";
 	}
 	timeout -=1000
 },1000);
