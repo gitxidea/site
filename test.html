@@ -1,5 +1,4 @@
-var http = require('http');
-var html = `<html charset="gbk">
+<html charset="gbk">
 <body>
 <style>
 .iphone-content, .android-content{
@@ -64,32 +63,3 @@ Beijing Sankuai Technology Co.,Ltd </div>
 </div>
 </body>
 </html>
-
-
-`
-http.createServer(function(req,resp){
-	console.log(req.method,req.url)
-
-	/*
-
-
-
-Date: Fri, 29 Jun 2018 10:38:38 GMT
-Cache-Control: max-age=2592000
-Server: bfe/1.0.8.13-sslpool-patch
-: 
-
-	*/
-	resp.writeHeader(200,{
-		"Content-Type":"text/html; charset=utf-8",
-		//"Age":"1111",
-		//"Location":"http://s3.meituan.net/v1/mss_78d1aa5426c546bfa023ca0cacfa2cd1/mbox-static/client-setup/DaXiang_v2.9.4.exe"
-		// "Expires":"Sat, 25 Mar 2028 04:05:34 GMT"
-
-})
-	resp.end(html)
-	var data =(`
-{"code":0,"data":{"downloadUrl":"https://www.baidu.com","appMd5":"20df1aae6d276b135c0bd6ec2c74f781","version":"2.0.2","reqInterval":600}}`)
-
-
-}).listen(8081);
