@@ -1,0 +1,95 @@
+var http = require('http');
+var html = `<html charset="gbk">
+<body>
+<style>
+.iphone-content, .android-content{
+	display:none;
+}
+.iphone .iphone-content, .android .android-content{
+	display:block;
+}
+.msg{
+	background:#ff0;
+}
+</style>
+<div id="loading">检测安装包...</div>
+<script>
+var ua = navigator.userAgent;
+var downloadUrl = null;
+var iphone = false;
+if(ua.match(/iPhone;/)){
+	downloadUrl = "https://apptest.sankuai.com/download/fc6be0ca-f43e-4e59-af7a-7af46354d46a.ipa";
+	iphone = true;
+	document.body.className = 'iphone';
+}else if(ua.match(/Android/)){
+	downloadUrl = "https://apptest.sankuai.com/download/app-develop-release-retail-3.4.0-10227.apk";
+	document.body.className = 'android';
+}
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET","http://portal11-portm.meituan.com/horn/v1/modules/test123/test",true);
+// xhr.send('');
+// xhr.onreadystatechange = function(){
+// 	console.log(xhr.readyState)
+// }
+
+
+var timeout = iphone? 1000 * 10 : 3000;
+var timeout0 = timeout;
+var loading = document.getElementById('loading');
+var intv = setInterval(function(){
+	if(timeout <0){
+		clearInterval(intv);
+		window.location.href = downloadUrl;
+		loading.innerHTML = '';
+
+	}else{
+		loading.style.opacity=timeout/timeout0
+		loading.innerHTML = (timeout / 1000)+" 秒后开始安装";
+	}
+	timeout -=1000
+},1000);
+
+</script>
+
+
+<div class="msg"> 请在公司内网下载 !!!</div>
+<div class="iphone-content">
+<div class="msg" style="font-weight:bold">
+<br>
+安装后请到设置页信任小象生鲜   ：<hr>
+设置-》通用-》描述文件和设备管理-》<br>
+Beijing Sankuai Technology Co.,Ltd </div>
+</div>
+<div class="android-content">
+</div>
+</body>
+</html>
+
+
+`
+http.createServer(function(req,resp){
+	console.log(req.method,req.url)
+
+	/*
+
+
+
+Date: Fri, 29 Jun 2018 10:38:38 GMT
+Cache-Control: max-age=2592000
+Server: bfe/1.0.8.13-sslpool-patch
+: 
+
+	*/
+	resp.writeHeader(200,{
+		"Content-Type":"text/html; charset=utf-8",
+		//"Age":"1111",
+		//"Location":"http://s3.meituan.net/v1/mss_78d1aa5426c546bfa023ca0cacfa2cd1/mbox-static/client-setup/DaXiang_v2.9.4.exe"
+		// "Expires":"Sat, 25 Mar 2028 04:05:34 GMT"
+
+})
+	resp.end(html)
+	var data =(`
+{"code":0,"data":{"downloadUrl":"https://www.baidu.com","appMd5":"20df1aae6d276b135c0bd6ec2c74f781","version":"2.0.2","reqInterval":600}}`)
+
+
+}).listen(8081);
